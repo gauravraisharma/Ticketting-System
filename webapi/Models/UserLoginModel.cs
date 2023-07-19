@@ -10,9 +10,13 @@ namespace webapi.Models
         public string Password { get; set; }
     }
 
-    public class ApplicationUser
+    public class ApplicationUserModel
     {
-        public int Id { get; set; }
+
+        [Required(ErrorMessage = "First Name is required")]
+        public string FirstName { get; set; }  
+        [Required(ErrorMessage = "Last Name is required")]
+        public string LastName { get; set; }
         [Required(ErrorMessage = "Username is required")]
         public string UserName { get; set; }
         [Required(ErrorMessage = "Email is required")]
@@ -21,7 +25,12 @@ namespace webapi.Models
         [Required(ErrorMessage = "Phone number is required")]
         [RegularExpression("^(?!0+$)(\\+\\d{1,3}[- ]?)?(?!0+$)\\d{10,15}$", ErrorMessage = "Please enter valid phone no.")]
         public string PhoneNumber { get; set; }
+        [Required(ErrorMessage = "UserType is required")] 
+        public string UserType { get; set; }
         [Required(ErrorMessage = "Password is required")]
         public string Password { get; set; }
+        public int? DepartmentId { get; set; }
+        [Required(ErrorMessage = "Created by  is required")]
+        public string CreatedBy { get; set; }
     }
 }

@@ -11,8 +11,9 @@
     <BuildOutputFolder>$(MSBuildProjectDirectory)\dist\angularapp</BuildOutputFolder>
   </PropertyGroup>
   <ItemGroup>
-    <Folder Include="src\app\ticket\" />
-    <Folder Include="src\app\sharedComponent\" />
+    <Folder Include="src\app\authorizedView\userManagement\" />
+    <Folder Include="src\app\authorizedView\ticket\" />
+    <Folder Include="src\app\sharedComponent\layouts\" />
     <Folder Include="src\services\ticketServices\" />
   </ItemGroup>
 </Project>

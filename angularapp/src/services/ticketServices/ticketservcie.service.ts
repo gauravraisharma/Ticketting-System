@@ -62,10 +62,7 @@ export class TicketService {
     let url = `${this.apiUrl}Tickets/GetTicketConversationDataById/${ticketId}`;
     return this.http.get(url, this.httpOptions);
   }
-  GetTotalTicketCount(userId:string) {
-    let url = `${this.apiUrl}Tickets/GetTotalTicketCount/${userId}`;
-    return this.http.get(url, this.httpOptions);
-  }
+ 
 }
 
 export class ticketModel {

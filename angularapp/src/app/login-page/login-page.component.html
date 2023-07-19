@@ -1,25 +1,132 @@
-<div class="container cust-container">
-  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="form">
-    <p class="form-title">Login to your account</p>
-    <div class="input-container">
-      <input formControlName="username" type="text" placeholder="Enter Username" [ngClass]="(username?.invalid && (username?.dirty || username?.touched)) ? 'invalid' : ''">
-      <span *ngIf="username?.invalid && (username?.dirty || username?.touched)"  class="invalid-message">User Name is required </span>
-      <span>
-      </span>
-    </div>
-    <div class="input-container">
-      <input formControlName="password" type="password" placeholder="Enter password" [ngClass]="(password?.invalid && (password?.dirty || password?.touched)) ? 'invalid' : ''">
-      <span *ngIf="password?.invalid && (password?.dirty || password?.touched)" class="invalid-message">Password is required </span>
-    </div>
-    <button type="submit" class="submit">
-      Login
-    </button>
+<!-- --------------------first-fold starts------------------------- -->
+<section class="login">
+  <div class="container">
+    <img src="../../assets/images/vector-1.svg" class="img-fluid vector-left" alt="vector">
+    <div class="bg-card">
+      <div class="row align-items-center">
+        <div class="col-md-6">
+          <div class="content left-side">
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" >
+              <h1 class="heading">Login to <strong>Tech<span class="orange">Desk</span></strong></h1>
+              <div class="fields">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">User name</label>
 
-    <!--<p class="signup-link">
-      No account?
-      <a href="">Sign up</a>
-    </p>-->
-  </form>
-</div>
+                  <input formControlName="username" type="text" placeholder="Enter Username" [ngClass]="(username?.invalid && (username?.dirty || username?.touched)) ? 'invalid form-control' : 'form-control'">
+                  <span *ngIf="username?.invalid && (username?.dirty || username?.touched)" class="invalid-message">User Name is required </span>
+
+
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">Password</label>
+              
+                  <input formControlName="password" type="password" placeholder="Enter password" [ngClass]="(password?.invalid && (password?.dirty || password?.touched)) ? 'invalid form-control' : 'form-control'">
+                  <span *ngIf="password?.invalid && (password?.dirty || password?.touched)" class="invalid-message">Password is required </span>
+
+
+                </div>
+              </div>
+              <div class="button-btm mb-20">
+                <button class="btn btn-theme btn-long" type="submit">Login</button>
+              </div>
+              <div class="form-group form-check mb-40 d-none">
+                <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                <label class="form-check-label" for="exampleCheck1">Keep me signed in</label>
+              </div>
+              <div class="mb-20 d-none">
+                <a class="btn btn-theme btn-white-long">
+                  <i class="fa-brands fa-google me-2"></i> Signin with Google
+                </a>
+              </div>
+              <p class="btm-line d-none">
+                Don’t have an account? <a class="blue" href="signup.html">
+                  Sign
+                  Up
+                </a>
+              </p>
+            </form>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0"
+                      class="active" aria-current="true" aria-label="Slide 1"></button>
+              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
+                      aria-label="Slide 2"></button>
+              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
+                      aria-label="Slide 3"></button>
+            </div>
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="image right-side">
+                      <img src="../../assets/images/slide1.svg" class="img-fluid" alt="vector">
+                      <div class="sub-content">
+                        <h2 class="title">Ticket System</h2>
+                        <p class="desc">
+                          Customer requests from all communication channels
+                          fall into the
+                          'Requests' section,
+                          where all information is at hand.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="image right-side">
+                      <img src="../../assets/images/slide1.svg" class="img-fluid" alt="vector">
+                      <div class="sub-content">
+                        <h2 class="title">Ticket System</h2>
+                        <p class="desc">
+                          Customer requests from all communication channels
+                          fall into the
+                          'Requests' section,
+                          where all information is at hand.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="image right-side">
+                      <img src="../../assets/images/slide1.svg" class="img-fluid" alt="vector">
+                      <div class="sub-content">
+                        <h2 class="title">Ticket System</h2>
+                        <p class="desc">
+                          Customer requests from all communication channels
+                          fall into the
+                          'Requests' section,
+                          where all information is at hand.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <img src="../../assets/images/vector-2.svg" class="img-fluid vector-right" alt="vector">
+  </div>
+</section>
+<!-- --------------------first-fold ends--------------------------- -->
+
+
+
+
+
+
+
 
 <loader *ngIf="isLoading"></loader>

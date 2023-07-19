@@ -1,8 +1,7 @@
 <!-- SIDEBAR -->
 <section id="sidebar" [ngClass]="status ? 'hide' : ''">
   <a href="#" class="brand">
-    <i class='bx bxs-bug'></i>
-    <span class="text">Ticket System</span>
+    <img src="../../assets/images/Logo@2x.png" class="img-fluid" alt="Logo">
   </a>
   <ul class="side-menu top">
     <li [ngClass]="(currentRoute=='/dashboard') ? 'active' : ''">
@@ -11,12 +10,19 @@
         <span class="text">Dashboard</span>
       </a>
     </li>
-    <li [ngClass]="(currentRoute=='/ticket' ||currentRoute=='/addTicket' || currentRoute.includes('viewTicket')) ? 'active' : ''">
-      <a routerLink="/ticket">
-        <i class='bx bxs-report'></i>
-        <span class="text">ticket</span>
+    <li [ngClass]="(currentRoute=='/userlisting' || currentRoute.includes('adduser')) ? 'active' : ''" *ngIf="userType=='ADMIN'">
+      <a routerLink="/userlisting">
+        <i class='bx bxs-user'></i>
+        <span class="text">User Management</span>
       </a>
     </li>
+    <li [ngClass]="(currentRoute=='/ticket' ||currentRoute=='/addTicket' || currentRoute.includes('viewTicket')) ? 'active' : ''" >
+      <a routerLink="/ticket">
+        <i class='bx bxs-bug'></i>
+        <span class="text">Ticket Management</span>
+      </a>
+    </li>
+
   </ul>
   <ul class="side-menu">
    

@@ -9,6 +9,7 @@ using webapi.Repositroies.AccountService;
 namespace webapi.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize(AuthenticationSchemes = "Bearer")]
     [ApiController]
     public class AccountController : ControllerBase
     {
@@ -45,18 +46,19 @@ namespace webapi.Controllers
         //It will only create Normal user not admin
         [Authorize(AuthenticationSchemes = "Bearer")]
         [HttpPost("CreateApplicationUser")]
-        public async Task<IActionResult> CreateApplicationUser(ApplicationUser userModel)
+        public async Task<IActionResult> CreateApplicationUser(ApplicationUserModel userModel)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest("Please pass the valid Input.");
             }
-            var roleName = "NormalUser";
-            var responseStatus = await _accountService.CreateApplicationUser(userModel, roleName);
+
+            
+            var responseStatus = await _accountService.CreateApplicationUser(userModel);
 
             if (responseStatus.Status == "SUCCEED")
             {
-                return Ok(responseStatus.Message);
+                return Ok(responseStatus);
             }
             else
             {
@@ -88,7 +90,41 @@ namespace webapi.Controllers
             }
 
         }
+        //This method is used to get List of department 
 
-        
+        [Authorize(AuthenticationSchemes = "Bearer")]
+        [HttpGet("GetDepartmentListDD")]
+        public  ActionResult GetDepartmentListDD()
+        {
+            var dbResponse =  _accountService.GetDepartmentListDD();
+            if (dbResponse.Status == "FAILED")
+            {
+                return BadRequest();
+            }
+            return Ok(dbResponse.DdList);
+        }
+        //This method is used to get List of Roles 
+        [Authorize(AuthenticationSchemes = "Bearer")]
+        [HttpGet("GetUserTypeListDD")]
+        public  ActionResult GetUserTypeListDD()
+        {
+            var dbResponse =  _accountService.GetUserTypeListDD();
+            if (dbResponse.Status == "FAILED")
+            {
+                return BadRequest();
+            }
+            return Ok(dbResponse.DdList);
+        }
+
+        //This method is used to get List of Roles 
+        [Authorize(AuthenticationSchemes = "Bearer")]
+        [HttpGet("GetUserList")]
+        public  ActionResult GetUserList()
+        {
+            var dbResponse =  _accountService.GetUserList();
+           
+            return Ok(dbResponse);
+        }
+
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -12,19 +13,26 @@ namespace webapi.Repositroies.AccountService
 {
     public class AccountService : IAccountService
     {
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
-        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IConfiguration _config;
-        public AccountService(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager, SignInManager<IdentityUser> signInManager, IConfiguration config)
+        private readonly ApplicationDbContext _context;
+        public AccountService(
+            UserManager<ApplicationUser> userManager,
+            ApplicationDbContext context,
+            RoleManager<IdentityRole> roleManager, 
+            SignInManager<ApplicationUser> signInManager,
+            IConfiguration config)
         {
 
             _userManager = userManager;
             _roleManager = roleManager;
             _signInManager = signInManager;
             _config = config;
+            _context = context;
         }
-        public async Task<ResponseStatus> CreateApplicationUser(ApplicationUser userModel, string roleName)
+        public async Task<ResponseStatus> CreateApplicationUser(ApplicationUserModel userModel)
         {
             var userFound = await _userManager.FindByNameAsync(userModel.UserName);
             if (userFound != null)
@@ -36,11 +44,26 @@ namespace webapi.Repositroies.AccountService
                 };
             }
 
-            IdentityUser user = new IdentityUser
+            var roleResponse = GetRoleName(userModel.UserType);
+            if (roleResponse.Status == "FAILED")
+            {
+                return new ResponseStatus
+                {
+                    Status = "FAILED",
+                    Message = "Invalid UserType"
+                };
+            }
+
+            ApplicationUser user = new ApplicationUser
             {
                 UserName = userModel.UserName,
                 Email = userModel.Email,
-                PhoneNumber = userModel.PhoneNumber
+                PhoneNumber = userModel.PhoneNumber,
+                FirstName=userModel.FirstName,
+                LastName=userModel.LastName,
+                DepartmentId=userModel.DepartmentId,
+                CreatedBy = userModel.CreatedBy,
+                CreatedOn=DateTime.Now
             };
 
             IdentityResult identityResult = await _userManager.CreateAsync(user, userModel.Password);
@@ -55,7 +78,7 @@ namespace webapi.Repositroies.AccountService
                 };
             }
 
-            if (!await _roleManager.RoleExistsAsync(roleName))
+            if (!await _roleManager.RoleExistsAsync(roleResponse.Message))
             {
                 return new ResponseStatus
                 {
@@ -65,7 +88,7 @@ namespace webapi.Repositroies.AccountService
             }
             else
             {
-                await _userManager.AddToRoleAsync(user, roleName);
+                await _userManager.AddToRoleAsync(user, roleResponse.Message);
             }
             return new ResponseStatus
             {
@@ -74,7 +97,7 @@ namespace webapi.Repositroies.AccountService
             };
         }
 
-        private async Task<string> GenerateToken(IdentityUser user)
+        private async Task<string> GenerateToken(ApplicationUser user)
         {
             try
             {
@@ -89,7 +112,7 @@ namespace webapi.Repositroies.AccountService
                     new Claim(ClaimTypes.Role,userRoles.FirstOrDefault().ToUpper())
                 };
 
-                var token = new JwtSecurityToken(claims: claims, expires: DateTime.Now.AddHours(12), signingCredentials: credentials);
+                var token = new JwtSecurityToken(claims: claims, expires: null, signingCredentials: credentials);
                 return new JwtSecurityTokenHandler().WriteToken(token);
             }
             catch (Exception ex)
@@ -183,6 +206,153 @@ namespace webapi.Repositroies.AccountService
                     Status = "FAILED",
                     Message = errors
                 };
+            }
+        }
+        public DDListResponse GetDepartmentListDD()
+        {
+
+            if (_context == null)
+            {
+                return new DDListResponse
+                {
+                    Status = "FAILED",
+                    DdList = null
+                };
+            }
+            try
+            {
+                var result = (from department in _context.Departments
+                              select new DropDownModel
+                              {
+                                  id = department.DepartmentId,
+                                  Label = department.Name
+                              }
+                              );
+                return new DDListResponse()
+                {
+                    Status = "SUCCEED",
+                    DdList = result
+                };
+
+            }
+            catch ( Exception ex ) {
+                return new DDListResponse
+                {
+                    Status = "FAILED",
+                    DdList = null
+                };
+            }
+        }
+        
+        public DDListResponse GetUserTypeListDD()
+        {
+
+            if (_context == null)
+            {
+                return new DDListResponse
+                {
+                    Status = "FAILED",
+                    DdList = null
+                };
+            }
+            try
+            {
+                var result = (from role in _context.Roles
+                              select new DropDownModel
+                              {
+                                  id = role.Id,
+                                  Label = role.Name
+                              }
+                              );
+                return new DDListResponse()
+                {
+                    Status = "SUCCEED",
+                    DdList = result
+                };
+
+            }
+            catch ( Exception ex ) {
+                return new DDListResponse
+                {
+                    Status = "FAILED",
+                    DdList = null
+                };
+            }
+        }
+        public ResponseStatus GetRoleName(string roleId)
+        {
+
+            if (_context == null)
+            {
+                return new ResponseStatus
+                {
+                    Status = "FAILED",
+                    Message = "Db Context is null"
+                };
+            }
+            try
+            {
+                var result = (from role in _context.Roles
+                              where role.Id == roleId
+                              select new 
+                              {
+                                 Name= role.Name
+                              }
+                              );
+
+                return new ResponseStatus
+                {
+                    Status = "SUCCEED",
+                    Message = result.FirstOrDefault().Name
+                };
+
+            }
+            catch (Exception ex)
+            {
+                return new ResponseStatus
+                {
+                    Status = "FAILED",
+                    Message = "Something went wrong"
+                };
+            }
+        }
+
+        public IEnumerable<ResponseApplicationUserModel> GetUserList()
+        {
+
+            if (_context == null)
+            {
+                return null;
+            }
+            try
+            {
+                var result = (from user in _context.Users
+                              join userrole in _context.UserRoles on user.Id equals userrole.UserId
+                              join role in _context.Roles on userrole.RoleId equals role.Id
+                              join creator in _context.Users on user.CreatedBy equals creator.Id
+                              //left join 
+                              join  department in _context.Departments on user.DepartmentId equals department.DepartmentId into userDepartmentGroup
+                              from depart in userDepartmentGroup.DefaultIfEmpty()
+                              orderby user.CreatedOn descending
+                              select new ResponseApplicationUserModel
+                              {
+                                  Id = user.Id,
+                                  FirstName=user.FirstName,
+                                  LastName=user.LastName,
+                                  UserName=user.UserName,
+                                  UserType= role.Name,
+                                  Department= depart.Name,
+                                  CreatedBy= string.Concat(creator.FirstName,' ',creator.LastName),
+                                  Email=user.Email,
+                                  PhoneNumber = user.PhoneNumber
+                              }
+                              ).ToList();
+                return result;
+
+            }
+            catch (Exception ex)
+            {
+                return null;
             }
         }
     }

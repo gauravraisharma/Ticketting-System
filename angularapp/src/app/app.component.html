@@ -1,14 +1,2 @@
-
-<app-sidebar *ngIf="isUserLoggedIn"></app-sidebar>
-
-<!-- CONTENT -->
-<section id="content">
-  <!--<app-navbar></app-navbar>-->
-  <!-- MAIN -->
-  <main>
-     <router-outlet></router-outlet>
-
-  </main>
-  <!-- MAIN -->
-</section>
-<!-- CONTENT -->
+<app-anonymous-layout *ngIf="!isUserLoggedIn"></app-anonymous-layout>
+<app-authorized-layout *ngIf="isUserLoggedIn"></app-authorized-layout>

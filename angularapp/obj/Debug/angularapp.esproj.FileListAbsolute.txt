@@ -1,2 +1,4 @@
 D:\Projects\OnlineTicketSystem\angularapp\obj\Debug\angularapp.esproj.SuggestedBindingRedirects.cache
 D:\Projects\OnlineTicketSystem\angularapp\obj\Debug\angularapp.esproj.CoreCompileInputs.cache
+D:\Projects\GitHubTicket\angularapp\obj\Debug\angularapp.esproj.SuggestedBindingRedirects.cache
+D:\Projects\GitHubTicket\angularapp\obj\Debug\angularapp.esproj.CoreCompileInputs.cache

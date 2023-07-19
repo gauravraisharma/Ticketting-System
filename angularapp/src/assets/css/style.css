@@ -1,0 +1,3061 @@
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+:root {
+    --blue: #03669A;
+    --white: #ffffff;
+    --orange: #C44E32;
+    --black: #000000;
+    --bg-light: #f3f3f3;
+    --orange-light: #F9EDEB;
+    --text-color: #444444;
+    --border-color: #cccccc;
+    --bg-blue-light: #DBE5EA;
+    --green: #9ADA49;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    color: var(--text-color);
+    font-size: 16px;
+    font-weight: 400;
+}
+
+a {
+    text-decoration: unset;
+}
+
+a:hover {
+    color: unset;
+}
+
+ul {
+    padding-left: 0;
+    list-style: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: 'Work Sans', sans-serif;
+}
+
+.btn-theme {
+    background: var(--blue);
+    box-shadow: 0px 2.9477px 40px rgb(0 0 0 / 25%);
+    border-radius: 6px;
+    color: var(--white);
+    padding: 18px 44px;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.btn-theme:hover {
+    color: var(--white) !important;
+}
+
+.btn-orange {
+    background: var(--orange);
+}
+
+.btn-white {
+    background: var(--white);
+    color: var(--text-color);
+}
+
+.btn-white:hover {
+    color: var(--text-color) !important;
+}
+
+.orange {
+    color: var(--orange);
+}
+
+section {
+    padding: 50px 0;
+}
+
+/* ------------------------header css starts--------------------------- */
+.header.navbar {
+    padding-top: 40px;
+}
+
+.header.navbar-light .navbar-toggler {
+    border: unset !important;
+}
+
+.logo img {
+    width: 220px;
+}
+
+.header .navbar-nav .nav-item {
+    margin-right: 30px;
+}
+
+.nav-link {
+    font-size: 20px;
+    font-weight: 400;
+    color: var(--black) !important;
+}
+
+.nav-link.active {
+    color: var(--blue) !important;
+}
+
+/* ------------------------header css ends----------------------------- */
+
+/* ------------------------first-fold css starts--------------------------- */
+.first-fold {
+    position: relative;
+    /* padding-top: 100px; */
+}
+
+
+.content .title {
+    font-size: 60px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: var(--black);
+    position: relative;
+    z-index: 1;
+    line-height:1.2;
+}
+
+.content .desc {
+    font-size: 20px;
+    font-weight: 400;
+    margin-bottom: 56px;
+    line-height: 32px;
+}
+
+.vector-left {
+    position: absolute;
+    left: 0;
+}
+
+.vector-right {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}
+
+.line-orange {
+    position: relative;
+}
+
+.first-fold .line-orange img {
+    position: absolute;
+    bottom: -7px;
+    right: 140px;
+}
+
+.line-blue {
+    position: relative;
+}
+
+.line-blue img {
+    position: absolute;
+    bottom: 0px;
+    right: 37%;
+}
+
+/* ------------------------first-fold css ends--------------------------- */
+
+/* ------------------------trsuted-partners css ends--------------------------- */
+.trusted-partners .logo {
+    background: var(--bg-light);
+    border-radius: 6px;
+    padding: 34px 48px;
+}
+
+.trusted-partners .logo img {
+    width: 100%;
+    height: 30px;
+}
+
+.title-20-md {
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--black);
+}
+
+.mb-40 {
+    margin-bottom: 40px;
+}
+
+/* ------------------------trsuted-partners css ends--------------------------- */
+
+/* ------------------------chat-highlight css ends--------------------------- */
+.chat-highlight {
+    position: relative;
+    background: var(--orange-light);
+    border-radius: 120px 120px 0px 0px;
+    padding: 120px 0;
+    margin: 50px 0;
+}
+
+.text-sb-48 {
+    font-size: 48px !important;
+}
+
+.chat-highlight .left-side img {
+    width: 100%;
+    position: relative;
+    z-index: 0;
+}
+
+.chat-highlight .vector-left {
+    left: 60px;
+}
+
+.chat-highlight .vector-right {
+    right: 80px;
+    top: 60px;
+    bottom: unset;
+}
+
+/* ------------------------chat-highlight css ends--------------------------- */
+
+/* ------------------------testimonials css ends--------------------------- */
+
+.heading .title-sb-48 {
+    font-size: 48px;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 60px;
+    color: var(--black);
+}
+
+.testimonials .info img {
+    width: 120px;
+    margin-bottom: 40px;
+}
+
+.testimonials .info .desc {
+    font-size: 30px;
+    font-weight: 400;
+    margin-bottom: 40px;
+}
+
+.testimonials .info .name h3 {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--blue);
+    margin-bottom: 12px;
+}
+
+.testimonials .info .name p {
+    font-size: 18px;
+    font-weight: 400;
+}
+
+.testimonials .right-side img {
+    width: 520px;
+    height: 520px;
+    object-fit: cover;
+    border-radius: 80px 0px;
+}
+
+.custom-carousel .carousel-control-prev {
+    border: 2px solid var(--blue);
+    width: 80px;
+    height: 80px;
+    border-radius: 100%;
+    position: absolute;
+    left: 0;
+    top: 88%;
+}
+
+.custom-carousel .carousel-control-prev-icon {
+    background-image: url("../images/left-arrow.svg");
+}
+
+.custom-carousel .carousel-control-next {
+    border: 2px solid var(--blue);
+    width: 80px;
+    height: 80px;
+    border-radius: 100%;
+    position: absolute;
+    left: 100px;
+    top: 88%;
+}
+
+.custom-carousel .carousel-control-next-icon {
+    background-image: url("../images/right-arrow.svg");
+}
+
+/* ------------------------testimonials css ends--------------------------- */
+
+/* ------------------------our-packages css ends--------------------------- */
+.our-packages {
+    background: var(--orange-light);
+    border-radius: 0 0 120px 120px;
+    padding: 120px 0;
+    margin: 50px 0;
+}
+
+.package-card {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.package-card i {
+    font-size: 68px;
+    margin-bottom: 30px;
+    color: var(--orange);
+}
+
+.package-card .title-20-md {
+    padding: 0 100px;
+}
+
+.package-card .desc {
+    font-size: 18px;
+}
+
+.package-card img {
+    width: 60px;
+    margin-bottom: 24px;
+}
+
+.mb-10 {
+    margin-bottom: 10px;
+}
+
+/* ------------------------our-packages css ends--------------------------- */
+
+/* ------------------------tabs css ends--------------------------- */
+.nav-pills {
+    border-bottom: 1px solid var(--border-color);
+}
+
+.nav-pills .nav-link {
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--black);
+}
+
+.nav-pills .nav-link.active {
+    color: var(--blue);
+    background-color: var(--white);
+    border-bottom: 3px solid var(--blue);
+}
+
+
+/* ------------------------tabs css ends--------------------------- */
+
+/* ------------------------cta css ends--------------------------- */
+.cta-wrapper {
+    background: var(--blue);
+    padding: 80px 0;
+    text-align: center;
+    position: relative;
+}
+
+.cta-content .title {
+    font-size: 40px;
+    font-weight: 700;
+    margin-bottom: 24px;
+    color: var(--white);
+}
+
+.cta-content .desc {
+    font-size: 24px;
+    margin-bottom: 32px;
+    color: var(--white);
+}
+
+.cta-wrapper .vector-right {
+    position: absolute;
+    right: 0px;
+    bottom: 20px;
+}
+
+/* ------------------------cta css ends--------------------------- */
+
+/* ------------------------footer css ends--------------------------- */
+.footer-main {
+    padding: 40px 0;
+}
+
+.footer-logo .logo {
+    font-size: 24px;
+    margin-bottom: 20px;
+    display: block
+}
+
+.footer-logo .desc {
+    font-size: 16px;
+    margin-bottom: 24px;
+}
+
+.footer-main .footer-content .title {
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 20px;
+}
+
+.footer-main .footer-content ul li {
+    font-size: 16px;
+    margin-bottom: 14px;
+}
+
+.footer-main .footer-content ul li i {
+    color: var(--blue);
+    font-size: 22px;
+    margin-right: 10px;
+}
+
+.footer-main .footer-content ul li:last-child {
+    margin-bottom: 0 !important;
+}
+
+.footer-bottom .copyright {
+    font-size: 14px;
+}
+
+.footer-bottom .footer-content .social-media li {
+    margin-bottom: 0 !important;
+}
+
+.footer-bottom .footer-content .social-media li i {
+    color: var(--blue);
+    font-size: 22px;
+    margin-right: 40px;
+}
+
+.footer-bottom .footer-content .social-media li:last-child i {
+    margin-right: 0 !important;
+}
+
+.footer-bottom {
+    border-top: 1px solid var(--border-color);
+    padding: 20px;
+    margin-top: 20px;
+}
+
+/* ------------------------footer css ends--------------------------- */
+
+/* ------------------------login css starts--------------------------- */
+.bg-card {
+    box-shadow: 0px 2.95px 40px rgba(0, 0, 0, 0.25);
+}
+
+.login {
+    position: relative;
+}
+
+.login .heading {
+    font-size: 30px;
+    margin-bottom: 60px;
+    color: var(--blue);
+}
+
+.login .content.left-side {
+    padding: 0 100px;
+}
+
+.login .content.left-side .form-group {
+    margin-bottom: 32px;
+}
+
+.login .content.left-side .form-group label {
+    font-size: 18px;
+    color: var(--text-color);
+    margin-bottom: 14px;
+}
+
+.login .content.left-side .form-group .form-control {
+    height: 44px;
+    color: var(--text-color);
+    font-size: 18px;
+    border-color: var(--border-color);
+    border-radius: 6px;
+}
+
+.login .image.right-side {
+    background: var(--blue);
+    text-align: center;
+    padding: 130px 100px;
+}
+
+.login .image.right-side img {
+    margin-bottom: 66px;
+}
+
+.login .sub-content .title {
+    font-size: 32px;
+    font-weight: 600;
+    color: var(--white);
+    margin-bottom: 14px;
+}
+
+.login .sub-content .desc {
+    font-size: 18px;
+    color: var(--white);
+    font-weight: 400;
+}
+
+.login .btn-long {
+    padding: 12px 44px;
+    font-size: 24px;
+    width: 100%;
+}
+
+.login .btn-white-long {
+    background: var(--white);
+    color: var(--blue) !important;
+    padding: 18px 44px;
+    width: 100%;
+}
+
+.mb-20 {
+    margin-bottom: 20px;
+}
+
+.btm-line {
+    font-size: 18px;
+    text-align: center;
+}
+
+.btm-line .blue {
+    color: var(--blue);
+}
+
+.form-check-input[type=checkbox] {
+    border-radius: 4px;
+    border: 1px solid var(--border-color);
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+
+.form-check-input:checked {
+    background-color: var(--blue);
+    border-color: var(--blue);
+}
+
+.login .carousel-indicators [data-bs-target] {
+    width: 18px;
+    height: 18px;
+    border-radius: 100%;
+    margin-right: 10px;
+}
+
+.login .carousel-indicators {
+    bottom: 50px;
+}
+
+/* ------------------------login css ends--------------------------- */
+
+/* ------------------------signup css ends--------------------------- */
+.signup .image.right-side {
+    padding: 300px 100px;
+}
+
+/* ------------------------signup css ends--------------------------- */
+
+
+/* ------------------------db-header css ends--------------------------- */
+.db-header {
+    background: var(--blue);
+    box-shadow: 4px 0px 9px rgba(0, 0, 0, 0.25);
+}
+
+.db-header .padding-y {
+    margin-left: 30px;
+    margin-right: 30px;
+    padding: 0;
+}
+
+.db-header .nav-inside {
+    display: flex;
+    flex-basis: auto;
+    flex-grow: 1;
+    align-items: center;
+}
+
+.db-header .logo {
+    color: var(--white) !important;
+    margin-right: 60px;
+}
+
+.db-search-bar {
+    position: relative;
+}
+
+.db-search-bar .form-control {
+    border-radius: 6px;
+    height: 46px;
+    width: 580px;
+    padding-left: 48px;
+    font-size: 18px;
+    color: var(--text-color);
+}
+
+.db-search-bar i {
+    font-size: 24px;
+    color: var(--blue);
+    position: absolute;
+    top: 10px;
+    left: 12px;
+}
+
+.db-header .nav-icons li i {
+    color: var(--white);
+    margin-right: 40px;
+    font-size: 36px;
+}
+
+.db-header .nav-icons .profile img {
+    border: 0.705255px solid #CCCCCC;
+    filter: drop-shadow(0px 0.705255px 5.35px rgba(0, 0, 0, 0.8));
+    border-radius: 100%;
+    width: 60px;
+    margin-right: 10px;
+}
+
+.db-header .nav-icons .profile span {
+    font-size: 18px;
+    color: var(--white);
+}
+
+/* ------------------------db-header css ends--------------------------- */
+
+/* ------------------------db-sidebar css ends--------------------------- */
+.db-sidebar {
+    background: #03669A;
+    box-shadow: 4px 0px 9px rgba(0, 0, 0, 0.25);
+    padding: 40px 0;
+    min-height: 100vh;
+    width: 320px;
+}
+
+.db-sidebar li {
+    color: var(--white);
+    margin-bottom: 30px;
+    font-size: 24px;
+    padding: 16px 30px;
+}
+
+.db-sidebar li a {
+    color: unset !important;
+}
+
+.db-sidebar li.active {
+    background: var(--white);
+    color: var(--blue);
+}
+
+.db-sidebar li svg {
+    width: 24px;
+    height: 34px;
+    margin-right: 14px;
+}
+
+.db-sidebar li.active svg path {
+    fill: var(--blue);
+}
+
+.logout-btm a {
+    background: var(--white);
+    color: var(--text-color);
+    font-size: 24px;
+    padding: 16px 30px;
+    position: fixed;
+    bottom: 0;
+    width: 320px;
+}
+
+.logout-btm a i {
+    margin-right: 14px;
+}
+
+/* ------------------------db-sidebar css ends--------------------------- */
+
+/* ------------------------dashboard css starts--------------------------- */
+.main-db-wrap {
+    padding: 40px 30px;
+    width: calc(100% - 320px);
+}
+
+.db-card-heading .title {
+    font-size: 20px;
+    color: var(--black);
+    margin-bottom: 4px;
+}
+
+.db-card-heading .desc {
+    font-size: 18px;
+    color: var(--text-color);
+    margin-bottom: 0;
+}
+
+.status-cards {
+    box-shadow: 0px 0px 9px rgba(0, 0, 0, 0.12);
+    border-radius: 6px;
+    padding: 36px 30px 0;
+}
+
+.status-cards .card-b {
+    background: var(--bg-blue-light);
+    border-radius: 6px;
+    padding: 12px 16px;
+    margin-bottom: 30px;
+}
+
+.status-cards .card-b p {
+    font-size: 24px;
+    margin-bottom: 4px;
+}
+
+.status-cards .card-b span {
+    font-size: 36px;
+    color: var(--black);
+}
+
+.text-underline {
+    font-size: 20px;
+    text-decoration: underline;
+    color: var(--blue);
+}
+
+.tickets-cards .card-b {
+    background: var(--white);
+    box-shadow: 0px 0px 9px rgba(0, 0, 0, 0.12);
+    border-radius: 6px;
+    padding: 16px 20px;
+    margin-bottom: 30px;
+}
+
+.tickets-cards .card-b .title h2 {
+    font-size: 22px;
+    margin-bottom: 10px;
+}
+
+.tickets-cards .card-b .title h2 a {
+    color: var(--black);
+}
+
+.tickets-cards .card-b .title p {
+    font-size: 18px;
+    color: var(--text-color);
+    font-weight: 400;
+}
+
+.tickets-cards .card-b .list-btm li {
+    margin-right: 34px;
+}
+
+.tickets-cards .card-b .list-btm li::after {
+    content: '';
+    border-right: 1px solid var(--border-color);
+    height: 24px;
+    width: 1px;
+    padding-left: 14px;
+    position: absolute;
+}
+
+.tickets-cards .card-b .list-btm li:last-child::after {
+    display: none;
+}
+
+.tickets-cards .card-b .list-btm li i {
+    font-size: 20px;
+    margin-right: 6px;
+}
+
+.tickets-cards .card-b .img-user img {
+    width: 126px;
+    border-radius: 6px;
+    height: 126px;
+    object-fit: cover;
+    margin-right: 14px;
+}
+
+.tickets-cards .btn-radius {
+    border-radius: 45px;
+    padding: 4px 24px
+}
+
+.green {
+    color: var(--green);
+}
+
+.main-db-wrap .margn-btm-80 {
+    margin-bottom: 80px;
+}
+
+.list-cards {
+    background: var(--bg-light);
+    padding: 36px 30px 0;
+    border-radius: 6px;
+}
+
+.list-cards .card-b {
+    margin-bottom: 30px;
+}
+
+.list-cards .card-b .icon-b {
+    background: var(--bg-blue-light);
+    border-radius: 6px;
+    width: 100px;
+    height: 80px;
+    text-align: center;
+    line-height: 80px;
+    margin-right: 16px;
+}
+
+.list-cards .card-b .title h2 {
+    font-size: 22px;
+    margin-bottom: 2px;
+}
+
+.list-cards .card-b .title p {
+    font-size: 30px;
+    color: var(--black);
+    margin-bottom: 0;
+}
+
+.canvasjs-chart-credit {
+    display: none;
+}
+
+.chart-bg {
+    background: #f3f3f3;
+    border-radius: 6px;
+    padding: 20px 30px;
+}
+
+/* ------------------------dashboard css ends--------------------------- */
+
+
+/* ------------------------pricing css ends--------------------------- */
+.pricing {
+    position: relative;
+}
+
+.pricing-card {
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 40px 24px;
+}
+
+.pricing-card .title {
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 30px;
+}
+
+.pricing-card .sub-title {
+    font-size: 22px;
+    margin-bottom: 0;
+}
+
+.pricing-card .price {
+    font-size: 48px;
+    font-weight: 600;
+    color: var(--black);
+}
+
+.pricing-card .month {
+    font-size: 20px;
+}
+
+.pricing-card .listing {
+    margin-bottom: 40px;
+}
+
+.pricing-card .listing li {
+    font-size: 20px;
+    margin-bottom: 16px;
+}
+
+.pricing-card .listing li i {
+    color: var(--blue);
+    margin-right: 8px;
+}
+
+/* ------------------------pricing css ends--------------------------- */
+
+/* ------------------------Ticket Filter starts--------------------------- */
+.main-content {
+    position: relative;
+}
+
+.ticket-filter .tickets-cards {
+    padding: 30px 20px 30px 0px;
+}
+
+.ticket-filter-db-wrap {
+    padding: 0;
+}
+
+.sub-header {
+    padding: 16px 20px;
+    background: var(--bg-blue-light);
+    box-shadow: 4px 0px 9px rgba(0, 0, 0, 0.25);
+}
+
+.sub-header .row {
+    align-items: center;
+}
+
+.sub-header .form-check .form-check-input {
+    height: 18px !important;
+    width: 18px !important;
+    border: 1px solid var(--blue) !important;
+}
+
+.sub-header .form-check .form-check-label {
+    color: var(--faded-text);
+    font-size: 20px;
+}
+
+.sub-header .form-check span {
+    font-size: 20px;
+}
+
+.sub-header .form-check .label-text {
+    color: var(--text-color);
+}
+
+.sub-header .form-check .dropdown .dropdown-toggle {
+    color: var(--text-color);
+}
+
+.outline-btn .btn-neutral {
+    padding: 6px 20px;
+    background: var(--white);
+    border: 1px solid var(--blue);
+    border-radius: 6px;
+    margin-right: 20px;
+    font-size: 18px;
+}
+
+.outline-btn .btn-neutral img {
+    margin-right: 6px;
+    width: 16px;
+    margin-bottom: 3px;
+}
+
+.sub-header .content-right {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
+
+.page-link {
+    color: var(--text-color);
+}
+
+.sub-header .content-right .pagination .prev,
+.next {
+    background: var(--blue);
+    color: var(--white);
+}
+
+.sub-header .content-right .pagination {
+    margin-bottom: 0 !important;
+}
+
+.sub-header .content-right .page-link:focus {
+    box-shadow: unset;
+}
+
+.filters {
+    box-sizing: border-box;
+    background: var(--bg-blue-light);
+    padding: 30px;
+    min-height: 100%;
+}
+
+.hide-filter {
+    display: none;
+}
+
+.filters h4 {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+}
+
+.outline-btn .btn-neutral.fltr-btn {
+    padding: 4px 12px;
+    font-size: 14px;
+    margin-right: 12px;
+    text-align: center;
+    display: none;
+}
+
+.filters .db-search-bar i {
+    font-size: 20px;
+    color: var(--text-color);
+    opacity: 0.5;
+    top: 13px;
+}
+
+.filters .db-search-bar .form-control {
+    padding-left: 40px;
+    width: 100%;
+}
+
+.filters .search-bar {
+    margin-bottom: 30px;
+}
+
+.apply-btn .btn-theme {
+    width: 100%;
+}
+
+.filters .accordion-item {
+    padding: 18px 0;
+    border-top: 1px solid var(--border-color) !important;
+    border-bottom: 1px solid var(--border-color) !important;
+    border-radius: unset;
+    background: unset;
+}
+
+.filters .accordion-item .accordion-button {
+    background: unset;
+    box-shadow: unset;
+    padding: 0;
+    font-size: 20px;
+    color: var(--text-color);
+}
+
+.accordion-item .accordion-button::after {
+    background-image: url("../images/plus.svg") !important;
+
+}
+
+.accordion-item .accordion-button:not(.collapsed)::after {
+    background-image: url("../images/minus.svg") !important;
+}
+
+.filters .accordion-item .accordion-body {
+    padding: 10px 0 0 0;
+}
+
+.filters .accordion-item .accordion-body ul li {
+    margin-bottom: 10px;
+    color: var(--black);
+    opacity: 60%;
+}
+
+.filters .accordion-item .accordion-body ul li:last-child {
+    margin-bottom: 0;
+}
+
+.filters .accordion-item .accordion-body ul {
+    margin-bottom: 0;
+}
+
+/* ------------------------Ticket Filter ends--------------------------- */
+
+/* ------------------------mail starts--------------------------- */
+.mail-content {
+    padding: 30px 0px 30px 20px;
+}
+
+.mail-content .title i {
+    font-size: 20px;
+    margin-right: 10px;
+    color: var(--blue);
+}
+
+.mail-content .text h2 {
+    font-size: 20px;
+    color: var(--black);
+}
+
+.mail-content .text p {
+    font-size: 16px;
+}
+
+.mail-content .body .user-img {
+    min-width: 128px;
+    height: 128px;
+    object-fit: cover;
+    border-radius: 6px;
+    margin-right: 30px;
+}
+
+.mail-content .sub-title {
+    margin-bottom: 24px;
+}
+
+.mail-content .body .name-p .name {
+    font-size: 18px;
+    margin-bottom: 4px;
+    color: var(--black);
+    font-weight: 500;
+}
+
+.mail-content .body .name-p .time {
+    font-size: 18px;
+}
+
+.mail-content .body .para {
+    font-size: 18px;
+    margin-bottom: 30px;
+}
+
+.thread-reply {
+    margin-bottom: 40px;
+}
+
+.thread-reply img {
+    width: 44px;
+    height: 44px;
+    object-fit: cover;
+    border-radius: 6px;
+    margin-right: 12px;
+}
+
+.view-thread {
+    display: none;
+}
+
+.thread-reply a {
+    font-size: 20px;
+    color: var(--text-color);
+}
+
+.thread-reply span {
+    color: var(--black);
+}
+
+
+.thread-reply:hover .duration {
+    display: none;
+}
+
+.thread-reply:hover .view-thread {
+    display: inline-block;
+    color: var(--blue);
+    font-size: 16px;
+}
+
+.thread-reply:hover .view-thread span {
+    display: inline-block;
+    color: var(--blue);
+    font-size: 16px;
+}
+
+.thread-list {
+    background: #FFFFFF;
+    box-shadow: 0px 0px 9px rgba(0, 0, 0, 0.12);
+    border-radius: 6px;
+    padding: 16px;
+}
+
+.thread-list .list li img {
+    min-width: 64px;
+    height: 64px;
+    object-fit: cover;
+    border-radius: 6px;
+    margin-right: 12px;
+}
+
+.thread-list .list li .user-name {
+    margin-bottom: 4px;
+}
+
+.thread-list .list li .user-name .name {
+    font-size: 20px;
+    color: #000;
+    margin-right: 10px;
+}
+
+.thread-list .list li .user-name .date {
+    font-size: 16px;
+}
+
+/* ------------------------mail starts--------------------------- */
+
+/* ------------------------contacts starts--------------------------- */
+.contacts.left-content .form-check {
+    margin-right: 20px;
+}
+
+.contacts.left-content .db-search-bar input {
+    width: 380px;
+}
+
+.tabe-data {
+    padding: 30px 0px 30px 20px;
+}
+
+.tabe-data .table {
+    font-size: 18px;
+}
+
+.tabe-data .table .contact-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+    object-fit: cover;
+    margin-right: 10px;
+}
+
+.tabe-data .table .action-icon i {
+    color: var(--blue);
+    font-size: 20px;
+}
+
+/* ------------------------contacts starts--------------------------- */
+
+/* ------------------------settings starts--------------------------- */
+.side-tabs .nav-pills .nav-link {
+    text-align: left;
+    margin-bottom: 30px;
+}
+
+.side-tabs .nav-pills {
+    border-bottom: unset;
+    width: 410px;
+}
+
+.side-tabs .nav-link svg {
+    width: 54px;
+    height: 34px;
+    margin-right: 12px;
+}
+
+.side-tabs .nav-pills .nav-link.active svg path {
+    fill: var(--blue);
+}
+
+.side-tabs .nav-link .text h4 {
+    font-size: 22px;
+    font-weight: 500;
+    margin-bottom: 6px;
+}
+
+.side-tabs .nav-link .text p {
+    font-size: 18px;
+    color: #444;
+    margin-bottom: 0;
+}
+
+.side-tabs .nav-pills .nav-link.active {
+    border-left: 3px solid var(--blue);
+    border-radius: 6px;
+    border-bottom: unset;
+}
+
+.side-tabs .tab-content {
+    flex: 1;
+}
+
+.side-tabs .card-wrap {
+    margin-bottom: 30px;
+}
+
+.side-tabs .tab-inside {
+    background: var(--white);
+    box-shadow: 0px 0px 9px rgba(0, 0, 0, 0.12);
+    border-radius: 6px;
+    padding: 30px;
+}
+
+.side-tabs .card-wrap .content {
+    background: var(--white);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 20px;
+}
+
+.side-tabs .card-wrap .content img.user {
+    min-width: 140px;
+    height: 140px;
+    border-radius: 6px;
+    margin-right: 10px;
+}
+
+.side-tabs .card-wrap .content img.icon {
+    min-width: 60px;
+    height: 60px;
+    margin-right: 16px;
+}
+
+.side-tabs .card-wrap .text h4 {
+    font-size: 26px;
+    margin-bottom: 12px;
+}
+
+.side-tabs .card-wrap .text ul li {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.side-tabs .card-wrap .text ul li i {
+    font-size: 22px;
+    color: var(--blue);
+    margin-right: 8px;
+}
+
+.side-tabs .card-wrap .btn-theme {
+    background: var(--blue);
+    box-shadow: 0px 2.9477px 40px rgb(0 0 0 / 25%);
+    border-radius: 6px;
+    color: var(--white);
+    padding: 8px 34px;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.tabs-inside h2 {
+    margin-bottom: 24px;
+}
+
+.side-tabs .tab-inside h2 {
+    font-size: 30px;
+    margin-bottom: 30px;
+}
+
+.side-tabs .info {
+    margin-bottom: 30px;
+}
+
+.side-tabs .info h4 {
+    font-size: 20px;
+    text-decoration: underline;
+}
+
+.side-tabs .info p {
+    font-size: 18px;
+}
+
+/* ------------------------settings starts--------------------------- */
+
+/* ------------------------text-editor starts--------------------------- */
+.text-editor {
+    margin-top: 30px;
+}
+
+.richText .richText-toolbar ul li a {
+    color: var(--text-color);
+}
+
+.richText .richText-editor {
+    font-family: 'Roboto', sans-serif;
+    height: 160px;
+}
+
+.hide-editor.btn-theme {
+    padding: 12px 44px;
+    margin-top: 20px;
+}
+
+/* ------------------------text-editor starts--------------------------- */
+
+/* ------------------------Profile starts--------------------------- */
+
+.profile-content .tab-content {
+    flex: 1;
+}
+
+.security .tab-content {
+    flex: 1;
+}
+
+.profile-content .card-wrap {
+    margin-bottom: 30px;
+}
+
+.profile-content .user-profile {
+    background: var(--white);
+    box-shadow: 0px 0px 9px rgba(0, 0, 0, 0.12);
+    border-radius: 6px;
+    padding: 30px;
+}
+
+.profile-content .card-wrap .content {
+    background: var(--white);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 20px;
+}
+
+.profile-content .card-wrap .content img {
+    min-width: 140px;
+    height: 140px;
+    border-radius: 6px;
+    margin-right: 10px;
+}
+
+.profile-content .card-wrap .text h4 {
+    font-size: 26px;
+    margin-bottom: 20px;
+}
+
+.profile-content .card-wrap .text ul li {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.profile-content .card-wrap .text ul li i {
+    font-size: 22px;
+    color: var(--blue);
+    margin-right: 8px;
+}
+
+.profile-content .card-wrap .btn-theme {
+    background: var(--blue);
+    box-shadow: 0px 2.9477px 40px rgb(0 0 0 / 25%);
+    border-radius: 6px;
+    color: var(--white);
+    padding: 8px 34px;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.user-profile {
+    background: var(--white);
+    box-shadow: 0px 0px 9px rgba(0, 0, 0, 0.12);
+    border-radius: 6px;
+    padding: 30px;
+}
+
+.user-profile .card-wrap {
+    margin-bottom: 0 !important;
+}
+
+.profile-content {
+    margin-bottom: 30px;
+}
+
+.profile-content .content {
+    background: unset !important;
+    border: unset !important;
+    border-radius: unset !important;
+    padding: unset !important;
+}
+
+.profile-content .card-wrap .content {
+    border: unset;
+    padding: 0;
+}
+
+.profile-content .card-wrap .content .form-label {
+    margin-bottom: 12px !important;
+    font-size: 20px;
+}
+
+.profile-content .card-wrap .content .form-control {
+    font-size: 20px;
+}
+
+.profile-content .card-wrap .content .form-select {
+    font-size: 20px;
+}
+
+.profile-content .card-wrap {
+    margin-bottom: 0;
+}
+
+.profile-content .card-wrap .content .row {
+    width: 100%;
+    align-items: center;
+}
+
+.profile-content .card-wrap .content .work-info {
+    margin-bottom: 16px;
+}
+
+.profile-content .card-wrap .content .form-group {
+    margin-bottom: 24px;
+}
+
+.profile-content .card-wrap .content .work-info .row:last-child {
+    margin-bottom: 0;
+}
+
+.profile-content .card-wrap .content .buttons {
+    margin-top: 16px;
+}
+
+.profile-content .card-wrap .content .btn-cancel {
+    margin-right: 16px;
+}
+
+.profile-content .card-wrap .content .buttons .btn-cancel {
+    background: var(--white);
+    color: var(--blue);
+}
+
+.profile-content .card-wrap .content .buttons .btn-cancel:hover {
+    color: var(--blue) !important;
+}
+
+.security {
+    margin-bottom: 30px;
+}
+
+.security .card-wrap .heading-border h4 {
+    margin-bottom: 30px !important;
+}
+
+.security .card-wrap .accordion-item {
+    padding: 14px 0;
+    border-top: 1px solid var(--border-color) !important;
+    border-bottom: 1px solid var(--border-color) !important;
+}
+
+.security .card-wrap .accordion-item:last-child {
+    border-top: unset !important;
+}
+
+.security .card-wrap .accordion-item .accordion-button {
+    background: var(--white);
+    box-shadow: unset;
+    font-size: 26px;
+    color: var(--text-color);
+    padding: 0;
+}
+
+.security .card-wrap .accordion-item .accordion-body {
+    padding: 20px 0;
+}
+
+.security .card-wrap .accordion-item .accordion-body .row {
+    margin-bottom: 24px;
+}
+
+.security .card-wrap .accordion-item .accordion-body .row .col-md-3 {
+    width: 25%;
+}
+
+.security .card-wrap .accordion-item .accordion-body .row:last-child {
+    margin-bottom: 0;
+}
+
+.security .card-wrap .accordion-item .change-password-input input {
+    height: 48px;
+}
+
+.security .card-wrap .accordion-item .accordion-body .heading-text {
+    margin-bottom: 6px;
+}
+
+.security .card-wrap .accordion-item .accordion-body .verification-content p {
+    font-size: 18px;
+}
+
+.security .card-wrap .accordion-item .accordion-body .qr-code {
+    padding: 30px;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    text-align: center;
+    margin-bottom: 16px;
+}
+
+.security .card-wrap .accordion-item .accordion-body .qr-code img {
+    width: 180px;
+}
+
+.security .card-wrap .accordion-item .accordion-body .help-link {
+    text-align: center;
+    margin-bottom: 16px;
+}
+
+.security .card-wrap .accordion-item .accordion-body .help-link a {
+    color: var(--orange);
+}
+
+.security .card-wrap .accordion-item .accordion-body .next-btn .btn-next {
+    width: 100%;
+    padding: 12px 38px;
+}
+
+.otp-code {
+    margin-bottom: 20px;
+}
+
+/* ------------------------Profile ends--------------------------- */
+
+/* ------------------------Responsive starts------------------------*/
+@media only screen and (max-width: 1440px) {
+
+    .logo img {
+        width: 180px;
+    }
+
+    .nav-link {
+        font-size: 16px;
+    }
+
+    .btn-theme {
+        padding: 12px 32px;
+        font-size: 16px;
+    }
+
+    .content .title {
+        font-size: 40px;
+        margin-bottom: 10px;
+    }
+
+    .first-fold .line-orange img {
+        bottom: -10px;
+        right: 140px;
+        width: 180px;
+    }
+
+    .trusted-partners .logo {
+        padding: 24px 48px;
+    }
+
+    .chat-highlight {
+        padding: 80px 0;
+    }
+
+    .chat-highlight .vector-left {
+        left: -60px;
+        width: 240px;
+    }
+
+    .chat-highlight .vector-right {
+        right: 20px;
+    }
+
+    .heading .title-sb-48 {
+        font-size: 40px;
+    }
+
+    .testimonials .info img {
+        width: 74px;
+    }
+
+    .custom-carousel .carousel-control-prev {
+        width: 60px;
+        height: 60px;
+        top: 82%;
+    }
+
+    .custom-carousel .carousel-control-next {
+        width: 60px;
+        height: 60px;
+        top: 82%;
+        left: 80px;
+    }
+
+    .line-blue img {
+        bottom: -5px;
+        right: 40%;
+        width: 150px;
+    }
+
+    .testimonials .info .desc {
+        font-size: 24px;
+    }
+
+    .testimonials .right-side img {
+        width: 480px;
+        height: 380px;
+    }
+
+    .our-packages {
+        padding: 80px 0;
+    }
+
+    .package-card img {
+        width: 40px;
+    }
+
+    .nav-pills .nav-link {
+        font-size: 16px;
+    }
+
+    .text-sb-48 {
+        font-size: 40px !important;
+    }
+
+    .cta-wrapper .vector-right {
+        width: 270px;
+    }
+
+    .cta-wrapper .vector-left {
+        width: 300px;
+    }
+
+    .header .navbar-nav .nav-item {
+        margin-right: 24px;
+    }
+
+    .content .desc {
+        font-size: 16px;
+        margin-bottom: 24px;
+        line-height: 28px;
+    }
+
+    .trusted-partners .logo {
+        padding: 14px 28px;
+    }
+
+    .text-sb-48 {
+        font-size: 32px !important;
+    }
+
+    .heading .title-sb-48 {
+        font-size: 32px;
+    }
+
+    .testimonials .info .desc {
+        font-size: 20px;
+    }
+
+    .testimonials .info img {
+        width: 64px;
+        margin-bottom: 29px;
+    }
+
+    .package-card .title-20-md {
+        padding: 0 0px;
+    }
+
+    .title-20-md {
+        font-size: 18px;
+    }
+
+    .cta-content .title {
+        font-size: 32px;
+        margin-bottom: 18px;
+    }
+
+    .cta-content .desc {
+        font-size: 20px;
+    }
+
+    .footer-logo .desc {
+        font-size: 14px;
+    }
+
+    .footer-main .footer-content .title {
+        font-size: 16px;
+    }
+
+    .footer-main .footer-content ul li {
+        font-size: 14px;
+    }
+
+    .footer-main .footer-content ul li i {
+        font-size: 16px;
+    }
+
+    .footer-bottom .footer-content .social-media li i {
+        font-size: 16px;
+        margin-right: 20px;
+    }
+
+    .login .content.left-side .form-group label {
+        font-size: 16px;
+        margin-bottom: 8px;
+    }
+
+    .login .content.left-side .form-group .form-control {
+        font-size: 16px;
+    }
+
+    .login .btn-long {
+        font-size: 20px;
+    }
+
+    .btm-line {
+        font-size: 16px;
+    }
+
+    .login .sub-content .title {
+        font-size: 28px;
+    }
+
+    .login .sub-content .desc {
+        font-size: 16px;
+    }
+
+    .login .carousel-indicators [data-bs-target] {
+        width: 16px;
+        height: 16px;
+    }
+
+    .login .heading {
+        font-size: 24px;
+        margin-bottom: 40px;
+    }
+
+
+    .db-header .logo {
+        margin-right: 30px;
+        font-size: 22px !important;
+    }
+
+    .db-search-bar .form-control {
+        height: 36px;
+        width: 440px;
+        padding-left: 36px;
+        font-size: 16px;
+    }
+
+    .db-search-bar i {
+        font-size: 18px;
+    }
+
+    .db-header .nav-icons li i {
+        margin-right: 28px;
+        font-size: 22px;
+    }
+
+    .db-header .nav-icons .profile img {
+        width: 34px;
+        margin-right: 4px;
+    }
+
+    .db-header .nav-icons .profile span {
+        font-size: 14px;
+    }
+
+    .db-sidebar li {
+        font-size: 18px;
+        padding: 10px 30px;
+        margin-bottom: 20px;
+    }
+
+    .db-sidebar li svg {
+        width: 20px;
+        height: 20px;
+    }
+
+    .logout-btm a {
+        font-size: 18px;
+        padding: 10px 30px;
+        width: 240px;
+    }
+
+    .status-cards {
+        padding: 16px 20px 0;
+    }
+
+    .status-cards .card-b p {
+        font-size: 18px;
+    }
+
+    .status-cards .card-b span {
+        font-size: 30px;
+    }
+
+    .status-cards .card-b img {
+        width: 30px;
+        height: 30px;
+    }
+
+    .db-card-heading .title {
+        font-size: 18px;
+        margin-bottom: 0px;
+    }
+
+    .db-card-heading .desc {
+        font-size: 16px;
+    }
+
+    .tickets-cards .card-b .title h2 {
+        font-size: 18px;
+        margin-bottom: 4px;
+    }
+
+    .tickets-cards .card-b .title p {
+        font-size: 16px;
+    }
+
+    .tickets-cards .card-b {
+        padding: 16px 12px;
+        display: block !important;
+    }
+
+    .tickets-cards .card-b .img-user img {
+        width: 94px;
+        height: 94px;
+    }
+
+    .tickets-cards .btn-radius {
+        margin-left: 100px;
+    }
+
+    .text-underline {
+        font-size: 16px;
+    }
+
+    .list-cards {
+        padding: 16px 20px 0;
+    }
+
+    .list-cards .card-b .title h2 {
+        font-size: 18px;
+    }
+
+    .list-cards .card-b .title p {
+        font-size: 24px;
+    }
+
+    .list-cards .card-b .icon-b {
+        width: 80px;
+        height: 60px;
+        line-height: 60px;
+    }
+
+    .list-cards .card-b .icon-b img {
+        width: 20px;
+        height: 20px;
+    }
+
+    .db-sidebar {
+        width: 240px;
+    }
+
+    .main-db-wrap {
+        width: calc(100% - 240px);
+    }
+
+    .filters {
+        padding: 20px;
+    }
+
+    .filters .db-search-bar .form-control {
+        padding-left: 34px;
+    }
+
+    .filters .db-search-bar i {
+        font-size: 16px;
+        top: 12px;
+    }
+
+    .filters h4 {
+        font-size: 20px;
+    }
+
+    .filters .accordion-item {
+        padding: 12px 0;
+    }
+
+    .filters .accordion-item .accordion-button {
+        font-size: 16px;
+    }
+
+    .sub-header {
+        padding: 12px 20px;
+    }
+
+    .ticket-filter .tickets-cards .card-b {
+        display: flex !important;
+    }
+
+    .outline-btn .btn-neutral {
+        padding: 6px 20px;
+        font-size: 16px;
+        margin-right: 10px;
+    }
+
+    .sub-header .form-check .form-check-label {
+        font-size: 16px;
+    }
+
+    .sub-header .form-check span {
+        font-size: 16px;
+    }
+
+    .tabe-data .table {
+        font-size: 14px;
+    }
+
+    .mail-content .body .name-p .name {
+        font-size: 16px;
+    }
+
+    .mail-content .body .name-p .time {
+        font-size: 16px;
+    }
+
+    .mail-content .body .para {
+        font-size: 16px;
+    }
+
+    .thread-reply a {
+        font-size: 16px;
+    }
+
+    .side-tabs .nav-pills {
+        width: 340px;
+    }
+
+    .side-tabs .nav-link .text h4 {
+        font-size: 18px;
+        margin-bottom: 2px;
+    }
+
+    .side-tabs .nav-link .text p {
+        font-size: 14px;
+        color: #444;
+        margin-bottom: 0;
+    }
+
+    .side-tabs .nav-link svg {
+        width: 34px;
+        height: 30px;
+        margin-right: 12px;
+    }
+
+    .side-tabs .tab-inside {
+        padding: 20px;
+    }
+
+    .side-tabs .tab-inside h2 {
+        font-size: 20px;
+        margin-bottom: 20px;
+    }
+
+    .side-tabs .card-wrap .content {
+        padding: 10px;
+    }
+
+    .side-tabs .card-wrap .content img.user {
+        min-width: 120px;
+        height: 120px;
+    }
+
+    .side-tabs .card-wrap .text h4 {
+        font-size: 18px;
+    }
+
+    .side-tabs .card-wrap .text ul li {
+        font-size: 16px;
+    }
+
+    .side-tabs .card-wrap .text ul li i {
+        font-size: 16px;
+    }
+
+    .side-tabs .card-wrap .btn-theme {
+        padding: 4px 34px;
+        font-size: 16px;
+    }
+
+    .side-tabs .card-wrap .content img.icon {
+        min-width: 40px;
+        height: 40px;
+    }
+
+    .side-tabs .info h4 {
+        font-size: 18px;
+    }
+
+    .side-tabs .info p {
+        font-size: 16px;
+    }
+
+    .thread-list .list li .user-name .name {
+        font-size: 16px;
+    }
+
+    .thread-list .list li .msg {
+        font-size: 14px;
+    }
+
+    .profile-content .card-wrap .text h4 {
+        font-size: 22px;
+    }
+
+    .profile-content .card-wrap .content .form-label {
+        font-size: 16px;
+    }
+
+    .profile-content .card-wrap .content .form-control {
+        font-size: 16px;
+    }
+
+    .profile-content .card-wrap .content .form-select {
+        font-size: 16px;
+    }
+
+    .profile-content .card-wrap .text ul li {
+        font-size: 16px;
+    }
+
+    .user-profile {
+        padding: 20px;
+    }
+
+    .profile-content .user-profile {
+        padding: 20px;
+    }
+
+    .security .card-wrap .heading-border h4 {
+        margin-bottom: 20px !important;
+    }
+
+    .security .card-wrap .accordion-item .accordion-button {
+        font-size: 18px;
+    }
+
+    .security .card-wrap .accordion-item .accordion-body .verification-content p {
+        font-size: 16px;
+    }
+}
+
+@media only screen and (max-width: 1366px) {
+    .custom-carousel .carousel-control-prev {
+        width: 48px;
+        height: 48px;
+        top: 86%;
+    }
+
+    .custom-carousel .carousel-control-prev-icon {
+        width: 20px;
+    }
+
+    .custom-carousel .carousel-control-next {
+        width: 48px;
+        height: 48px;
+        top: 86%;
+        left: 60px;
+    }
+
+    .custom-carousel .carousel-control-next-icon {
+        width: 20px;
+    }
+
+    .pricing-card .sub-title {
+        font-size: 18px;
+    }
+
+    .pricing-card .price {
+        font-size: 40px;
+    }
+
+    .pricing-card .month {
+        font-size: 18px;
+    }
+
+    .pricing-card .listing li {
+        font-size: 16px;
+        margin-bottom: 12px;
+    }
+
+    .pricing-card .price-tag {
+        margin-bottom: 10px;
+    }
+
+    .pricing-card .title {
+        margin-bottom: 20px;
+    }
+
+    .pricing-card .listing {
+        margin-bottom: 30px;
+    }
+
+    .pricing-card {
+        padding: 30px 24px;
+    }
+
+    .login .btn-long {
+        font-size: 16px;
+        padding: 8px 44px;
+    }
+
+    .login .btn-white-long {
+        padding: 12px 44px;
+        font-size: 14px;
+    }
+
+    .login .content.left-side .form-group .form-control {
+        font-size: 14px;
+        height: 38px;
+    }
+
+    .signup .image.right-side {
+        padding: 240px 60px;
+    }
+
+
+
+    .tickets-cards .card-b .list-btm li {
+        margin-right: 22px;
+    }
+
+    .tickets-cards .card-b .list-btm li i {
+        font-size: 16px;
+        margin-right: 2px;
+    }
+
+    .tickets-cards .card-b .list-btm li::after {
+        padding-left: 10px;
+    }
+
+    .tickets-cards .card-b .list-btm li img {
+        width: 18px;
+    }
+
+    .sub-header .page-link {
+        padding: 2px 8px;
+    }
+
+    .outline-btn .btn-neutral {
+        padding: 4px 16px;
+        font-size: 14px;
+        margin-right: 12px;
+    }
+
+    .filters .accordion-item .accordion-body ul li {
+        font-size: 14px;
+    }
+
+    .mail-content .text h2 {
+        font-size: 18px;
+        margin-bottom: 4px;
+    }
+
+    .mail-content .text p {
+        font-size: 14px;
+    }
+
+    .mail-content .sub-title {
+        margin-bottom: 14px;
+    }
+
+    .mail-content .body .name-p .name {
+        font-size: 14px;
+        margin-bottom: 0;
+    }
+
+    .mail-content .body .name-p .time {
+        font-size: 14px;
+    }
+
+    .mail-content .body .para {
+        font-size: 14px;
+        margin-bottom: 20px;
+    }
+
+    .thread-reply {
+        margin-bottom: 20px;
+    }
+
+    .side-tabs .nav-pills {
+        width: 260px;
+    }
+
+    .profile-content .card-wrap .text h4 {
+        font-size: 20px;
+    }
+
+    .security .card-wrap .heading-border h4 {
+        font-size: 20px;
+    }
+
+    .security .card-wrap .accordion-item .accordion-button {
+        font-size: 18px;
+    }
+
+}
+
+@media only screen and (max-width: 1199px) {
+    .ticket-details .sub-header .left-content {
+        margin-bottom: 10px;
+    }
+
+    .mail-content .body .user-img {
+        margin-right: 10px;
+    }
+
+    .side-tabs .nav-pills {
+        width: 300px;
+    }
+
+    .header .navbar-nav .nav-item {
+        margin-right: 12px;
+    }
+}
+
+@media only screen and (max-width: 1024px) {
+    .first-fold .line-orange img {
+        bottom: -8px;
+        right: 250px;
+        width: 140px;
+    }
+
+    section {
+        padding: 30px 0;
+    }
+
+    .vector-left {
+        width: 190px;
+        top: 0;
+    }
+
+    .custom-carousel .carousel-control-prev {
+        top: 94%;
+    }
+
+    .custom-carousel .carousel-control-next {
+        top: 94%;
+    }
+
+    .pricing-card .sub-title {
+        font-size: 16px;
+    }
+
+    .pricing-card .price {
+        font-size: 28px;
+    }
+
+    .pricing-card .listing li {
+        font-size: 14px;
+        margin-bottom: 12px;
+    }
+
+    .pricing-card {
+        padding: 20px 20px;
+    }
+
+    .login .content.left-side {
+        padding: 0 40px;
+    }
+
+    .login .image.right-side {
+        padding: 100px 40px;
+    }
+
+    .login .content.left-side .form-group label {
+        font-size: 14px;
+        margin-bottom: 0;
+    }
+
+    .btm-line {
+        font-size: 14px;
+    }
+
+    .login .sub-content .title {
+        font-size: 22px;
+    }
+
+    .login .sub-content .desc {
+        font-size: 14px;
+    }
+
+    .login .image.right-side img {
+        margin-bottom: 46px;
+    }
+
+    .login .vector-right {
+        bottom: -50px;
+    }
+
+    .signup .image.right-side {
+        padding: 240px 40px;
+    }
+
+
+    .db-sidebar {
+        width: 180px;
+    }
+
+    .main-db-wrap {
+        width: calc(100% - 180px);
+    }
+
+    .db-sidebar li {
+        font-size: 16px;
+    }
+
+    .logout-btm a {
+        width: 180px;
+    }
+
+    .chart-bg {
+        margin-bottom: 30px;
+    }
+
+    .main-db-wrap .margn-btm-80 {
+        margin-bottom: 40px;
+    }
+
+    .ticket-filter .tickets-cards .card-b {
+        display: block !important;
+    }
+
+    .filters {
+        padding: 10px;
+    }
+
+    .filters h4 {
+        font-size: 18px;
+    }
+
+    .db-search-bar .form-control {
+        font-size: 14px;
+        padding-left: 30px;
+    }
+
+    .filters .db-search-bar i {
+        font-size: 14px;
+        top: 10px;
+    }
+
+    .filters .accordion-item .accordion-button {
+        font-size: 14px;
+    }
+
+    .ticket-filter .tickets-cards {
+        padding: 20px 20px 20px 0px;
+    }
+
+    .contacts.left-content .db-search-bar input {
+        width: 220px;
+    }
+
+    .profile-content .card-wrap h4 {
+        font-size: 20px !important;
+    }
+
+    .profile-content .card-wrap .user-email {
+        font-size: 16px !important;
+    }
+
+    .profile-content .card-wrap .edit-button .btn {
+        font-size: 16px !important;
+    }
+
+    .security .card-wrap .accordion-item .change-password-input input {
+        height: 38px;
+    }
+
+}
+
+@media only screen and (min-width: 992px) {
+    .accordion-item {
+        border: unset !important;
+    }
+}
+
+@media only screen and (max-width: 991px) {
+    .db-header .navbar-nav {
+        flex-direction: row;
+    }
+
+    .db-header .nav-inside {
+        display: flex;
+        padding: 10px 0px;
+    }
+
+    .db-search-bar .form-control {
+        width: 280px;
+    }
+
+    .tab-content>.tab-pane {
+        display: block;
+        opacity: 1;
+    }
+
+    .nav-pills .nav-link {
+        font-size: 12px;
+    }
+
+    .nav-item {
+        margin-right: 0;
+    }
+
+    .tab-pane .accordion-button:not(.collapsed) {
+        color: var(--blue);
+        background-color: var(--bg-light) !important;
+        box-shadow: unset !important;
+    }
+
+    .first-fold .line-orange img {
+        right: 150px;
+    }
+
+    .package-card .desc {
+        font-size: 16px;
+    }
+
+    .pricing-card {
+        padding: 10px 10px;
+    }
+
+    .text-sb-48 {
+        font-size: 26px !important;
+    }
+
+    .content .desc {
+        font-size: 14px;
+        margin-bottom: 24px;
+    }
+
+    .testimonials .info .name h3 {
+        font-size: 18px;
+        margin-bottom: 7px;
+    }
+
+    .trusted-partners .logo {
+        padding: 10px 12px;
+    }
+
+    .testimonials .info .name p {
+        font-size: 14px;
+        font-weight: 400;
+    }
+
+    .cta-content .title {
+        font-size: 26px;
+    }
+
+    .cta-content .desc {
+        font-size: 16px;
+        margin-bottom: 24px;
+    }
+
+    .content .title {
+        font-size: 30px;
+    }
+
+    .login .heading {
+        font-size: 20px;
+        margin-bottom: 20px;
+    }
+
+    .signup .content.left-side {
+        padding: 0 20px;
+    }
+
+
+
+    .db-header.navbar-light .navbar-toggler {
+        border: unset;
+    }
+
+    .db-header.navbar-light .navbar-toggler-icon {
+        filter: invert(1);
+    }
+
+    .db-header {
+        padding: 6px 0;
+    }
+
+    .db-header .logo {
+        font-size: 20px !important;
+    }
+
+    .db-sidebar {
+        width: 80px;
+    }
+
+    .main-db-wrap {
+        width: calc(100% - 80px);
+    }
+
+    .db-sidebar li {
+        padding: 10px 10px;
+    }
+
+    .db-sidebar li a {
+        justify-content: center;
+        padding: 10px 10px;
+    }
+
+
+    .db-sidebar li span {
+        display: none;
+    }
+
+    .db-sidebar li svg {
+        margin-right: 0;
+    }
+
+    .logout-btm a {
+        width: 80px;
+    }
+
+    .logout-btm a span {
+        display: none;
+    }
+
+    .logout-btm a i {
+        margin-right: 0;
+    }
+
+    .accordion-item {
+        border: unset;
+    }
+
+    .filters h4 {
+        font-size: 18px;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .first-fold .line-orange img {
+        right: 150px;
+    }
+
+    .package-card img {
+        width: 40px;
+        margin-bottom: 30px;
+    }
+
+    .package-card p {
+        font-size: 14px;
+    }
+
+    .first-fold .vector-left {
+        top: -170px;
+    }
+
+    .chat-highlight .vector-left {
+        top: 40px;
+    }
+
+    .chat-highlight .vector-right {
+        top: unset;
+        bottom: 0;
+        right: 0;
+    }
+
+    .cta-wrapper {
+        background: var(--blue);
+        padding: 60px 0;
+        text-align: center;
+        position: relative;
+    }
+
+    .login .content.left-side {
+        padding: 0 20px;
+    }
+
+    .login .image.right-side {
+        padding: 100px 20px;
+    }
+
+    .login .carousel-indicators [data-bs-target] {
+        width: 14px;
+        height: 14px;
+    }
+
+    .signup .image.right-side {
+        padding: 220px 20px;
+    }
+
+    .contact-list .filters {
+        width: 220px;
+    }
+
+    .contact-list .sub-header .col-md-6 {
+        width: 100%;
+    }
+
+    .contact-list .sub-header .left-content {
+        margin-bottom: 10px;
+    }
+
+    .ticket-filter .col-md-9 {
+        width: 100%;
+    }
+
+    .main-db-wrap.ticket-filter-db-wrap {
+        padding: 0;
+    }
+
+    .filters {
+        position: absolute;
+        z-index: 99;
+        right: 0;
+        top: 0;
+    }
+
+    .ticket-filter-db-wrap .ticket-filter .tickets-cards {
+        padding: 20px 20px 20px 20px;
+    }
+
+    .outline-btn .btn-neutral.fltr-btn {
+        display: inline-block;
+    }
+
+    .btn-neutral.fltr-btn img {
+        margin-right: 0;
+        width: 16px;
+        margin-bottom: 0;
+    }
+
+    .hide-filter {
+        display: inline-block;
+    }
+
+    .tabe-data .table .action-icon i {
+        font-size: 16px;
+    }
+
+    .outline-btn .btn-neutral {
+        padding: 4px 12px;
+    }
+
+    .side-tabs .nav-pills {
+        width: 240px;
+    }
+
+    .profile-content .card-wrap .content img {
+        min-width: 80px;
+        height: 80px;
+    }
+
+}
+
+@media only screen and (max-width: 767px) {
+
+
+    .first-fold .content.left-side {
+        text-align: center;
+    }
+
+    .first-fold .image.right-side img {
+        display: none;
+    }
+
+    .first-fold .vector-right {
+        top: 180px;
+        width: 210px;
+    }
+
+    .chat-highlight .vector-right {
+        width: 200px;
+    }
+
+    .heading .title-sb-48 {
+        font-size: 22px;
+        margin-bottom: 28px;
+    }
+
+    .line-blue img {
+        right: 26%;
+        width: 100px;
+    }
+
+    .first-fold .line-orange img {
+        right: 90px;
+    }
+
+    .pricing .cards-wrap {
+        padding: 0 70px;
+    }
+
+    .pricing-card {
+        padding: 20px 20px;
+        margin-bottom: 20px;
+    }
+
+    .cta-content .title {
+        font-size: 18px;
+        margin-bottom: 8px;
+    }
+
+    .cta-content .desc {
+        font-size: 14px;
+        margin-bottom: 24px;
+    }
+
+    .cta-wrapper {
+        padding: 40px 0;
+    }
+
+    .trusted-partners .col-md-2 {
+        width: 25%;
+    }
+
+    .trusted-partners .logo {
+        margin-bottom: 30px;
+    }
+
+    .chat-highlight .image.left-side {
+        text-align: center;
+    }
+
+    .chat-highlight .left-side img {
+        width: 70%;
+        margin-bottom: 30px;
+    }
+
+    .chat-highlight .content.right-side {
+        text-align: center;
+    }
+
+    .chat-highlight {
+        border-radius: 60px 60px 0px 0px;
+        padding: 60px 0;
+    }
+
+    .chat-highlight .vector-left {
+        left: -140px;
+    }
+
+    .testimonials .image.right-side {
+        text-align: left !important;
+    }
+
+    .testimonials .right-side img {
+        width: 100px;
+        height: 100px;
+        border-radius: 100%;
+    }
+
+    .testimonials .info .desc {
+        font-size: 16px;
+    }
+
+    .testimonials .info .name h3 {
+        font-size: 18px;
+        margin-bottom: 4px;
+    }
+
+    .testimonials .right-side img {
+        width: 60px;
+        height: 60px;
+        margin-bottom: 20px;
+    }
+
+    .custom-carousel .carousel-control-prev {
+        top: 100%;
+    }
+
+    .custom-carousel .carousel-control-next {
+        top: 100%;
+    }
+
+    .package-card {
+        margin-bottom: 40px;
+    }
+
+    .package-card img {
+        margin-bottom: 20px;
+    }
+
+    .our-packages {
+        padding: 60px 0;
+        border-radius: 0 0 60px 60px;
+    }
+
+    .tab-pane .order-change {
+        position: relative;
+        order: 1;
+    }
+
+    .tab-pane .image.right-side {
+        width: 250px;
+        margin: 0 auto;
+    }
+
+    .text-sb-48 {
+        font-size: 22px !important;
+    }
+
+    .content .desc {
+        line-height: 22px;
+    }
+
+    .btn-theme {
+        padding: 8px 28px;
+        font-size: 14px;
+    }
+
+    .tabs-wp .content.left-side {
+        text-align: center;
+    }
+
+    .cta-wrapper .vector-right {
+        width: 170px;
+    }
+
+    .cta-wrapper .vector-left {
+        width: 150px;
+        top: 0;
+    }
+
+    .footer-logo .logo {
+        margin-bottom: 6px;
+    }
+
+    .footer-logo .desc {
+        margin-bottom: 18px;
+    }
+
+    .footer-top .footer-content {
+        margin-bottom: 40px;
+    }
+
+    .footer-bottom .copyright {
+        text-align: center;
+        margin-bottom: 20px !important;
+    }
+
+    .footer-content .social-media {
+        justify-content: center !important;
+    }
+
+    .login .content.left-side {
+        padding: 40px 40px;
+    }
+
+    .signup .image.right-side {
+        padding: 100px 20px;
+    }
+
+    .main-db-wrap {
+        padding: 20px 20px;
+    }
+
+
+}
+
+@media only screen and (max-width: 575px) {
+    .db-header .nav-inside {
+        display: block;
+    }
+
+    .db-search-bar .form-control {
+        width: 350px;
+        margin-bottom: 16px;
+    }
+
+    .db-header .navbar-nav {
+        justify-content: center;
+    }
+
+    .tickets-cards .card-b {
+        padding: 10px 10px;
+    }
+
+    .tickets-cards .card-b .title h2 {
+        font-size: 16px;
+    }
+
+    .tickets-cards .card-b .title p {
+        font-size: 14px;
+        margin-bottom: 0;
+    }
+
+    .tickets-cards .card-b .list-btm li i {
+        font-size: 14px;
+    }
+
+    .tickets-cards .card-b .list-btm li img {
+        width: 16px;
+    }
+
+    .status-cards .card-b {
+        padding: 10px 12px;
+        margin-bottom: 20px;
+    }
+
+    .status-cards .card-b p {
+        font-size: 16px;
+    }
+
+    .status-cards .card-b span {
+        font-size: 24px;
+    }
+
+    .db-card-heading .title {
+        font-size: 16px;
+        margin-bottom: 6px;
+    }
+
+    .db-card-heading .desc {
+        font-size: 14px;
+    }
+
+    .text-underline {
+        font-size: 14px;
+    }
+
+    .tickets-cards>.mb-20 {
+        margin-bottom: 12px;
+    }
+
+    .list-cards .card-b .title h2 {
+        font-size: 16px;
+    }
+
+    .list-cards .card-b .title p {
+        font-size: 20px;
+    }
+
+    .contact-list .db-search-bar .form-control {
+        margin-bottom: 0;
+    }
+
+    .outline-btn .btn-neutral span {
+        display: none;
+    }
+
+    .outline-btn .btn-neutral {
+        padding: 4px 10px;
+        margin-right: 8px;
+    }
+
+    .outline-btn .btn-neutral img {
+        margin-right: 0px;
+        width: 12px;
+        margin-bottom: 0;
+    }
+
+    .mail-content .body {
+        display: block !important;
+    }
+
+    .mail-content .body .user-img {
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+}
+
+@media only screen and (max-width: 425px) {
+    .login .carousel-indicators [data-bs-target] {
+        width: 12px;
+        height: 12px;
+    }
+
+    .tickets-cards .card-b .card-in {
+        display: block !important;
+        text-align: center;
+    }
+
+    .tickets-cards .card-b .img-user {
+        text-align: center;
+    }
+
+    .tickets-cards .card-b .img-user img {
+        margin-bottom: 14px;
+        margin-right: 0;
+    }
+
+    .tickets-cards .card-b .list-btm {
+        display: block !important;
+        border: 1px dashed var(--border-color);
+        border-radius: 5px;
+    }
+
+    .tickets-cards .card-b .list-btm li::after {
+        display: none;
+    }
+
+    .tickets-cards .card-b .list-btm span {
+        font-size: 14px;
+    }
+
+    .contacts.left-content .db-search-bar input {
+        width: 180px;
+    }
+
+    .sub-header {
+        padding: 12px 12px;
+    }
+}
+
+/* ------------------------Responsive ends-------------------------- */

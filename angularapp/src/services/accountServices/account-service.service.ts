@@ -18,9 +18,25 @@ export class AccountService {
     let url = `${this.apiUrl}Account/LoginUser`;
     return this.http.post(url, userModel, this.httpOptions);
   }
-  GetTicket() {
-    let url = `${this.apiUrl}Tickets`;
+  createUser(user: ApplicationUser) {
+    let url = `${this.apiUrl}Account/CreateApplicationUser`;
+    return this.http.post(url, user,this.httpOptions);
+  }
+  getUserList() {
+    let url = `${this.apiUrl}Account/GetUserList`;
     return this.http.get(url,this.httpOptions);
   }
 
 }
+export class ApplicationUser {
+  
+  firstName: string = '';
+  lastName: string = '';
+  userName: string = '';
+  email: string = '';
+  phoneNumber: string = '';
+  password: string = "";
+  departmentId: number = null;
+  userType: string = '';
+  createdBy: string = '';
+} 

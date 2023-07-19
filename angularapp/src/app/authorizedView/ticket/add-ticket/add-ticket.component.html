@@ -1,0 +1,86 @@
+
+<div class="head-title">
+  <div class="left">
+    <h1>Add Ticket</h1>
+    <ul class="breadcrumb">
+      <li>
+        <a href="javascript:;">Add Ticket</a>
+      </li>
+      <li><i class='bx bx-chevron-right'></i></li>
+      <li>
+        <a href="javascript:;">Ticket</a>
+      </li>
+      <li><i class='bx bx-chevron-right'></i></li>
+      <li>
+        <a class="active" routerLink="/dashboard">Home</a>
+      </li>
+    </ul>
+  </div>
+  <div>
+
+  </div>
+</div>
+
+<div class="col-sm-12">
+  <mat-card>
+    
+    <mat-card-content>
+      <form [formGroup]="ticketForm" class="form-field-full" (ngSubmit)="submitTicket()">
+
+        <div class="row">
+          <div class="col-sm-6">
+            <mat-form-field class="full-width-field">
+              <mat-label>Subject </mat-label>
+              <input matInput placeholder="Enter ticket subject" formControlName="subject"
+                     required>
+              <mat-error *ngIf="ticketForm.get('subject')?.invalid">
+                Please enter subject
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="col-sm-6">
+            <mat-form-field class="full-width-field">
+              <mat-label>Priority</mat-label>
+              <mat-select required formControlName="priority" required>
+                <!--<mat-option>-- None --</mat-option>-->
+                <mat-option value="HIGH">High</mat-option>
+                <mat-option value="MEDIUM">Medium</mat-option>
+                <mat-option value="LOW">Low</mat-option>
+              </mat-select>
+              <mat-error *ngIf="ticketForm.get('priority')?.invalid">
+                Please select priority for ticket
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-sm-12">
+            <mat-form-field class="full-width-field">
+              <mat-label>Description</mat-label>
+              <textarea matInput rows="3" placeholder="Enter ticket subject"  formControlName="description"
+                     required></textarea>
+              <mat-error *ngIf="ticketForm.get('description')?.invalid">
+                Please enter description
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-sm-12 mb-4">
+            <h3 style="display:inline;" class="mx-3">Attachment</h3>
+            <input type="file" placeholder="Please select file" multiple #fileattachment (change)="onFileChange()" hidden />
+            <button class="btn btn-primary" type="button" (click)="fileattachment.click()">
+              <mat-icon aria-hidden="false" aria-label="preview" fontIcon="attach_file" class="text-light" style="cursor:pointer;"></mat-icon>
+
+            </button>
+            <strong class="mx-3">
+              {{fileCount}} attachments
+            </strong>
+          </div>
+        </div>
+
+        <button mat-raised-button color="primary" type="submit" class="m-t-8" (submit)="submitTicket">Create</button>
+        <button mat-raised-button color="warn" class="m-t-8 mx-2" routerLink="/ticket">Cancel</button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+<loader *ngIf="isLoading"></loader>

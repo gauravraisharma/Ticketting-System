@@ -12,6 +12,7 @@ import { MatDialog } from '@angular/material/dialog';
 export class SidebarComponent implements OnInit {
   status = false;
   currentRoute = '';
+  userType=''
   constructor(
     private router: Router,
     private toastr: ToastrService,
@@ -26,6 +27,7 @@ export class SidebarComponent implements OnInit {
 
   ngOnInit() {
     this.currentRoute = this.router.url;
+    this.userType = sessionStorage.getItem('userType').toUpperCase();
   }
   addToggle() {
     this.status = !this.status;

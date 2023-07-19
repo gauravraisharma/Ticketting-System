@@ -8,16 +8,22 @@ import { MaterialModule } from './material.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { LoaderComponent } from './sharedComponent/loader/loader.component';
 import { AppRoutingModule } from './app-routing.module';
-import { DashboardComponent } from './dashboard/dashboard.component';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SidebarComponent } from './sharedComponent/sidebar/sidebar.component';
 import { NavbarComponent } from './sharedComponent/navbar/navbar.component';
-import { TicketListComponent } from './ticket/ticket-list/ticket-list.component';
-import { AddTicketComponent } from './ticket/add-ticket/add-ticket.component';
-import { ViewTicketComponent } from './ticket/view-ticket/view-ticket.component';
 import { TicketService } from '../services/ticketServices/ticketservcie.service';
 import { AccountService } from '../services/accountServices/account-service.service';
+import { TicketListComponent } from './authorizedView/ticket/ticket-list/ticket-list.component';
+import { DashboardComponent } from './authorizedView/dashboard/dashboard.component';
+import { AddTicketComponent } from './authorizedView/ticket/add-ticket/add-ticket.component';
+import { ViewTicketComponent } from './authorizedView/ticket/view-ticket/view-ticket.component';
+import { AddUserComponent } from './authorizedView/userManagement/add-user/add-user.component';
+import { UserlistingComponent } from './authorizedView/userManagement/userlisting/userlisting.component';
+import { AnonymousLayoutComponent } from './sharedComponent/layouts/anonymous-layout/anonymous-layout.component';
+import { AuthorizedLayoutComponent } from './sharedComponent/layouts/authorized-layout/authorized-layout.component';
+import { RouterModule } from '@angular/router';
+import { CommonService } from '../services/commonServcices/common-service.service';
 
 @NgModule({
   declarations: [
@@ -29,7 +35,11 @@ import { AccountService } from '../services/accountServices/account-service.serv
     NavbarComponent,
     TicketListComponent,
     AddTicketComponent,
-    ViewTicketComponent
+    ViewTicketComponent,
+    AddUserComponent,
+    UserlistingComponent,
+    AnonymousLayoutComponent,
+    AuthorizedLayoutComponent
   ],
   imports: [
     BrowserModule,
@@ -38,9 +48,10 @@ import { AccountService } from '../services/accountServices/account-service.serv
     ReactiveFormsModule,
     BrowserAnimationsModule,
     AppRoutingModule,
+    RouterModule,
     ToastrModule.forRoot()
   ],
-  providers: [AccountService, TicketService],
+  providers: [AccountService, TicketService, CommonService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

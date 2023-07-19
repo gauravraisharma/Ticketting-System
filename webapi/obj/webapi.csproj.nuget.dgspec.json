@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Projects\\OnlineTicketSystem\\webapi\\webapi.csproj": {}
+    "D:\\Projects\\GitHubTicket\\webapi\\webapi.csproj": {}
   },
   "projects": {
-    "D:\\Projects\\OnlineTicketSystem\\webapi\\webapi.csproj": {
+    "D:\\Projects\\GitHubTicket\\webapi\\webapi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Projects\\OnlineTicketSystem\\webapi\\webapi.csproj",
+        "projectUniqueName": "D:\\Projects\\GitHubTicket\\webapi\\webapi.csproj",
         "projectName": "webapi",
-        "projectPath": "D:\\Projects\\OnlineTicketSystem\\webapi\\webapi.csproj",
+        "projectPath": "D:\\Projects\\GitHubTicket\\webapi\\webapi.csproj",
         "packagesPath": "C:\\Users\\Techbit\\.nuget\\packages\\",
-        "outputPath": "D:\\Projects\\OnlineTicketSystem\\webapi\\obj\\",
+        "outputPath": "D:\\Projects\\GitHubTicket\\webapi\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Techbit\\AppData\\Roaming\\NuGet\\NuGet.Config",

@@ -9,10 +9,10 @@ namespace webapi.Repositroies.TicketService
     public class TicketService : ITicketService
     {
         private readonly ApplicationDbContext _context;
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<ApplicationUser> _userManager;
         private readonly IConfiguration _config;
         public TicketService(ApplicationDbContext context,
-            UserManager<IdentityUser> userManager, IConfiguration config)
+            UserManager<ApplicationUser> userManager, IConfiguration config)
         {
             _context = context;
             _userManager = userManager;
@@ -136,7 +136,7 @@ namespace webapi.Repositroies.TicketService
                                                            ConversationId = conversations.ConversationTrackId,
                                                            Message = conversations.Message,
                                                            CreatedOn = conversations.CreatedOn,
-                                                           CreatedBy = users.UserName,
+                                                           CreatedBy = users.FirstName+" "+users.LastName,
                                                            UserType = role.Name.ToUpper(),
                                                            attachments = (from attachment in _context.Attachments
                                                                           where attachment.referenceId == conversations.ConversationTrackId && attachment.AttachmentType == "CONVERSATION"
@@ -294,7 +294,7 @@ namespace webapi.Repositroies.TicketService
         }
 
 
-        public async Task<ResponseStatus> GetTotalTicketCount(string userId)
+        public async Task<DashboardResponseStatus> GetTotalTicketCount(string userId)
         {
             if (_context.Tickets == null)
             {
@@ -305,22 +305,27 @@ namespace webapi.Repositroies.TicketService
                 // get the role of the user 
                 var user = await _userManager.FindByIdAsync(userId);
                 var userRoles = await _userManager.GetRolesAsync(user);
-                int result;
+                int ticketCount,userCount=0;
                 if (userRoles.FirstOrDefault().ToUpper() == "ADMIN")
                 {
-                     result = _context.Tickets.Count();
+                    ticketCount = _context.Tickets.Count();
+                    userCount = _context.Users.Count();
                 }
                 else
                 {
-                    result = _context.Tickets.Where(ticket =>  ticket.CreatedBy==userId).Count();
+                    ticketCount = _context.Tickets.Where(ticket =>  ticket.CreatedBy==userId).Count();
                 }
-                    return new ResponseStatus() { Message = result.ToString(),
-                    Status="SUCCEED"
+
+                    return new DashboardResponseStatus() {
+                    ToatlTickets = ticketCount,
+                    ToatlUsers= userCount,
+                    Status ="SUCCEED",
+                    Message = "Ticket Count got successfully",
                     };
             }
             catch (Exception ex)
             {
-                return new ResponseStatus()
+                return new DashboardResponseStatus()
                 {
                     Message = "Something went wrong",
                     Status = "FAILED"

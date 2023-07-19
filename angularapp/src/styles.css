@@ -99,11 +99,12 @@ body {
   width: 280px;
   height: 100%;
   background: var(--light);
-  z-index: 2000;
+  z-index: 1000;
   font-family: var(--lato);
   transition: .3s ease;
   overflow-x: hidden;
   scrollbar-width: none;
+  padding:10px 0px;
 }
 
   #sidebar::--webkit-scrollbar {
@@ -713,10 +714,15 @@ body {
 .detail-wrapper {
   margin: 15px 0px;
 }
-.attachment-detail-heading {
-  margin-bottom: 0px !important;
-  font-weight: 600;
-}
+  .detail-wrapper .detail-heading{
+      font-weight:500;
+      display:inline;
+      margin-right:5px;
+  }
+  .attachment-detail-heading {
+    margin-bottom: 0px !important;
+    font-weight: 600;
+  }
 p.conversion-message {
   background-color: #e5dddd94;
   padding: 10px;
@@ -775,3 +781,10 @@ mat-card .replay-card-chat {
   }
 
 
+#sidebar .brand{
+  width: 90%;
+  margin: auto;
+}
+section#content {
+    padding:0px 0px;
+}

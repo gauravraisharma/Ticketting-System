@@ -15,11 +15,14 @@ export class AppComponent implements OnInit {
     private router: Router,) {
     router.events.subscribe((val) => {
       if (val instanceof NavigationEnd) {
-        if (val.url == '/login') {
-          this.isUserLoggedIn = false;
+        // check if user  is login or not
+        var isTokenAvailable = (sessionStorage.getItem('token') != null && sessionStorage.getItem('token') != undefined) ? true : false;
+        var isUserIdAvailabel = (sessionStorage.getItem('userId') != null && sessionStorage.getItem('userId') != undefined) ? true : false;
+        if (isTokenAvailable && isUserIdAvailabel) {
+          this.isUserLoggedIn = true;
         }
         else {
-          this.isUserLoggedIn = true;
+          this.isUserLoggedIn = false;
         }
       }
     })

@@ -92,6 +92,7 @@ namespace webapi.Controllers
 
 
             }
+            await MailOperations.SendEmailAsync("test101@mailinator.com", "this is test message", "this is message body", _config);
             return Ok(response);
         }
 
@@ -123,12 +124,20 @@ namespace webapi.Controllers
                         return Ok(new ResponseStatus
                         {
                             Status = "SUCCEED",
-                            Message = "Ticket Has been created successfully but their is some issue while uploading the attachment. Please try adding attachments later."
+                            Message = "Message Has been sent successfully but their is some issue while uploading the attachment. Please try adding attachments later."
                         });
 
                     }
                 }
 
+
+            }
+            try
+            {
+               await MailOperations.SendEmailAsync("test101@mailinator.com", "this is test message", "this is message body", _config);
+            }
+            catch (Exception e)
+            {
 
             }
             return Ok(response);
@@ -163,7 +172,7 @@ namespace webapi.Controllers
         //This method is used to get ticket total number of ticket created by user
         //For admin type user total ticket count will be return 
         [HttpGet("GetTotalTicketCount/{userId}")]
-        public async Task<ActionResult<ResponseStatus>> GetTotalTicketCount(string userId)
+        public async Task<ActionResult<DashboardResponseStatus>> GetTotalTicketCount(string userId)
         {
             var dbResponse = await _ticketService.GetTotalTicketCount(userId);
             if (dbResponse.Status=="FAILED")
