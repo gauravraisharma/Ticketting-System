@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ApplicationService.IServices;
+using ApplicationService.Services;
+using DataRepository.EntityModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using webapi.Models;
-using webapi.Repositroies;
-using webapi.Repositroies.TicketService;
 using webapi.Utilities;
 
 namespace webapi.Controllers
@@ -64,9 +64,6 @@ namespace webapi.Controllers
                 return BadRequest("Please pass the valid Input.");
             }
 
-
-           
-
             CreateTicketResponse response =await  _ticketService.CreateTicket(ticket);
             if(response.Status== "FAILED")
             {
@@ -74,25 +71,20 @@ namespace webapi.Controllers
             }
             if (Request.Form.Files.Count > 0)
             {
-                // Upload the file in system 
-                List<FileUploadResponse> attachmentsResponse = FileOperation.UploadFile(Request.Form.Files, _hostingEnvironment, _config);
-                if (attachmentsResponse != null)
-                {
-                    ResponseStatus attachmentResponse= _ticketService.AddAttachMents(response.TicketId, attachmentsResponse, "TICKET");
-                    if(attachmentResponse.Status== "FAILED")
-                    {
-                        return Ok(new ResponseStatus
-                        {
-                            Status="SUCCEED",
-                            Message="Ticket Has been created successfully but their is some issue while uploading the attachment. Please try adding attachments later."
-                        });
 
-                    }
+                ResponseStatus attachmentResponse= _ticketService.AddAttachMents(response.TicketId, Request.Form.Files, "TICKET");
+
+                 if (attachmentResponse.Status == "FAILED")
+                {
+                    return Ok(new ResponseStatus
+                    {
+                        Status = "SUCCEED",
+                        Message = "Ticket Has been created successfully but their is some issue while uploading the attachment. Please try adding attachments later."
+                    });
+
                 }
 
-
             }
-            await MailOperations.SendEmailAsync("test101@mailinator.com", "this is test message", "this is message body", _config);
             return Ok(response);
         }
 
@@ -114,33 +106,22 @@ namespace webapi.Controllers
             }
             if (Request.Form.Files.Count > 0)
             {
-                // Upload the file in system 
-                List<FileUploadResponse> attachmentsResponse = FileOperation.UploadFile(Request.Form.Files, _hostingEnvironment, _config);
-                if (attachmentsResponse != null)
-                {
-                    ResponseStatus attachmentResponse = _ticketService.AddAttachMents(response.ConversationId, attachmentsResponse, "CONVERSATION");
-                    if (attachmentResponse.Status == "FAILED")
-                    {
-                        return Ok(new ResponseStatus
-                        {
-                            Status = "SUCCEED",
-                            Message = "Message Has been sent successfully but their is some issue while uploading the attachment. Please try adding attachments later."
-                        });
 
-                    }
+                ResponseStatus attachmentResponse = _ticketService.AddAttachMents(response.ConversationId, Request.Form.Files, "CONVERSATION");
+
+                if (attachmentResponse.Status == "FAILED")
+                {
+                    return Ok(new ResponseStatus
+                    {
+                        Status = "SUCCEED",
+                        Message = "Message Has been sent successfully but their is some issue while uploading the attachment. Please try adding attachments later."
+                    });
+
                 }
 
 
             }
-            try
-            {
-               await MailOperations.SendEmailAsync("test101@mailinator.com", "this is test message", "this is message body", _config);
-            }
-            catch (Exception e)
-            {
-
-            }
-            return Ok(response);
+          return Ok(response);
         }
 
         //This method is used to get ticket converstaion by ticket ID 

@@ -1,28 +1,37 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { TicketService } from '../../../../services/ticketServices/ticketservcie.service';
+import { CommonService } from '../../../../services/commonServcices/common-service.service';
 
 @Component({
   selector: 'app-add-ticket',
   templateUrl: './add-ticket.component.html',
   styleUrls: ['./add-ticket.component.css']
 })
-export class AddTicketComponent {
+export class AddTicketComponent implements OnInit {
 
   @ViewChild('fileattachment') fileAttachments!: ElementRef;
   ticketForm = this.fb.nonNullable.group({
     priority: ['', [Validators.required]],
     subject: ['', [Validators.required]],
-    description: ['', [Validators.required]]
+    description: ['', [Validators.required]],
+    department: ['', [Validators.required]],
   });
   isLoading: boolean = false;
   fileCount = 0;
+  DDDepartmentList = [];
   constructor(private fb: FormBuilder,
+    private commonService: CommonService,
     private ticketService: TicketService,
     private router: Router,
     private toastr: ToastrService) {
+  }
+
+  ngOnInit() {
+    this.GetDepartmentDDList();
+
   }
   onFileChange(){
    this.fileCount= this.fileAttachments.nativeElement.files.length;
@@ -36,6 +45,7 @@ export class AddTicketComponent {
       ticketFromData.append('Subject', this.subject!.value);
       ticketFromData.append('Description', this.description!.value);
       ticketFromData.append('CreatedBy', userId!);
+      ticketFromData.append('departmentId', this.department!.value!);
 
       if (this.fileAttachments.nativeElement.files && this.fileAttachments.nativeElement.files.length > 0) {
 
@@ -64,7 +74,19 @@ export class AddTicketComponent {
       this.isLoading = false;
     }
   }
+
+  GetDepartmentDDList() {
+    this.isLoading = false;
+    this.commonService.GetDepartmentDDList().subscribe((response: any) => {
+      console.log('GetUserTypeDDList', response)
+      this.DDDepartmentList = response;
+      this.isLoading = false;
+    }, error => {
+      this.isLoading = false;
+    })
+  }
   get priority() { return this.ticketForm.get('priority'); }
   get subject() { return this.ticketForm.get('subject'); }
   get description() { return this.ticketForm.get('description'); }
+  get department() { return this.ticketForm.get('department'); }
 }

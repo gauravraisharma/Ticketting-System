@@ -57,7 +57,7 @@
               <input matInput placeholder="Enter Email" formControlName="email"
                      required>
               <mat-error *ngIf="userForm.get('email')?.invalid">
-                Please enter email
+                Please enter valid email
               </mat-error>
             </mat-form-field>
           </div>
@@ -117,7 +117,7 @@
               <input matInput placeholder="Enter password" type="password" formControlName="password"
                      required>
               <mat-error *ngIf="userForm.get('password')?.invalid">
-                Please enter password
+                Please enter valid password
               </mat-error>
             </mat-form-field>
           </div>

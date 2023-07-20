@@ -4114,6 +4114,35 @@
         "runtime": {
           "lib/netstandard1.3/System.Xml.XDocument.dll": {}
         }
+      },
+      "ApplicationService/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v7.0",
+        "dependencies": {
+          "DataRepository": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/ApplicationService.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ApplicationService.dll": {}
+        }
+      },
+      "DataRepository/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v7.0",
+        "dependencies": {
+          "Microsoft.AspNetCore.Authentication.JwtBearer": "7.0.9",
+          "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "7.0.9",
+          "Microsoft.EntityFrameworkCore": "7.0.9",
+          "Microsoft.EntityFrameworkCore.SqlServer": "7.0.9"
+        },
+        "compile": {
+          "bin/placeholder/DataRepository.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/DataRepository.dll": {}
+        }
       }
     }
   },
@@ -12011,10 +12040,21 @@
         "system.xml.xdocument.4.3.0.nupkg.sha512",
         "system.xml.xdocument.nuspec"
       ]
+    },
+    "ApplicationService/1.0.0": {
+      "type": "project",
+      "path": "../ApplicationService/ApplicationService.csproj",
+      "msbuildProject": "../ApplicationService/ApplicationService.csproj"
+    },
+    "DataRepository/1.0.0": {
+      "type": "project",
+      "path": "../DataRepository/DataRepository.csproj",
+      "msbuildProject": "../DataRepository/DataRepository.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net7.0": [
+      "ApplicationService >= 1.0.0",
       "Microsoft.AspNet.Cors >= 5.2.9",
       "Microsoft.AspNetCore.Authentication.JwtBearer >= 7.0.9",
       "Microsoft.AspNetCore.Identity.EntityFrameworkCore >= 7.0.9",
@@ -12054,7 +12094,11 @@
       "frameworks": {
         "net7.0": {
           "targetAlias": "net7.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "D:\\Projects\\GitHubTicket\\ApplicationService\\ApplicationService.csproj": {
+              "projectPath": "D:\\Projects\\GitHubTicket\\ApplicationService\\ApplicationService.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

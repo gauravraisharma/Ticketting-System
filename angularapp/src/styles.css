@@ -788,3 +788,23 @@ mat-card .replay-card-chat {
 section#content {
     padding:0px 0px;
 }
+.ck .ck-powered-by{
+    display:none !important;
+}
+
+.ck-editor__editable_inline {
+  min-height: 180px !important;
+}
+.ck-Editor-container-cust.Invalid ckeditor.ng-invalid .ck-editor__editable_inline {
+  border: 2px solid red !important;
+  border-radius: 4px !important;
+}
+
+.no-record-found {
+  font-size: 20px;
+  padding: 10px;
+}
+
+.loading-indicator{
+    z-index:5000 !important;
+}

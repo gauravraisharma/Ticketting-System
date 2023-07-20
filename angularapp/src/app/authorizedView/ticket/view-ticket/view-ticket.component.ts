@@ -5,6 +5,7 @@ import { ConfirmDialogComponent } from '../../../sharedComponent/confirm-dialog/
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { TicketService } from '../../../../services/ticketServices/ticketservcie.service';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 @Component({
   selector: 'app-view-ticket',
@@ -23,6 +24,7 @@ export class ViewTicketComponent implements OnInit {
   userType = sessionStorage.getItem('userType')?.toUpperCase();
   fileCount = 0;
   @ViewChild('fileattachment') fileAttachments!: ElementRef;
+  public Editor = ClassicEditor;
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,

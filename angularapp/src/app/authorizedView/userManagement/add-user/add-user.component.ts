@@ -20,8 +20,8 @@ export class AddUserComponent implements OnInit {
     userType: ['', [Validators.required]],
     phoneNumber: ['', [Validators.required, Validators.pattern(/^[6-9]\d{9}$/)]],
     department: [''],
-    email: ['', [Validators.required]],
-    password: ['', [Validators.required]],
+    email: ['', [Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
+    password: ['', [Validators.required, Validators.pattern('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$')]],
     confirmPassword: ['', [Validators.required]],
   },
     {

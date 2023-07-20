@@ -10,6 +10,7 @@ import { ViewTicketComponent } from './authorizedView/ticket/view-ticket/view-ti
 import { UserlistingComponent } from './authorizedView/userManagement/userlisting/userlisting.component';
 import { AddUserComponent } from './authorizedView/userManagement/add-user/add-user.component';
 import { HomepageComponent } from './homepage/homepage.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 const appRoutes: Routes = [
   {
@@ -50,6 +51,11 @@ const appRoutes: Routes = [
     path: 'adduser',
     component: AddUserComponent,
     canActivate: [authguardGuard]
+  },
+  {
+    path: '**',
+    pathMatch: 'full',
+    component: PageNotFoundComponent
   },
 ]
 

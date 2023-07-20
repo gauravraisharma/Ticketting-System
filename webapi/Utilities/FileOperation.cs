@@ -1,6 +1,6 @@
 ﻿using Azure.Core;
+using DataRepository.EntityModels;
 using System.Net.Http.Headers;
-using webapi.Models;
 
 namespace webapi.Utilities
 {

@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -7,60 +8,37 @@ import { Injectable } from '@angular/core';
 export class TicketService {
 
   constructor(private http: HttpClient) { }
-  apiUrl = "https://localhost:7287/api/"
+  apiUrl = environment.apiBaseUrl;
   auth_token = sessionStorage.getItem('token');
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+this.auth_token
-    })
-  };
+ 
   createTicket(ticket: FormData) {
     debugger
     let url = `${this.apiUrl}Tickets/CreateTicket`;
-    return this.http.post(url, ticket, {
-      headers: new HttpHeaders({
-        'Accept':'*/*',
-        //'Content-Type': 'multipart/form-data',
-        'Authorization': "Bearer " + this.auth_token,
-        'Access-Control-Allow-Methods': 'GET, POST, OPTIONS, PUT, PATCH, DELETE',
-        'Access-Control-Allow-Headers': 'origin,X-Requested-With,content-type,accept',
-        'Access-Control-Allow-Credentials': 'true' 
-      })
-    });
+    return this.http.post(url, ticket);
   }
   AddConversationMessage(conversationMessage: FormData) {
     debugger
     let url = `${this.apiUrl}Tickets/AddConversationMessage`;
-    return this.http.post(url, conversationMessage, {
-      headers: new HttpHeaders({
-        'Accept':'*/*',
-        //'Content-Type': 'multipart/form-data',
-        'Authorization': "Bearer " + this.auth_token,
-        'Access-Control-Allow-Methods': 'GET, POST, OPTIONS, PUT, PATCH, DELETE',
-        'Access-Control-Allow-Headers': 'origin,X-Requested-With,content-type,accept',
-        'Access-Control-Allow-Credentials': 'true' 
-      })
-    });
+    return this.http.post(url, conversationMessage);
   }
   GetTicket(userId:string) {
     let url = `${this.apiUrl}Tickets/GetTicket/${userId}`;
-    return this.http.get(url, this.httpOptions);
+    return this.http.get(url);
   }
 
   GetTicketDataById(ticketId: number) {
     let url = `${this.apiUrl}Tickets/GetTicketDataById/${ticketId}`;
-    return this.http.get(url, this.httpOptions);
+    return this.http.get(url);
   }
 
   CloseTicketStatusById(ticketId: number, userId: string, status: string) {
     let url = `${this.apiUrl}Tickets/ChangeTicketStatusById/${ticketId}/${userId}/${status}`;
-    return this.http.get(url, this.httpOptions);
+    return this.http.get(url);
   }
 
   GetTicketConversationData(ticketId: number) {
     let url = `${this.apiUrl}Tickets/GetTicketConversationDataById/${ticketId}`;
-    return this.http.get(url, this.httpOptions);
+    return this.http.get(url);
   }
  
 }

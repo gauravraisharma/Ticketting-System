@@ -1,11 +1,14 @@
+using ApplicationService.IRepository;
+using ApplicationService.IServices;
+using ApplicationService.Services;
+using DataRepository.EntityModels;
+using DataRepository.IRepository;
+using DataRepository.Repository;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using webapi.Models;
-using webapi.Repositroies.AccountService;
-using webapi.Repositroies.TicketService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -41,7 +44,9 @@ builder.Services.AddDbContext<ApplicationDbContext>(item => item.UseSqlServer(bu
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>();
 
 //Implement and adding dependant services 
+builder.Services.AddScoped<IAccountRepository, AccountRepository>();
 builder.Services.AddScoped<IAccountService, AccountService>();
+builder.Services.AddScoped<ITicketRepository, TicketRepository>();
 builder.Services.AddScoped<ITicketService, TicketService>();
 
 var app = builder.Build();

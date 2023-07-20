@@ -1,4 +1,4 @@
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -25,6 +25,10 @@ import { AuthorizedLayoutComponent } from './sharedComponent/layouts/authorized-
 import { RouterModule } from '@angular/router';
 import { CommonService } from '../services/commonServcices/common-service.service';
 
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { APIInterceptor } from '../services/apiInterceptor/api.interceptor';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,7 +43,8 @@ import { CommonService } from '../services/commonServcices/common-service.servic
     AddUserComponent,
     UserlistingComponent,
     AnonymousLayoutComponent,
-    AuthorizedLayoutComponent
+    AuthorizedLayoutComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
@@ -49,9 +54,14 @@ import { CommonService } from '../services/commonServcices/common-service.servic
     BrowserAnimationsModule,
     AppRoutingModule,
     RouterModule,
+    CKEditorModule,
     ToastrModule.forRoot()
   ],
-  providers: [AccountService, TicketService, CommonService],
+  providers: [AccountService, TicketService, CommonService, {
+    provide: HTTP_INTERCEPTORS,
+    useClass: APIInterceptor,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -522,3 +522,7 @@ D:\Projects\GitHubTicket\webapi\obj\Debug\net7.0\refint\webapi.dll
 D:\Projects\GitHubTicket\webapi\obj\Debug\net7.0\webapi.pdb
 D:\Projects\GitHubTicket\webapi\obj\Debug\net7.0\webapi.genruntimeconfig.cache
 D:\Projects\GitHubTicket\webapi\obj\Debug\net7.0\ref\webapi.dll
+D:\Projects\GitHubTicket\webapi\bin\Debug\net7.0\ApplicationService.dll
+D:\Projects\GitHubTicket\webapi\bin\Debug\net7.0\DataRepository.dll
+D:\Projects\GitHubTicket\webapi\bin\Debug\net7.0\ApplicationService.pdb
+D:\Projects\GitHubTicket\webapi\bin\Debug\net7.0\DataRepository.pdb
