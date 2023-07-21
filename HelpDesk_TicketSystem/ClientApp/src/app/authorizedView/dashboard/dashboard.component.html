@@ -1,0 +1,35 @@
+
+      <div class="head-title">
+        <div class="left">
+          <h1>Dashboard</h1>
+          <ul class="breadcrumb">
+            <li>
+              <a href="javascript:;">Dashboard</a>
+            </li>
+            <li><i class='bx bx-chevron-right'></i></li>
+            <li>
+              <a class="active" routerLink="/dashboard">Home</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <ul class="box-info mt-3">
+        <li (click)="gotToUserList()" style="cursor:pointer;" *ngIf="userType=='ADMIN'">
+          <i class='bx bxs-user'></i>
+          <span class="text">
+            <h3>{{userCount}}</h3>
+            <p>Total Users</p>
+          </span>
+        </li>
+        <li (click)="gotToTicketList()" style="cursor:pointer;">
+          <i class='bx bxs-bug'></i>
+          <span class="text">
+            <h3>{{ticketCount}}</h3>
+            <p>Total Tickets</p>
+          </span>
+        </li>
+
+      </ul>
+
+      <loader *ngIf="isLoading"></loader>

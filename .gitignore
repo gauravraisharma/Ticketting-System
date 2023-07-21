@@ -1,0 +1,5 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/HelpDesk_TicketSystem/ClientApp/.angular/cache/16.1.5

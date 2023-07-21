@@ -39,7 +39,7 @@ namespace DataRepository.Repository
             try
             {
                 var userFound = await _userManager.FindByNameAsync(userModel.UserName);
-                if (userFound != null)
+                if (userFound != null && !userFound.IsDeleted)
                 {
                     return new ResponseStatus
                     {
@@ -203,7 +203,7 @@ namespace DataRepository.Repository
                 return new LoginStatus
                 {
                     Status = "FAILED",
-                    Message = "Something went wrong."
+                    Message = ex.Message+" Something went wrong."
                 };
             }
             finally

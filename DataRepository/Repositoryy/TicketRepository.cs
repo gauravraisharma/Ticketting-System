@@ -90,7 +90,7 @@ namespace DataRepository.Repository
             }
             finally
             {
-                _context.Dispose();
+                //_context.Dispose();
             }
         }
         public async Task<IEnumerable<TicketViewResponse>> GetTickets(string userId)
@@ -123,7 +123,7 @@ namespace DataRepository.Repository
             }
             finally
             {
-                _context.Dispose();
+                //_context.Dispose();
             }
         }
 
@@ -193,7 +193,7 @@ namespace DataRepository.Repository
             }
             finally
             {
-                _context.Dispose();
+                //_context.Dispose();
             }
         }
 
@@ -240,7 +240,7 @@ namespace DataRepository.Repository
             }
             finally
             {
-                _context.Dispose();
+                //_context.Dispose();
             }
         }
 
@@ -323,7 +323,7 @@ namespace DataRepository.Repository
             }
             finally
             {
-                _context.Dispose();
+                //_context.Dispose();
             }
         }
 
@@ -378,7 +378,7 @@ namespace DataRepository.Repository
             }
             finally
             {
-                _context.Dispose();
+               // _context.Dispose();
             }
         }
 
@@ -422,7 +422,7 @@ namespace DataRepository.Repository
             }
             finally
             {
-                _context.Dispose();
+               // _context.Dispose();
             }
         } 
         public  ResponseStatus AddAttachMents(int referanceId, List<FileUploadResponse> fileDetails, string attachmentType)
@@ -463,7 +463,7 @@ namespace DataRepository.Repository
             }
             finally
             {
-                _context.Dispose();
+               // _context.Dispose();
             }
         }
 

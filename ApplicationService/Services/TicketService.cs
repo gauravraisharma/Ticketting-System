@@ -55,7 +55,7 @@ namespace ApplicationService.Services
                     var emailSubject=_config["ConversationEmailSubject"];
                     var emailTemplate=_config["ConversationEmailTemplate"];
                     var emails=response.MailModel.Emails.Select(mail=> mail.Email).ToList();
-                    await MailOperations.SendEmailAsync(emails, emailSubject, emailTemplate, _config);
+                    //await MailOperations.SendEmailAsync(emails, emailSubject, emailTemplate, _config);
                 }
                 catch (Exception e)
                 {
@@ -88,7 +88,7 @@ namespace ApplicationService.Services
                     var emailSubject = _config["TicketEmailSubject"];
                     var emailTemplate = _config["TicketEmailTemplate"];
                     var emails = response.MailModel.Emails.Select(mail => mail.Email).ToList();
-                    await MailOperations.SendEmailAsync(emails, emailSubject, emailTemplate, _config);
+                    //await MailOperations.SendEmailAsync(emails, emailSubject, emailTemplate, _config);
                 }
                 catch (Exception e)
                 {

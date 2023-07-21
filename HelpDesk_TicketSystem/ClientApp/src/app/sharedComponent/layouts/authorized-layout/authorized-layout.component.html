@@ -1,0 +1,15 @@
+
+<app-navbar class="display-None-Large-screen main-nav" (onSideMenuChange)="onSideMenuChange($event)"></app-navbar>
+
+<app-sidebar [SideMenuStatus]="SideMenuStatus"></app-sidebar>
+
+<!-- CONTENT -->
+<section id="content" [class]="(SideMenuStatus)?'w-100  start-0':''">
+  <!-- MAIN -->
+  <main>
+    <router-outlet></router-outlet>
+
+  </main>
+  <!-- MAIN -->
+</section>
+<!-- CONTENT -->
