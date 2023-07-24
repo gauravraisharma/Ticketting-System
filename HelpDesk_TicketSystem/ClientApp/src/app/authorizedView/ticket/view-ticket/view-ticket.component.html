@@ -27,7 +27,7 @@
 <div class="mat-elevation-z8 bg-white rounded-3 p-3 mdc-card-shadow-0">
 
   <div class="row">
-    <div class="col-sm-3">
+    <div class="col-sm-12 col-md-5 col-lg-4 col-xl-3 mb-3">
       <mat-card class="task-bg-main rounded-3">
         <mat-card-header class="d-flex justify-content-between">
           <mat-card-title>Ticket Detail</mat-card-title>
@@ -78,18 +78,16 @@
                   {{ticketDetail.status}}
                 </span>
               </ng-container>
-
-              <ng-container *ngIf="ticketDetail.attachments.length>0">
-                <div class="detail-wrapper d-flex align-items-center">
-
-                  <p class=" detail-heading d-block"> Attachments:</p>
+            </div>
+            <div class="detail-wrapper d-flex align-items-center" *ngIf="ticketDetail.attachments.length>0">
+              <ng-container>
+                  <p class=" detail-heading d-block mb-0"> Attachments:</p>
                   <ng-container *ngFor="let attachment of ticketDetail.attachments">
-                    <a [href]="attachment.downLoadLink" [download]="attachment.attachmentName" target="_blank">
+                    <a [href]="attachment.downLoadLink" [download]="attachment.attachmentName" target="_blank" class="d-flex download-link-info">
                       <i class="material-icons">download</i><span class="small-font">{{attachment.attachmentName}}</span>
                     </a>
                   </ng-container>
 
-                </div>
               </ng-container>
             </div>
           </div>
@@ -104,7 +102,7 @@
 
     </div>
 
-    <div class="col-sm-9">
+    <div class="col-sm-12 col-md-7 col-lg-8 col-xl-9">
 
       <mat-toolbar *ngIf="!isSendMessageOpen && conversationDetailList.length>0 && ticketDetail.status!='CLOSED'">
         <button class="btn" (click)="isSendMessageOpen=true" mat-stroked-button color="primary">
@@ -113,7 +111,7 @@
 
         <span class="custom-spacer"></span>
 
-        <button class="btn p-0" (click)="RefreashConversation()" *ngIf="!isSendMessageOpen && ticketDetail.status!='CLOSED'">
+        <button class="btn p-0 refresh-btn" (click)="RefreashConversation()" *ngIf="!isSendMessageOpen && ticketDetail.status!='CLOSED'">
           <mat-icon class="text-success" aria-hidden="false" aria-label="replay" fontIcon="refresh"></mat-icon>
         </button>
       </mat-toolbar>
@@ -190,13 +188,12 @@
               </mat-card-title>
             </mat-card-header>
             <mat-card-content>
-              <p class="conversion-message mx-0" [innerHTML]="message['message'] ">
-              </p>
+              <div class="conversion-message mx-0" [innerHTML]="message['message'] "></div>
               <div *ngIf="message.attachments.length>0" class="chat-attachment-detail">
                 <p class=" attachment-detail-heading"> Attachments:</p>
                 <ng-container *ngFor="let attachment of message.attachments">
-                  <a [href]="attachment.downLoadLink" [download]="attachment.attachmentName" target="_blank" style="display:block;">
-                    <i class="material-icons">download</i><span>{{attachment.attachmentName}}</span>
+                  <a [href]="attachment.downLoadLink" class="d-flex align-items-center mt-2" [download]="attachment.attachmentName" target="_blank">
+                    <i class="material-icons me-2">download</i><span>{{attachment.attachmentName}}</span>
                   </a>
                 </ng-container>
               </div>

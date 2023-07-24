@@ -11,3 +11,18 @@
 {
     font-size:14px;
 }
+.download-link-info
+{
+    max-width: calc(100% - 100px);
+}
+.download-link-info span.small-font
+{
+    font-size:11px;
+    width:100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.refresh-btn
+{
+    max-height:24px;
+}
