@@ -793,7 +793,7 @@ width:100%;
 }
 .chat-header {
   border-bottom: 1px solid #0000004f;
-  padding: 10px 16px 0 !important;
+  padding: 10px 16px !important;
 }
 mat-card-title .chat-detail {
   font-size: .9rem;

@@ -131,7 +131,7 @@
         </mat-card-content>
       </mat-card>
 
-      <mat-card class="conversion-chat-card conversion-chat-card-reply mt-3 " *ngIf="(isSendMessageOpen || (conversationDetailList.length==0 && userType=='ADMIN')) && ticketDetail.status!='CLOSED'">
+      <mat-card class="conversion-chat-card conversion-chat-card-reply mt-0" *ngIf="(isSendMessageOpen || (conversationDetailList.length==0 && userType=='ADMIN')) && ticketDetail.status!='CLOSED'">
         <mat-card-header>
           <mat-card-title>
             <mat-icon aria-hidden="false" aria-label="send message" fontIcon="send"></mat-icon>
@@ -178,18 +178,19 @@
           <mat-card [class]="(message['userType']=='NORMALUSER')?'conversation-chat conversion-chat-card':'conversation-chat conversion-chat-card-admin'">
             <mat-card-header class="chat-header">
               <mat-card-title>
-                <mat-icon aria-hidden="false" aria-label="User" fontIcon="person_outline" *ngIf="message['userType']=='ADMIN'"></mat-icon>
-                <mat-icon aria-hidden="false" aria-label="User" fontIcon="person" *ngIf="message['userType']=='NORMALUSER'"></mat-icon>
-                {{message['createdBy']}}
-                <div class="d-flex justify-content-between chat-detail">
-                  <div>{{(message['userType']=="ADMIN"?"Staff":"Client")}}</div>
-                  <div>{{message['createdOn'] | date:'short'}}</div>
-
+                <div class="d-flex align-items-center justify-content-between">
+                  <div class="d-flex align-items-center">
+                    <mat-icon class="me-2" aria-hidden="false" aria-label="User" fontIcon="person_outline" *ngIf="message['userType']=='ADMIN'"></mat-icon>
+                    <mat-icon class="me-2" aria-hidden="false" aria-label="User" fontIcon="person" *ngIf="message['userType']=='NORMALUSER'"></mat-icon>
+                    {{message['createdBy']}} <span class="ms-2 pills-info">{{(message['userType']=="ADMIN"?"Staff":"Client")}}</span>
+                  </div>
+                  <div class="date-time-info">{{message['createdOn'] | date:'short'}}</div>
                 </div>
+                
               </mat-card-title>
             </mat-card-header>
             <mat-card-content>
-              <p class="conversion-message" [innerHTML]="message['message'] ">
+              <p class="conversion-message mx-0" [innerHTML]="message['message'] ">
               </p>
               <div *ngIf="message.attachments.length>0" class="chat-attachment-detail">
                 <p class=" attachment-detail-heading"> Attachments:</p>
