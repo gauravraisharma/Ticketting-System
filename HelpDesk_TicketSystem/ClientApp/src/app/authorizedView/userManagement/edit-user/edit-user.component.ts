@@ -6,16 +6,16 @@ import { CommonService } from '../../../../services/commonServcices/common-servi
 import { AccountService, ApplicationUser } from '../../../../services/accountServices/account-service.service';
 
 @Component({
-  selector: 'app-add-user',
-  templateUrl: './add-user.component.html',
-  styleUrls: ['./add-user.component.css']
+  selector: 'app-edit-user',
+  templateUrl: './edit-user.component.html',
+  styleUrls: ['./edit-user.component.css']
 })
-export class AddUserComponent implements OnInit {
+export class EditUserComponent {
   @ViewChild('fileattachment') fileAttachments!: ElementRef;
   userForm = this.fb.group({
     username: ['', [Validators.required]],
     firstName: ['', [Validators.required]],
-    lastName: ['', ],
+    lastName: ['',],
     userType: ['', [Validators.required]],
     phoneNumber: [''],
     department: [''],
@@ -31,8 +31,8 @@ export class AddUserComponent implements OnInit {
   isUserTypeAdmin: boolean = false;
   isLoading: boolean = false;
   fileCount = 0;
-  DDUserTypeList:any = [];
-  DDDepartmentList:any = [];
+  DDUserTypeList: any = [];
+  DDDepartmentList: any = [];
   constructor(private fb: FormBuilder,
     private commonService: CommonService,
     private accountService: AccountService,
@@ -50,7 +50,7 @@ export class AddUserComponent implements OnInit {
     this.commonService.GetUserTypeDDList().subscribe((response: any) => {
       console.log('GetUserTypeDDList', response)
       this.DDUserTypeList = response;
-       this.isLoading = false;
+      this.isLoading = false;
     }, error => {
       this.isLoading = false;
     })
@@ -60,12 +60,12 @@ export class AddUserComponent implements OnInit {
     this.commonService.GetDepartmentDDList().subscribe((response: any) => {
       console.log('GetUserTypeDDList', response)
       this.DDDepartmentList = response;
-       this.isLoading = false;
+      this.isLoading = false;
     }, error => {
       this.isLoading = false;
     })
   }
-  
+
   submitTicket() {
     //this.isLoading = true;
     if (this.userForm.valid) {
@@ -78,7 +78,7 @@ export class AddUserComponent implements OnInit {
       user.lastName = this.userForm.get('lastName')!.value;
       user.userName = this.userForm.get('username')!.value;
       user.userType = this.userForm.get('userType')!.value;
-      user.departmentId = (this.userForm.get('department').value == undefined || this.userForm.get('department').value == '') ? null : (this.userForm.get('department').value );
+      user.departmentId = (this.userForm.get('department').value == undefined || this.userForm.get('department').value == '') ? null : (this.userForm.get('department').value);
       user.email = this.userForm.get('email')!.value;
       user.phoneNumber = this.userForm.get('phoneNumber')!.value;
       user.password = this.userForm.get('password')!.value;
@@ -138,14 +138,14 @@ export class AddUserComponent implements OnInit {
   }
 }
 export class userModel {
-  userId: string='';
-  username: string='';
-  firstName: string='';
-  lastName: string='';
-  email: string='';
-  password: string='';
-  confirmPassword: string='';
-} 
+  userId: string = '';
+  username: string = '';
+  firstName: string = '';
+  lastName: string = '';
+  email: string = '';
+  password: string = '';
+  confirmPassword: string = '';
+}
 export interface DDList {
   id: string;
   lable: string;

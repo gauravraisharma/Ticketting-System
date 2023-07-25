@@ -28,8 +28,9 @@ namespace ApplicationService.Utilities
             var mailMessage = new MailMessage();
             MailAddress _fromMail = new MailAddress(fromMail);
             mailMessage.From = _fromMail;
-            mailMessage.Subject = subject;
-            mailMessage.Body = message;
+            mailMessage.Subject = subjectValue;
+            mailMessage.Body = messageValue;
+            mailMessage.IsBodyHtml = true;
             email.ForEach(mail =>
             {
                 mailMessage.To.Add(new MailAddress(mail));

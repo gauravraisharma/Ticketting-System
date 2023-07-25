@@ -55,7 +55,15 @@ namespace ApplicationService.Services
                     var emailSubject=_config["ConversationEmailSubject"];
                     var emailTemplate=_config["ConversationEmailTemplate"];
                     var emails=response.MailModel.Emails.Select(mail=> mail.Email).ToList();
-                    //await MailOperations.SendEmailAsync(emails, emailSubject, emailTemplate, _config);
+                    Dictionary<string, string> subjectVariable = new Dictionary<string, string>
+                    {
+                        { "@@ticketNumber", response.MailModel.TicketId.ToString() }
+                    };
+                    Dictionary<string, string> messageVariable = new Dictionary<string, string> {
+                      { "@@ticketNumber", response.MailModel.TicketId.ToString() }
+                    };
+
+                     MailOperations.SendEmailAsync(emails, emailSubject, emailTemplate, _config, subjectVariable, messageVariable);
                 }
                 catch (Exception e)
                 {
@@ -88,7 +96,16 @@ namespace ApplicationService.Services
                     var emailSubject = _config["TicketEmailSubject"];
                     var emailTemplate = _config["TicketEmailTemplate"];
                     var emails = response.MailModel.Emails.Select(mail => mail.Email).ToList();
-                    //await MailOperations.SendEmailAsync(emails, emailSubject, emailTemplate, _config);
+
+                    Dictionary<string, string> subjectVariable = new Dictionary<string, string>
+                    {
+                        { "@@ticketNumber", response.TicketId.ToString() }
+                    };
+                    Dictionary<string, string> messageVariable = new Dictionary<string, string> {
+                      { "@@ticketNumber", response.TicketId.ToString() }
+                    };
+
+                     MailOperations.SendEmailAsync(emails, emailSubject, emailTemplate, _config, subjectVariable, messageVariable);
                 }
                 catch (Exception e)
                 {

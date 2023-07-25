@@ -4,15 +4,15 @@
     <h1>Add User</h1>
     <ul class="breadcrumb">
       <li>
-        <a href="javascript:;">Add User</a>
+        <a routerLink="/dashboard">Home</a>
       </li>
       <li><i class='bx bx-chevron-right'></i></li>
       <li>
-        <a href="javascript:;">User Management</a>
+        <a  routerLink="/userlisting">User Management</a>
       </li>
       <li><i class='bx bx-chevron-right'></i></li>
       <li>
-        <a class="active" routerLink="/dashboard">Home</a>
+        <a class="active"  href="javascript:;" >Add User</a>
       </li>
     </ul>
   </div>
@@ -45,7 +45,7 @@
             <mat-form-field class="full-width-field" appearance="outline">
               <mat-label>Last Name</mat-label>
               <input matInput placeholder="Enter Last Name" formControlName="lastName"
-                     required>
+                     >
               <mat-error *ngIf="userForm.get('lastName')?.invalid">
                 Please enter Last name
               </mat-error>
@@ -66,7 +66,7 @@
           <div class="col-sm-4">
             <mat-form-field class="full-width-field" appearance="outline">
               <mat-label>Phone Number</mat-label>
-              <input matInput placeholder="Enter phoneNumber" formControlName="phoneNumber" required maxlength="10">
+              <input matInput placeholder="Enter phoneNumber" formControlName="phoneNumber" maxlength="10">
               <mat-error *ngIf="userForm.get('phoneNumber')?.invalid">
                 Please enter valid Phone Number
               </mat-error>

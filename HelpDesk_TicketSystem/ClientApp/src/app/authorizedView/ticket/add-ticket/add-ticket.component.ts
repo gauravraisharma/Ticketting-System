@@ -63,8 +63,12 @@ export class AddTicketComponent implements OnInit {
         console.log(error)
         if (error.status == 404) {
           this.toastr.error("UnAuthorize access");
-        } else {
+        }
+        else if (error.status == 400) {
           this.toastr.error(error.error);
+        } 
+        else {
+          this.toastr.error("Something went wrong");
         }
         this.isLoading = false;
       });

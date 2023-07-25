@@ -11,7 +11,7 @@ import { AccountService } from '../../../../services/accountServices/account-ser
   styleUrls: ['./userlisting.component.css']
 })
 export class UserlistingComponent {
-  displayedColumns: string[] = [ 'name', 'userName', 'userType', 'email', 'department'];
+  displayedColumns: string[] = ['name', 'userName', 'userType', 'email', 'department','action'];
   dataSource = new MatTableDataSource<UserModel>([]);
   isLoading = false
   data1 = [];
@@ -35,6 +35,10 @@ export class UserlistingComponent {
     }, error => {
       this.isLoading = false;
     })
+  }
+
+  deleteUser(userId) {
+
   }
 }
 

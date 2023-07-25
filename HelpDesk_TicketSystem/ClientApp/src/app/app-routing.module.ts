@@ -19,45 +19,24 @@ const appRoutes: Routes = [
   },
   {
     path: 'login',
-    component: LoginPageComponent,
-     canActivate: [authguardGuard]
+    loadChildren: () => import('./login-page/login.module').then(m => m.LoginModule)
   },
   {
     path: 'dashboard',
-    component: DashboardComponent,
-    canActivate: [authguardGuard]
-  },
-  {
+    loadChildren: () => import('./authorizedView/dashboard/dashboard.module').then(m => m.DashboardModule)
+  }, {
     path: 'ticket',
-    component: TicketListComponent,
-    canActivate: [authguardGuard]
+    loadChildren: () => import('./authorizedView/ticket/ticket.module').then(m => m.TicketModule)
   },
   {
-    path: 'addTicket',
-    component: AddTicketComponent,
-    canActivate: [authguardGuard]
+    path: 'users',
+    loadChildren: () => import('./authorizedView/userManagement/user.module').then(m => m.UserModule)
   },
   {
-    path: 'viewTicket/:id',
-    component: ViewTicketComponent,
-    canActivate: [authguardGuard]
+    path: '**',
+    pathMatch: 'full',
+    component: PageNotFoundComponent
   },
-  {
-    path: 'userlisting',
-    component: UserlistingComponent,
-    canActivate: [authguardGuard]
-  },
-  {
-    path: 'adduser',
-    component: AddUserComponent,
-    canActivate: [authguardGuard]
-  }
-  //,
-  //{
-  //  path: '**',
-  //  pathMatch: 'full',
-  //  component: PageNotFoundComponent
-  //},
 ]
 
 @NgModule({

@@ -12,7 +12,7 @@
       </a>
     </li>
     <li [ngClass]="(currentRoute=='/userlisting' || currentRoute.includes('adduser')) ? 'active' : ''" *ngIf="userType=='ADMIN'">
-      <a routerLink="/userlisting">
+      <a routerLink="/users">
         <i class='bx bxs-user'></i>
         <span class="text">User Management</span>
       </a>

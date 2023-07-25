@@ -1,2 +1,2 @@
-<app-anonymous-layout *ngIf="!isUserLoggedIn"></app-anonymous-layout>
-<app-authorized-layout *ngIf="isUserLoggedIn"></app-authorized-layout>
+<app-anonymous-layout *ngIf="!isUserLoggedIn || (currentRoute=='/')"></app-anonymous-layout>
+<app-authorized-layout *ngIf="isUserLoggedIn && !(currentRoute=='/')"></app-authorized-layout>

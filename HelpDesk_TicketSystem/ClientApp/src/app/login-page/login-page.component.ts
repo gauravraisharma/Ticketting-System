@@ -32,11 +32,10 @@ export class LoginPageComponent implements OnInit {
     console.log('loginForm', this.loginForm);
     if (this.loginForm.valid) {
       this.accountService.loginUser(this.loginForm.value).subscribe((response: any) => {
-        console.log('response', response);
         if (response.status == "SUCCEED") {
           this.toastr.success('Logged in successfully');
           this.setDataInSessionStorage(response.token, response.userType, response.userId);
-          this.router.navigate(['/dashboard'])
+          this.router.navigate(['dashboard'])
         } else {
         
           this.toastr.error(response.message);
@@ -46,7 +45,11 @@ export class LoginPageComponent implements OnInit {
         console.log(error)
         if (error.status == 404) {
           this.toastr.error("UnAuthorize access");
-        } else {
+        }
+        else if (error.status==400) {
+          this.toastr.error(error.error);
+        } 
+        else {
           this.toastr.error("Something went wrong, Please try after sometime.");
         }
         this.isLoading = false;

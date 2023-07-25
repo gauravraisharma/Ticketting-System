@@ -9,7 +9,7 @@ namespace DataRepository.EntityModels
         [Column(TypeName = "nvarchar(450)")]
         public string FirstName { get; set; }
         [Column(TypeName = "nvarchar(450)")]
-        public string LastName { get; set; }
+        public string? LastName { get; set; }
         public int? DepartmentId { get; set; }
         [Column(TypeName = "nvarchar(450)")]
         public string CreatedBy { get; set; }
