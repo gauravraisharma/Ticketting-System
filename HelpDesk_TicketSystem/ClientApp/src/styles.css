@@ -380,9 +380,6 @@ body {
 /* NAVBAR */
 
 
-
-
-
 /* MAIN */
 #content main {
   width: 100%;
@@ -818,9 +815,23 @@ app-navbar
     left: 0px;
   }
 
-    #content nav .nav-link {
-      display: none;
-    }
+  #content nav .nav-link
+  {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 786px)
+{
+  .mdc-data-table__header-cell
+  {
+    min-width:130px;
+  }
+  .mdc-data-table__cell,
+  .mdc-data-table__header-cell
+  {
+    padding:0 10px;
+  }
 }
 
 
