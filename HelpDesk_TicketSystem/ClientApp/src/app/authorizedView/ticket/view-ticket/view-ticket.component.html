@@ -175,7 +175,7 @@
           <mat-card [class]="(message['userType']=='NORMALUSER')?'conversation-chat conversion-chat-card':'conversation-chat conversion-chat-card-admin'">
             <mat-card-header class="chat-header">
               <mat-card-title>
-                <div class="d-flex align-items-center justify-content-between">
+                <div class="d-sm-flex d-inline-block align-items-center justify-content-between">
                   <div class="d-flex align-items-center">
                     <mat-icon class="me-2" aria-hidden="false" aria-label="User" fontIcon="person_outline" *ngIf="message['userType']=='ADMIN'"></mat-icon>
                     <mat-icon class="me-2" aria-hidden="false" aria-label="User" fontIcon="person" *ngIf="message['userType']=='NORMALUSER'"></mat-icon>
@@ -191,7 +191,7 @@
               <div *ngIf="message.attachments.length>0" class="chat-attachment-detail">
                 <p class=" attachment-detail-heading"> Attachments:</p>
                 <ng-container *ngFor="let attachment of message.attachments">
-                  <a [href]="attachment.downLoadLink" class="d-flex align-items-center mt-2" [download]="attachment.attachmentName" target="_blank">
+                  <a [href]="attachment.downLoadLink" class="d-flex download-link-info align-items-center mt-2" [download]="attachment.attachmentName" target="_blank">
                     <i class="material-icons me-2">download</i><span>{{attachment.attachmentName}}</span>
                   </a>
                 </ng-container>

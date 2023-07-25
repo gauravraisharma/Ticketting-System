@@ -22,6 +22,17 @@
     overflow: hidden;
     text-overflow: ellipsis;
 }
+.chat-attachment-detail .download-link-info
+{
+    max-width:100%;
+}
+.chat-attachment-detail .download-link-info span
+{
+    width:100%;
+    overflow: hidden;
+    word-wrap: break-word;
+    /*text-overflow: ellipsis;*/
+}
 .refresh-btn
 {
     max-height:24px;

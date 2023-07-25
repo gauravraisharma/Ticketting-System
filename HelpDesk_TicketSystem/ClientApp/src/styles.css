@@ -780,7 +780,11 @@ section#content {
 {
     left:-280px !important;
 }
-
+.table-listing-main
+{
+  width: 100%;
+  overflow: auto;
+}
 
 /*==== Main Navbar CSS Start ====*/
 app-navbar
@@ -865,6 +869,10 @@ app-navbar
 
   #content main .table-data .todo .todo-list {
     min-width: 420px;
+  }
+  #content main .head-title .left h1
+  {
+    font-size:24px;
   }
 }
 

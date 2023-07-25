@@ -21,7 +21,7 @@
 
 
 <div class="mat-elevation-z8 bg-white rounded-3">
-
+  <div class="table-listing-main">
   <table mat-table [dataSource]="dataSource">
 
     <tr class="mat-row" *matNoDataRow>
@@ -81,7 +81,7 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
-
+</div>
   <mat-paginator [pageSizeOptions]="[5, 10, 20]"
                  showFirstLastButtons
                  aria-label="Select page of periodic elements">
