@@ -43,7 +43,6 @@ namespace HelpDesk_TicketSystem.Controllers
         }
 
         //It will create the application user
-        //It will only create Normal user not admin
         [Authorize(AuthenticationSchemes = "Bearer")]
         [HttpPost("CreateApplicationUser")]
         public async Task<IActionResult> CreateApplicationUser(ApplicationUserModel userModel)
@@ -55,6 +54,30 @@ namespace HelpDesk_TicketSystem.Controllers
 
             
             var responseStatus = await _accountService.CreateApplicationUser(userModel);
+
+            if (responseStatus.Status == "SUCCEED")
+            {
+                return Ok(responseStatus);
+            }
+            else
+            {
+                return BadRequest(responseStatus.Message);
+            }
+
+        }
+
+         //It will update the application user
+        [Authorize(AuthenticationSchemes = "Bearer")]
+        [HttpPost("updateApplicationUser")]
+        public async Task<IActionResult> UpdateApplicationUser(UpdateApplicationUserModel userModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest("Please pass the valid Input.");
+            }
+
+            
+            var responseStatus = await _accountService.UpdateApplicationUser(userModel);
 
             if (responseStatus.Status == "SUCCEED")
             {
@@ -125,6 +148,28 @@ namespace HelpDesk_TicketSystem.Controllers
            
             return Ok(dbResponse);
         }
+        //This method is used to get User data based on the userId passed 
+        [Authorize(AuthenticationSchemes = "Bearer")]
+        [HttpGet("getUserDataById/{userId}")]
+        public  ActionResult GetUserDataById(string userId)
+        {
+            var dbResponse =  _accountService.GetUserDataById(userId);
+           
+            return Ok(dbResponse);
+        }
 
+        //This method is used to get List of department 
+
+        [Authorize(AuthenticationSchemes = "Bearer")]
+        [HttpGet("DeleteUser/{userId}")]
+        public ActionResult DeleteUser(string userId)
+        {
+            var dbResponse = _accountService.DeleteUser(userId);
+            if (dbResponse.Status == "FAILED")
+            {
+                return BadRequest();
+            }
+            return Ok(dbResponse);
+        }
     }
 }

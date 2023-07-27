@@ -1,9 +1,9 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { CommonService } from '../../../../services/commonServcices/common-service.service';
-import { AccountService, ApplicationUser } from '../../../../services/accountServices/account-service.service';
+import { AccountService, ApplicationUser, UpdateApplicationUser } from '../../../../services/accountServices/account-service.service';
 
 @Component({
   selector: 'app-edit-user',
@@ -13,10 +13,10 @@ import { AccountService, ApplicationUser } from '../../../../services/accountSer
 export class EditUserComponent {
   @ViewChild('fileattachment') fileAttachments!: ElementRef;
   userForm = this.fb.group({
-    username: ['', [Validators.required]],
+    username: [{ value: '', disabled: true}, [Validators.required]],
     firstName: ['', [Validators.required]],
     lastName: ['',],
-    userType: ['', [Validators.required]],
+    userType: [{ value: '', disabled: true }, [Validators.required]],
     phoneNumber: [''],
     department: [''],
     email: ['', [Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
@@ -33,17 +33,29 @@ export class EditUserComponent {
   fileCount = 0;
   DDUserTypeList: any = [];
   DDDepartmentList: any = [];
+  userId:''
   constructor(private fb: FormBuilder,
     private commonService: CommonService,
     private accountService: AccountService,
     private router: Router,
-    private toastr: ToastrService) {
+    private toastr: ToastrService,
+    private route: ActivatedRoute,) {
   }
 
   ngOnInit() {
     this.GetUserTypeDDList();
     this.GetDepartmentDDList();
 
+    this.route.params.subscribe(route => {
+      if (route['id'] != null && route['id'] != undefined) {
+        this.userId = route['id'];
+        this.GetUserData();
+      } else {
+        this.toastr.warning('Please select ticket ')
+        this.router.navigate(['/ticket'])
+      }
+    })
+   
   }
   GetUserTypeDDList() {
     this.isLoading = false;
@@ -65,15 +77,37 @@ export class EditUserComponent {
       this.isLoading = false;
     })
   }
-
-  submitTicket() {
+  GetUserData() {
+    this.isLoading = false;
+    this.accountService.getUserDataById(this.userId).subscribe((response: any) => {
+      console.log('UserData', response)
+      let userData = response.userDetail
+      this.userForm.get('firstName')!.setValue(userData.firstName);
+      this.userForm.get('lastName')!.setValue(userData.lastName);
+      this.userForm.get('username')!.setValue(userData.username);
+      this.userForm.get('userType')!.setValue(userData.userType);
+      this.userForm.get('department')!.setValue(userData.department);
+      this.userForm.get('email')!.setValue(userData.email);
+      this.userForm.get('phoneNumber')!.setValue(userData.phoneNumber);
+      this.onUserTypeChange((userData.isAdmin) ? 'ADMIN' : 'NORMALUSER');
+      this.RemoveUserFormPasswordValidation();
+      this.isLoading = false;
+    }, error => {
+      this.isLoading = false;
+    })
+  }
+  RemoveUserFormPasswordValidation() {
+    this.userForm.get('password').clearValidators();
+    this.userForm.get('confirmPassword').clearValidators();
+    this.userForm.get('password').updateValueAndValidity();
+    this.userForm.get('confirmPassword').updateValueAndValidity();
+  }
+  submitUser() {
     //this.isLoading = true;
     if (this.userForm.valid) {
-      console.log(this.userForm)
-
       let userId = sessionStorage.getItem('userId')
 
-      var user = new ApplicationUser();
+      var user = new UpdateApplicationUser();
       user.firstName = this.userForm.get('firstName')!.value;
       user.lastName = this.userForm.get('lastName')!.value;
       user.userName = this.userForm.get('username')!.value;
@@ -81,12 +115,11 @@ export class EditUserComponent {
       user.departmentId = (this.userForm.get('department').value == undefined || this.userForm.get('department').value == '') ? null : (this.userForm.get('department').value);
       user.email = this.userForm.get('email')!.value;
       user.phoneNumber = this.userForm.get('phoneNumber')!.value;
-      user.password = this.userForm.get('password')!.value;
-      user.createdBy = userId!;
+      user.modifiedBy = userId!;
 
-      this.accountService.createUser(user).subscribe((response: any) => {
+      this.accountService.updateUser(user).subscribe((response: any) => {
         this.toastr.success(response.message);
-        this.router.navigate(['/userlisting']);
+        this.router.navigate(['/users']);
         this.isLoading = false;
       }, (error: any) => {
         console.log(error)

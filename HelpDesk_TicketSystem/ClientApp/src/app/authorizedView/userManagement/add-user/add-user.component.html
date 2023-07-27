@@ -26,7 +26,7 @@
   <mat-card>
 
     <mat-card-content>
-      <form [formGroup]="userForm" class="form-field-full" (ngSubmit)="submitTicket()">
+      <form [formGroup]="userForm" class="form-field-full" (ngSubmit)="submitUser()">
 
         <div class="row">
 
@@ -135,8 +135,8 @@
           </div>
 
           <div [class]="(isUserTypeAdmin)?'align-items-center col-sm-12 d-flex justify-content-end':'align-items-center col-sm-4 d-flex justify-content-end'">
-            <button mat-raised-button color="primary" type="submit" class="m-t-8" (submit)="submitTicket">Create</button>
-            <button mat-raised-button color="warn" class="m-t-8 mx-2" routerLink="/userlisting">Cancel</button>
+            <button mat-raised-button color="primary" type="submit" class="m-t-8" (submit)="submitUser">Create</button>
+            <button mat-raised-button color="warn" class="m-t-8 mx-2" routerLink="/users">Cancel</button>
           </div>
 
         </div>

@@ -11,13 +11,13 @@
         <span class="text">Dashboard</span>
       </a>
     </li>
-    <li [ngClass]="(currentRoute=='/userlisting' || currentRoute.includes('adduser')) ? 'active' : ''" *ngIf="userType=='ADMIN'">
+    <li [ngClass]="(currentRoute.includes('users')) ? 'active' : ''" *ngIf="userType=='ADMIN'">
       <a routerLink="/users">
         <i class='bx bxs-user'></i>
         <span class="text">User Management</span>
       </a>
     </li>
-    <li [ngClass]="(currentRoute=='/ticket' ||currentRoute=='/addTicket' || currentRoute.includes('viewTicket')) ? 'active' : ''">
+    <li [ngClass]="(currentRoute.includes('ticket')) ? 'active' : ''">
       <a routerLink="/ticket">
         <i class='bx bxs-bug'></i>
         <span class="text">Ticket Management</span>

@@ -20,11 +20,22 @@ export class AccountService {
     let url = `${this.apiUrl}Account/CreateApplicationUser`;
     return this.http.post(url, user);
   }
+  updateUser(user: UpdateApplicationUser) {
+    let url = `${this.apiUrl}Account/updateApplicationUser`;
+    return this.http.post(url, user);
+  }
   getUserList() {
     let url = `${this.apiUrl}Account/GetUserList`;
     return this.http.get(url);
   }
-
+  deleteUser(userId: string) {
+    let url = `${this.apiUrl}Account/DeleteUser/${userId}`;
+    return this.http.get(url);
+  }
+  getUserDataById(userId) {
+    let url = `${this.apiUrl}Account/getUserDataById/${userId}`;
+    return this.http.get(url);
+  }
 }
 export class ApplicationUser {
   
@@ -37,4 +48,15 @@ export class ApplicationUser {
   departmentId: number = null;
   userType: string = '';
   createdBy: string = '';
+} 
+export class UpdateApplicationUser {
+  
+  firstName: string = '';
+  lastName: string = '';
+  userName: string = '';
+  email: string = '';
+  phoneNumber: string = '';
+  departmentId: number = null;
+  userType: string = '';
+  modifiedBy: string = '';
 } 

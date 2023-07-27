@@ -112,6 +112,68 @@ namespace DataRepository.Repository
             {
                 _context.Dispose();
             }
+        } 
+        
+        public async Task<ResponseStatus> UpdateApplicationUser(UpdateApplicationUserModel userModel)
+        {
+            try
+            {
+                var userFound = await _userManager.FindByNameAsync(userModel.UserName);
+                if (userFound == null && userFound.IsDeleted)
+                {
+                    return new ResponseStatus
+                    {
+                        Status = "FAILED",
+                        Message = "Username not found"
+                    };
+                }
+
+                userFound.Email = userModel.Email;
+                userFound.PhoneNumber = userModel.PhoneNumber;
+                userFound.FirstName = userModel.FirstName;
+                userFound.LastName = userModel.LastName;
+                userFound.DepartmentId = userModel.DepartmentId;
+                userFound.ModifiedBy = userModel.ModifiedBy;
+                userFound.ModifiedOn = DateTime.Now;
+             
+
+                IdentityResult identityResult = await _userManager.UpdateAsync(userFound);
+
+                if (!identityResult.Succeeded)
+                {
+                    var errors = string.Join(" and ", identityResult.Errors.Select(e => e.Description).ToArray());
+                    return new ResponseStatus
+                    {
+                        Status = "FAILED",
+                        Message = errors
+                    };
+                }
+
+                 (from userrole in _context.UserRoles
+                  where userrole.UserId == userFound.Id
+                  select userrole
+                              ).ToList().ForEach(userrole => userrole.RoleId = userModel.UserType);
+
+                _context.SaveChanges();
+
+                return new ResponseStatus
+                {
+                    Status = "SUCCEED",
+                    Message = "User successfully updated"
+                };
+            }
+            catch (Exception ex)
+            {
+                return new ResponseStatus
+                {
+                    Status = "FAILED",
+                    Message = "Something went wrong "
+                };
+            }
+            finally
+            {
+                _context.Dispose();
+            }
         }
 
         private async Task<string> GenerateToken(ApplicationUser user)
@@ -388,6 +450,7 @@ namespace DataRepository.Repository
                               //left join 
                               join department in _context.Departments on user.DepartmentId equals department.DepartmentId into userDepartmentGroup
                               from depart in userDepartmentGroup.DefaultIfEmpty()
+                              where user.IsDeleted== false
                               orderby user.CreatedOn descending
                               select new ResponseApplicationUserModel
                               {
@@ -415,5 +478,90 @@ namespace DataRepository.Repository
             }
 
         }
+        public ResponseStatus DeleteUser(string userId)
+        {
+            try
+            {
+                if (_context == null)
+                {
+                    return new ResponseStatus
+                    {
+                        Status = "FAILED",
+                        Message = "Db Context is null"
+                    };
+                }
+                 (from user in _context.Users
+                              where user.Id == userId
+                              select user
+                              ).ToList().ForEach(user=>user.IsDeleted=true);
+
+                _context.SaveChanges();
+                return new ResponseStatus
+                {
+                    Status = "SUCCEED",
+                    Message ="User record deleted successfully"
+                };
+
+            }
+            catch (Exception ex)
+            {
+                return new ResponseStatus
+                {
+                    Status = "FAILED",
+                    Message = "Something went wrong"
+                };
+            }
+
+
+        }
+         public UserDataResponse GetUserDataById(string userId)
+        {
+            try
+            {
+                if (_context == null)
+                {
+                    return new UserDataResponse
+                    {
+                        Status = "FAILED",
+                        Message = "Db Context is null"
+                    };
+                }
+                var userData= (from user in _context.Users
+                               join userRole in _context.UserRoles on user.Id equals userRole.UserId
+                               join role in _context.Roles on userRole.RoleId equals role.Id
+                              where user.Id == userId
+                               select new UserDetailModel { 
+                               Username=user.UserName,
+                               FirstName=user.FirstName,
+                               LastName=user.LastName,
+                               Email=user.Email,
+                               PhoneNumber=user.PhoneNumber,
+                               UserType = userRole.RoleId ,
+                               Department = user.DepartmentId,
+                               IsAdmin=(role.Name.ToUpper()=="ADMIN")?true:false
+                               }
+
+                              ).FirstOrDefault();
+
+                return new UserDataResponse
+                {
+                    Status = "SUCCEED",
+                    Message ="User record found",
+                    userDetail=userData
+                };
+
+            }
+            catch (Exception ex)
+            {
+                return new UserDataResponse
+                {
+                    Status = "FAILED",
+                    Message = "Something went wrong"
+                };
+            }
+
+
+        }
+
     }
 }

@@ -1,7 +1,7 @@
 
 <div class="head-title">
   <div class="left">
-    <h1>Add User</h1>
+    <h1>Edit User</h1>
     <ul class="breadcrumb">
       <li>
         <a routerLink="/dashboard">Home</a>
@@ -12,7 +12,7 @@
       </li>
       <li><i class='bx bx-chevron-right'></i></li>
       <li>
-        <a class="active" href="javascript:;">Add User</a>
+        <a class="active" href="javascript:;">Edit User</a>
       </li>
     </ul>
   </div>
@@ -26,7 +26,7 @@
     <mat-card>
 
       <mat-card-content>
-        <form [formGroup]="userForm" class="form-field-full" (ngSubmit)="submitTicket()">
+        <form [formGroup]="userForm" class="form-field-full" (ngSubmit)="submitUser()">
 
           <div class="row">
 
@@ -104,14 +104,14 @@
             <div class="col-sm-4">
               <mat-form-field class="full-width-field" appearance="outline">
                 <mat-label>Username </mat-label>
-                <input matInput placeholder="Enter Username" formControlName="username"
+                <input matInput placeholder="Enter Username"  formControlName="username"
                        required>
                 <mat-error *ngIf="userForm.get('username')?.invalid">
                   Please enter subject
                 </mat-error>
               </mat-form-field>
             </div>
-            <div class="col-sm-4">
+            <div class="col-sm-4" *ngIf="userId==null ||userId==undefined ||userId==''">
               <mat-form-field class="full-width-field" appearance="outline">
                 <mat-label>Password</mat-label>
                 <input matInput placeholder="Enter password" type="password" formControlName="password"
@@ -121,7 +121,7 @@
                 </mat-error>
               </mat-form-field>
             </div>
-            <div class="col-sm-4">
+            <div class="col-sm-4" *ngIf="userId==null ||userId==undefined ||userId==''">
               <mat-form-field class="full-width-field" appearance="outline">
                 <mat-label>Confirm Password</mat-label>
                 <input matInput placeholder="Enter confirm password" type="password" formControlName="confirmPassword"
@@ -133,9 +133,9 @@
               </mat-form-field>
             </div>
 
-            <div [class]="(isUserTypeAdmin)?'align-items-center col-sm-12 d-flex justify-content-end':'align-items-center col-sm-4 d-flex justify-content-end'">
-              <button mat-raised-button color="primary" type="submit" class="m-t-8" (submit)="submitTicket">Create</button>
-              <button mat-raised-button color="warn" class="m-t-8 mx-2" routerLink="/userlisting">Cancel</button>
+            <div [class]="(isUserTypeAdmin)?'align-items-center col-sm-8 d-flex justify-content-end':'align-items-center col-sm-12 d-flex justify-content-end'">
+              <button mat-raised-button color="primary" type="submit" class="m-t-8" (submit)="submitUser">Create</button>
+              <button mat-raised-button color="warn" class="m-t-8 mx-2" routerLink="/users">Cancel</button>
             </div>
 
           </div>

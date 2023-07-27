@@ -66,7 +66,7 @@ export class AddUserComponent implements OnInit {
     })
   }
   
-  submitTicket() {
+  submitUser() {
     //this.isLoading = true;
     if (this.userForm.valid) {
       console.log(this.userForm)
@@ -86,7 +86,7 @@ export class AddUserComponent implements OnInit {
 
       this.accountService.createUser(user).subscribe((response: any) => {
         this.toastr.success(response.message);
-        this.router.navigate(['/userlisting']);
+        this.router.navigate(['/users']);
         this.isLoading = false;
       }, (error: any) => {
         console.log(error)

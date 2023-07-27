@@ -16,6 +16,10 @@ namespace ApplicationService.Services
         {
             return _accountRepository.CreateApplicationUser(userModel);  
         }
+          public Task<ResponseStatus> UpdateApplicationUser(UpdateApplicationUserModel userModel)
+        {
+            return _accountRepository.UpdateApplicationUser(userModel);  
+        }
 
         public Task<ResponseStatus> CreateNewRole(string roleName)
         {
@@ -45,6 +49,15 @@ namespace ApplicationService.Services
         public Task<LoginStatus> UserLogin(UserLoginModel userModel)
         {
             return _accountRepository.UserLogin(userModel);
+        }
+        public ResponseStatus DeleteUser(string userId)
+        {
+            return _accountRepository.DeleteUser(userId);
+        }
+        
+        public UserDataResponse GetUserDataById(string userId)
+        {
+            return _accountRepository.GetUserDataById(userId);
         }
     }
 }

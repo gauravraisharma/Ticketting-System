@@ -143,4 +143,22 @@ namespace DataRepository.EntityModels
         public string CreatedBy { get; set; }
     }
 
+    public class UserDataResponse {
+        public string Status { get; set; }
+        public string Message { get; set; }
+        public UserDetailModel userDetail { get; set; }
+    }
+
+    public class UserDetailModel
+    {
+        public string Username { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string UserType { get; set; }
+        public string? PhoneNumber { get; set; }
+        public int? Department { get; set; }
+        public string Email { get; set; }
+        public bool IsAdmin { get; set; }
+    }
+
 }
