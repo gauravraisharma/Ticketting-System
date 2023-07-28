@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { TicketService } from '../../../../services/ticketServices/ticketservcie.service';
 import { CommonService } from '../../../../services/commonServcices/common-service.service';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 @Component({
   selector: 'app-add-ticket',
@@ -22,6 +23,7 @@ export class AddTicketComponent implements OnInit {
   isLoading: boolean = false;
   fileCount = 0;
   DDDepartmentList = [];
+  public Editor = ClassicEditor;
   constructor(private fb: FormBuilder,
     private commonService: CommonService,
     private ticketService: TicketService,

@@ -102,49 +102,76 @@ export class ViewTicketComponent implements OnInit {
           this.isLoading = false;
         });
       }
-      else {
-
-      }
     });
   }
 
 
-  sendMessage() {
+ async sendMessage() {
+    
+   if (this.messageForm.valid) {
+     if (this.ticketDetail.status == 'CLOSED') {
+       const dialogRef = await this.dialog.open(ConfirmDialogComponent, {
+         data: {
+           message: 'Ticket is closed. If you send message in closed ticket, ticket will be considered as Re-Open. Are you sure you want to send message?',
+           title: 'Re-opne ticket'
+         },
+         width: '450px',
+         enterAnimationDuration: '0',
+         exitAnimationDuration: '0',
+       });
+
+       dialogRef.afterClosed().subscribe(result => {
+         if (result == "ok") {
+           this.sendConversationMessage();
+         }
+       });
+     }
+     else {
+       this.sendConversationMessage();
+     }
+   }
+   else {
+     this.toastr.error("Please enter valid data");
+     this.isLoading = false;
+   }
+ }
+
+  sendConversationMessage() {
+
     this.isLoading = true;
-    if (this.messageForm.valid) {
-      let userId = sessionStorage.getItem('userId')
-      let conversationMessage = new FormData();
-      conversationMessage.append('TicketId', this.ticketId.toString());
-      conversationMessage.append('Message', this.message!.value);
-      conversationMessage.append('CreatedBy', userId!);
+     let userId = sessionStorage.getItem('userId')
+     let conversationMessage = new FormData();
+     conversationMessage.append('TicketId', this.ticketId.toString());
+     conversationMessage.append('Message', this.message!.value);
+     conversationMessage.append('CreatedBy', userId!);
 
-      if (this.fileAttachments.nativeElement.files && this.fileAttachments.nativeElement.files.length > 0) {
+     if (this.fileAttachments.nativeElement.files && this.fileAttachments.nativeElement.files.length > 0) {
 
-        for (let index = 0; index < this.fileAttachments.nativeElement.files.length; index++) {
-          conversationMessage.append('File_' + index, this.fileAttachments.nativeElement.files[index]);
-        }
-      }
+       for (let index = 0; index < this.fileAttachments.nativeElement.files.length; index++) {
+         conversationMessage.append('File_' + index, this.fileAttachments.nativeElement.files[index]);
+       }
+     }
 
-      this.ticketService.AddConversationMessage(conversationMessage).subscribe((response: any) => {
-        this.toastr.success(response.message);
-        this.GetTicketConversationData(this.ticketId);
-        this.restMessageForm();
-        this.isLoading = false;
-      }, (error: any) => {
-        console.log(error)
-        if (error.status == 404) {
-          this.toastr.error("UnAuthorize access");
-        } else {
-          this.toastr.error(error.error);
-        }
-        this.isLoading = false;
-      });
-    }
-    else {
-      this.toastr.error("Please enter valid data");
-      this.isLoading = false;
-    }
-  }
+     this.ticketService.AddConversationMessage(conversationMessage).subscribe((response: any) => {
+       this.toastr.success(response.message);
+       this.GetTicketConversationData(this.ticketId);
+
+
+       if (this.ticketDetail.status == 'CLOSED') {
+        this.GetTicketDataById(this.ticketId);
+       }
+       this.restMessageForm();
+       this.isLoading = false;
+     }, (error: any) => {
+       console.log(error)
+       if (error.status == 404) {
+         this.toastr.error("UnAuthorize access");
+       } else {
+         this.toastr.error(error.error);
+       }
+       this.isLoading = false;
+     });
+   }
 
   onFileChange() {
     this.fileCount = this.fileAttachments.nativeElement.files.length;

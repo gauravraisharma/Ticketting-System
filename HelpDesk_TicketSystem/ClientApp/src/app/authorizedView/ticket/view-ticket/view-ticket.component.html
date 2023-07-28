@@ -103,24 +103,25 @@
 
     <div class="col-sm-12 col-md-7 col-lg-8 col-xl-9">
 
-      <mat-toolbar *ngIf="!isSendMessageOpen && conversationDetailList.length>0 && ticketDetail.status!='CLOSED'">
+      <mat-card *ngIf="ticketDetail.status=='CLOSED'">
+        <mat-card-content>
+          <h3 class="text-warning">Ticket is closed. If you send message in closed ticket, ticket will be considered as <strong>Re-Open</strong>.</h3>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-toolbar *ngIf="!isSendMessageOpen && conversationDetailList.length>0 ">
         <button class="btn" (click)="isSendMessageOpen=true" mat-stroked-button color="primary">
           <mat-icon aria-hidden="false" aria-label="replay" fontIcon="create"></mat-icon><span> Send Message</span>
         </button>
 
         <span class="custom-spacer"></span>
 
-        <button class="btn p-0 refresh-btn" (click)="RefreashConversation()" *ngIf="!isSendMessageOpen && ticketDetail.status!='CLOSED'">
+        <button class="btn p-0 refresh-btn" (click)="RefreashConversation()" *ngIf="!isSendMessageOpen ">
           <mat-icon class="text-success" aria-hidden="false" aria-label="replay" fontIcon="refresh"></mat-icon>
         </button>
       </mat-toolbar>
 
 
-      <mat-card *ngIf="ticketDetail.status=='CLOSED'">
-        <mat-card-content>
-          <h3 class="text-warning">Ticket is closed. You cannot send message in closed ticket!!!</h3>
-        </mat-card-content>
-      </mat-card>
 
       <mat-card *ngIf="conversationDetailList.length==0 && userType!='ADMIN'">
         <mat-card-content>
@@ -128,7 +129,7 @@
         </mat-card-content>
       </mat-card>
 
-      <mat-card class="conversion-chat-card conversion-chat-card-reply mt-0" *ngIf="(isSendMessageOpen || (conversationDetailList.length==0 && userType=='ADMIN')) && ticketDetail.status!='CLOSED'">
+      <mat-card class="conversion-chat-card conversion-chat-card-reply mt-0" *ngIf="(isSendMessageOpen || (conversationDetailList.length==0 && userType=='ADMIN')) ">
         <mat-card-header>
           <mat-card-title>
             <mat-icon aria-hidden="false" aria-label="send message" fontIcon="send"></mat-icon>
@@ -183,7 +184,7 @@
                   </div>
                   <div class="date-time-info">{{message['createdOn'] | date:'short'}}</div>
                 </div>
-                
+
               </mat-card-title>
             </mat-card-header>
             <mat-card-content>

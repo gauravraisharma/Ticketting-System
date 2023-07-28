@@ -1,20 +1,44 @@
 ﻿using ApplicationService.IServices;
+using ApplicationService.Utilities;
+using Azure;
 using DataRepository.EntityModels;
 using DataRepository.IRepository;
+using Microsoft.Extensions.Configuration;
+
 namespace ApplicationService.Services
 {
     public class AccountService : IAccountService
     {
         private readonly IAccountRepository _accountRepository;
-        public AccountService(IAccountRepository accountRepository)
-        {
+        private readonly IConfiguration _config;
 
+        public AccountService(IAccountRepository accountRepository, IConfiguration config)
+        {
             _accountRepository = accountRepository;
+            _config = config;
         }
 
-        public Task<ResponseStatus> CreateApplicationUser(ApplicationUserModel userModel)
+        public async Task<ResponseStatus> CreateApplicationUser(ApplicationUserModel userModel)
         {
-            return _accountRepository.CreateApplicationUser(userModel);  
+            var response = await _accountRepository.CreateApplicationUser(userModel);
+           if(response.Status == "SUCCEED")
+            try
+            {
+                var emailSubject = _config["NewUserRegisterEmailSubject"];
+                var emailTemplate = _config["NewUserRegisterEmailTemplate"];
+             
+                Dictionary<string, string> messageVariable = new Dictionary<string, string> {
+                      { "@@username", userModel.UserName },
+                      { "@@password", userModel.Password },
+                    };
+
+                MailOperations.SendEmailAsync(new List<string> { userModel.Email } , emailSubject, emailTemplate, _config, null, messageVariable);
+            }
+            catch (Exception e)
+            {
+
+            }
+            return response;
         }
           public Task<ResponseStatus> UpdateApplicationUser(UpdateApplicationUserModel userModel)
         {

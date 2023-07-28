@@ -759,6 +759,9 @@ section#content {
 .ck-editor__editable_inline {
   min-height: 180px !important;
 }
+.ck-height-500 .ck-editor__editable_inline {
+  min-height: 250px !important;
+}
 .ck-Editor-container-cust.Invalid ckeditor.ng-invalid .ck-editor__editable_inline {
   border: 2px solid red !important;
   border-radius: 4px !important;

@@ -266,6 +266,26 @@ namespace DataRepository.Repository
                     IsDeleted = false
                 };
                 _context.TicketConversationTracks.Add(conversationTrack);
+
+                //check if current ticket status  
+                var ticketdetail = (from ticket in _context.Tickets
+                                    where ticket.TicketId == conversationMessage.TicketId
+                                    select ticket
+                                   ).FirstOrDefault();
+
+                if(ticketdetail.status== "CLOSED")
+                {
+                   var statusresponse=  await ChangeTicketStatusById(ticketdetail.TicketId,conversationMessage.CreatedBy, "OPEN");
+                    if(statusresponse.Status!= "SUCCEED")
+                    {
+                        return new ConversationDBResponseStatus
+                        {
+                            Status = "FAILED",
+                            Message = statusresponse.Message
+                        };
+                    }
+                }
+
                 await _context.SaveChangesAsync();
 
                 //Get detail for Mail

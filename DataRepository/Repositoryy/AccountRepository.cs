@@ -48,6 +48,18 @@ namespace DataRepository.Repository
                     };
                 }
 
+                //Check for unique email 
+                var userFoundByEmail = await _userManager.FindByEmailAsync(userModel.Email);
+                if (userFoundByEmail != null && !userFoundByEmail.IsDeleted)
+                {
+                    return new ResponseStatus
+                    {
+                        Status = "FAILED",
+                        Message = "Email already in use"
+                    };
+                }
+
+
                 var roleResponse = GetRoleName(userModel.UserType);
                 if (roleResponse.Status == "FAILED")
                 {
@@ -71,6 +83,8 @@ namespace DataRepository.Repository
                 };
 
                 IdentityResult identityResult = await _userManager.CreateAsync(user, userModel.Password);
+
+
 
                 if (!identityResult.Succeeded)
                 {
@@ -112,8 +126,8 @@ namespace DataRepository.Repository
             {
                 _context.Dispose();
             }
-        } 
-        
+        }
+
         public async Task<ResponseStatus> UpdateApplicationUser(UpdateApplicationUserModel userModel)
         {
             try
@@ -128,14 +142,50 @@ namespace DataRepository.Repository
                     };
                 }
 
+                //If Email is changed 
+                if (userFound.Email != userModel.Email)
+                {
+                    var userFoundByEmail = await _userManager.FindByEmailAsync(userModel.Email);
+                    if (userFoundByEmail != null && !userFoundByEmail.IsDeleted)
+                    {
+                        return new ResponseStatus
+                        {
+                            Status = "FAILED",
+                            Message = "Email already in use"
+                        };
+                    }
+                }
+
+                //Update the user role 
+                var currentRoles = await _userManager.GetRolesAsync(userFound);
+                var roleFound = await _roleManager.FindByIdAsync(userModel.UserType);
+                if (roleFound != null)
+                {
+                    var IsRoleAlreadyPresent = false;
+                    foreach (var userRole in currentRoles)
+                    {
+                        if (roleFound.Name != userRole)
+                        {
+                           await _userManager.RemoveFromRoleAsync(userFound, userRole);
+                        }
+                        if(roleFound.Name == userRole)
+                        {
+                            IsRoleAlreadyPresent = true;
+                        }
+                    }
+                  if(!IsRoleAlreadyPresent)  await _userManager.AddToRoleAsync(userFound, roleFound.Name);
+                }
+
+                //Update User data 
+
                 userFound.Email = userModel.Email;
                 userFound.PhoneNumber = userModel.PhoneNumber;
                 userFound.FirstName = userModel.FirstName;
                 userFound.LastName = userModel.LastName;
-                userFound.DepartmentId = userModel.DepartmentId;
+                userFound.DepartmentId =(roleFound.Name.ToUpper()=="ADMIN")? userModel.DepartmentId : null;
                 userFound.ModifiedBy = userModel.ModifiedBy;
                 userFound.ModifiedOn = DateTime.Now;
-             
+
 
                 IdentityResult identityResult = await _userManager.UpdateAsync(userFound);
 
@@ -148,13 +198,8 @@ namespace DataRepository.Repository
                         Message = errors
                     };
                 }
-
-                 (from userrole in _context.UserRoles
-                  where userrole.UserId == userFound.Id
-                  select userrole
-                              ).ToList().ForEach(userrole => userrole.RoleId = userModel.UserType);
-
-                _context.SaveChanges();
+                
+                
 
                 return new ResponseStatus
                 {
@@ -265,7 +310,7 @@ namespace DataRepository.Repository
                 return new LoginStatus
                 {
                     Status = "FAILED",
-                    Message = ex.Message+" Something went wrong."
+                    Message = ex.Message + " Something went wrong."
                 };
             }
             finally
@@ -319,15 +364,16 @@ namespace DataRepository.Repository
         }
         public DDListResponse GetDepartmentListDD()
         {
-            try { 
-            if (_context == null)
+            try
             {
-                return new DDListResponse
+                if (_context == null)
                 {
-                    Status = "FAILED",
-                    DdList = null
-                };
-            }
+                    return new DDListResponse
+                    {
+                        Status = "FAILED",
+                        DdList = null
+                    };
+                }
                 var result = (from department in _context.Departments
                               select new DropDownModel
                               {
@@ -359,15 +405,16 @@ namespace DataRepository.Repository
 
         public DDListResponse GetUserTypeListDD()
         {
-            try { 
-            if (_context == null)
+            try
             {
-                return new DDListResponse
+                if (_context == null)
                 {
-                    Status = "FAILED",
-                    DdList = null
-                };
-            }
+                    return new DDListResponse
+                    {
+                        Status = "FAILED",
+                        DdList = null
+                    };
+                }
                 var result = (from role in _context.Roles
                               select new DropDownModel
                               {
@@ -398,15 +445,16 @@ namespace DataRepository.Repository
         }
         public ResponseStatus GetRoleName(string roleId)
         {
-            try { 
-            if (_context == null)
+            try
             {
-                return new ResponseStatus
+                if (_context == null)
                 {
-                    Status = "FAILED",
-                    Message = "Db Context is null"
-                };
-            }
+                    return new ResponseStatus
+                    {
+                        Status = "FAILED",
+                        Message = "Db Context is null"
+                    };
+                }
                 var result = (from role in _context.Roles
                               where role.Id == roleId
                               select new
@@ -430,7 +478,7 @@ namespace DataRepository.Repository
                     Message = "Something went wrong"
                 };
             }
-           
+
 
         }
 
@@ -450,7 +498,7 @@ namespace DataRepository.Repository
                               //left join 
                               join department in _context.Departments on user.DepartmentId equals department.DepartmentId into userDepartmentGroup
                               from depart in userDepartmentGroup.DefaultIfEmpty()
-                              where user.IsDeleted== false
+                              where user.IsDeleted == false
                               orderby user.CreatedOn descending
                               select new ResponseApplicationUserModel
                               {
@@ -491,15 +539,15 @@ namespace DataRepository.Repository
                     };
                 }
                  (from user in _context.Users
-                              where user.Id == userId
-                              select user
-                              ).ToList().ForEach(user=>user.IsDeleted=true);
+                  where user.Id == userId
+                  select user
+                              ).ToList().ForEach(user => user.IsDeleted = true);
 
                 _context.SaveChanges();
                 return new ResponseStatus
                 {
                     Status = "SUCCEED",
-                    Message ="User record deleted successfully"
+                    Message = "User record deleted successfully"
                 };
 
             }
@@ -514,7 +562,7 @@ namespace DataRepository.Repository
 
 
         }
-         public UserDataResponse GetUserDataById(string userId)
+        public UserDataResponse GetUserDataById(string userId)
         {
             try
             {
@@ -526,28 +574,29 @@ namespace DataRepository.Repository
                         Message = "Db Context is null"
                     };
                 }
-                var userData= (from user in _context.Users
-                               join userRole in _context.UserRoles on user.Id equals userRole.UserId
-                               join role in _context.Roles on userRole.RoleId equals role.Id
-                              where user.Id == userId
-                               select new UserDetailModel { 
-                               Username=user.UserName,
-                               FirstName=user.FirstName,
-                               LastName=user.LastName,
-                               Email=user.Email,
-                               PhoneNumber=user.PhoneNumber,
-                               UserType = userRole.RoleId ,
-                               Department = user.DepartmentId,
-                               IsAdmin=(role.Name.ToUpper()=="ADMIN")?true:false
-                               }
+                var userData = (from user in _context.Users
+                                join userRole in _context.UserRoles on user.Id equals userRole.UserId
+                                join role in _context.Roles on userRole.RoleId equals role.Id
+                                where user.Id == userId
+                                select new UserDetailModel
+                                {
+                                    Username = user.UserName,
+                                    FirstName = user.FirstName,
+                                    LastName = user.LastName,
+                                    Email = user.Email,
+                                    PhoneNumber = user.PhoneNumber,
+                                    UserType = userRole.RoleId,
+                                    Department = user.DepartmentId,
+                                    IsAdmin = (role.Name.ToUpper() == "ADMIN") ? true : false
+                                }
 
                               ).FirstOrDefault();
 
                 return new UserDataResponse
                 {
                     Status = "SUCCEED",
-                    Message ="User record found",
-                    userDetail=userData
+                    Message = "User record found",
+                    userDetail = userData
                 };
 
             }

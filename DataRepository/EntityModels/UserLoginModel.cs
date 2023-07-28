@@ -33,6 +33,8 @@ namespace DataRepository.EntityModels
     public class UpdateApplicationUserModel
     {
 
+        [Required(ErrorMessage = "UserId is required")]
+        public string userId { get; set; } 
         [Required(ErrorMessage = "First Name is required")]
         public string FirstName { get; set; }  
         public string LastName { get; set; }

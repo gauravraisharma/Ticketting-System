@@ -51,6 +51,7 @@ export class ApplicationUser {
 } 
 export class UpdateApplicationUser {
   
+  userId: string = '';
   firstName: string = '';
   lastName: string = '';
   userName: string = '';

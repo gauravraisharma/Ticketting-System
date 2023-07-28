@@ -16,7 +16,7 @@ export class EditUserComponent {
     username: [{ value: '', disabled: true}, [Validators.required]],
     firstName: ['', [Validators.required]],
     lastName: ['',],
-    userType: [{ value: '', disabled: true }, [Validators.required]],
+    userType: ['', [Validators.required]],
     phoneNumber: [''],
     department: [''],
     email: ['', [Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
@@ -102,21 +102,38 @@ export class EditUserComponent {
     this.userForm.get('password').updateValueAndValidity();
     this.userForm.get('confirmPassword').updateValueAndValidity();
   }
+  GetdepartmentIdForSaveUser() {
+    if (this.userForm.get('department').value == undefined || this.userForm.get('department').value == '') {
+      
+      return null
+    }
+    let userTypeId = this.userForm.get('userType').value;
+
+    let departmentdetail = this.DDUserTypeList.find(usertype => usertype.id == userTypeId)
+
+    if (departmentdetail.label.toUpperCase() != 'ADMIN') {
+      return null
+    }
+    return this.userForm.get('department').value;
+    
+  }
+
   submitUser() {
-    //this.isLoading = true;
+    this.isLoading = true;
     if (this.userForm.valid) {
       let userId = sessionStorage.getItem('userId')
 
       var user = new UpdateApplicationUser();
+      user.userId = this.userId;
       user.firstName = this.userForm.get('firstName')!.value;
       user.lastName = this.userForm.get('lastName')!.value;
       user.userName = this.userForm.get('username')!.value;
       user.userType = this.userForm.get('userType')!.value;
-      user.departmentId = (this.userForm.get('department').value == undefined || this.userForm.get('department').value == '') ? null : (this.userForm.get('department').value);
+      user.departmentId = this.GetdepartmentIdForSaveUser();
       user.email = this.userForm.get('email')!.value;
       user.phoneNumber = this.userForm.get('phoneNumber')!.value;
       user.modifiedBy = userId!;
-
+      debugger
       this.accountService.updateUser(user).subscribe((response: any) => {
         this.toastr.success(response.message);
         this.router.navigate(['/users']);
