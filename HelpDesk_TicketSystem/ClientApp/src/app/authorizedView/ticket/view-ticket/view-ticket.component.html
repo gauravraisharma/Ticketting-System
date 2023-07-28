@@ -227,7 +227,7 @@
 
             <ng-container *ngFor="let attachment of ticketDetail.attachments">
               <a [href]="attachment.downLoadLink" [download]="attachment.attachmentName" target="_blank" class="d-flex download-link-info align-items-center mt-2">
-                <i class="material-icons">download</i><span class="small-font">{{attachment.attachmentName}}</span>
+                <i class="material-icons">download</i><span>{{attachment.attachmentName}}</span>
               </a>
             </ng-container>
 
