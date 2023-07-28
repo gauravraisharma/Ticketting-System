@@ -641,11 +641,11 @@ body {
 {
   box-shadow: none !important
 }
-.conversation-main-list
+/* .conversation-main-list
 {
     max-height:450px;
     overflow:auto;
-}
+} */
 .task-bg-main {
   background: #d3e6ff !important;
 }

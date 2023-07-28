@@ -5,6 +5,7 @@
     <button mat-button class="p-0 back-btn mb-1"><i class="material-icons">arrow_back_ios</i> Back</button>
 
     <h1>Ticket #{{ticketDetail.ticketId}} - {{ticketDetail.subject}}</h1>
+    <!-- <p class=" detail-heading mb-0">{{ticketDetail.description}}</p>  -->
     <ul class="breadcrumb">
       <li>
         <a routerLink="/dashboard">Home</a>
@@ -174,6 +175,7 @@
       <div class="conversation-main-list">
         <ng-container *ngFor="let message of conversationDetailList">
           <mat-card [class]="(message['userType']=='NORMALUSER')?'conversation-chat conversion-chat-card':'conversation-chat conversion-chat-card-admin'">
+            
             <mat-card-header class="chat-header">
               <mat-card-title>
                 <div class="d-sm-flex d-inline-block align-items-center justify-content-between">
@@ -199,11 +201,41 @@
               </div>
             </mat-card-content>
 
-
-
           </mat-card>
         </ng-container>
       </div>
+
+            
+      <mat-card class="conversation-chat conversion-chat-card">
+            
+        <mat-card-header class="chat-header">
+          <mat-card-title>
+            <div class="d-sm-flex d-inline-block align-items-center justify-content-between">
+              <div class="d-flex align-items-center">
+                <mat-icon class="me-2" aria-hidden="false" aria-label="User" fontIcon="person_outline"></mat-icon>
+                {{ticketDetail.createdBy}} <span class="ms-2 pills-info">ADMIN</span>
+              </div>
+              <div class="date-time-info">{{ticketDetail.createdOn | date:'short'}}</div>
+            </div>
+
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="conversion-message mx-0">{{ticketDetail.description}}</div>
+          <div class="chat-attachment-detail">
+            <p class=" attachment-detail-heading"> Attachments:</p>
+
+            <ng-container *ngFor="let attachment of ticketDetail.attachments">
+              <a [href]="attachment.downLoadLink" [download]="attachment.attachmentName" target="_blank" class="d-flex download-link-info align-items-center mt-2">
+                <i class="material-icons">download</i><span class="small-font">{{attachment.attachmentName}}</span>
+              </a>
+            </ng-container>
+
+          </div>
+        </mat-card-content>
+
+      </mat-card>
+
       <!--</mat-card-content>-->
       <!--</mat-card>-->
     </div>

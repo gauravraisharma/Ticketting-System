@@ -39,7 +39,7 @@
             </mat-form-field>
           </div>
 
-          <div class="col-sm-4">
+          <div class="col-sm-6">
             <mat-form-field class="full-width-field" appearance="outline">
               <mat-label>Priority</mat-label>
               <mat-select required formControlName="priority" required>
@@ -54,7 +54,7 @@
             </mat-form-field>
           </div>
 
-          <div class="col-sm-4" >
+          <div class="col-sm-6" >
             <mat-form-field class="full-width-field" appearance="outline">
               <mat-label>Department</mat-label>
               <mat-select required formControlName="department">
@@ -71,7 +71,7 @@
             <!--<mat-form-field class="full-width-field" appearance="outline">
     <mat-label>Description</mat-label>-->
 
-            <h3>Description</h3>
+            <h3 class="mb-1">Description</h3>
 
             <div [class]="(ticketForm.get('description')?.invalid && ticketForm.get('description')?.touched)?'ck-Editor-container-cust Invalid':'ck-Editor-container-cust'">
 
@@ -84,8 +84,8 @@
             </div>
               <!--</mat-form-field>-->
             </div>
-            <div class="col-sm-12 mb-4">
-              <h3 style="display:inline;" class="mx-3">Attachment</h3>
+            <div class="col-sm-12 my-4">
+              <h3 style="display:inline;" class="ms-0 me-3">Attachment</h3>
               <input type="file" placeholder="Please select file" multiple #fileattachment (change)="onFileChange()" hidden />
               <button class="btn btn-primary" type="button" (click)="fileattachment.click()">
                 <mat-icon aria-hidden="false" aria-label="preview" fontIcon="attach_file" class="text-light" style="cursor:pointer;"></mat-icon>
