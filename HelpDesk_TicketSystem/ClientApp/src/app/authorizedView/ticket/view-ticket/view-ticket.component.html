@@ -109,8 +109,7 @@
           <h3 class="text-warning">Ticket is closed. If you send message in closed ticket, ticket will be considered as <strong>Re-Open</strong>.</h3>
         </mat-card-content>
       </mat-card>
-
-      <mat-toolbar *ngIf="!isSendMessageOpen && conversationDetailList.length>0 ">
+      <mat-toolbar *ngIf="isSendMessageOpen || (conversationDetailList.length>0)">
         <button class="btn" (click)="isSendMessageOpen=true" mat-stroked-button color="primary">
           <mat-icon aria-hidden="false" aria-label="replay" fontIcon="create"></mat-icon><span> Send Message</span>
         </button>
@@ -130,7 +129,7 @@
         </mat-card-content>
       </mat-card>
 
-      <mat-card class="conversion-chat-card conversion-chat-card-reply mt-0" *ngIf="(isSendMessageOpen || (conversationDetailList.length==0 && userType=='ADMIN')) ">
+      <mat-card class="conversion-chat-card conversion-chat-card-reply mt-0" *ngIf="(isSendMessageOpen ) ">
         <mat-card-header>
           <mat-card-title>
             <mat-icon aria-hidden="false" aria-label="send message" fontIcon="send"></mat-icon>
@@ -175,7 +174,7 @@
       <div class="conversation-main-list">
         <ng-container *ngFor="let message of conversationDetailList">
           <mat-card [class]="(message['userType']=='NORMALUSER')?'conversation-chat conversion-chat-card':'conversation-chat conversion-chat-card-admin'">
-            
+
             <mat-card-header class="chat-header">
               <mat-card-title>
                 <div class="d-sm-flex d-inline-block align-items-center justify-content-between">
@@ -205,15 +204,15 @@
         </ng-container>
       </div>
 
-            
+
       <mat-card class="conversation-chat conversion-chat-card">
-            
+
         <mat-card-header class="chat-header">
           <mat-card-title>
             <div class="d-sm-flex d-inline-block align-items-center justify-content-between">
               <div class="d-flex align-items-center">
                 <mat-icon class="me-2" aria-hidden="false" aria-label="User" fontIcon="person_outline"></mat-icon>
-                {{ticketDetail.createdBy}} <span class="ms-2 pills-info">ADMIN</span>
+                {{ticketDetail.createdBy}} <span class="ms-2 pills-info">Client</span>
               </div>
               <div class="date-time-info">{{ticketDetail.createdOn | date:'short'}}</div>
             </div>
@@ -221,8 +220,8 @@
           </mat-card-title>
         </mat-card-header>
         <mat-card-content>
-          <div class="conversion-message mx-0">{{ticketDetail.description}}</div>
-          <div class="chat-attachment-detail">
+          <div class="conversion-message mx-0" [innerHTML]="ticketDetail.description"></div>
+          <div class="chat-attachment-detail" *ngIf="ticketDetail.attachments!=null && ticketDetail.attachments!=undefined && ticketDetail.attachments.length>0">
             <p class=" attachment-detail-heading"> Attachments:</p>
 
             <ng-container *ngFor="let attachment of ticketDetail.attachments">
