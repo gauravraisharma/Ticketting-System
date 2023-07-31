@@ -30,10 +30,10 @@ namespace HelpDesk_TicketSystem.Controllers
         //This method is used to get all the ticket 
         //Admin can see all the ticket 
         //Normal user can only see ticket created by him
-        [HttpGet("GetTicket/{userId}")]
-        public async Task<ActionResult<IEnumerable<TicketViewResponse>>> GetTickets(string userId)
+        [HttpGet("GetTicket/{userId}/{companyId}")]
+        public async Task<ActionResult<IEnumerable<TicketViewResponse>>> GetTickets(string userId,int companyId)
         {
-          var resultlist= await _ticketService.GetTickets(userId);
+          var resultlist= await _ticketService.GetTickets(userId,companyId);
             return Ok(resultlist);
         }
 
@@ -150,10 +150,10 @@ namespace HelpDesk_TicketSystem.Controllers
 
         //This method is used to get ticket total number of ticket created by user
         //For admin type user total ticket count will be return 
-        [HttpGet("GetTotalTicketCount/{userId}")]
-        public async Task<ActionResult<DashboardResponseStatus>> GetTotalTicketCount(string userId)
+        [HttpGet("GetTotalTicketCount/{userId}/{companyId}")]
+        public async Task<ActionResult<DashboardResponseStatus>> GetTotalTicketCount(string userId,int companyId)
         {
-            var dbResponse = await _ticketService.GetTotalTicketCount(userId);
+            var dbResponse = await _ticketService.GetTotalTicketCount(userId,companyId);
             if (dbResponse.Status=="FAILED")
             {
                 return BadRequest(dbResponse);

@@ -46,7 +46,7 @@ export class SidebarComponent implements OnInit {
       if (result == "ok") {
         sessionStorage.clear();
         this.toastr.success("Successfully logout");
-        this.router.navigate(['/login']);
+        this.router.navigate(['/user-authenticaton/login']);
       } else {
 
       }

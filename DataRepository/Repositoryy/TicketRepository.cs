@@ -93,7 +93,7 @@ namespace DataRepository.Repository
                 //_context.Dispose();
             }
         }
-        public async Task<IEnumerable<TicketViewResponse>> GetTickets(string userId)
+        public async Task<IEnumerable<TicketViewResponse>> GetTickets(string userId,int companyId)
         {
             if (_context.Tickets == null)
             {
@@ -106,15 +106,32 @@ namespace DataRepository.Repository
                 var userRoles = await _userManager.GetRolesAsync(user);
 
                 IEnumerable<TicketViewResponse> result;
-                if (userRoles.FirstOrDefault().ToUpper() == "ADMIN")
-                {
-                    result = await _context.Tickets.OrderByDescending(ticket => ticket.CreatedOn).Select(ticket => new TicketViewResponse { TicketNumber = ticket.TicketId, Subject = ticket.Subject, CreatedOn = ticket.CreatedOn, Priority = ticket.Priority, Status = ticket.status }).ToListAsync();
 
-                }
-                else
-                {
-                    result = await _context.Tickets.Where(ticket => ticket.CreatedBy == userId).OrderByDescending(ticket => ticket.CreatedOn).Select(ticket => new TicketViewResponse { TicketNumber = ticket.TicketId, Subject = ticket.Subject, CreatedOn = ticket.CreatedOn, Priority = ticket.Priority, Status = ticket.status }).ToListAsync();
-                }
+                result=(from ticket in _context.Tickets
+                        join appuser in _context.Users on  ticket.CreatedBy equals appuser.Id
+                        where 
+                        ((userRoles.FirstOrDefault().ToUpper() == "ADMIN")?true: ticket.CreatedBy == userId) 
+                        && appuser.CompanyId== companyId
+                        orderby ticket.CreatedOn descending
+                        select new TicketViewResponse {
+                            TicketNumber = ticket.TicketId,
+                            Subject = ticket.Subject,
+                            CreatedOn = ticket.CreatedOn,
+                            Priority = ticket.Priority,
+                            Status = ticket.status
+                        }
+                        ).ToList();
+
+
+                //if (userRoles.FirstOrDefault().ToUpper() == "ADMIN")
+                //{
+                //    result = await _context.Tickets.OrderByDescending(ticket => ticket.CreatedOn).Select(ticket => new TicketViewResponse { TicketNumber = ticket.TicketId, Subject = ticket.Subject, CreatedOn = ticket.CreatedOn, Priority = ticket.Priority, Status = ticket.status }).ToListAsync();
+
+                //}
+                //else
+                //{
+                //    result = await _context.Tickets.Where(ticket => ticket.CreatedBy == userId).OrderByDescending(ticket => ticket.CreatedOn).Select(ticket => new TicketViewResponse { TicketNumber = ticket.TicketId, Subject = ticket.Subject, CreatedOn = ticket.CreatedOn, Priority = ticket.Priority, Status = ticket.status }).ToListAsync();
+                //}
                 return result;
             }
             catch (Exception ex)
@@ -206,9 +223,6 @@ namespace DataRepository.Repository
 
             try
             {
-
-
-
                 IEnumerable<conversationDetail> conversationDetailList = (from conversations in _context.TicketConversationTracks
                                                                           join users in _context.Users on conversations.CreatedBy equals users.Id
                                                                           join userRoles in _context.UserRoles on users.Id equals userRoles.UserId
@@ -403,7 +417,7 @@ namespace DataRepository.Repository
         }
 
 
-        public async Task<DashboardResponseStatus> GetTotalTicketCount(string userId)
+        public async Task<DashboardResponseStatus> GetTotalTicketCount(string userId,int companyId)
         {
             if (_context.Tickets == null)
             {
@@ -417,8 +431,16 @@ namespace DataRepository.Repository
                 int ticketCount,userCount=0;
                 if (userRoles.FirstOrDefault().ToUpper() == "ADMIN")
                 {
-                    ticketCount = _context.Tickets.Count();
-                    userCount = _context.Users.Count();
+                    ticketCount = (from ticket in _context.Tickets
+                                  join creator in _context.Users on ticket.CreatedBy equals creator.Id
+                                  where creator.CompanyId==companyId
+                                  select ticket
+                                  ).Count();
+
+                    userCount = (from  appuser in _context.Users                          
+                                 where appuser.CompanyId == companyId && appuser.Id!=userId
+                                 select appuser
+                                  ).Count();
                 }
                 else
                 {

@@ -32,7 +32,7 @@ export class TicketListComponent implements AfterViewInit, OnInit {
   }
   getTickets() {
     this.isLoading = true;
-    this.ticketService.GetTicket(sessionStorage.getItem('userId')!).subscribe((response: any) => {
+    this.ticketService.GetTicket(sessionStorage.getItem('userId')!,parseInt(sessionStorage.getItem('companyId'))).subscribe((response: any) => {
       console.log('prio', response)
       this.data1 = response;
       this.dataSource = new MatTableDataSource<ticketModel>(response);

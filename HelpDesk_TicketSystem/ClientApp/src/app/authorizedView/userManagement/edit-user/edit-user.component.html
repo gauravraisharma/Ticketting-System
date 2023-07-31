@@ -29,7 +29,16 @@
         <form [formGroup]="userForm" class="form-field-full" (ngSubmit)="submitUser()">
 
           <div class="row">
-
+            <div class="col-sm-4">
+              <mat-form-field class="full-width-field" appearance="outline">
+                <mat-label>Username </mat-label>
+                <input matInput placeholder="Enter Username" formControlName="username"
+                       required>
+                <mat-error *ngIf="userForm.get('username')?.invalid">
+                  Please enter subject
+                </mat-error>
+              </mat-form-field>
+            </div>
 
             <div class="col-sm-4">
               <mat-form-field class="full-width-field" appearance="outline">
@@ -101,16 +110,7 @@
               </mat-form-field>
             </div>
 
-            <div class="col-sm-4">
-              <mat-form-field class="full-width-field" appearance="outline">
-                <mat-label>Username </mat-label>
-                <input matInput placeholder="Enter Username"  formControlName="username"
-                       required>
-                <mat-error *ngIf="userForm.get('username')?.invalid">
-                  Please enter subject
-                </mat-error>
-              </mat-form-field>
-            </div>
+
             <div class="col-sm-4" *ngIf="userId==null ||userId==undefined ||userId==''">
               <mat-form-field class="full-width-field" appearance="outline">
                 <mat-label>Password</mat-label>

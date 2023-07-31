@@ -21,8 +21,8 @@ export class TicketService {
     let url = `${this.apiUrl}Tickets/AddConversationMessage`;
     return this.http.post(url, conversationMessage);
   }
-  GetTicket(userId:string) {
-    let url = `${this.apiUrl}Tickets/GetTicket/${userId}`;
+  GetTicket(userId: string, companyId: number) {
+    let url = `${this.apiUrl}Tickets/GetTicket/${userId}/${companyId}`;
     return this.http.get(url);
   }
 

@@ -21,7 +21,7 @@ export class DashboardComponent implements OnInit {
   }
   GetTotalDashboardCounts() {
     this.isLoading = true;
-    this.commonService.GetTotalDashboardCounts(sessionStorage.getItem('userId')!).subscribe((response: any) => {
+    this.commonService.GetTotalDashboardCounts(sessionStorage.getItem('userId')!, parseInt(sessionStorage.getItem('companyId'))).subscribe((response: any) => {
       this.ticketCount = response.toatlTickets;
       this.userCount = response.toatlUsers;
       this.isLoading = false;
@@ -33,6 +33,6 @@ export class DashboardComponent implements OnInit {
     this.router.navigate(['/ticket'])
   }
   gotToUserList() {
-    this.router.navigate(['/userlisting'])
+    this.router.navigate(['/users'])
   }
 }

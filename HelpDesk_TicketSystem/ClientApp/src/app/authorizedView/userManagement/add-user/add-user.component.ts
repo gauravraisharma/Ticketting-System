@@ -12,6 +12,7 @@ import { AccountService, ApplicationUser } from '../../../../services/accountSer
 })
 export class AddUserComponent implements OnInit {
   @ViewChild('fileattachment') fileAttachments!: ElementRef;
+  passwordHide = true;
   userForm = this.fb.group({
     username: ['', [Validators.required]],
     firstName: ['', [Validators.required]],
@@ -71,18 +72,17 @@ export class AddUserComponent implements OnInit {
     if (this.userForm.valid) {
       console.log(this.userForm)
 
-      let userId = sessionStorage.getItem('userId')
-
       var user = new ApplicationUser();
       user.firstName = this.userForm.get('firstName')!.value;
       user.lastName = this.userForm.get('lastName')!.value;
       user.userName = this.userForm.get('username')!.value;
       user.userType = this.userForm.get('userType')!.value;
+      user.companyId =parseInt( sessionStorage.getItem('companyId'));
       user.departmentId = (this.userForm.get('department').value == undefined || this.userForm.get('department').value == '') ? null : (this.userForm.get('department').value );
       user.email = this.userForm.get('email')!.value;
       user.phoneNumber = this.userForm.get('phoneNumber')!.value;
       user.password = this.userForm.get('password')!.value;
-      user.createdBy = userId!;
+      user.createdBy = sessionStorage.getItem('userId')!;
 
       this.accountService.createUser(user).subscribe((response: any) => {
         this.toastr.success(response.message);

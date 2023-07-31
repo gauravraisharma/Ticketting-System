@@ -16,7 +16,7 @@ namespace DataRepository.IRepository
         Task<ResponseStatus> CreateNewRole(string roleName);
         DDListResponse GetDepartmentListDD();
         DDListResponse GetUserTypeListDD();
-        IEnumerable<ResponseApplicationUserModel> GetUserList();
+        IEnumerable<ResponseApplicationUserModel> GetUserList(int companyId);
         ResponseStatus DeleteUser(string userId);
         UserDataResponse GetUserDataById(string userId);
     }

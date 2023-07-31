@@ -18,8 +18,8 @@ export class CommonService {
     let url = `${this.apiUrl}Account/GetDepartmentListDD`;
     return this.http.get(url);
   }
-  GetTotalDashboardCounts(userId: string) {
-    let url = `${this.apiUrl}Tickets/GetTotalTicketCount/${userId}`;
+  GetTotalDashboardCounts(userId: string,companyId:number) {
+    let url = `${this.apiUrl}Tickets/GetTotalTicketCount/${userId}/${companyId}`;
     return this.http.get(url);
   }
 }

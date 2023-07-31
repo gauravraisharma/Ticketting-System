@@ -29,6 +29,8 @@ namespace DataRepository.EntityModels
         public int? DepartmentId { get; set; }
         [Required(ErrorMessage = "Created by  is required")]
         public string CreatedBy { get; set; }
+        [Required(ErrorMessage = "Company id  is required")]
+        public int CompanyId { get; set; }
     }
     public class UpdateApplicationUserModel
     {

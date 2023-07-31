@@ -17,6 +17,7 @@ import { CommonService } from '../services/commonServcices/common-service.servic
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { APIInterceptor } from '../services/apiInterceptor/api.interceptor';
 import { SharedModule } from './sharedComponent/shared.module';
+import { CompanyService } from '../services/companyService/company.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,7 +35,12 @@ import { SharedModule } from './sharedComponent/shared.module';
     SharedModule,
     ToastrModule.forRoot()
   ],
-  providers: [AccountService, TicketService, CommonService, {
+  providers: [
+    AccountService,
+    TicketService,
+    CommonService,
+    CompanyService,
+    {
     provide: HTTP_INTERCEPTORS,
     useClass: APIInterceptor,
     multi: true

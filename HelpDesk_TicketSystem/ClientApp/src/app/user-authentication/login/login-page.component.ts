@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { AccountService } from '../../services/accountServices/account-service.service';
+import { AccountService } from '../../../services/accountServices/account-service.service';
 
 @Component({
   selector: 'app-login-page',
@@ -34,7 +34,7 @@ export class LoginPageComponent implements OnInit {
       this.accountService.loginUser(this.loginForm.value).subscribe((response: any) => {
         if (response.status == "SUCCEED") {
           this.toastr.success('Logged in successfully');
-          this.setDataInSessionStorage(response.token, response.userType, response.userId);
+          this.setDataInSessionStorage(response.token, response.userType, response.userId, response.companyId.toString());
           this.router.navigate(['dashboard'])
         } else {
         
@@ -56,18 +56,19 @@ export class LoginPageComponent implements OnInit {
       });
     }
     else {
-
+      this.loginForm.markAllAsTouched(); 
       this.toastr.error("Please enter valid credentials");
       this.isLoading = false;
     }
   }
 
-  setDataInSessionStorage(token: string, userType: string, userId: string) {
+  setDataInSessionStorage(token: string, userType: string, userId: string, companyId: string) {
     sessionStorage.clear();
     sessionStorage.setItem('token', token);
     sessionStorage.setItem('loggedInTime', Date.now().toString());
     sessionStorage.setItem('userType', userType);
     sessionStorage.setItem('userId', userId);
+    sessionStorage.setItem('companyId', companyId);
   }
   get username() { return this.loginForm.get('username');}
   get password() { return this.loginForm.get('password');}

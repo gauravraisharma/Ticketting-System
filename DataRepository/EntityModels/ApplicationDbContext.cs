@@ -13,5 +13,6 @@ namespace DataRepository.EntityModels
         public DbSet<TicketConversationTrack> TicketConversationTracks { get; set; }
         public DbSet<Attachment> Attachments { get; set; }
         public DbSet<Department> Departments { get; set; }
+        public DbSet<Company> Companys { get; set; }
     }
 }

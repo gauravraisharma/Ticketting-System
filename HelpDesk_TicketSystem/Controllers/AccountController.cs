@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.Design;
 
 namespace HelpDesk_TicketSystem.Controllers
 {
@@ -141,10 +142,10 @@ namespace HelpDesk_TicketSystem.Controllers
 
         //This method is used to get List of Roles 
         [Authorize(AuthenticationSchemes = "Bearer")]
-        [HttpGet("GetUserList")]
-        public  ActionResult GetUserList()
+        [HttpGet("GetUserList/{companyId}")]
+        public  ActionResult GetUserList(int companyId)
         {
-            var dbResponse =  _accountService.GetUserList();
+            var dbResponse =  _accountService.GetUserList(companyId);
            
             return Ok(dbResponse);
         }

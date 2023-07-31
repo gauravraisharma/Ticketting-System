@@ -29,7 +29,8 @@ export class UserlistingComponent {
   }
   getUserList() {
     this.isLoading = true;
-    this.accountService.getUserList().subscribe((response: any) => {
+    let companyId = parseInt(sessionStorage.getItem('companyId'));
+    this.accountService.getUserList(companyId).subscribe((response: any) => {
       console.log('userList', response)
       this.data1 = response;
       this.dataSource = new MatTableDataSource<UserModel>(response);

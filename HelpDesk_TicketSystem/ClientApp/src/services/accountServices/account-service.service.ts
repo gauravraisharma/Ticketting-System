@@ -24,8 +24,8 @@ export class AccountService {
     let url = `${this.apiUrl}Account/updateApplicationUser`;
     return this.http.post(url, user);
   }
-  getUserList() {
-    let url = `${this.apiUrl}Account/GetUserList`;
+  getUserList(companyId:number) {
+    let url = `${this.apiUrl}Account/GetUserList/${companyId}`;
     return this.http.get(url);
   }
   deleteUser(userId: string) {
@@ -46,6 +46,7 @@ export class ApplicationUser {
   phoneNumber: string = '';
   password: string = "";
   departmentId: number = null;
+  companyId: number = null;
   userType: string = '';
   createdBy: string = '';
 } 

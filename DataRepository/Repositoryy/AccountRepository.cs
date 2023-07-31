@@ -78,6 +78,7 @@ namespace DataRepository.Repository
                     FirstName = userModel.FirstName,
                     LastName = userModel.LastName,
                     DepartmentId = userModel.DepartmentId,
+                    CompanyId=userModel.CompanyId,
                     CreatedBy = userModel.CreatedBy,
                     CreatedOn = DateTime.Now
                 };
@@ -284,7 +285,8 @@ namespace DataRepository.Repository
                         Message = "Login Successfully",
                         Token = token,
                         UserType = userRoles[0],
-                        UserId = user.Id
+                        UserId = user.Id,
+                        CompanyId=user.CompanyId
                     };
 
                 }
@@ -482,7 +484,7 @@ namespace DataRepository.Repository
 
         }
 
-        public IEnumerable<ResponseApplicationUserModel> GetUserList()
+        public IEnumerable<ResponseApplicationUserModel> GetUserList(int companyId)
         {
 
             if (_context == null)
@@ -498,7 +500,7 @@ namespace DataRepository.Repository
                               //left join 
                               join department in _context.Departments on user.DepartmentId equals department.DepartmentId into userDepartmentGroup
                               from depart in userDepartmentGroup.DefaultIfEmpty()
-                              where user.IsDeleted == false
+                              where user.IsDeleted == false && user.CompanyId==companyId
                               orderby user.CreatedOn descending
                               select new ResponseApplicationUserModel
                               {

@@ -11,7 +11,11 @@ export class HomepageComponent {
   constructor(private router: Router,
     private meta: Meta) { }
   gotoLoginPage() {
-    this.router.navigate(['login'])
+    this.router.navigate(['user-authenticaton/login'])
+  }
+
+  gotoSignUpPage() {
+    this.router.navigate(['user-authenticaton/signup'])
   }
 
   addMetaTags() {

@@ -60,9 +60,9 @@ namespace ApplicationService.Services
             return _accountRepository.GetRoleName(roleId);
         }
 
-        public IEnumerable<ResponseApplicationUserModel> GetUserList()
+        public IEnumerable<ResponseApplicationUserModel> GetUserList(int companyId)
         {
-            return _accountRepository.GetUserList();
+            return _accountRepository.GetUserList(companyId);
         }
 
         public DDListResponse GetUserTypeListDD()

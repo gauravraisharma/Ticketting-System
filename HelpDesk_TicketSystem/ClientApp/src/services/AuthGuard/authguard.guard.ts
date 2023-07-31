@@ -5,9 +5,9 @@ import { ToastrService } from 'ngx-toastr';
 export const authguardGuard: CanActivateFn = (route, state) => {
   const router = inject(Router);
   const toaster = inject(ToastrService);
-
+  console.log(state)
   //check if your is already login than it should to able to access login page
-  if (state.url == '/login') {
+  if (state.url.includes('user-authenticaton')) {
     if (sessionStorage.getItem('token') != null && sessionStorage.getItem('token') != undefined) {
      router.navigate(['dashboard']);
       return false;

@@ -1,7 +1,6 @@
 
 import { NgModule } from '@angular/core';
 import {  RouterModule, Routes } from '@angular/router';
-import { LoginPageComponent } from './login-page/login-page.component';
 import { authguardGuard } from '../services/AuthGuard/authguard.guard';
 import { DashboardComponent } from './authorizedView/dashboard/dashboard.component';
 import { TicketListComponent } from './authorizedView/ticket/ticket-list/ticket-list.component';
@@ -18,8 +17,8 @@ const appRoutes: Routes = [
     component: HomepageComponent,
   },
   {
-    path: 'login',
-    loadChildren: () => import('./login-page/login.module').then(m => m.LoginModule)
+    path: 'user-authenticaton',
+    loadChildren: () => import('./user-authentication/user-authentication.module').then(m => m.UserAuthenticationModule)
   },
   {
     path: 'dashboard',
