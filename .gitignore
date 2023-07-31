@@ -3,4 +3,6 @@
 ################################################################################
 
 /HelpDesk_TicketSystem/ClientApp/.angular/cache/16.1.5
-/.vs
+.vs/
+bin/
+obj/
