@@ -113,7 +113,7 @@ export class ViewTicketComponent implements OnInit {
        const dialogRef = await this.dialog.open(ConfirmDialogComponent, {
          data: {
            message: 'Ticket is closed. If you send message in closed ticket, ticket will be considered as Re-Open. Are you sure you want to send message?',
-           title: 'Re-opne ticket'
+           title: 'Re-open ticket'
          },
          width: '450px',
          enterAnimationDuration: '0',

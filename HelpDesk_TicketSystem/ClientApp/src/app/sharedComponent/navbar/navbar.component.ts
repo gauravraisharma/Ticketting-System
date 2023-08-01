@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -8,10 +9,15 @@ import { Component, EventEmitter, Output } from '@angular/core';
 export class NavbarComponent {
   IsMenuOpen = false;
   @Output() private onSideMenuChange: EventEmitter<boolean> = new EventEmitter<boolean>();
+  constructor(private router: Router) {
 
+  }
 
   onToggle() {
     this.IsMenuOpen = !this.IsMenuOpen;
     this.onSideMenuChange.emit(this.IsMenuOpen);
+  }
+  goToUserProfile() {
+    this.router.navigate(['/userProfile']);
   }
 }
