@@ -26,15 +26,15 @@ namespace ApplicationService.Services
             if (response.Status == "SUCCEED")
                 try
                 {
-                    var emailSubject = _config["NewUserRegisterEmailSubject"];
-                    var emailTemplate = _config["NewUserRegisterEmailTemplate"];
+                    var emailSubject = _config["CompanyRegisterEmailSubject"];
+                    var emailTemplate = _config["CompanyRegisterEmailTemplate"];
 
-                    //Dictionary<string, string> messageVariable = new Dictionary<string, string> {
-                    //  { "@@username", userModel.UserName },
-                    //  { "@@password", userModel.Password },
-                    //};
+                    Dictionary<string, string> messageVariable = new Dictionary<string, string> {
+                      { "@@username", registerCompanyModel.UserName },
+                      { "@@password", registerCompanyModel.Password },
+                    };
 
-                    //MailOperations.SendEmailAsync(new List<string> { userModel.Email }, emailSubject, emailTemplate, _config, null, messageVariable);
+                    MailOperations.SendEmailAsync(new List<string> { registerCompanyModel.Email }, emailSubject, emailTemplate, _config, null, messageVariable);
                 }
                 catch (Exception e)
                 {
