@@ -62,3 +62,24 @@
   .signup-link a {
     text-decoration: underline;
   }
+
+  .input-group input[type="password"]
+{
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+  border-right: 0;
+}
+.input-group .input-group-append
+{
+  background:#e8f0fe;
+  border: 1px solid #ced4da;
+  border-left: 0;
+  border-top-right-radius: 6px !important;
+  border-bottom-right-radius: 6px !important;
+  display: flex;
+}
+.input-group .input-group-append .input-group-text
+{
+  background:none;
+  border:0;
+}
