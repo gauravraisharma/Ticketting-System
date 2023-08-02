@@ -69,8 +69,8 @@
         <ng-container matColumnDef="action">
           <th mat-header-cell *matHeaderCellDef> Action </th>
           <td mat-cell *matCellDef="let element">
-            <mat-icon aria-hidden="false" aria-label="edit" fontIcon="edit" class="text-secondary" [routerLink]="['/users/edituser',element.id]" style="cursor:pointer;"></mat-icon>
-            <mat-icon aria-hidden="false" aria-label="delete" fontIcon="delete" class="text-danger" (click)="deleteUser(element)" style="cursor:pointer;"></mat-icon>
+            <mat-icon aria-hidden="false" title="Edit User" aria-label="edit" fontIcon="edit" class="text-secondary" [routerLink]="['/users/edituser',element.id]" style="cursor:pointer;"></mat-icon>
+            <mat-icon aria-hidden="false" title="Delete User" aria-label="delete" fontIcon="delete" class="text-danger" (click)="deleteUser(element)" style="cursor:pointer;"></mat-icon>
           </td>
         </ng-container>
 

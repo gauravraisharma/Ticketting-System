@@ -80,7 +80,7 @@
     <ng-container matColumnDef="action">
       <th mat-header-cell *matHeaderCellDef> Action </th>
       <td mat-cell *matCellDef="let element">
-        <mat-icon aria-hidden="false" aria-label="preview" fontIcon="visibility" class="text-secondary" [routerLink]="['/ticket/viewTicket',element.ticketNumber]" style="cursor:pointer;"></mat-icon>
+        <mat-icon aria-hidden="false" aria-label="preview"title="View Ticket" fontIcon="visibility" class="text-secondary" [routerLink]="['/ticket/viewTicket',element.ticketNumber]" style="cursor:pointer;"></mat-icon>
       </td>
     </ng-container>
 
