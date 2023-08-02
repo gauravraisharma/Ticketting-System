@@ -222,7 +222,7 @@ namespace DataRepository.Repository
             }
         }
 
-        private async Task<string> GenerateToken(ApplicationUser user)
+        private async Task<string> GenerateToken(ApplicationUser user,bool rememberMe)
         {
             try
             {
@@ -237,7 +237,7 @@ namespace DataRepository.Repository
                     new Claim(ClaimTypes.Role,userRoles.FirstOrDefault().ToUpper())
                 };
 
-                var token = new JwtSecurityToken(claims: claims, expires: DateTime.Now.AddDays(1), signingCredentials: credentials);
+                var token = new JwtSecurityToken(claims: claims, expires:(rememberMe)? DateTime.Now.AddDays(30): DateTime.Now.AddDays(1), signingCredentials: credentials);
                 return new JwtSecurityTokenHandler().WriteToken(token);
             }
             catch (Exception ex)
@@ -278,7 +278,7 @@ namespace DataRepository.Repository
                     {
                         authClaims.Add(new Claim(ClaimTypes.Role, userRole));
                     };
-                    var token = await GenerateToken(user);
+                    var token = await GenerateToken(user, userModel.RememberMe);
                     return new LoginStatus
                     {
                         Status = "SUCCEED",

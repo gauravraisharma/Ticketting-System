@@ -5,7 +5,6 @@ import { ToastrService } from 'ngx-toastr';
 export const authguardGuard: CanActivateFn = (route, state) => {
   const router = inject(Router);
   const toaster = inject(ToastrService);
-  console.log(state)
   //check if your is already login than it should to able to access login page
   if (state.url.includes('user-authenticaton')) {
     if (sessionStorage.getItem('token') != null && sessionStorage.getItem('token') != undefined) {
@@ -20,6 +19,6 @@ export const authguardGuard: CanActivateFn = (route, state) => {
   }
 
   toaster.error("You are not authorize to access this module");
-  router.navigate(['login']);
+  router.navigate(['user-authenticaton/login']);
   return false;
 };

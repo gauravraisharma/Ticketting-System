@@ -2,10 +2,10 @@
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 
-/HelpDesk_TicketSystem/ClientApp/.angular/cache/16.1.5
 /.vs
 /bin
 /obj
+/HelpDesk_TicketSystem/ClientApp/.angular/cache/16.1.5
 /.vs/HelpDesk_TicketSystem/DesignTimeBuild/.dtbcache.v2
 /.vs/HelpDesk_TicketSystem/FileContentIndex/0361800d-d675-493b-a277-9a4bfa40cb0d.vsidx
 /.vs/HelpDesk_TicketSystem/FileContentIndex/31663cfc-1162-46fc-a36a-e84d79a8ed2f.vsidx

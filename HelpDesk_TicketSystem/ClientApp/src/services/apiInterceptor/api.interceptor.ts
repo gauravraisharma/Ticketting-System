@@ -1,8 +1,12 @@
-import { HttpHandler, HttpHeaders, HttpInterceptor, HttpRequest } from "@angular/common/http";
+import { HttpErrorResponse, HttpHandler, HttpHeaders, HttpInterceptor, HttpRequest } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { Router } from "@angular/router";
+import { catchError, throwError } from "rxjs";
 
 @Injectable()
 export class APIInterceptor implements HttpInterceptor {
+
+  constructor(private router: Router) { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler) {
 
@@ -23,7 +27,16 @@ export class APIInterceptor implements HttpInterceptor {
           'Access-Control-Allow-Credentials': 'true'
         })
       })
-      return next.handle(formRequest);
+      return next.handle(formRequest).pipe(
+        catchError((error: HttpErrorResponse) => {
+          if (error.status === 401) {
+            // Unauthorized - redirect to the login page
+            sessionStorage.clear();
+            this.router.navigate(['/login']);
+          }
+          return throwError(error);
+        })
+      );
     }
     const modifiedRequest = request.clone({
       headers: new HttpHeaders({
@@ -31,6 +44,15 @@ export class APIInterceptor implements HttpInterceptor {
         'Authorization': "Bearer " + auth_token
       })
     })
-    return next.handle(modifiedRequest);
+    return next.handle(modifiedRequest).pipe(
+      catchError((error: HttpErrorResponse) => {
+        if (error.status === 401) {
+          // Unauthorized - redirect to the login page
+          sessionStorage.clear();
+          this.router.navigate(['user-authenticaton/login']);
+        }
+        return throwError(error);
+      })
+    );;
   }
 }

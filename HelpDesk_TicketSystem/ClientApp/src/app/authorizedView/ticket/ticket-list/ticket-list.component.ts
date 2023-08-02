@@ -1,5 +1,6 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -18,6 +19,7 @@ export class TicketListComponent implements AfterViewInit, OnInit {
   data1 = [];
   userType = sessionStorage.getItem('userType');
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
   constructor(private ticketService: TicketService,
     private router: Router,
     private toastr: ToastrService) { }
@@ -36,7 +38,8 @@ export class TicketListComponent implements AfterViewInit, OnInit {
       console.log('prio', response)
       this.data1 = response;
       this.dataSource = new MatTableDataSource<ticketModel>(response);
-      this.dataSource.paginator = this.paginator
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
       this.isLoading = false;
     }, error => {
       this.isLoading = false;

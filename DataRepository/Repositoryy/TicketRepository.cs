@@ -433,12 +433,12 @@ namespace DataRepository.Repository
                 {
                     ticketCount = (from ticket in _context.Tickets
                                   join creator in _context.Users on ticket.CreatedBy equals creator.Id
-                                  where creator.CompanyId==companyId
+                                  where creator.CompanyId==companyId && ticket.IsDeleted== false
                                   select ticket
                                   ).Count();
 
                     userCount = (from  appuser in _context.Users                          
-                                 where appuser.CompanyId == companyId && appuser.Id!=userId
+                                 where appuser.CompanyId == companyId && appuser.Id!=userId && appuser.IsDeleted==false
                                  select appuser
                                   ).Count();
                 }

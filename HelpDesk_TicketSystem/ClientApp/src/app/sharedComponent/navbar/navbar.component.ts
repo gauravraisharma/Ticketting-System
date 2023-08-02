@@ -17,7 +17,4 @@ export class NavbarComponent {
     this.IsMenuOpen = !this.IsMenuOpen;
     this.onSideMenuChange.emit(this.IsMenuOpen);
   }
-  goToUserProfile() {
-    this.router.navigate(['/userProfile']);
-  }
 }

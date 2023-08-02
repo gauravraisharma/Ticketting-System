@@ -12,6 +12,7 @@ import { AccountService } from '../../../services/accountServices/account-servic
 export class LoginPageComponent implements OnInit {
   loginForm!: FormGroup ;
   isLoading: boolean = false;
+  passwordHide = true;
   constructor(
     private fb: FormBuilder,
     private accountService: AccountService,
@@ -23,7 +24,8 @@ export class LoginPageComponent implements OnInit {
   ngOnInit() {
     this.loginForm = this.fb.group({
       username: ['', Validators.required],
-      password: ['', [Validators.required]]
+      password: ['', [Validators.required]],
+      rememberMe:[false]
     });
   }
   
@@ -34,7 +36,7 @@ export class LoginPageComponent implements OnInit {
       this.accountService.loginUser(this.loginForm.value).subscribe((response: any) => {
         if (response.status == "SUCCEED") {
           this.toastr.success('Logged in successfully');
-          this.setDataInSessionStorage(response.token, response.userType, response.userId, response.companyId.toString());
+          this.setDataInSessionStorage(response.token, response.userType, response.userId, response.companyId);
           this.router.navigate(['dashboard'])
         } else {
         
@@ -62,13 +64,16 @@ export class LoginPageComponent implements OnInit {
     }
   }
 
-  setDataInSessionStorage(token: string, userType: string, userId: string, companyId: string) {
+  setDataInSessionStorage(token: string, userType: string, userId: string, companyId: any) {
     sessionStorage.clear();
     sessionStorage.setItem('token', token);
     sessionStorage.setItem('loggedInTime', Date.now().toString());
-    sessionStorage.setItem('userType', userType);
-    sessionStorage.setItem('userId', userId);
-    sessionStorage.setItem('companyId', companyId);
+    sessionStorage.setItem('userType', userType.toUpperCase());
+    sessionStorage.setItem('userId', userId); 
+    if (userType.toUpperCase() != 'SUPERADMIN') {
+      sessionStorage.setItem('companyId', companyId.toString());
+    }
+  
   }
   get username() { return this.loginForm.get('username');}
   get password() { return this.loginForm.get('password');}

@@ -1,13 +1,15 @@
+
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CommonService } from '../../../services/commonServcices/common-service.service';
+import { CommonService } from '../../../../services/commonServcices/common-service.service';
 
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  selector: 'app-company-admin-dashboard',
+  templateUrl: './company-admin-dashboard.component.html',
+  styleUrls: ['./company-admin-dashboard.component.css']
 })
-export class DashboardComponent implements OnInit {
+export class CompanyAdminDashboardComponent
+  implements OnInit {
   ticketCount = 0;
   userCount = 0;
   isLoading = false;
@@ -36,3 +38,4 @@ export class DashboardComponent implements OnInit {
     this.router.navigate(['/users'])
   }
 }
+

@@ -21,6 +21,7 @@ import { MatSortModule } from '@angular/material/sort';
 @NgModule({
   declarations: [LoaderComponent],
   imports: [MatCardModule,
+    MatSortModule,
     MatInputModule,
     MatButtonModule,
     MatProgressSpinnerModule,
@@ -35,6 +36,7 @@ import { MatSortModule } from '@angular/material/sort';
     CKEditorModule,MatSortModule],
   exports: [MatCardModule,
     MatInputModule,
+    MatSortModule,
     MatButtonModule,
     MatProgressSpinnerModule,
     MatSidenavModule,

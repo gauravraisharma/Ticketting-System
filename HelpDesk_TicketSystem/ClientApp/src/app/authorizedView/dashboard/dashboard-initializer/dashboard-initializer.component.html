@@ -1,0 +1,18 @@
+
+
+
+<div class="head-title">
+  <div class="left">
+    <h1>Dashboard</h1>
+    <ul class="breadcrumb">
+      <li>
+        <a class="active" href="javascript:;">Dashboard</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<app-company-admin-dashboard *ngIf="userType=='ADMIN'" ></app-company-admin-dashboard>
+<app-normal-user-dashboard *ngIf="userType=='NORMALUSER'"></app-normal-user-dashboard>
+<app-superadmin-dashboard *ngIf="userType=='SUPERADMIN'"></app-superadmin-dashboard>
+

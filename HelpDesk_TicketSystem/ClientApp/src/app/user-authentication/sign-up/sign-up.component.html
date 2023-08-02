@@ -41,7 +41,7 @@
                   <input type="email" class="form-control" id="exampleInputEmail1" formControlName="email"
                          [ngClass]="(email?.invalid && (email?.dirty || email?.touched)) ? 'invalid form-control' : 'form-control'"
                          aria-describedby="emailHelp" placeholder="Enter email address">
-                  <span *ngIf="email?.invalid && (email?.dirty || email?.touched)" class="invalid-message">Email is required </span>
+                  <span *ngIf="email?.invalid && (email?.dirty || email?.touched)" class="invalid-message">Email is Invalid </span>
 
                 </div>
                 <div class="form-group">
@@ -62,23 +62,38 @@
 
                 </div>
                 <div class="form-group">
-                  <label for="exampleInputEmail1">Password</label>
-                  <input type="password" class="form-control" id="exampleInputName1" formControlName="password"
-                         [ngClass]="(password?.invalid && (password?.dirty || password?.touched)) ? 'invalid form-control' : 'form-control'"
-                         aria-describedby="nameHelp" placeholder="Enter Password">
-               
+                  <label for="exampleInputPassword1">Password</label>
+                  <div class="input-group">
+                    <input formControlName="password"
+                           [type]="passwordHide ? 'password' : 'text'"
+                           aria-describedby="password-info" placeholder="Enter password" [ngClass]="(password?.invalid && (password?.dirty || password?.touched)) ? 'invalid form-control' : 'form-control'">
+                    <div class="input-group-append">
+                      <span class="input-group-text" id="password-info" (click)="passwordHide = !passwordHide">
+                        <mat-icon aria-hidden="false" aria-label="preview" [fontIcon]="(passwordHide)?'visibility_off':'visibility'" class="text-dark" style="cursor:pointer;"></mat-icon>
+                      </span>
+                    </div>
+                  </div>
                   <span *ngIf="password?.invalid && (password?.dirty || password?.touched)" class="invalid-message">Password is required </span>
 
                 </div>
+
                 <div class="form-group">
                   <label for="exampleInputEmail1">Confirm Password</label>
-                  <input type="password" class="form-control" id="exampleInputName1" formControlName="confirmPassword"
-                         [ngClass]="(confirmPassword?.invalid && (confirmPassword?.dirty || confirmPassword?.touched)) ? 'invalid form-control' : 'form-control'"
-                         aria-describedby="nameHelp" placeholder="Enter Confirm Password">
+                  <div class="input-group">
+                    <input [type]="passwordHide ? 'password' : 'text'" class="form-control" id="exampleInputName1" formControlName="confirmPassword"
+                           [ngClass]="(confirmPassword?.invalid && (confirmPassword?.dirty || confirmPassword?.touched)) ? 'invalid form-control' : 'form-control'"
+                           aria-describedby="nameHelp" placeholder="Enter Confirm Password">
+
+                    <div class="input-group-append">
+                      <span class="input-group-text" id="password-info" (click)="passwordHide = !passwordHide">
+                        <mat-icon aria-hidden="false" aria-label="preview" [fontIcon]="(passwordHide)?'visibility_off':'visibility'" class="text-dark" style="cursor:pointer;"></mat-icon>
+                      </span>
+
+                    </div>
+                  </div>
                   <span *ngIf="confirmPassword?.invalid && (confirmPassword?.dirty || confirmPassword?.touched)" class="invalid-message">
                     Password and Confirm password does not match
                   </span>
-
                 </div>
               </div>
               <div class="button-btm mb-20">

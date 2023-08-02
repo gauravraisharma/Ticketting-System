@@ -2,12 +2,7 @@
 import { NgModule } from '@angular/core';
 import {  RouterModule, Routes } from '@angular/router';
 import { authguardGuard } from '../services/AuthGuard/authguard.guard';
-import { DashboardComponent } from './authorizedView/dashboard/dashboard.component';
-import { TicketListComponent } from './authorizedView/ticket/ticket-list/ticket-list.component';
-import { AddTicketComponent } from './authorizedView/ticket/add-ticket/add-ticket.component';
-import { ViewTicketComponent } from './authorizedView/ticket/view-ticket/view-ticket.component';
-import { UserlistingComponent } from './authorizedView/userManagement/userlisting/userlisting.component';
-import { AddUserComponent } from './authorizedView/userManagement/add-user/add-user.component';
+import { SuperAdminGuard } from '../services/AuthGuard/superadmin.guard';
 import { HomepageComponent } from './homepage/homepage.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
@@ -36,8 +31,9 @@ const appRoutes: Routes = [
     loadChildren: () => import('./authorizedView/userProfile/userprofile.module').then(m => m.UserProfileModule)
   },
   {
-    path: 'companymanagement',
-    loadChildren: () => import('./authorizedView/companymanagement/companymanagement.module').then(m => m.CompanymanagementModule)
+    path: 'companys',
+    loadChildren: () => import('./authorizedView/companymanagement/companymanagement.module').then(m => m.CompanymanagementModule),
+    canActivate: [SuperAdminGuard]
   },
   {
     path: '**',

@@ -1,0 +1,12 @@
+<ul class="box-info mt-3">
+  <app-count-display [count]="ticketCount"
+                     iconClass="bx bxs-bug"
+                     heading="Total Companys"
+                     (RedirectTo)="gotToTicketList()">
+  </app-count-display>
+</ul>
+
+
+
+
+<loader *ngIf="isLoading"></loader>

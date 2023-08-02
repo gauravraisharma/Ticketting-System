@@ -5,7 +5,16 @@
     <img src="../../assets/images/Logo@2x.png" class="img-fluid" alt="Logo">
   </a>-->
   <ul class="side-menu top">
-    <li [ngClass]="(currentRoute=='/dashboard') ? 'active' : ''">
+    <ng-container *ngFor="let menuItem of menu">
+    <li [ngClass]="(currentRoute.includes(menuItem.route)) ? 'active' : ''" >
+      <a [routerLink]="'/'+menuItem.route">
+        <i [class]='menuItem.iconClass'></i>
+        <span class="text">{{menuItem.title}}</span>
+      </a>
+    </li>
+      </ng-container>
+
+    <!--<li [ngClass]="(currentRoute=='/dashboard') ? 'active' : ''">
       <a routerLink="/dashboard">
         <i class='bx bxs-dashboard'></i>
         <span class="text">Dashboard</span>
@@ -23,12 +32,12 @@
         <span class="text">Ticket Management</span>
       </a>
     </li>
-    <li [ngClass]="(currentRoute.includes('userProfile')) ? 'active' : ''" >
+    <li [ngClass]="(currentRoute.includes('userProfile')) ? 'active' : ''">
       <a routerLink="/userProfile">
-        <i class='bx bxs-user'></i>
+        <i class='bx bxs-user-circle'></i>
         <span class="text">My Profile</span>
       </a>
-    </li>
+    </li>-->
   </ul>
   <ul class="side-menu">
 

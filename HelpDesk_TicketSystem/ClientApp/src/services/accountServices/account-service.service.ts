@@ -8,7 +8,6 @@ import { environment } from '../../environments/environment';
 export class AccountService {
 
   constructor(private http: HttpClient) {
-    console.log('environmenttest',environment.test)
   }
   apiUrl = environment.apiBaseUrl;
  

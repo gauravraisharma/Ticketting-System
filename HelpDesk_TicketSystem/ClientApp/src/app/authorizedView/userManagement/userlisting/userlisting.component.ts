@@ -1,6 +1,8 @@
+import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { Component, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -19,9 +21,10 @@ export class UserlistingComponent {
   data1 = [];
   userType = sessionStorage.getItem('userType');
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
+
   constructor(private accountService: AccountService,
-    private router: Router,
-    private toastr: ToastrService,
+     private toastr: ToastrService,
     public dialog: MatDialog) { }
 
   ngOnInit() {
@@ -34,7 +37,8 @@ export class UserlistingComponent {
       console.log('userList', response)
       this.data1 = response;
       this.dataSource = new MatTableDataSource<UserModel>(response);
-      this.dataSource.paginator = this.paginator
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
       this.isLoading = false;
     }, error => {
       this.isLoading = false;

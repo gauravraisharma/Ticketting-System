@@ -13,6 +13,7 @@ import { CompanyService, RegisterCompanyUser } from '../../../services/companySe
 export class SignUpComponent {
   signUpForm!: FormGroup;
   isLoading: boolean = false;
+  passwordHide = true;
   constructor(
     private fb: FormBuilder,
     private companyService: CompanyService,

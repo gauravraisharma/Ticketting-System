@@ -4,6 +4,39 @@ import { ToastrService } from 'ngx-toastr';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 
+
+
+class menuModel {
+  route = '';
+  iconClass = '';
+  title = '';
+
+  constructor(_route, _iconClass, _title) {
+    this.route = _route;
+    this.iconClass = _iconClass;
+    this.title = _title;
+  }
+}
+
+
+const SuperAdminMenu = [
+  new menuModel('dashboard', 'bx bxs-dashboard', 'Dashboard'),
+  new menuModel('companys', 'bx bxs-building-house', 'Company Management')
+]
+const AdminMenu = [
+  new menuModel('dashboard', 'bx bxs-dashboard', 'Dashboard'),
+  new menuModel('users', 'bx bxs-user', 'User Management'),
+  new menuModel('ticket', 'bx bxs-bug', 'Ticket Management'),
+  new menuModel('userProfile', 'bx bxs-user-circle', 'My Profile'),
+]
+
+const NormalUserMenu = [
+  new menuModel('dashboard', 'bx bxs-dashboard', 'Dashboard'),
+  new menuModel('ticket', 'bx bxs-bug', 'Ticket Management'),
+  new menuModel('userProfile', 'bx bxs-user-circle', 'My Profile'),
+]
+
+
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
@@ -13,8 +46,8 @@ export class SidebarComponent implements OnInit {
   status = true;
   currentRoute = '';
   userType = '';
-  @Input() SideMenuStatus!: boolean ;
-  
+  @Input() SideMenuStatus!: boolean;
+  menu = [];
   constructor(
     private router: Router,
     private toastr: ToastrService,
@@ -30,6 +63,15 @@ export class SidebarComponent implements OnInit {
   ngOnInit() {
     this.currentRoute = this.router.url;
     this.userType = sessionStorage.getItem('userType').toUpperCase();
+    if (this.userType == 'SUPERADMIN') {
+      this.menu = SuperAdminMenu;
+    } else if (this.userType == 'ADMIN') {
+      this.menu = AdminMenu;
+    } else if (this.userType == 'NORMALUSER') {
+      this.menu = NormalUserMenu;
+    } else {
+      this.menu = []
+    }
   }
   async logout() {
     const dialogRef = await this.dialog.open(ConfirmDialogComponent, {
@@ -50,7 +92,7 @@ export class SidebarComponent implements OnInit {
       } else {
 
       }
-     
+
     });
 
   }

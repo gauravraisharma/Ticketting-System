@@ -19,7 +19,11 @@ export class CommonService {
     return this.http.get(url);
   }
   GetTotalDashboardCounts(userId: string,companyId:number) {
-    let url = `${this.apiUrl}Tickets/GetTotalTicketCount/${userId}/${companyId}`;
+    let url = `${this.apiUrl}Tickets/GetDashboardCount/${userId}/${companyId}`;
+    return this.http.get(url);
+  }
+  GetSuperadminDashboardCount() {
+    let url = `${this.apiUrl}Tickets/GetDashboardCount`;
     return this.http.get(url);
   }
 }
