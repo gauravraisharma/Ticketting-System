@@ -20,6 +20,12 @@ namespace ApplicationService.Services
             _companyRepository = companyRepository;
             _config = config;
         }
+
+        public Task<List<GetCompanyResponse>> GetCompany()
+        {
+           return _companyRepository.GetCompany();
+        }
+
         public async Task<ResponseStatus> RegisterCompany(RegisterCompanyModel registerCompanyModel)
         {
             var response = await _companyRepository.RegisterCompany(registerCompanyModel);

@@ -16,6 +16,10 @@ export class CompanyService {
     let url = `${this.apiUrl}Company/RegisterCompany`;
     return this.http.post(url, userModel);
   }
+  getCompaany() {
+    let url = `${this.apiUrl}Company/GetCompany`;
+    return this.http.get(url);
+  }
  
 }
 export class RegisterCompanyUser {

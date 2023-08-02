@@ -10,5 +10,6 @@ namespace DataRepository.IRepository
     public interface ICompanyRepository
     {
         Task<ResponseStatus> RegisterCompany(RegisterCompanyModel registerCompanyModel);
+        Task<List<GetCompanyResponse>> GetCompany();
     }
 }

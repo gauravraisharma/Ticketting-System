@@ -14,6 +14,7 @@ import { LoaderComponent } from './loader/loader.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { RouterModule } from '@angular/router';
+import { MatSortModule } from '@angular/material/sort';
 
 
 
@@ -31,7 +32,7 @@ import { RouterModule } from '@angular/router';
     MatIconModule,
     ReactiveFormsModule,
     MatToolbarModule, RouterModule,
-    CKEditorModule],
+    CKEditorModule,MatSortModule],
   exports: [MatCardModule,
     MatInputModule,
     MatButtonModule,
@@ -45,6 +46,6 @@ import { RouterModule } from '@angular/router';
     ReactiveFormsModule,
     MatToolbarModule,
     CKEditorModule,
-    LoaderComponent],
+    LoaderComponent, MatSortModule],
 })
 export class SharedModule { }

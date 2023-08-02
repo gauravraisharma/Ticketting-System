@@ -68,3 +68,5 @@
 /DataRepository/obj/DataRepository.csproj.nuget.g.props
 /DataRepository/obj/project.assets.json
 /DataRepository/obj/project.nuget.cache
+/HelpDesk_TicketSystem/ClientApp/angular.json
+/HelpDesk_TicketSystem/appsettings.json

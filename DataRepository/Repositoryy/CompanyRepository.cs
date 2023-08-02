@@ -22,6 +22,33 @@ namespace DataRepository.Repositoryy
             _context = context;
         }
 
+        public async Task<List<GetCompanyResponse>> GetCompany()
+        {
+            if (_context.Companys == null)
+            {
+                return null;
+            }
+            try
+            {
+            var company = await _context.Companys
+                    .Select(Companys => new GetCompanyResponse
+                    {
+                        CompanyName = Companys.Name,
+                        CreatedOn = Companys.CreatedOn
+                    })
+                    .ToListAsync();
+
+                return company;
+            }
+            catch (Exception ex)
+            {
+                // Handle any exception that might occur during the query.
+                // You might want to log the exception for debugging purposes.
+                Console.WriteLine(ex.Message);
+                return null;
+            }
+        }
+
         public async Task<ResponseStatus> RegisterCompany(RegisterCompanyModel registerCompanyModel)
         {
             using (var transaction = _context.Database.BeginTransaction())

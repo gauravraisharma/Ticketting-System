@@ -106,7 +106,9 @@
                 </mat-error>
               </mat-form-field>
             </div>
-
+            <div [class]="(isUserTypeAdmin)?'align-items-center col-sm-8 d-flex justify-content-end':'align-items-center col-sm-12 d-flex justify-content-end'">
+              <button mat-raised-button color="warn" class="m-t-8 mx-2" routerLink="/dashboard">Back</button>
+            </div>
           </div>
 
 
@@ -115,4 +117,4 @@
     </mat-card>
   </div>
 </div>
-<loader *ngIf="isLoading"></loader>
+

@@ -1,6 +1,7 @@
 
 import { NgModule } from '@angular/core';
 import {  RouterModule, Routes } from '@angular/router';
+import { adminguardGuard } from '../../../services/AuthGuard/adminguard.guard';
 import { authguardGuard } from '../../../services/AuthGuard/authguard.guard';
 import { AddUserComponent } from './add-user/add-user.component';
 import { EditUserComponent } from './edit-user/edit-user.component';
@@ -9,17 +10,17 @@ const routes: Routes = [
   {
     path: '',
     component: UserlistingComponent,
-    canActivate: [authguardGuard]
+    canActivate: [adminguardGuard,authguardGuard]
   },
   {
     path: 'adduser',
     component: AddUserComponent,
-    canActivate: [authguardGuard]
+    canActivate: [adminguardGuard,authguardGuard]
   },
   {
     path: 'edituser/:id',
     component: EditUserComponent,
-    canActivate: [authguardGuard]
+    canActivate: [adminguardGuard,authguardGuard]
   }
 ]
 

@@ -161,5 +161,10 @@ namespace DataRepository.EntityModels
         public string Email { get; set; }
         public bool IsAdmin { get; set; }
     }
+    public class GetCompanyResponse
+    {
+        public string CompanyName { get; set; }
+        public DateTime CreatedOn { get; set; }
+    }
 
 }

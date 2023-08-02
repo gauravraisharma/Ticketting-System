@@ -16,6 +16,14 @@ namespace HelpDesk_TicketSystem.Controllers
         {
                 _companyService = companyService;
         }
+        //To get all the companies
+        [HttpGet("GetCompany")]
+        public async Task<IActionResult> GetCompany()
+        {
+            var company = await _companyService.GetCompany();
+            return Ok(company);
+        }
+
         //It will create the application user
         [AllowAnonymous]
         [HttpPost("RegisterCompany")]

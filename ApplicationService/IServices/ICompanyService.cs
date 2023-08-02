@@ -10,5 +10,6 @@ namespace ApplicationService.IServices
     public interface ICompanyService
     {
         Task<ResponseStatus> RegisterCompany(RegisterCompanyModel registerCompanyModel);
+        Task<List<GetCompanyResponse>> GetCompany();
     }
 }
