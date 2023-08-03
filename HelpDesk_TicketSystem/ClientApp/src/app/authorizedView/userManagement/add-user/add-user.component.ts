@@ -50,6 +50,7 @@ export class AddUserComponent implements OnInit {
     this.isLoading = false;
     this.commonService.GetUserTypeDDList().subscribe((response: any) => {
       console.log('GetUserTypeDDList', response)
+      response.shift();
       this.DDUserTypeList = response;
        this.isLoading = false;
     }, error => {
