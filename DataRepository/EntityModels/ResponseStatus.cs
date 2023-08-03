@@ -163,7 +163,7 @@ namespace DataRepository.EntityModels
     }
     public class GetCompanyResponse
     {
-        public int CompanyId { get ; set; }
+        public int CompanyId { get; set; }
         public string CompanyName { get; set; }
         public DateTime CreatedOn { get; set; }
         public int UserCount { get; set; } 

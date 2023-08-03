@@ -33,7 +33,7 @@ namespace DataRepository.Repositoryy
             var company = await _context.Companys
                     .Select(Companys => new GetCompanyResponse
                     {
-                        CompanyId = Companys.Id,
+                        CompanyId=Companys.Id,
                         CompanyName = Companys.Name,
                         CreatedOn = Companys.CreatedOn,
                         UserCount = _context.Users.Count(user => user.CompanyId == Companys.Id && user.IsDeleted==false) 

@@ -36,7 +36,8 @@ export class CompnayManagementComponent implements OnInit {
   ngOnInit() {
     this.getCompany();
   }
- async switchToCompanyAdmin(company) {
+  async switchToCompanyAdmin(company: companyModel) {
+   debugger
     const dialogRef = await this.dialog.open(ConfirmDialogComponent, {
       data: {
         message: 'Are you sure you want to Login as company admin',
@@ -57,7 +58,7 @@ export class CompnayManagementComponent implements OnInit {
             sessionStorage.setItem('token', response.message);
             sessionStorage.setItem('userType', 'ADMIN');
             sessionStorage.setItem('SwitchToSuperadmin', 'TRUE');
-            sessionStorage.setItem('companyId', company.companyId);
+            sessionStorage.setItem('companyId', company.companyId.toString());
             this.accountService.SwitchedToAdmin(true);
             this.toastr.success(`You are now successfully switched as a company admin in company "${company.companyName}"`);
             
@@ -91,7 +92,7 @@ export class CompnayManagementComponent implements OnInit {
 }
 }
 export interface companyModel {
-  companyId : number;
+  companyId: number;
   companyName: string;
   createdOn: string;
   userCount: number;
