@@ -65,7 +65,7 @@ namespace DataRepository.Repositoryy
                 var user = await _userManager.FindByIdAsync(userId);
                 var userRoles = await _userManager.GetRolesAsync(user);
                 int ticketCount, userCount = 0;
-                if (userRoles.FirstOrDefault().ToUpper() == "ADMIN")
+                if (userRoles.FirstOrDefault().ToUpper() == "ADMIN" || userRoles.FirstOrDefault().ToUpper() == "SUPERADMIN")
                 {
                     ticketCount = (from ticket in _context.Tickets
                                    join creator in _context.Users on ticket.CreatedBy equals creator.Id

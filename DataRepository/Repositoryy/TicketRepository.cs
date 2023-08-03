@@ -110,7 +110,7 @@ namespace DataRepository.Repository
                 result=(from ticket in _context.Tickets
                         join appuser in _context.Users on  ticket.CreatedBy equals appuser.Id
                         where 
-                        ((userRoles.FirstOrDefault().ToUpper() == "ADMIN")?true: ticket.CreatedBy == userId) 
+                        ((userRoles.FirstOrDefault().ToUpper() == "ADMIN" || userRoles.FirstOrDefault().ToUpper() == "SUPERADMIN") ?true: ticket.CreatedBy == userId) 
                         && appuser.CompanyId== companyId
                         orderby ticket.CreatedOn descending
                         select new TicketViewResponse {

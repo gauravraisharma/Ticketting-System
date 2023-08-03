@@ -57,6 +57,7 @@ export class CompnayManagementComponent implements OnInit {
             sessionStorage.setItem('token', response.message);
             sessionStorage.setItem('userType', 'ADMIN');
             sessionStorage.setItem('SwitchToSuperadmin', 'TRUE');
+            sessionStorage.setItem('companyId', company.companyId);
             this.accountService.SwitchedToAdmin(true);
             this.toastr.success(`You are now successfully switched as a company admin in company "${company.companyName}"`);
             
@@ -90,6 +91,7 @@ export class CompnayManagementComponent implements OnInit {
 }
 }
 export interface companyModel {
+  companyId : number;
   companyName: string;
   createdOn: string;
   userCount: number;

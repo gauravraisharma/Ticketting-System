@@ -33,7 +33,8 @@ const appRoutes: Routes = [
   {
     path: 'companys',
     loadChildren: () => import('./authorizedView/companymanagement/companymanagement.module').then(m => m.CompanymanagementModule),
-    canActivate: [SuperAdminGuard]
+    canActivate: [SuperAdminGuard],
+     data: { allowedRoles: ['SUPERADMIN'] }
   },
   {
     path: '**',
