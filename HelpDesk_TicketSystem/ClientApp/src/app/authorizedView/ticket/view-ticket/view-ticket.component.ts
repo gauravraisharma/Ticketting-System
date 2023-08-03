@@ -79,7 +79,6 @@ export class ViewTicketComponent implements OnInit {
     this.isSendMessageOpen = false;
   }
   async closeTicket() {
-    debugger
     const dialogRef = await  this.dialog.open(ConfirmDialogComponent, {
       data: {
         message: 'Are you sure you want to close the ticket',

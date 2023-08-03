@@ -148,17 +148,6 @@ namespace HelpDesk_TicketSystem.Controllers
             return Ok(dbResponse);
         }
 
-        //This method is used to get ticket total number of ticket created by user
-        //For admin type user total ticket count will be return 
-        [HttpGet("GetTotalTicketCount/{userId}/{companyId}")]
-        public async Task<ActionResult<DashboardResponseStatus>> GetTotalTicketCount(string userId,int companyId)
-        {
-            var dbResponse = await _ticketService.GetTotalTicketCount(userId,companyId);
-            if (dbResponse.Status=="FAILED")
-            {
-                return BadRequest(dbResponse);
-            }
-            return Ok(dbResponse);
-        }
+        
     }
 }

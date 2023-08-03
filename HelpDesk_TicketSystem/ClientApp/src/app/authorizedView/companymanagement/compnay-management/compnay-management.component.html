@@ -7,7 +7,7 @@
       </li>
       <li><i class='bx bx-chevron-right'></i></li>
       <li>
-         <a class="active" href="javascript:;">company management</a>
+        <a class="active" href="javascript:;">company management</a>
       </li>
     </ul>
   </div>
@@ -35,13 +35,17 @@
 
       <ng-container matColumnDef="userCount">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Total Users</th>
-        <td mat-cell *matCellDef="let company"> {{ company.userCount }} </td>
+        <td mat-cell *matCellDef="let company">
+          <div class="round-count bg-info text-white">{{ company.userCount }}</div>
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="action">
         <th mat-header-cell *matHeaderCellDef> Action </th>
         <td mat-cell *matCellDef="let company">
           <mat-icon aria-hidden="false" aria-label="preview" title="Edit Company" fontIcon="edit" class="text-secondary" style="cursor:pointer;"></mat-icon>
+          <mat-icon aria-hidden="false" aria-label="change_circle" title="Switch to company admin" fontIcon="change_circle" class="text-primary"
+                    style="cursor:pointer;" (click)="switchToCompanyAdmin(company)"></mat-icon>
         </td>
       </ng-container>
       <!-- Add more columns here if needed -->
@@ -55,3 +59,4 @@
 </div>
 
 
+  <loader *ngIf="isLoading"></loader>">

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { CommonService } from '../../../../services/commonServcices/common-service.service';
+import { DashboardService } from '../../../../services/dashboardService/dashboard.service';
 
 
 @Component({
@@ -9,11 +11,11 @@ import { CommonService } from '../../../../services/commonServcices/common-servi
   styleUrls: ['./superadmin-dashboard.component.css']
 })
 export class SuperadminDashboardComponent implements OnInit {
-  ticketCount = 0;
-  userCount = 0;
+  companyCount=0
   isLoading = false;
   userType = '';
-  constructor(private commonService: CommonService,
+  constructor(private dashboardService: DashboardService,
+    private toastr: ToastrService,
     private router: Router,) { }
 
   ngOnInit() {
@@ -22,18 +24,15 @@ export class SuperadminDashboardComponent implements OnInit {
   }
   GetTotalDashboardCounts() {
     this.isLoading = true;
-    this.commonService.GetTotalDashboardCounts(sessionStorage.getItem('userId')!, parseInt(sessionStorage.getItem('companyId'))).subscribe((response: any) => {
-      this.ticketCount = response.toatlTickets;
-      this.userCount = response.toatlUsers;
+    this.dashboardService.GetCompanyCount().subscribe((response: any) => {
+      this.companyCount = response.message;
       this.isLoading = false;
     }, error => {
+      this.toastr.error('Something went wrong')
       this.isLoading = false;
     })
   }
-  gotToTicketList() {
-    this.router.navigate(['/ticket'])
-  }
-  gotToUserList() {
-    this.router.navigate(['/users'])
+  gotToCompanyList() {
+    this.router.navigate(['/companys'])
   }
 }

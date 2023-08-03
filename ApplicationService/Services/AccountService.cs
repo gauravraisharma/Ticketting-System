@@ -83,5 +83,14 @@ namespace ApplicationService.Services
         {
             return _accountRepository.GetUserDataById(userId);
         }
+        
+        public Task<ResponseStatus> SwitchToCompanyAdmin(string userId)
+        {
+            return _accountRepository.SwitchToCompanyAdmin(userId);
+        }
+        public Task<ResponseStatus> SwitchToSuperadmin(string userId)
+        {
+            return _accountRepository.SwitchToSuperadmin(userId);
+        }
     }
 }

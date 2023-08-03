@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AccountService } from '../../../../services/accountServices/account-service.service';
 
 @Component({
   selector: 'app-dashboard-initializer',
@@ -8,7 +9,17 @@ import { Component, OnInit } from '@angular/core';
 export class DashboardInitializerComponent implements OnInit {
 
   userType = '';
+
+  constructor(
+    private accountService: AccountService,) { }
   ngOnInit() {
-    this.userType = sessionStorage.getItem('userType').toUpperCase();
+    this.observeAdminChange();
   }
+
+  observeAdminChange() {
+    this.accountService.observeAdminChange().subscribe((value) => {
+      this.userType = sessionStorage.getItem('userType').toUpperCase();
+    })
+  }
+
 }

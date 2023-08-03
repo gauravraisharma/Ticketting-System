@@ -18,6 +18,6 @@ namespace ApplicationService.IServices
         ResponseStatus AddAttachMents(int ticketId, IFormFileCollection files, string attachmentType);
         Task<IEnumerable<conversationDetail>> GetTicketConversationDataById(int ticketId);
         Task<ResponseStatus> ChangeTicketStatusById(int ticketId, string userId, string status);
-        Task<DashboardResponseStatus> GetTotalTicketCount(string userId, int companyId);
+       
     }
 }

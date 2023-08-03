@@ -16,6 +16,6 @@ namespace ApplicationService.IRepository
         ResponseStatus AddAttachMents(int referanceId, List<FileUploadResponse> fileDetails, string attachmentType);
         Task<IEnumerable<conversationDetail>> GetTicketConversationDataById(int ticketId);
         Task<ResponseStatus> ChangeTicketStatusById(int ticketId, string userId, string status);
-        Task<DashboardResponseStatus> GetTotalTicketCount(string userId, int companyId);
+        
     }
 }

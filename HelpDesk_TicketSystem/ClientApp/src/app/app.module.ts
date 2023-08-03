@@ -18,6 +18,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { APIInterceptor } from '../services/apiInterceptor/api.interceptor';
 import { SharedModule } from './sharedComponent/shared.module';
 import { CompanyService } from '../services/companyService/company.service';
+import { DashboardService } from '../services/dashboardService/dashboard.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -40,6 +41,7 @@ import { CompanyService } from '../services/companyService/company.service';
     TicketService,
     CommonService,
     CompanyService,
+    DashboardService,
     {
     provide: HTTP_INTERCEPTORS,
     useClass: APIInterceptor,

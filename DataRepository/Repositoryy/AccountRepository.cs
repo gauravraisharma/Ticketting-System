@@ -613,6 +613,131 @@ namespace DataRepository.Repository
 
 
         }
+        private async Task<string> GenerateTokenToSwitchAdmin(ApplicationUser user)
+        {
+            try
+            {
+                var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
+                var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+
+                //Find UserRole 
+                var userRoles = await _userManager.GetRolesAsync(user);
+
+                List<Claim> claims = new List<Claim> {
+                    new Claim(ClaimTypes.Name,user.UserName),
+                    new Claim(ClaimTypes.Role,"SUPERADMIN"),
+                    new Claim(ClaimTypes.Role,"ADMIN")
+                };
+
+                var token = new JwtSecurityToken(claims: claims, expires: DateTime.Now.AddDays(1), signingCredentials: credentials);
+                return new JwtSecurityTokenHandler().WriteToken(token);
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+
+        public async Task<ResponseStatus> SwitchToCompanyAdmin(string userId)
+        {
+            try
+            {
+                if (_context == null)
+                {
+                    return new ResponseStatus
+                    {
+                        Status = "FAILED",
+                        Message = "Db Context is null"
+                    };
+                }
+
+                // get user role
+                var user=await _userManager.FindByIdAsync(userId);
+                var userRoles = await _userManager.GetRolesAsync(user);
+
+                //If passwed user is a superadmin than proceed else not 
+                if(userRoles.FirstOrDefault().ToUpper()!="SUPERADMIN")
+                {
+
+                   return new ResponseStatus
+                    {
+                        Status = "FAILED",
+                        Message = "User is not valid for this functionality"
+                    };
+                }
+               
+                var token = await GenerateTokenToSwitchAdmin(user);
+
+
+                return new ResponseStatus
+                {
+                    Status = "SUCCEED",
+                    Message = token
+                };
+
+            }
+            catch (Exception ex)
+            {
+               return new ResponseStatus
+                {
+                    Status = "FAILED",
+                    Message = "Something went wrong"
+                };
+            }
+
+
+        }
+
+
+        public async Task<ResponseStatus> SwitchToSuperadmin(string userId)
+        {
+            try
+            {
+                if (_context == null)
+                {
+                    return new ResponseStatus
+                    {
+                        Status = "FAILED",
+                        Message = "Db Context is null"
+                    };
+                }
+
+                // get user role
+                var user=await _userManager.FindByIdAsync(userId);
+                var userRoles = await _userManager.GetRolesAsync(user);
+
+                //If user is a superadmin than proceed else not 
+                if(userRoles.FirstOrDefault().ToUpper()!="SUPERADMIN")
+                {
+
+                   return new ResponseStatus
+                    {
+                        Status = "FAILED",
+                        Message = "User is not valid for this functionality"
+                    };
+                }
+               
+                var token = await GenerateToken(user,false);
+
+                return new ResponseStatus
+                {
+                    Status = "SUCCEED",
+                    Message = token
+                };
+
+            }
+            catch (Exception ex)
+            {
+               return new ResponseStatus
+                {
+                    Status = "FAILED",
+                    Message = "Something went wrong"
+                };
+            }
+
+
+        }
 
     }
 }

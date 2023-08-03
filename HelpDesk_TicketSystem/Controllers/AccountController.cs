@@ -172,5 +172,30 @@ namespace HelpDesk_TicketSystem.Controllers
             }
             return Ok(dbResponse);
         }
+
+        //This method will generate a new token using which superadmin can act as a company admin 
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = "SUPERADMIN")]
+        [HttpGet("SwitchToCompanyAdmin/{userId}")]
+        public async Task<ActionResult> SwitchToCompanyAdmin(string userId)
+        {
+            var dbResponse = await _accountService.SwitchToCompanyAdmin(userId);
+            if (dbResponse.Status == "FAILED")
+            {
+                return BadRequest();
+            }
+            return Ok(dbResponse);
+        }
+        //This method will generate a new token using which superadmin can act as a company admin 
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = "SUPERADMIN,ADMIN")]
+        [HttpGet("SwitchToSuperadmin/{userId}")]
+        public async Task<ActionResult> SwitchToSuperadmin(string userId)
+        {
+            var dbResponse = await _accountService.SwitchToSuperadmin(userId);
+            if (dbResponse.Status == "FAILED")
+            {
+                return BadRequest();
+            }
+            return Ok(dbResponse);
+        }
     }
 }

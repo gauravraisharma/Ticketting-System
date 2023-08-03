@@ -416,57 +416,7 @@ namespace DataRepository.Repository
             }
         }
 
-
-        public async Task<DashboardResponseStatus> GetTotalTicketCount(string userId,int companyId)
-        {
-            if (_context.Tickets == null)
-            {
-                return null;
-            }
-            try
-            {
-                // get the role of the user 
-                var user = await _userManager.FindByIdAsync(userId);
-                var userRoles = await _userManager.GetRolesAsync(user);
-                int ticketCount,userCount=0;
-                if (userRoles.FirstOrDefault().ToUpper() == "ADMIN")
-                {
-                    ticketCount = (from ticket in _context.Tickets
-                                  join creator in _context.Users on ticket.CreatedBy equals creator.Id
-                                  where creator.CompanyId==companyId && ticket.IsDeleted== false
-                                  select ticket
-                                  ).Count();
-
-                    userCount = (from  appuser in _context.Users                          
-                                 where appuser.CompanyId == companyId && appuser.Id!=userId && appuser.IsDeleted==false
-                                 select appuser
-                                  ).Count();
-                }
-                else
-                {
-                    ticketCount = _context.Tickets.Where(ticket =>  ticket.CreatedBy==userId).Count();
-                }
-
-                    return new DashboardResponseStatus() {
-                    ToatlTickets = ticketCount,
-                    ToatlUsers= userCount,
-                    Status ="SUCCEED",
-                    Message = "Ticket Count got successfully",
-                    };
-            }
-            catch (Exception ex)
-            {
-                return new DashboardResponseStatus()
-                {
-                    Message = "Something went wrong",
-                    Status = "FAILED"
-                };
-            }
-            finally
-            {
-               // _context.Dispose();
-            }
-        } 
+ 
         public  ResponseStatus AddAttachMents(int referanceId, List<FileUploadResponse> fileDetails, string attachmentType)
         {
             if (_context.Tickets == null)

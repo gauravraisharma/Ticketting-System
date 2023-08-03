@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 
 @Injectable({
@@ -7,10 +8,20 @@ import { environment } from '../../environments/environment';
 })
 export class AccountService {
 
+  private IsSwitchedToAdmin = new BehaviorSubject<boolean>(false);
+
+  
   constructor(private http: HttpClient) {
   }
   apiUrl = environment.apiBaseUrl;
- 
+
+  observeAdminChange(): Observable<boolean> {
+    return this.IsSwitchedToAdmin.asObservable();
+  }
+  SwitchedToAdmin(newValue: boolean) {
+    this.IsSwitchedToAdmin.next(newValue);
+  }
+
   loginUser(userModel: any) {
     let url = `${this.apiUrl}Account/LoginUser`;
     return this.http.post(url, userModel);
@@ -33,6 +44,15 @@ export class AccountService {
   }
   getUserDataById(userId) {
     let url = `${this.apiUrl}Account/getUserDataById/${userId}`;
+    return this.http.get(url);
+  }
+
+  SwitchToCompanyAdmin(userId) {
+    let url = `${this.apiUrl}Account/SwitchToCompanyAdmin/${userId}`;
+    return this.http.get(url);
+  }
+  SwitchToSuperadmin(userId) {
+    let url = `${this.apiUrl}Account/SwitchToSuperadmin/${userId}`;
     return this.http.get(url);
   }
 }

@@ -1,7 +1,7 @@
 
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CommonService } from '../../../../services/commonServcices/common-service.service';
+import { DashboardService } from '../../../../services/dashboardService/dashboard.service';
 
 @Component({
   selector: 'app-company-admin-dashboard',
@@ -14,7 +14,7 @@ export class CompanyAdminDashboardComponent
   userCount = 0;
   isLoading = false;
   userType = '';
-  constructor(private commonService: CommonService,
+  constructor(private dashboardService: DashboardService,
     private router: Router,) { }
 
   ngOnInit() {
@@ -23,7 +23,7 @@ export class CompanyAdminDashboardComponent
   }
   GetTotalDashboardCounts() {
     this.isLoading = true;
-    this.commonService.GetTotalDashboardCounts(sessionStorage.getItem('userId')!, parseInt(sessionStorage.getItem('companyId'))).subscribe((response: any) => {
+    this.dashboardService.GetUserAndTicketCount(sessionStorage.getItem('userId')!, parseInt(sessionStorage.getItem('companyId'))).subscribe((response: any) => {
       this.ticketCount = response.toatlTickets;
       this.userCount = response.toatlUsers;
       this.isLoading = false;

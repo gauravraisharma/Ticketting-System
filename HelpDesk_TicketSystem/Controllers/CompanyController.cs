@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HelpDesk_TicketSystem.Controllers
 {
+    [Authorize(AuthenticationSchemes = "Bearer")]
     [Route("api/[controller]")]
     [ApiController]
     public class CompanyController : ControllerBase

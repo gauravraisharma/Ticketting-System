@@ -135,9 +135,6 @@ namespace ApplicationService.Services
             return _ticketRepository.GetTickets(userId,companyId);
         }
 
-        public Task<DashboardResponseStatus> GetTotalTicketCount(string userId,int companyId)
-        {
-            return _ticketRepository.GetTotalTicketCount(userId,companyId);
-        }
+     
     }
 }

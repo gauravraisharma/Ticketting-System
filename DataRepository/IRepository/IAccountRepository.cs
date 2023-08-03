@@ -18,6 +18,9 @@ namespace DataRepository.IRepository
         DDListResponse GetUserTypeListDD();
         IEnumerable<ResponseApplicationUserModel> GetUserList(int companyId);
         ResponseStatus DeleteUser(string userId);
+
         UserDataResponse GetUserDataById(string userId);
+        Task<ResponseStatus> SwitchToCompanyAdmin(string userId);
+        Task<ResponseStatus> SwitchToSuperadmin(string userId);
     }
 }

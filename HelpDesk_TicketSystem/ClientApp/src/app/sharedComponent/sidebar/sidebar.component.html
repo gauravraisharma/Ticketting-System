@@ -41,6 +41,12 @@
   </ul>
   <ul class="side-menu">
 
+    <li *ngIf="SwitchToSuperadmin">
+      <a href="javascript:;" (click)="SwitchBackToSuperadmin()" class="text-primary">
+        <i class='bx bxs-exit'></i>
+        <span class="text">Switch Back to Superadmin</span>
+      </a>
+    </li>
     <li>
       <a href="javascript:;" (click)="logout()" class="logout">
         <i class='bx bxs-log-out-circle'></i>

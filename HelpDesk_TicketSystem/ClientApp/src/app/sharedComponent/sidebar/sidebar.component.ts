@@ -3,6 +3,8 @@ import { NavigationEnd, NavigationStart, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { AccountService } from '../../../services/accountServices/account-service.service';
+import { CompanyService } from '../../../services/companyService/company.service';
 
 
 
@@ -48,7 +50,10 @@ export class SidebarComponent implements OnInit {
   userType = '';
   @Input() SideMenuStatus!: boolean;
   menu = [];
+  SwitchToSuperadmin = false;
+  isLoading = false;
   constructor(
+    private accountService: AccountService,
     private router: Router,
     private toastr: ToastrService,
     public dialog: MatDialog
@@ -62,6 +67,16 @@ export class SidebarComponent implements OnInit {
 
   ngOnInit() {
     this.currentRoute = this.router.url;
+    this.observeAdminChange();
+  }
+  observeAdminChange() {
+    this.accountService.observeAdminChange().subscribe((value) => {
+      this.SwitchToSuperadmin = (sessionStorage.getItem('SwitchToSuperadmin') == 'TRUE') ? true : false;;
+      this.AssignMenu();
+    })
+  }
+
+  AssignMenu() {
     this.userType = sessionStorage.getItem('userType').toUpperCase();
     if (this.userType == 'SUPERADMIN') {
       this.menu = SuperAdminMenu;
@@ -73,6 +88,8 @@ export class SidebarComponent implements OnInit {
       this.menu = []
     }
   }
+
+
   async logout() {
     const dialogRef = await this.dialog.open(ConfirmDialogComponent, {
       data: {
@@ -90,6 +107,41 @@ export class SidebarComponent implements OnInit {
         this.toastr.success("Successfully logout");
         this.router.navigate(['/user-authenticaton/login']);
       } else {
+
+      }
+
+    });
+
+  }
+
+  async SwitchBackToSuperadmin() {
+    const dialogRef = await this.dialog.open(ConfirmDialogComponent, {
+      data: {
+        message: "Are you certain you wish to switch back to the superadmin account?",
+        title: 'Switch Back to Superadmin'
+      },
+      width: '450px',
+      enterAnimationDuration: '0',
+      exitAnimationDuration: '0',
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result == "ok") {
+        this.isLoading = true;
+        this.accountService.SwitchToSuperadmin(sessionStorage.getItem('userId')).subscribe((response: any) => {
+          //change session storage values
+          sessionStorage.setItem('token', response.message);
+          sessionStorage.setItem('userType', 'SUPERADMIN');
+          sessionStorage.removeItem('SwitchToSuperadmin');
+          this.accountService.SwitchedToAdmin(false);
+          this.toastr.success(`You are now successfully switch back to the superadmin account`);
+          this.isLoading = false;
+          this.router.navigate(['/dashboard'])
+        }, error => {
+          console.log(error, "Something went wrong");
+          this.isLoading = false;
+        });
+
 
       }
 
