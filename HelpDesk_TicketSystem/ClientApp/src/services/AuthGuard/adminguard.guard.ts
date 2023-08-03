@@ -7,11 +7,12 @@ export const adminguardGuard: CanActivateFn = (route, state) => {
   const toaster = inject(ToastrService);
   console.log(state)
   //check if your is already login than it should to able to access login page
-  debugger
-    if (sessionStorage.getItem('token') != null && sessionStorage.getItem('token') != undefined && sessionStorage.getItem('userType')!='ADMIN') {
+  
+    if (sessionStorage.getItem('userType')!='ADMIN') {
       router.navigate(['dashboard']);
       return false;
-    } else {
-      return true;
     }
+   else {
+      return true;
+  }
 };

@@ -8,7 +8,7 @@ export const authguardGuard: CanActivateFn = (route, state) => {
   //check if your is already login than it should to able to access login page
   if (state.url.includes('user-authenticaton')) {
     if (sessionStorage.getItem('token') != null && sessionStorage.getItem('token') != undefined) {
-     router.navigate(['dashboard']);
+      router.navigate(['dashboard']);
       return false;
     } else {
       return true;
