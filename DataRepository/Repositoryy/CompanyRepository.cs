@@ -34,7 +34,8 @@ namespace DataRepository.Repositoryy
                     .Select(Companys => new GetCompanyResponse
                     {
                         CompanyName = Companys.Name,
-                        CreatedOn = Companys.CreatedOn
+                        CreatedOn = Companys.CreatedOn,
+                        UserCount = _context.Users.Count(user => user.CompanyId == Companys.Id && user.IsDeleted==false) 
                     })
                     .ToListAsync();
 

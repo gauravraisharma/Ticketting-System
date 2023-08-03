@@ -165,6 +165,8 @@ namespace DataRepository.EntityModels
     {
         public string CompanyName { get; set; }
         public DateTime CreatedOn { get; set; }
-    }
+        public int UserCount { get; set; } 
+    
+     }
 
 }

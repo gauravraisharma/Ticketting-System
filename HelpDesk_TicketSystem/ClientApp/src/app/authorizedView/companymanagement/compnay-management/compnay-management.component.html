@@ -1,6 +1,6 @@
 <div class="head-title">
   <div class="left">
-    <h1>Comapny Management</h1>
+    <h1>Company Management</h1>
     <ul class="breadcrumb">
       <li>
         <a routerLink="/dashboard">Home</a>
@@ -33,10 +33,15 @@
         <td mat-cell *matCellDef="let company"> {{ company.createdOn | date }} </td>
       </ng-container>
 
+      <ng-container matColumnDef="userCount">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Total Users</th>
+        <td mat-cell *matCellDef="let company"> {{ company.userCount }} </td>
+      </ng-container>
+
       <ng-container matColumnDef="action">
         <th mat-header-cell *matHeaderCellDef> Action </th>
         <td mat-cell *matCellDef="let company">
-          <mat-icon aria-hidden="false" aria-label="preview" title="Edit Company" fontIcon="edit" class="text-secondary"  style="cursor:pointer;"></mat-icon>
+          <mat-icon aria-hidden="false" aria-label="preview" title="Edit Company" fontIcon="edit" class="text-secondary" style="cursor:pointer;"></mat-icon>
         </td>
       </ng-container>
       <!-- Add more columns here if needed -->

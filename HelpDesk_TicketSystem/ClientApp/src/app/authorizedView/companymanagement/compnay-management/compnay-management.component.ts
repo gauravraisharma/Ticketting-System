@@ -15,7 +15,7 @@ export class CompnayManagementComponent implements OnInit {
   constructor(private companyService: CompanyService,
     private router: Router, private _liveAnnouncer: LiveAnnouncer) { }
 
-  displayedColumns: string[] = [ 'companyName', 'createdOn','action'];
+  displayedColumns: string[] = ['companyName', 'createdOn','userCount','action'];
   dataSource = new MatTableDataSource<companyModel>([]);
   public companies: companyModel[] = [];
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -39,5 +39,6 @@ export class CompnayManagementComponent implements OnInit {
 export interface companyModel {
   companyName: string;
   createdOn: string;
+  userCount: number;
 }
 
