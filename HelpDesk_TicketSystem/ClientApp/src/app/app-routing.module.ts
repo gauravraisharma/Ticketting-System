@@ -1,8 +1,6 @@
 
 import { NgModule } from '@angular/core';
 import {  RouterModule, Routes } from '@angular/router';
-import { authguardGuard } from '../services/AuthGuard/authguard.guard';
-import { SuperAdminGuard } from '../services/AuthGuard/superadmin.guard';
 import { HomepageComponent } from './homepage/homepage.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
@@ -32,9 +30,7 @@ const appRoutes: Routes = [
   },
   {
     path: 'companys',
-    loadChildren: () => import('./authorizedView/companymanagement/companymanagement.module').then(m => m.CompanymanagementModule),
-    canActivate: [SuperAdminGuard],
-     data: { allowedRoles: ['SUPERADMIN'] }
+    loadChildren: () => import('./authorizedView/companymanagement/companymanagement.module').then(m => m.CompanymanagementModule)
   },
   {
     path: '**',
