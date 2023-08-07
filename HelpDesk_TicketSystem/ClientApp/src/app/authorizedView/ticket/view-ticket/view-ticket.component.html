@@ -164,7 +164,7 @@
                   <div class="d-flex align-items-center">
                     <mat-icon class="me-2" aria-hidden="false" aria-label="User" fontIcon="person_outline" *ngIf="message['userType']=='ADMIN'"></mat-icon>
                     <mat-icon class="me-2" aria-hidden="false" aria-label="User" fontIcon="person" *ngIf="message['userType']=='NORMALUSER'"></mat-icon>
-                    {{message['createdBy']}} <span class="ms-2 pills-info">{{(message['userType']=="ADMIN"?"Staff":"Client")}}</span>
+                    {{message['createdBy']}} <span class="ms-2 pills-info">{{(message['userType']=="NORMALUSER"?"Client":"Staff")}}</span>
                   </div>
                   <div class="date-time-info">{{message['createdOn'] | date:'short'}}</div>
                 </div>

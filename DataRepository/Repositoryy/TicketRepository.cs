@@ -234,7 +234,7 @@ namespace DataRepository.Repository
                                                                               ConversationId = conversations.ConversationTrackId,
                                                                               Message = conversations.Message,
                                                                               CreatedOn = conversations.CreatedOn,
-                                                                              CreatedBy = users.UserName,
+                                                                              CreatedBy = users.FirstName + " " + users.LastName,
                                                                               UserType = role.Name.ToUpper(),
                                                                               attachments = (from attachment in _context.Attachments
                                                                                              where attachment.referenceId == conversations.ConversationTrackId && attachment.AttachmentType == "CONVERSATION"

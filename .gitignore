@@ -70,3 +70,4 @@
 /DataRepository/obj/project.nuget.cache
 /HelpDesk_TicketSystem/ClientApp/angular.json
 /HelpDesk_TicketSystem/appsettings.json
+/HelpDesk_TicketSystem/ClientApp/package-lock.json
