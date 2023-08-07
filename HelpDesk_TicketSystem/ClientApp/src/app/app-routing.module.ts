@@ -33,6 +33,10 @@ const appRoutes: Routes = [
     loadChildren: () => import('./authorizedView/companymanagement/companymanagement.module').then(m => m.CompanymanagementModule)
   },
   {
+    path: 'settings',
+    loadChildren: () => import('./authorizedView/settings/settings.module').then(m => m.SettingsModule)
+  },
+  {
     path: '**',
     pathMatch: 'full',
     component: PageNotFoundComponent

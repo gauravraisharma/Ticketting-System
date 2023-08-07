@@ -49,6 +49,8 @@ namespace DataRepository.EntityModels
         public string PhoneNumber { get; set; }
         [Required(ErrorMessage = "UserType is required")] 
         public string UserType { get; set; }
+        
+        public string? Password { get; set; }
         public int? DepartmentId { get; set; }
         [Required(ErrorMessage = "Created by  is required")]
         public string ModifiedBy { get; set; }

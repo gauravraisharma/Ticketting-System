@@ -111,21 +111,31 @@
             </div>
 
 
-            <div class="col-sm-4" *ngIf="userId==null ||userId==undefined ||userId==''">
+            <div class="col-sm-4" >
               <mat-form-field class="full-width-field" appearance="outline">
                 <mat-label>Password</mat-label>
-                <input matInput placeholder="Enter password" type="password" formControlName="password"
-                       required>
+                <input matInput
+                       [type]="passwordHide ? 'password' : 'text'"
+                       placeholder="Enter password" formControlName="password">
+                       
+                <button type="button" mat-icon-button matSuffix (click)="passwordHide = !passwordHide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="passwordHide">
+                  <mat-icon>{{passwordHide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
                 <mat-error *ngIf="userForm.get('password')?.invalid">
                   Please enter valid password
                 </mat-error>
               </mat-form-field>
-            </div>
-            <div class="col-sm-4" *ngIf="userId==null ||userId==undefined ||userId==''">
+  </div>
+           
+            <div class="col-sm-4" *ngIf="userForm.get('password').value!=''">
               <mat-form-field class="full-width-field" appearance="outline">
                 <mat-label>Confirm Password</mat-label>
-                <input matInput placeholder="Enter confirm password" type="password" formControlName="confirmPassword"
-                       required>
+                <input matInput
+                       [type]="passwordHide ? 'password' : 'text'"
+                       placeholder="Enter confirm password" type="password" formControlName="confirmPassword">
+                <button type="button" mat-icon-button matSuffix (click)="passwordHide = !passwordHide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="passwordHide">
+                  <mat-icon>{{passwordHide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
                 <mat-error *ngIf="userForm.get('confirmPassword')?.invalid">
 
                   Password and Confirm password does not match

@@ -1,4 +1,5 @@
-﻿using DataRepository.EntityModels;
+﻿using Azure.Core;
+using DataRepository.EntityModels;
 using DataRepository.IRepository;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -199,8 +200,19 @@ namespace DataRepository.Repository
                         Message = errors
                     };
                 }
-                
-                
+                if (!string.IsNullOrEmpty( userModel.Password))
+                {
+                    var token = await _userManager.GeneratePasswordResetTokenAsync(userFound);
+                    var resetPasswordResult = await _userManager.ResetPasswordAsync(userFound, token, userModel.Password);
+                    if (!resetPasswordResult.Succeeded)
+                        return new ResponseStatus
+                        {
+                            Status = "FAILED",
+                            Message = "Something went Wrong"
+                        };
+                }
+
+
 
                 return new ResponseStatus
                 {
@@ -213,7 +225,7 @@ namespace DataRepository.Repository
                 return new ResponseStatus
                 {
                     Status = "FAILED",
-                    Message = "Something went wrong "
+                    Message = "Something went Wrong"
                 };
             }
             finally
@@ -589,6 +601,7 @@ namespace DataRepository.Repository
                                     PhoneNumber = user.PhoneNumber,
                                     UserType = userRole.RoleId,
                                     Department = user.DepartmentId,
+                                    Password = user.PasswordHash,
                                     IsAdmin = (role.Name.ToUpper() == "ADMIN") ? true : false
                                 }
 

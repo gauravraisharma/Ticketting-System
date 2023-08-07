@@ -6,7 +6,7 @@
       <div class="row align-items-center">
         <div class="col-md-6">
           <div class="content left-side">
-            <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
+            <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()" autocomplete="off">
               <h1 class="heading">
                 Create Account In <strong>
                   Tech<span class="orange">Desk</span>
@@ -14,22 +14,22 @@
               </h1>
               <div class="fields">
                 <div class="form-group">
-                  <label for="exampleInputEmail1">First Name</label>
-                  <input type="text" class="form-control" id="exampleInputName1" formControlName="firstName"
+                  <label for="exampleInputEmail1">First Name *</label>
+                  <input  type="text" class="form-control" id="exampleInputName1" formControlName="firstName"
                          [ngClass]="(firstName?.invalid && (firstName?.dirty || firstName?.touched)) ? 'invalid form-control' : 'form-control'"
                          aria-describedby="nameHelp" placeholder="Enter first name">
                   <span *ngIf="firstName?.invalid && (firstName?.dirty || firstName?.touched)" class="invalid-message">First Name is required </span>
                 </div>
                 <div class="form-group">
                   <label for="exampleInputEmail1">Last Name</label>
-                  <input type="text" class="form-control" id="exampleInputName1" formControlName="lastName"
+                  <input  type="text" class="form-control" id="exampleInputName1" formControlName="lastName"
                          [ngClass]="(lastName?.invalid && (lastName?.dirty || lastName?.touched)) ? 'invalid form-control' : 'form-control'"
                          aria-describedby="nameHelp" placeholder="Enter last name">
                   <span *ngIf="lastName?.invalid && (lastName?.dirty || lastName?.touched)" class="invalid-message">Last Name is required </span>
 
                 </div>
                 <div class="form-group">
-                  <label for="exampleInputEmail1">User Name</label>
+                  <label for="exampleInputEmail1">User Name *</label>
                   <input type="text" class="form-control" id="exampleInputName1" formControlName="username"
                          [ngClass]="(username?.invalid && (username?.dirty || username?.touched)) ? 'invalid form-control' : 'form-control'"
                          aria-describedby="nameHelp" placeholder="Enter last name">
@@ -37,7 +37,7 @@
 
                 </div>
                 <div class="form-group">
-                  <label for="exampleInputEmail1">Email</label>
+                  <label for="exampleInputEmail1">Email *</label>
                   <input type="email" class="form-control" id="exampleInputEmail1" formControlName="email"
                          [ngClass]="(email?.invalid && (email?.dirty || email?.touched)) ? 'invalid form-control' : 'form-control'"
                          aria-describedby="emailHelp" placeholder="Enter email address">
@@ -54,15 +54,15 @@
 
                 </div>
                 <div class="form-group">
-                  <label for="exampleInputEmail1">Company Name</label>
-                  <input type="text" class="form-control" id="exampleInputName1" formControlName="companyName"
+                  <label for="exampleInputEmail1">Company Name *</label>
+                  <input  type="text" class="form-control" id="exampleInputName1" formControlName="companyName"
                          [ngClass]="(companyName?.invalid && (companyName?.dirty || companyName?.touched)) ? 'invalid form-control' : 'form-control'"
                          aria-describedby="nameHelp" placeholder="Enter Company Name">
                   <span *ngIf="companyName?.invalid && (companyName?.dirty || companyName?.touched)" class="invalid-message">Company Name is required </span>
 
                 </div>
                 <div class="form-group">
-                  <label for="exampleInputPassword1">Password</label>
+                  <label for="exampleInputPassword1">Password *</label>
                   <div class="input-group">
                     <input formControlName="password"
                            [type]="passwordHide ? 'password' : 'text'"
@@ -78,9 +78,9 @@
                 </div>
 
                 <div class="form-group">
-                  <label for="exampleInputEmail1">Confirm Password</label>
+                  <label for="exampleInputEmail1">Confirm Password *</label>
                   <div class="input-group">
-                    <input [type]="passwordHide ? 'password' : 'text'" class="form-control" id="exampleInputName1" formControlName="confirmPassword"
+                    <input  [type]="passwordHide ? 'password' : 'text'" class="form-control" id="exampleInputName1" formControlName="confirmPassword"
                            [ngClass]="(confirmPassword?.invalid && (confirmPassword?.dirty || confirmPassword?.touched)) ? 'invalid form-control' : 'form-control'"
                            aria-describedby="nameHelp" placeholder="Enter Confirm Password">
 

@@ -79,5 +79,6 @@ export class UpdateApplicationUser {
   phoneNumber: string = '';
   departmentId: number = null;
   userType: string = '';
+  password: string = null;
   modifiedBy: string = '';
 } 

@@ -12,6 +12,7 @@ import { AccountService, ApplicationUser, UpdateApplicationUser } from '../../..
 })
 export class EditUserComponent {
   @ViewChild('fileattachment') fileAttachments!: ElementRef;
+  passwordHide = true;
   userForm = this.fb.group({
     username: [{ value: '', disabled: true}, [Validators.required]],
     firstName: ['', [Validators.required]],
@@ -22,7 +23,7 @@ export class EditUserComponent {
     email: ['', [Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
     password: [''],
     //Validators.pattern('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$')
-    confirmPassword: ['', [Validators.required]],
+    confirmPassword: [''],
   },
     {
       validator: this.ConfirmedValidator('password', 'confirmPassword'),
@@ -90,8 +91,9 @@ export class EditUserComponent {
       this.userForm.get('department')!.setValue(userData.department);
       this.userForm.get('email')!.setValue(userData.email);
       this.userForm.get('phoneNumber')!.setValue(userData.phoneNumber);
+      this.userForm.get('password')!.setValue('');
       this.onUserTypeChange((userData.isAdmin) ? 'ADMIN' : 'NORMALUSER');
-      this.RemoveUserFormPasswordValidation();
+     // this.RemoveUserFormPasswordValidation();
       this.isLoading = false;
     }, error => {
       this.isLoading = false;
@@ -133,8 +135,8 @@ export class EditUserComponent {
       user.departmentId = this.GetdepartmentIdForSaveUser();
       user.email = this.userForm.get('email')!.value;
       user.phoneNumber = this.userForm.get('phoneNumber')!.value;
+      user.password = this.userForm.get('password')!.value;
       user.modifiedBy = userId!;
-      debugger
       this.accountService.updateUser(user).subscribe((response: any) => {
         this.toastr.success(response.message);
         this.router.navigate(['/users']);

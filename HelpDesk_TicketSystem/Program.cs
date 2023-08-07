@@ -50,7 +50,7 @@ builder.Services.AddCors(p => p.AddPolicy("corsapp", builder =>
 
 
 builder.Services.AddDbContext<ApplicationDbContext>(item => item.UseSqlServer(builder.Configuration.GetConnectionString("DbConnection")));
-builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>();
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders(); ;
 
 //Implement and adding dependant services 
 builder.Services.AddScoped<IAccountRepository, AccountRepository>();
