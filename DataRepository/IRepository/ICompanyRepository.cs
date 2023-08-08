@@ -11,5 +11,6 @@ namespace DataRepository.IRepository
     {
         Task<ResponseStatus> RegisterCompany(RegisterCompanyModel registerCompanyModel);
         Task<List<GetCompanyResponse>> GetCompany();
+        Task<ResponseStatus> UpdateTimeZone(UpdateTimeZone updateTimeZoneModel);
     }
 }

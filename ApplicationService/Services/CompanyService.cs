@@ -48,5 +48,10 @@ namespace ApplicationService.Services
                 }
             return response;
         }
+
+        public Task<ResponseStatus> UpdateTimeZone(UpdateTimeZone updateTimeZoneModel)
+        {
+           return _companyRepository.UpdateTimeZone(updateTimeZoneModel);
+        }
     }
 }

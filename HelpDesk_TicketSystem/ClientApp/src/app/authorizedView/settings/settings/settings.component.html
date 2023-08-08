@@ -22,7 +22,7 @@
     <mat-card-content>
       <h2>Time Zone</h2>
 
-      <form [formGroup]="timeZoneForm" class="form-field-full" >
+      <form [formGroup]="timeZoneForm" class="form-field-full" (ngSubmit)="saveTimeZone()"  >
 
         <div class="row">
          
@@ -34,15 +34,15 @@
               <mat-label>Selct Time Zone</mat-label>
               <mat-select required formControlName="timeZone">
                 <ng-container *ngFor="let timeZone of allTimeZones">
-                  <mat-option value="timeZone">{{timeZone}}</mat-option>
+                  <mat-option value="{{timeZone}}">{{timeZone}}</mat-option>
                 </ng-container>
               </mat-select>
             </mat-form-field>
           </div>
         </div>
 
-        <button mat-raised-button color="primary" type="submit" class="m-t-8">Save</button>
-        <button mat-raised-button color="warn" class="m-t-8 mx-2">Cancel</button>
+        <button mat-raised-button color="primary" type="submit" class="m-t-8" (submit)="saveTimeZone">Save</button>
+        <button mat-raised-button color="warn" class="m-t-8 mx-2" routerLink="/dashboard">Cancel</button>
       </form>
     </mat-card-content>
   </mat-card>

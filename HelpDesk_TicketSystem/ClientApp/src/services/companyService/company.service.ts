@@ -19,6 +19,10 @@ export class CompanyService {
     let url = `${this.apiUrl}Company/GetCompany`;
     return this.http.get(url);
   }
+  updateTimeZone(timeZoneModel: UpdateTimeZone) {
+    let url = `${this.apiUrl}Company/UpdateTimeZone`;
+    return this.http.post(url, timeZoneModel);
+  }
  
 }
 export class RegisterCompanyUser {
@@ -30,4 +34,8 @@ export class RegisterCompanyUser {
   email: string = '';
   phoneNumber: string = '';
   password: string = "";
-} 
+}
+export class UpdateTimeZone {
+  companyId: number = null;
+  timeZone: string = '';
+}

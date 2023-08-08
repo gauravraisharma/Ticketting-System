@@ -49,5 +49,27 @@ namespace HelpDesk_TicketSystem.Controllers
 
         }
 
+        [HttpPost("UpdateTimeZone")]
+        public async Task<IActionResult> UpdateTimeZone(UpdateTimeZone updateTimeZoneModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest("Please pass the valid Input.");
+            }
+
+
+            var responseStatus = await _companyService.UpdateTimeZone(updateTimeZoneModel);
+
+            if (responseStatus.Status == "SUCCEED")
+            {
+                return Ok(responseStatus);
+            }
+            else
+            {
+                return BadRequest(responseStatus.Message);
+            }
+
+        }
     }
-}
+    }
+

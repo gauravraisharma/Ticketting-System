@@ -152,5 +152,45 @@ namespace DataRepository.Repositoryy
             }
 
         }
-    }
+
+        public async Task<ResponseStatus> UpdateTimeZone(UpdateTimeZone updateTimeZoneModel)
+        {
+            if (_context.Companys == null)
+            {
+                return null;
+            }
+            try
+            {
+                var Comapany = await _context.Companys.FirstOrDefaultAsync(company => company.Id == updateTimeZoneModel.CompanyId);
+                if (Comapany == null)
+                {
+                    return new ResponseStatus
+                    {
+                        Status = "FAILED",
+                        Message = "Something went wrong "
+
+                    };
+                }
+                Comapany.TimeZone = updateTimeZoneModel.TimeZone;
+                _context.Companys.Update(Comapany);
+                await _context.SaveChangesAsync();
+                return new ResponseStatus
+                {
+                    Status = "SUCCEED",
+                    Message = "TimeZone Updated Successfully "
+
+                };
+             }
+            catch (Exception ex)
+            {
+                return new ResponseStatus
+                {
+                    Status = "FAILED",
+                    Message = "Something went wrong "
+
+                };
+            }
+            }
+        }
+    
 }

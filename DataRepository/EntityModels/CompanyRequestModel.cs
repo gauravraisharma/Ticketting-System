@@ -28,4 +28,11 @@ namespace DataRepository.EntityModels
         [Required(ErrorMessage = "UserType is required")]
         public string Password { get; set; }
     }
+    public class UpdateTimeZone
+    {
+        [Required(ErrorMessage = "Company id  is required")]
+        public int CompanyId { get; set; }
+        [Required(ErrorMessage = "TimeZone is required")]
+        public string TimeZone { get; set; }
+    }
 }
