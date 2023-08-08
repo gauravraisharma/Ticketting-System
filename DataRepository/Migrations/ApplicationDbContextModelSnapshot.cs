@@ -178,6 +178,10 @@ namespace DataRepository.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(500)");
 
+                    b.Property<string>("TimeZone")
+                        .IsRequired()
+                        .HasColumnType("varchar(500)");
+
                     b.HasKey("Id");
 
                     b.ToTable("Companys");

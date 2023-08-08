@@ -81,7 +81,7 @@ namespace DataRepository.Repository
                     DepartmentId = userModel.DepartmentId,
                     CompanyId=userModel.CompanyId,
                     CreatedBy = userModel.CreatedBy,
-                    CreatedOn = DateTime.Now
+                    CreatedOn = DateTime.UtcNow
                 };
 
                 IdentityResult identityResult = await _userManager.CreateAsync(user, userModel.Password);
@@ -186,7 +186,7 @@ namespace DataRepository.Repository
                 userFound.LastName = userModel.LastName;
                 userFound.DepartmentId =(roleFound.Name.ToUpper()=="ADMIN")? userModel.DepartmentId : null;
                 userFound.ModifiedBy = userModel.ModifiedBy;
-                userFound.ModifiedOn = DateTime.Now;
+                userFound.ModifiedOn = DateTime.UtcNow;
 
 
                 IdentityResult identityResult = await _userManager.UpdateAsync(userFound);

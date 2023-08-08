@@ -37,6 +37,10 @@ const appRoutes: Routes = [
     loadChildren: () => import('./authorizedView/settings/settings.module').then(m => m.SettingsModule)
   },
   {
+    path: 'chat',
+    loadChildren: () => import('./authorizedView/chat/chat.module').then(m => m.ChatModule)
+  },
+  {
     path: '**',
     pathMatch: 'full',
     component: PageNotFoundComponent

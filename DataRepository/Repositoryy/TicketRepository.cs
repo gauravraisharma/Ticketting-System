@@ -39,7 +39,7 @@ namespace DataRepository.Repository
                     Subject = ticketModel.Subject,
                     Description = ticketModel.Description,
                     CreatedBy = ticketModel.CreatedBy,
-                    CreatedOn = DateTime.Now,
+                    CreatedOn = DateTime.UtcNow,
                     status = "OPEN",
                     IsDeleted = false,
                     DepartmentId=ticketModel.DepartmentId
@@ -276,7 +276,7 @@ namespace DataRepository.Repository
                     TicketId = conversationMessage.TicketId,
                     Message = conversationMessage.Message,
                     CreatedBy = conversationMessage.CreatedBy,
-                    CreatedOn = DateTime.Now,
+                    CreatedOn = DateTime.UtcNow,
                     IsDeleted = false
                 };
                 _context.TicketConversationTracks.Add(conversationTrack);
@@ -381,7 +381,7 @@ namespace DataRepository.Repository
                 {
                     ticket.status = status;
                     ticket.ModifiedBy = userId;
-                    ticket.ModifiedOn=DateTime.Now;
+                    ticket.ModifiedOn=DateTime.UtcNow;
                 }
                 try
                 {
@@ -434,7 +434,7 @@ namespace DataRepository.Repository
                                       Name = file.FileName,
                                       Type = Path.GetExtension(file.FileName),
                                       ByteSize = file.ByteSize,
-                                      CreatedOn = DateTime.Now
+                                      CreatedOn = DateTime.UtcNow
                                   };
                 _context.Attachments.AddRange(attachments);
                 _context.SaveChanges();

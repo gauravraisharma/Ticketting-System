@@ -99,7 +99,7 @@ namespace DataRepository.Repositoryy
                     {
                         Name=registerCompanyModel.CompanyName,
                         CreatedBy=Guid.Empty.ToString(),
-                        CreatedOn=DateTime.Now,
+                        CreatedOn=DateTime.UtcNow,
                         IsDeleted=false
                     };
 
@@ -115,7 +115,7 @@ namespace DataRepository.Repositoryy
                         DepartmentId = null,
                         CompanyId = companyModel.Id,
                         CreatedBy = Guid.Empty.ToString(),
-                        CreatedOn = DateTime.Now
+                        CreatedOn = DateTime.UtcNow
                     };
 
                     IdentityResult identityResult = await _userManager.CreateAsync(user, registerCompanyModel.Password);
