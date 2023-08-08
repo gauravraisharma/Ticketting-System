@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import * as io from 'socket.io-client';
+import { Socket } from 'ngx-socket-io';
 
 @Component({
   selector: 'app-chat-window',
@@ -7,25 +7,18 @@ import * as io from 'socket.io-client';
   styleUrls: ['./chat-window.component.css']
 })
 export class ChatWindowComponent {
-  socket: any;
-  message: string = '';
-  messages: string[] = [];
-  
-  ngOnInit(): void {
-    // Connect to the Socket.IO server
-   // this.socket = io('http://localhost:3000');
+  constructor(private socket: Socket) { }
 
-    // Listen for 'chat message' events
-    this.socket.on('chat message', (msg: string) => {
-      this.messages.push(msg);
+  ngOnInit() {
+    this.socket.connect();
+    this.socket.emit('join', { room: 'your-room-name' });
+
+    this.socket.on('message', (data) => {
+      console.log('Received message:', data);
     });
   }
 
   sendMessage() {
-    if (this.message) {
-      // Emit a 'chat message' event to the server
-      this.socket.emit('chat message', this.message);
-      this.message = '';
-    }
+    this.socket.emit('message', { text: 'Hello from Angular' });
   }
 }

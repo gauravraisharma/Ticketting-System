@@ -36,7 +36,7 @@ export class LoginPageComponent implements OnInit {
       this.accountService.loginUser(this.loginForm.value).subscribe((response: any) => {
         if (response.status == "SUCCEED") {
           this.toastr.success('Logged in successfully');
-          this.setDataInLocalStorage(response.token, response.userType, response.userId, response.companyId);
+          this.setDataInLocalStorage(response.token, response.userType, response.userId, response.companyId, response.timeZone);
           this.router.navigate(['dashboard'])
         } else {
         
@@ -64,12 +64,13 @@ export class LoginPageComponent implements OnInit {
     }
   }
 
-  setDataInLocalStorage(token: string, userType: string, userId: string, companyId: any) {
+  setDataInLocalStorage(token: string, userType: string, userId: string, companyId: any,timeZone:string) {
     localStorage.clear();
     localStorage.setItem('token', token);
     localStorage.setItem('loggedInTime', Date.now().toString());
     localStorage.setItem('userType', userType.toUpperCase());
     localStorage.setItem('userId', userId); 
+    localStorage.setItem('timeZone', timeZone); 
     if (userType.toUpperCase() != 'SUPERADMIN') {
       localStorage.setItem('companyId', companyId.toString());
     }

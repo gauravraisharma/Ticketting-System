@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
@@ -15,11 +15,12 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { RouterModule } from '@angular/router';
 import { MatSortModule } from '@angular/material/sort';
+import { ChatBotComponent } from './chat-bot/chat-bot.component';
 
 
 
 @NgModule({
-  declarations: [LoaderComponent],
+  declarations: [LoaderComponent, ChatBotComponent],
   imports: [MatCardModule,
     MatSortModule,
     MatInputModule,
@@ -48,6 +49,9 @@ import { MatSortModule } from '@angular/material/sort';
     ReactiveFormsModule,
     MatToolbarModule,
     CKEditorModule,
-    LoaderComponent, MatSortModule],
+    LoaderComponent,
+    MatSortModule,
+    ChatBotComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class SharedModule { }

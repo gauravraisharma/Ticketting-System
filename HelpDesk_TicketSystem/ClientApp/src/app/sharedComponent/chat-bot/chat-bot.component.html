@@ -1,0 +1,76 @@
+<div class="chatpopup-widget">
+
+  <div class="chatpopup-widget__body" style="display:block;" [hidden]="!IsChatBot">
+    <div class="chatpopup-widget__body-header">
+      <span class="chatpopup-icon-close chatpopup-widget-close" (click)="ChatBotToggle()">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 352 512" fill="currentColor">
+          <path fill="currentColor" d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"></path>
+        </svg>
+      </span>
+      Welcome To HelpDesk
+    </div>
+    <div class="bg-white">
+      <div class="container chat-form">
+        <ng-continer [hidden]="!IsUserDataSubmited">
+          Welcome to Helpdesk Chat. Please hold on, we are attending to you soon.
+          <div class="chat-sender">
+            this is a message send by sender
+            </div>
+          <div class="chat-receiver">
+            this is a message send by receiver
+          </div>
+        </ng-continer>
+        <ng-continer [hidden]="IsUserDataSubmited">
+          <p>Please fill in details to start the chat</p>
+          <form [formGroup]="chatForm" (ngSubmit)="submitchatForm()" autocomplete="off">
+
+            <div class="row">
+              <div class="col-sm-12">
+                <mat-form-field class="full-width-field" appearance="outline">
+                  <mat-label>Name</mat-label>
+                  <input matInput placeholder="Enter Name" formControlName="name"
+                         required>
+
+                  <mat-error>
+                    Please enter  name
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-sm-12">
+                <mat-form-field class="full-width-field" appearance="outline">
+                  <mat-label>Email</mat-label>
+                  <input matInput placeholder="Enter Email" formControlName="email"
+                         required>
+                  <mat-error>
+                    Please enter Email
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-sm-12">
+                <mat-form-field class="full-width-field" appearance="outline">
+                  <mat-label>Phone Number</mat-label>
+                  <input matInput placeholder="Enter Phonenumber" formControlName="phoneNumber"
+                         maxlength="10">
+                  <mat-error>
+                    Please enter  Phonenumber
+                  </mat-error>
+                </mat-form-field>
+              </div>
+
+
+              <div class="col-sm-12">
+                <button class="btn btn-primary w-100" type="submit"> Start chat</button>
+              </div>
+            </div>
+
+
+          </form>
+        </ng-continer>
+      </div>
+    </div>
+
+  </div>
+  <div class="chatpopup-widget__trigger size-15" (click)="ChatBotToggle()">
+    Chat with Us  <i class="bx bxs-chat size-20 mx-1" aria-hidden="true"></i>
+  </div>
+</div>

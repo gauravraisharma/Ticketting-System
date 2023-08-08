@@ -19,6 +19,12 @@ import { APIInterceptor } from '../services/apiInterceptor/api.interceptor';
 import { SharedModule } from './sharedComponent/shared.module';
 import { CompanyService } from '../services/companyService/company.service';
 import { DashboardService } from '../services/dashboardService/dashboard.service';
+import { SocketIoConfig, SocketIoModule } from 'ngx-socket-io';
+import { ChatBotComponent } from './sharedComponent/chat-bot/chat-bot.component';
+import { HomepageComponent } from './homepage/homepage.component';
+
+const config: SocketIoConfig = { url: 'https://localhost:7290/notify', options: {} };
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,6 +33,7 @@ import { DashboardService } from '../services/dashboardService/dashboard.service
     AnonymousLayoutComponent,
     AuthorizedLayoutComponent,
     PageNotFoundComponent,
+    HomepageComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +41,8 @@ import { DashboardService } from '../services/dashboardService/dashboard.service
     BrowserAnimationsModule,
     AppRoutingModule,
     SharedModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    SocketIoModule.forRoot(config)
   ],
   providers: [
     AccountService,

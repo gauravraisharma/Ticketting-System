@@ -10,6 +10,7 @@ namespace DataRepository.EntityModels
         public string? UserType { get; set; }
         public string? UserId { get; set; }
         public int? CompanyId { get; set; }
+        public string? TimeZone { get; set; }
     }
     public class ResponseStatus
     {

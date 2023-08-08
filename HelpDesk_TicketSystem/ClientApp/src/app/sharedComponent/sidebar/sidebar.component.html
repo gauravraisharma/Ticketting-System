@@ -1,9 +1,7 @@
 <!-- SIDEBAR -->
 <!--[ngClass]="status ? 'hide' : ''"-->
 <section id="sidebar" [ngClass]="SideMenuStatus ? 'left-280px' : ''">
-  <!--<a href="#" class="brand">
-    <img src="../../assets/images/Logo@2x.png" class="img-fluid" alt="Logo">
-  </a>-->
+
   <ul class="side-menu top">
     <ng-container *ngFor="let menuItem of menu">
     <li [ngClass]="(currentRoute.includes(menuItem.route)) ? 'active' : ''" >
@@ -14,30 +12,6 @@
     </li>
       </ng-container>
 
-    <!--<li [ngClass]="(currentRoute=='/dashboard') ? 'active' : ''">
-      <a routerLink="/dashboard">
-        <i class='bx bxs-dashboard'></i>
-        <span class="text">Dashboard</span>
-      </a>
-    </li>
-    <li [ngClass]="(currentRoute.includes('users')) ? 'active' : ''" *ngIf="userType=='ADMIN'">
-      <a routerLink="/users">
-        <i class='bx bxs-user'></i>
-        <span class="text">User Management</span>
-      </a>
-    </li>
-    <li [ngClass]="(currentRoute.includes('ticket')) ? 'active' : ''">
-      <a routerLink="/ticket">
-        <i class='bx bxs-bug'></i>
-        <span class="text">Ticket Management</span>
-      </a>
-    </li>
-    <li [ngClass]="(currentRoute.includes('userProfile')) ? 'active' : ''">
-      <a routerLink="/userProfile">
-        <i class='bx bxs-user-circle'></i>
-        <span class="text">My Profile</span>
-      </a>
-    </li>-->
   </ul>
   <ul class="side-menu">
 

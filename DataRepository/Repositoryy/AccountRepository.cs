@@ -291,6 +291,15 @@ namespace DataRepository.Repository
                         authClaims.Add(new Claim(ClaimTypes.Role, userRole));
                     };
                     var token = await GenerateToken(user, userModel.RememberMe);
+
+                    var CompanyTimeZone = (from Company in _context.Companys
+                                    where Company.Id == user.CompanyId
+                                    select new
+                                    {
+                                        TimeZone = Company.TimeZone
+                                    }
+                                   ).FirstOrDefault();
+
                     return new LoginStatus
                     {
                         Status = "SUCCEED",
@@ -298,7 +307,8 @@ namespace DataRepository.Repository
                         Token = token,
                         UserType = userRoles[0],
                         UserId = user.Id,
-                        CompanyId=user.CompanyId
+                        CompanyId=user.CompanyId,
+                        TimeZone= CompanyTimeZone.TimeZone
                     };
 
                 }
