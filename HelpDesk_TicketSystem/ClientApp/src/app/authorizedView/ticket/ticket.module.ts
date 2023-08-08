@@ -5,6 +5,8 @@ import { AddTicketComponent } from './add-ticket/add-ticket.component';
 import { ViewTicketComponent } from './view-ticket/view-ticket.component';
 import { TicketRoutingModule } from './ticket-routing.module';
 import { SharedModule } from '../../sharedComponent/shared.module';
+import { TimeZonePipe } from '../../../pipe/time-zone.pipe';
+
 
 
 
@@ -13,6 +15,7 @@ import { SharedModule } from '../../sharedComponent/shared.module';
     TicketListComponent,
     AddTicketComponent,
     ViewTicketComponent,
+    TimeZonePipe
   ],
   imports: [
     CommonModule,

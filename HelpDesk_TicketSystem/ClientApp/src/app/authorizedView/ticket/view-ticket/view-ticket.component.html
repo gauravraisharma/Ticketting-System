@@ -40,7 +40,7 @@
             </div>
 
             <div class="detail-wrapper d-flex align-items-center">
-              <p class=" detail-heading mb-0"> Creation Date:</p>{{ticketDetail.createdOn | date}}
+              <p class=" detail-heading mb-0"> Creation Date:</p>{{ticketDetail.createdOn |  timeZone :currentTimeZone: 'DD-MM-YYYY'}}
             </div>
             <div class="detail-wrapper d-flex align-items-center">
               <p class=" detail-heading  mb-0"> Priorty:</p>
@@ -166,7 +166,7 @@
                     <mat-icon class="me-2" aria-hidden="false" aria-label="User" fontIcon="person" *ngIf="message['userType']=='NORMALUSER'"></mat-icon>
                     {{message['createdBy']}} <span class="ms-2 pills-info">{{(message['userType']=="NORMALUSER"?"Client":"Staff")}}</span>
                   </div>
-                  <div class="date-time-info">{{message['createdOn'] | date:'short'}}</div>
+                  <div class="date-time-info">{{message['createdOn'] | timeZone :currentTimeZone: 'DD-MM-YYYY h:mm a'}}</div>
                 </div>
 
               </mat-card-title>
@@ -197,7 +197,7 @@
                 <mat-icon class="me-2" aria-hidden="false" aria-label="User" fontIcon="person_outline"></mat-icon>
                 {{ticketDetail.createdBy}} <span class="ms-2 pills-info">Client</span>
               </div>
-              <div class="date-time-info">{{ticketDetail.createdOn | date:'short'}}</div>
+              <div class="date-time-info">{{ticketDetail.createdOn | timeZone :currentTimeZone: 'DD-MM-YYYY h:mm a'}}</div>
             </div>
 
           </mat-card-title>

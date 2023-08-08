@@ -13,6 +13,7 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
   styleUrls: ['./view-ticket.component.css']
 })
 export class ViewTicketComponent implements OnInit {
+  currentTimeZone: string = localStorage.getItem('timeZone');
   messageForm = this.fb.nonNullable.group({
     message: ['', [Validators.required]]
   });

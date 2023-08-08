@@ -15,24 +15,29 @@ export class SettingsComponent implements OnInit {
   timeZoneForm = this.fb.nonNullable.group({
     timeZone: ['', [Validators.required]],
   });
+  isLoading: boolean = false;
   constructor(private fb: FormBuilder, private companyService: CompanyService,
     private router: Router,
-    private toastr: ToastrService)
+    private toastr: ToastrService,)
   {
    
   }
   ngOnInit() {
+    this.timeZoneForm.get('timeZone')!.setValue(localStorage.getItem('timeZone'));
     console.log(this.allTimeZones);
   }
   saveTimeZone() {
+    this.isLoading = true;
     if (this.timeZoneForm.valid) {
       let companyId = localStorage.getItem('companyId');
       var newTimeZone = new UpdateTimeZone();
       newTimeZone.companyId = parseInt(companyId);
       newTimeZone.timeZone = this.timeZoneForm.get('timeZone')!.value;
       this.companyService.updateTimeZone(newTimeZone).subscribe((response: any) => {
+        localStorage.setItem('timeZone', newTimeZone.timeZone);
         this.toastr.success(response.message);
         this.router.navigate(['/dashboard']);
+        this.isLoading = false;
       }, (error: any) => {
         console.log(error)
         if (error.status == 404) {
@@ -44,12 +49,13 @@ export class SettingsComponent implements OnInit {
         else {
           this.toastr.error("Something went wrong");
         }
+        this.isLoading = false;
       });
 
     }
     else {
         this.toastr.error("Please enter valid data");
-        
+      this.isLoading = false;
       }
     }
   }

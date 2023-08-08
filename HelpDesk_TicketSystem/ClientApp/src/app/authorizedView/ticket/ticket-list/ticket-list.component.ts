@@ -3,6 +3,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
+import * as moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
 import { TicketService } from '../../../../services/ticketServices/ticketservcie.service';
 
@@ -12,7 +13,7 @@ import { TicketService } from '../../../../services/ticketServices/ticketservcie
   styleUrls: ['./ticket-list.component.css']
 })
 export class TicketListComponent implements AfterViewInit, OnInit {
- 
+  currentTimeZone: string = localStorage.getItem('timeZone');
   displayedColumns: string[] = ['ticketNumber', 'subject', 'createdOn', 'priority','status','action'];
   dataSource = new MatTableDataSource<ticketModel>([]);
   isLoading = false
@@ -24,8 +25,7 @@ export class TicketListComponent implements AfterViewInit, OnInit {
     private router: Router,
     private toastr: ToastrService) { }
 
-  ngOnInit(){
-
+  ngOnInit() {
     this.getTickets();
   }
   ngAfterViewInit() {
@@ -54,3 +54,5 @@ export interface ticketModel {
   priority: string;
   status: string;
 }
+
+

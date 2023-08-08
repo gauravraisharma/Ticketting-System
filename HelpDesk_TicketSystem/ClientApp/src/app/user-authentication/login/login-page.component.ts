@@ -36,6 +36,9 @@ export class LoginPageComponent implements OnInit {
       this.accountService.loginUser(this.loginForm.value).subscribe((response: any) => {
         if (response.status == "SUCCEED") {
           this.toastr.success('Logged in successfully');
+          if (response.timeZone === '') {
+            response.timeZone = 'Asia/Kolkata';
+          }
           this.setDataInLocalStorage(response.token, response.userType, response.userId, response.companyId, response.timeZone);
           this.router.navigate(['dashboard'])
         } else {

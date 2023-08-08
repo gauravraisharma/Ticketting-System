@@ -37,7 +37,6 @@ export class CompnayManagementComponent implements OnInit {
     this.getCompany();
   }
   async switchToCompanyAdmin(company: companyModel) {
-   debugger
     const dialogRef = await this.dialog.open(ConfirmDialogComponent, {
       data: {
         message: 'Are you sure you want to Login as company admin',
