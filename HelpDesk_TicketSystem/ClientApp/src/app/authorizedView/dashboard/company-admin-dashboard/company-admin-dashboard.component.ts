@@ -18,12 +18,12 @@ export class CompanyAdminDashboardComponent
     private router: Router,) { }
 
   ngOnInit() {
-    this.userType = sessionStorage.getItem('userType').toUpperCase();
+    this.userType = localStorage.getItem('userType').toUpperCase();
     this.GetTotalDashboardCounts();
   }
   GetTotalDashboardCounts() {
     this.isLoading = true;
-    this.dashboardService.GetUserAndTicketCount(sessionStorage.getItem('userId')!, parseInt(sessionStorage.getItem('companyId'))).subscribe((response: any) => {
+    this.dashboardService.GetUserAndTicketCount(localStorage.getItem('userId')!, parseInt(localStorage.getItem('companyId'))).subscribe((response: any) => {
       this.ticketCount = response.toatlTickets;
       this.userCount = response.toatlUsers;
       this.isLoading = false;

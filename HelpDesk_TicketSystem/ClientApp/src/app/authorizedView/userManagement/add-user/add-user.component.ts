@@ -78,12 +78,12 @@ export class AddUserComponent implements OnInit {
       user.lastName = this.userForm.get('lastName')!.value;
       user.userName = this.userForm.get('username')!.value;
       user.userType = this.userForm.get('userType')!.value;
-      user.companyId =parseInt( sessionStorage.getItem('companyId'));
+      user.companyId = parseInt(localStorage.getItem('companyId'));
       user.departmentId = (this.userForm.get('department').value == undefined || this.userForm.get('department').value == '') ? null : (this.userForm.get('department').value );
       user.email = this.userForm.get('email')!.value;
       user.phoneNumber = this.userForm.get('phoneNumber')!.value;
       user.password = this.userForm.get('password')!.value;
-      user.createdBy = sessionStorage.getItem('userId')!;
+      user.createdBy = localStorage.getItem('userId')!;
 
       this.accountService.createUser(user).subscribe((response: any) => {
         this.toastr.success(response.message);

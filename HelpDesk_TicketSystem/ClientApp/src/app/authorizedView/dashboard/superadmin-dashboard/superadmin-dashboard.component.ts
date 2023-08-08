@@ -19,7 +19,7 @@ export class SuperadminDashboardComponent implements OnInit {
     private router: Router,) { }
 
   ngOnInit() {
-    this.userType = sessionStorage.getItem('userType').toUpperCase();
+    this.userType = localStorage.getItem('userType').toUpperCase();
     this.GetTotalDashboardCounts();
   }
   GetTotalDashboardCounts() {

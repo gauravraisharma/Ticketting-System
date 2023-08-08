@@ -67,7 +67,7 @@ export class UserProfileComponent implements OnInit {
   }
   GetUserData() {
     this.isLoading = false;
-    let userId = sessionStorage.getItem('userId')
+    let userId = localStorage.getItem('userId')
     this.accountService.getUserDataById(userId).subscribe((response: any) => {
       console.log('UserData', response)
       let userData = response.userDetail

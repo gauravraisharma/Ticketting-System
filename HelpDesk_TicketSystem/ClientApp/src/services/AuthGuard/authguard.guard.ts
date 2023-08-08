@@ -7,14 +7,14 @@ export const authguardGuard: CanActivateFn = (route, state) => {
   const toaster = inject(ToastrService);
   //check if your is already login than it should to able to access login page
   if (state.url.includes('user-authenticaton')) {
-    if (sessionStorage.getItem('token') != null && sessionStorage.getItem('token') != undefined) {
+    if (localStorage.getItem('token') != null && localStorage.getItem('token') != undefined) {
       router.navigate(['dashboard']);
       return false;
     } else {
       return true;
     }
   }
-  if (sessionStorage.getItem('token') != null && sessionStorage.getItem('token') != undefined) {
+  if (localStorage.getItem('token') != null && localStorage.getItem('token') != undefined) {
     return true;
   }
 

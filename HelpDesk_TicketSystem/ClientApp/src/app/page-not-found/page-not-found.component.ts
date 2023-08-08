@@ -12,7 +12,7 @@ export class PageNotFoundComponent implements OnInit {
     private router: Router,
   ) { }
   ngOnInit() {
-    this.IsUserLoggedIn = (sessionStorage.getItem('token') != null && sessionStorage.getItem('token') != undefined) ? true : false;
+    this.IsUserLoggedIn = (localStorage.getItem('token') != null && localStorage.getItem('token') != undefined) ? true : false;
   }
   goToHome() {
     this.router.navigate([(this.IsUserLoggedIn) ? 'dashboard' : '']);

@@ -52,13 +52,13 @@ export class CompnayManagementComponent implements OnInit {
       if (result == "ok") {
         this.isLoading = true;
         //Check if usertype is only superadmin
-        if (sessionStorage.getItem('userType') === 'SUPERADMIN') {
-          this.accountService.SwitchToCompanyAdmin(sessionStorage.getItem('userId')).subscribe((response: any) => {
+        if (localStorage.getItem('userType') === 'SUPERADMIN') {
+          this.accountService.SwitchToCompanyAdmin(localStorage.getItem('userId')).subscribe((response: any) => {
             //change session storage values
-            sessionStorage.setItem('token', response.message);
-            sessionStorage.setItem('userType', 'ADMIN');
-            sessionStorage.setItem('SwitchToSuperadmin', 'TRUE');
-            sessionStorage.setItem('companyId', company.companyId.toString());
+            localStorage.setItem('token', response.message);
+            localStorage.setItem('userType', 'ADMIN');
+            localStorage.setItem('SwitchToSuperadmin', 'TRUE');
+            localStorage.setItem('companyId', company.companyId.toString());
             this.accountService.SwitchedToAdmin(true);
             this.toastr.success(`You are now successfully switched as a company admin in company "${company.companyName}"`);
             

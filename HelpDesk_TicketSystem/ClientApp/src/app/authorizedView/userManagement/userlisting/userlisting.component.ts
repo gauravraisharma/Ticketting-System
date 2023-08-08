@@ -19,7 +19,7 @@ export class UserlistingComponent {
   dataSource = new MatTableDataSource<UserModel>([]);
   isLoading = false
   data1 = [];
-  userType = sessionStorage.getItem('userType');
+  userType = localStorage.getItem('userType');
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
@@ -32,7 +32,7 @@ export class UserlistingComponent {
   }
   getUserList() {
     this.isLoading = true;
-    let companyId = parseInt(sessionStorage.getItem('companyId'));
+    let companyId = parseInt(localStorage.getItem('companyId'));
     this.accountService.getUserList(companyId).subscribe((response: any) => {
       console.log('userList', response)
       this.data1 = response;

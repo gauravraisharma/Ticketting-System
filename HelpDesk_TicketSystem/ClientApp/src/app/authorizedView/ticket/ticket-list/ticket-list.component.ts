@@ -17,7 +17,7 @@ export class TicketListComponent implements AfterViewInit, OnInit {
   dataSource = new MatTableDataSource<ticketModel>([]);
   isLoading = false
   data1 = [];
-  userType = sessionStorage.getItem('userType');
+  userType = localStorage.getItem('userType');
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   constructor(private ticketService: TicketService,
@@ -34,7 +34,7 @@ export class TicketListComponent implements AfterViewInit, OnInit {
   }
   getTickets() {
     this.isLoading = true;
-    this.ticketService.GetTicket(sessionStorage.getItem('userId')!,parseInt(sessionStorage.getItem('companyId'))).subscribe((response: any) => {
+    this.ticketService.GetTicket(localStorage.getItem('userId')!, parseInt(localStorage.getItem('companyId'))).subscribe((response: any) => {
       console.log('prio', response)
       this.data1 = response;
       this.dataSource = new MatTableDataSource<ticketModel>(response);

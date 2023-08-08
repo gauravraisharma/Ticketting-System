@@ -36,7 +36,7 @@ export class LoginPageComponent implements OnInit {
       this.accountService.loginUser(this.loginForm.value).subscribe((response: any) => {
         if (response.status == "SUCCEED") {
           this.toastr.success('Logged in successfully');
-          this.setDataInSessionStorage(response.token, response.userType, response.userId, response.companyId);
+          this.setDataInLocalStorage(response.token, response.userType, response.userId, response.companyId);
           this.router.navigate(['dashboard'])
         } else {
         
@@ -64,14 +64,14 @@ export class LoginPageComponent implements OnInit {
     }
   }
 
-  setDataInSessionStorage(token: string, userType: string, userId: string, companyId: any) {
-    sessionStorage.clear();
-    sessionStorage.setItem('token', token);
-    sessionStorage.setItem('loggedInTime', Date.now().toString());
-    sessionStorage.setItem('userType', userType.toUpperCase());
-    sessionStorage.setItem('userId', userId); 
+  setDataInLocalStorage(token: string, userType: string, userId: string, companyId: any) {
+    localStorage.clear();
+    localStorage.setItem('token', token);
+    localStorage.setItem('loggedInTime', Date.now().toString());
+    localStorage.setItem('userType', userType.toUpperCase());
+    localStorage.setItem('userId', userId); 
     if (userType.toUpperCase() != 'SUPERADMIN') {
-      sessionStorage.setItem('companyId', companyId.toString());
+      localStorage.setItem('companyId', companyId.toString());
     }
   
   }

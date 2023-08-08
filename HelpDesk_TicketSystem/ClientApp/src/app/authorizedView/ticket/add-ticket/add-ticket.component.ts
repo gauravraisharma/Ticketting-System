@@ -41,7 +41,7 @@ export class AddTicketComponent implements OnInit {
   submitTicket() {
     this.isLoading = true;
     if (this.ticketForm.valid) {
-      let userId = sessionStorage.getItem('userId')
+      let userId = localStorage.getItem('userId')
       let ticketFromData = new FormData();
       ticketFromData.append('Priority', this.priority!.value);
       ticketFromData.append('Subject', this.subject!.value);

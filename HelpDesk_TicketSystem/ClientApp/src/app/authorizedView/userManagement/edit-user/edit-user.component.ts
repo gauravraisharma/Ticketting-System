@@ -124,7 +124,7 @@ export class EditUserComponent {
   submitUser() {
     this.isLoading = true;
     if (this.userForm.valid) {
-      let userId = sessionStorage.getItem('userId')
+      let userId = localStorage.getItem('userId')
 
       var user = new UpdateApplicationUser();
       user.userId = this.userId;

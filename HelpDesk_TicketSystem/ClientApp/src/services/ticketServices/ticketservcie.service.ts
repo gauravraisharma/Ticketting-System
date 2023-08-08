@@ -9,7 +9,7 @@ export class TicketService {
 
   constructor(private http: HttpClient) { }
   apiUrl = environment.apiBaseUrl;
-  auth_token = sessionStorage.getItem('token');
+  auth_token = localStorage.getItem('token');
  
   createTicket(ticket: FormData) {
     debugger

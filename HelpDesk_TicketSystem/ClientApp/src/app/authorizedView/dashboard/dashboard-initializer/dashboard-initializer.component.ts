@@ -18,7 +18,7 @@ export class DashboardInitializerComponent implements OnInit {
 
   observeAdminChange() {
     this.accountService.observeAdminChange().subscribe((value) => {
-      this.userType = sessionStorage.getItem('userType').toUpperCase();
+      this.userType = localStorage.getItem('userType').toUpperCase();
     })
   }
 

@@ -9,7 +9,7 @@ export const roleGuard: CanActivateFn = (route, state) => {
     router.navigate(['dashboard']);
     return false;
   }
-  var foundUserType=userTypes.find(userType => userType == sessionStorage.getItem('userType'))
+  var foundUserType = userTypes.find(userType => userType == localStorage.getItem('userType'))
 
   if (foundUserType==null) {
     router.navigate(['dashboard']);

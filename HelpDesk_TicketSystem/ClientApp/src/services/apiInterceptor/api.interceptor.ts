@@ -11,7 +11,7 @@ export class APIInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<any>, next: HttpHandler) {
 
 
-    let auth_token = sessionStorage.getItem('token');
+    let auth_token = localStorage.getItem('token');
     if (auth_token == null || auth_token == undefined) {
       return next.handle(request); 
     }
@@ -31,7 +31,7 @@ export class APIInterceptor implements HttpInterceptor {
         catchError((error: HttpErrorResponse) => {
           if (error.status === 401) {
             // Unauthorized - redirect to the login page
-            sessionStorage.clear();
+            localStorage.clear();
             this.router.navigate(['/login']);
           }
           return throwError(error);
@@ -48,7 +48,7 @@ export class APIInterceptor implements HttpInterceptor {
       catchError((error: HttpErrorResponse) => {
         if (error.status === 401) {
           // Unauthorized - redirect to the login page
-          sessionStorage.clear();
+          localStorage.clear();
           this.router.navigate(['user-authenticaton/login']);
         }
         return throwError(error);

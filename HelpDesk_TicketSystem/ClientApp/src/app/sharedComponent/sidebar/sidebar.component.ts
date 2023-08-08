@@ -74,13 +74,13 @@ export class SidebarComponent implements OnInit {
   }
   observeAdminChange() {
     this.accountService.observeAdminChange().subscribe((value) => {
-      this.SwitchToSuperadmin = (sessionStorage.getItem('SwitchToSuperadmin') == 'TRUE') ? true : false;;
+      this.SwitchToSuperadmin = (localStorage.getItem('SwitchToSuperadmin') == 'TRUE') ? true : false;;
       this.AssignMenu();
     })
   }
 
   AssignMenu() {
-    this.userType = sessionStorage.getItem('userType').toUpperCase();
+    this.userType = localStorage.getItem('userType').toUpperCase();
     if (this.userType == 'SUPERADMIN') {
       this.menu = SuperAdminMenu;
     } else if (this.userType == 'ADMIN') {
@@ -106,7 +106,7 @@ export class SidebarComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result == "ok") {
-        sessionStorage.clear();
+        localStorage.clear();
         this.toastr.success("Successfully logout");
         this.router.navigate(['/user-authenticaton/login']);
       } else {
@@ -131,11 +131,11 @@ export class SidebarComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result == "ok") {
         this.isLoading = true;
-        this.accountService.SwitchToSuperadmin(sessionStorage.getItem('userId')).subscribe((response: any) => {
+        this.accountService.SwitchToSuperadmin(localStorage.getItem('userId')).subscribe((response: any) => {
           //change session storage values
-          sessionStorage.setItem('token', response.message);
-          sessionStorage.setItem('userType', 'SUPERADMIN');
-          sessionStorage.removeItem('SwitchToSuperadmin');
+          localStorage.setItem('token', response.message);
+          localStorage.setItem('userType', 'SUPERADMIN');
+          localStorage.removeItem('SwitchToSuperadmin');
           this.accountService.SwitchedToAdmin(false);
           this.toastr.success(`You are now successfully switch back to the superadmin account`);
           this.isLoading = false;

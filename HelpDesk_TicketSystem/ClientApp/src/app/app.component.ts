@@ -21,8 +21,8 @@ export class AppComponent implements OnInit {
       if (val instanceof NavigationEnd) {
         // check if user  is login or not
       
-        var isTokenAvailable = (sessionStorage.getItem('token') != null && sessionStorage.getItem('token') != undefined) ? true : false;
-        var isUserIdAvailabel = (sessionStorage.getItem('userId') != null && sessionStorage.getItem('userId') != undefined) ? true : false;
+        var isTokenAvailable = (localStorage.getItem('token') != null && localStorage.getItem('token') != undefined) ? true : false;
+        var isUserIdAvailabel = (localStorage.getItem('userId') != null && localStorage.getItem('userId') != undefined) ? true : false;
 
         if (isTokenAvailable && isUserIdAvailabel) {
           this.isUserLoggedIn = true;

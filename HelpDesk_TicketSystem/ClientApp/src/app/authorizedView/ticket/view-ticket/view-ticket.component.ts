@@ -21,7 +21,7 @@ export class ViewTicketComponent implements OnInit {
   isLoading = false;
   ticketDetail: TicketDetail = new TicketDetail();
   conversationDetailList :any= [];
-  userType = sessionStorage.getItem('userType')?.toUpperCase();
+  userType = localStorage.getItem('userType')?.toUpperCase();
   fileCount = 0;
   @ViewChild('fileattachment') fileAttachments!: ElementRef;
   public Editor = ClassicEditor;
@@ -92,7 +92,7 @@ export class ViewTicketComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result == "ok") {
         let status = 'CLOSED'
-        this.ticketService.CloseTicketStatusById(this.ticketId, sessionStorage.getItem('userId')!, status).subscribe((response: any) => {
+        this.ticketService.CloseTicketStatusById(this.ticketId, localStorage.getItem('userId')!, status).subscribe((response: any) => {
           this.toastr.success(response.message);
           this.ticketDetail.status = status;
           this.isLoading = false;
@@ -138,7 +138,7 @@ export class ViewTicketComponent implements OnInit {
   sendConversationMessage() {
 
     this.isLoading = true;
-     let userId = sessionStorage.getItem('userId')
+    let userId = localStorage.getItem('userId')
      let conversationMessage = new FormData();
      conversationMessage.append('TicketId', this.ticketId.toString());
      conversationMessage.append('Message', this.message!.value);
