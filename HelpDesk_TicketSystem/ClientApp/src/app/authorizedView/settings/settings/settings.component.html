@@ -22,14 +22,14 @@
     <mat-card-content>
       <h2>Time Zone</h2>
 
-      <form [formGroup]="timeZoneForm" class="form-field-full" (ngSubmit)="saveTimeZone()"  >
+      <form [formGroup]="timeZoneForm" class="form-field-full" (ngSubmit)="saveTimeZone()">
 
         <div class="row">
-         
-        
 
-          <div class="col-sm-6">
-          
+
+
+        <!--  <div class="col-sm-6">
+
             <mat-form-field class="full-width-field" appearance="outline">
               <mat-label>Selct Time Zone</mat-label>
               <mat-select required formControlName="timeZone">
@@ -37,6 +37,26 @@
                   <mat-option value="{{timeZone}}">{{timeZone}}</mat-option>
                 </ng-container>
               </mat-select>
+            </mat-form-field>
+          </div>-->
+
+
+
+          <div class="col-sm-6">
+
+            <mat-form-field class="full-width-field" appearance="outline">
+              <mat-label>Time Zone</mat-label>
+              <input type="text"
+                     placeholder="Select Time Zone"
+                     aria-label="Number"
+                     matInput
+                     formControlName="timeZone"
+                     [matAutocomplete]="auto">
+              <mat-autocomplete #auto="matAutocomplete">
+                <mat-option *ngFor="let option of filteredOptions | async" value="{{option}}">
+                  {{option}}
+                </mat-option>
+              </mat-autocomplete>
             </mat-form-field>
           </div>
         </div>

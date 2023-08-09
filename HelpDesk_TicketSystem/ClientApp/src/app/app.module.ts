@@ -33,7 +33,8 @@ const config: SocketIoConfig = { url: 'https://localhost:7290/notify', options: 
     AnonymousLayoutComponent,
     AuthorizedLayoutComponent,
     PageNotFoundComponent,
-    HomepageComponent
+    HomepageComponent,
+   
   ],
   imports: [
     BrowserModule,

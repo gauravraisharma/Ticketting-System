@@ -17,6 +17,7 @@ import { RouterModule } from '@angular/router';
 import { MatSortModule } from '@angular/material/sort';
 import { ChatBotComponent } from './chat-bot/chat-bot.component';
 
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { ChatBotComponent } from './chat-bot/chat-bot.component';
     MatIconModule,
     ReactiveFormsModule,
     MatToolbarModule, RouterModule,
-    CKEditorModule,MatSortModule],
+    MatAutocompleteModule,
+    CKEditorModule, MatSortModule],
   exports: [MatCardModule,
     MatInputModule,
     MatSortModule,
@@ -51,6 +53,7 @@ import { ChatBotComponent } from './chat-bot/chat-bot.component';
     CKEditorModule,
     LoaderComponent,
     MatSortModule,
+    MatAutocompleteModule,
     ChatBotComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
