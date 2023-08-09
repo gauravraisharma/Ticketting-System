@@ -16,7 +16,7 @@ namespace DataRepository.EntityModels
         [Column(TypeName = "varchar(500)")]
         public string Name { get; set; }
         [Column(TypeName = "varchar(500)")]
-        public string TimeZone { get; set; }
+        public string? TimeZone { get; set; }
       
         [Column(TypeName = "nvarchar(450)")]
         public string CreatedBy { get; set; }

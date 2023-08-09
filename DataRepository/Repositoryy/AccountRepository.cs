@@ -249,7 +249,7 @@ namespace DataRepository.Repository
                     new Claim(ClaimTypes.Role,userRoles.FirstOrDefault().ToUpper())
                 };
 
-                var token = new JwtSecurityToken(claims: claims, expires:(rememberMe)? DateTime.Now.AddDays(30): DateTime.Now.AddDays(1), signingCredentials: credentials);
+                var token = new JwtSecurityToken(claims: claims, expires:(rememberMe)? DateTime.Now.AddDays(30): DateTime.Now.AddHours(12), signingCredentials: credentials);
                 return new JwtSecurityTokenHandler().WriteToken(token);
             }
             catch (Exception ex)
@@ -308,7 +308,7 @@ namespace DataRepository.Repository
                         UserType = userRoles[0],
                         UserId = user.Id,
                         CompanyId=user.CompanyId,
-                        TimeZone= CompanyTimeZone.TimeZone
+                        TimeZone= (userRoles[0].ToUpper()=="SUPERADMIN")?null:CompanyTimeZone.TimeZone
                     };
 
                 }

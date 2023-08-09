@@ -1,24 +1,36 @@
-import { Component } from '@angular/core';
-import { Socket } from 'ngx-socket-io';
-
+import { Component, OnDestroy } from '@angular/core';
+import { ChatService } from '../../../../services/ChatService/chat.service';
+import * as signalR from '@microsoft/signalr';
+import { environment } from '../../../../environments/environment';
 @Component({
   selector: 'app-chat-window',
   templateUrl: './chat-window.component.html',
   styleUrls: ['./chat-window.component.css']
 })
-export class ChatWindowComponent {
-  constructor(private socket: Socket) { }
+export class ChatWindowComponent implements OnDestroy {
 
-  ngOnInit() {
-    this.socket.connect();
-    this.socket.emit('join', { room: 'your-room-name' });
+  private hubConnection: signalR.HubConnection;
+  messages: string[] = [];
+  user: string = 'admin';
+  message: string = 'message to users ';
 
-    this.socket.on('message', (data) => {
-      console.log('Received message:', data);
+  constructor(private chatService: ChatService) {
+    this.hubConnection = this.chatService.getConnection();
+
+    this.hubConnection.on('ReceiveMessage', (user: string, message: string) => {
+      console.log(`Received message from ${user}: ${message}`);
     });
   }
+   
 
-  sendMessage() {
-    this.socket.emit('message', { text: 'Hello from Angular' });
+  
+
+  sendMessage(): void {
+    this.hubConnection.invoke('SendMessageToUser', this.message)
+      .catch(err => console.error(err));
+  }
+
+  ngOnDestroy(): void {
+    this.chatService.closeConnection('ReceiveMessage');
   }
 }

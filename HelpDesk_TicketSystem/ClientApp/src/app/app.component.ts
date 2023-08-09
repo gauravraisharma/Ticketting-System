@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { AccountService } from '../services/accountServices/account-service.service';
 
 @Component({
   selector: 'app-root',
@@ -15,6 +16,8 @@ export class AppComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
+    private accountservices: AccountService,
+
 
   ) {
     router.events.subscribe((val) => {
@@ -38,7 +41,18 @@ export class AppComponent implements OnInit {
   ngOnInit() {
    
 
+  }
+
+  @HostListener('window:beforeunload', ['$event'])
+  beforeunload(event: any): void {
+    // Add your condition here
+    debugger
+    const isRememberMe = localStorage.getItem('isRememberMe');
+
+    if (isRememberMe == "false") {
+      this.accountservices.Logout();
     }
+  }
 
   addToggle() {
     this.status = !this.status;

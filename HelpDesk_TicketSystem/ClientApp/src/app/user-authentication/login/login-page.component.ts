@@ -70,7 +70,8 @@ export class LoginPageComponent implements OnInit {
     localStorage.setItem('loggedInTime', Date.now().toString());
     localStorage.setItem('userType', userType.toUpperCase());
     localStorage.setItem('userId', userId); 
-    localStorage.setItem('timeZone', timeZone); 
+    localStorage.setItem('timeZone', timeZone);
+    localStorage.setItem('isRememberMe', this.loginForm.get('rememberMe').value); 
     if (userType.toUpperCase() != 'SUPERADMIN') {
       localStorage.setItem('companyId', companyId.toString());
     }

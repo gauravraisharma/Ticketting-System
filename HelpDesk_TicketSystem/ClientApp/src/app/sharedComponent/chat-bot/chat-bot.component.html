@@ -13,11 +13,17 @@
       <div class="container chat-form">
         <ng-continer [hidden]="!IsUserDataSubmited">
           Welcome to Helpdesk Chat. Please hold on, we are attending to you soon.
-          <div class="chat-sender">
-            this is a message send by sender
+          <ng-container *ngFor="let chatMessage of chatMessages;">
+            <div class="chat-sender" *ngIf="chatMessage.isSentByAdmin">
+              {{chatMessage.message}}
             </div>
-          <div class="chat-receiver">
-            this is a message send by receiver
+            <div class="chat-receiver" *ngIf="chatMessage.isSentByAdmin">
+              {{chatMessage.message}}
+            </div>
+          </ng-container>
+          <div>
+            <input type="text" class="form-control" id="username" [(ngModel)]="messageToSend">
+            <i class="bx bxs-chat size-20 mx-1" aria-hidden="true"></i>
           </div>
         </ng-continer>
         <ng-continer [hidden]="IsUserDataSubmited">

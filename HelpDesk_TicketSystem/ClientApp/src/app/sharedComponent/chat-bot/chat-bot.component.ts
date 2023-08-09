@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { ChatService } from '../../../services/ChatService/chat.service';
 
 @Component({
   selector: 'app-chat-bot',
@@ -8,8 +9,9 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./chat-bot.component.css']
 })
 export class ChatBotComponent {
-  IsChatBot = false;
-  IsUserDataSubmited = false;
+  IsChatBot = true;
+  IsUserDataSubmited = true;
+  chatMessages: ChatMessage[] = [];
   isLoading = false;
   chatForm = this.fb.group({
     name: ['', [Validators.required]],
@@ -17,9 +19,16 @@ export class ChatBotComponent {
     email: ['', [Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
  
   });
-  constructor(private fb: FormBuilder,
-    private toaster: ToastrService) {
+  messageToSend: string = '';
+  private hubConnection: signalR.HubConnection;
 
+  constructor(private fb: FormBuilder,
+    private toaster: ToastrService,
+    private chatService: ChatService) {
+    this.hubConnection = this.chatService.getConnection();
+    this.hubConnection.on('responseFormAdmin', (message: string) => {
+      console.log(`Received message from ${message}`);
+    });
   }
   submitchatForm() {
     if (this.chatForm.valid) {
@@ -32,4 +41,8 @@ export class ChatBotComponent {
   ChatBotToggle() {
     this.IsChatBot = this.IsChatBot?false:true
   }
+}
+interface ChatMessage {
+  isSentByAdmin: boolean;
+  message: string;
 }

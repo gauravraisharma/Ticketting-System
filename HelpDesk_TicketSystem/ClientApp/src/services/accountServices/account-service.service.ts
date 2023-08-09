@@ -55,6 +55,9 @@ export class AccountService {
     let url = `${this.apiUrl}Account/SwitchToSuperadmin/${userId}`;
     return this.http.get(url);
   }
+  Logout() {
+    localStorage.clear();
+  }
 }
 export class ApplicationUser {
   

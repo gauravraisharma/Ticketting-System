@@ -5,6 +5,7 @@ using DataRepository.EntityModels;
 using DataRepository.IRepository;
 using DataRepository.Repository;
 using DataRepository.Repositoryy;
+using HelpDesk_TicketSystem.SignalR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -15,17 +16,16 @@ var builder = WebApplication.CreateBuilder(args);
 
 //Swagger added 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen( option => option.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { 
-Title="New Swagger",
-Description="New swagger Document",
-Version="v1"
+builder.Services.AddSwaggerGen(option => option.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
+{
+    Title = "New Swagger",
+    Description = "New swagger Document",
+    Version = "v1"
 }));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddControllers();
-
-
 
 
 builder.Services.AddAuthentication(options =>
@@ -38,12 +38,16 @@ builder.Services.AddAuthentication(options =>
     ValidateIssuer = false,
     ValidateAudience = false,
     ValidateIssuerSigningKey = true,
+    ValidateLifetime = true,
     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
 });
 
 builder.Services.AddCors(p => p.AddPolicy("corsapp", builder =>
 {
-    builder.WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader();
+    builder.WithOrigins("https://localhost:44455", "http://localhost:4200")
+    .AllowAnyMethod()
+    .AllowAnyHeader()
+    .AllowCredentials();
 }
                                            )
                                          );
@@ -63,6 +67,8 @@ builder.Services.AddScoped<IDashboardService, DashboardService>();
 builder.Services.AddScoped<IDashboardRepository, DashboardRepository>();
 
 
+builder.Services.AddSignalR();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -78,6 +84,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 app.UseMiddleware<ErrorLoggingMiddleware>();
+
 app.UseCors("corsapp");
 app.UseHttpsRedirection();
 app.UseStaticFiles();
@@ -87,7 +94,7 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
-
+app.MapHub<NotifyHub>("/notify");
 
 app.MapControllerRoute(
     name: "default",

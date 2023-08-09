@@ -30,7 +30,7 @@ const AdminMenu = [
   new menuModel('users', 'bx bxs-user', 'User Management'),
   new menuModel('ticket', 'bx bxs-bug', 'Ticket Management'),
   new menuModel('userProfile', 'bx bxs-user-circle', 'My Profile'),
-  new menuModel('chat', 'bx bxs-chat', 'Chat'),
+  //new menuModel('chat', 'bx bxs-chat', 'Chat'),
   new menuModel('settings', 'bx bxs-cog', 'Settings'),
 
 ]
@@ -106,7 +106,7 @@ export class SidebarComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result == "ok") {
-        localStorage.clear();
+        this.accountService.Logout();
         this.toastr.success("Successfully logout");
         this.router.navigate(['/user-authenticaton/login']);
       } else {

@@ -19,11 +19,10 @@ import { APIInterceptor } from '../services/apiInterceptor/api.interceptor';
 import { SharedModule } from './sharedComponent/shared.module';
 import { CompanyService } from '../services/companyService/company.service';
 import { DashboardService } from '../services/dashboardService/dashboard.service';
-import { SocketIoConfig, SocketIoModule } from 'ngx-socket-io';
-import { ChatBotComponent } from './sharedComponent/chat-bot/chat-bot.component';
 import { HomepageComponent } from './homepage/homepage.component';
+import { ChatService } from '../services/ChatService/chat.service';
+import { environment } from '../environments/environment';
 
-const config: SocketIoConfig = { url: 'https://localhost:7290/notify', options: {} };
 
 @NgModule({
   declarations: [
@@ -43,7 +42,6 @@ const config: SocketIoConfig = { url: 'https://localhost:7290/notify', options: 
     AppRoutingModule,
     SharedModule,
     ToastrModule.forRoot(),
-    SocketIoModule.forRoot(config)
   ],
   providers: [
     AccountService,
@@ -51,6 +49,7 @@ const config: SocketIoConfig = { url: 'https://localhost:7290/notify', options: 
     CommonService,
     CompanyService,
     DashboardService,
+    ChatService,
     {
     provide: HTTP_INTERCEPTORS,
     useClass: APIInterceptor,

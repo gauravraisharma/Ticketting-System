@@ -105,14 +105,16 @@
                 <div class="type_msg">
                   <div class="input_msg_write">
                     <input type="text" class="write_msg" placeholder="Type a message" />
-                    <button class="msg_send_btn" type="button"><i class="bx bxs-send" aria-hidden="true"></i></button>
+                    <button class="msg_send_btn" type="button" (click)="sendMessage()"><i class="bx bxs-send" aria-hidden="true"></i></button>
                   </div>
                 </div>
               </div>
             </div>
 
 
-         
+            <div *ngFor="let msg of messages">
+              {{ msg }}
+            </div>
         </div>
       </mat-card-content>
     </mat-card>
