@@ -30,5 +30,12 @@ namespace HelpDesk_TicketSystem.Controllers
             return BadRequest(responseStatus);
 
         }
+        [HttpGet("GetChatUsers")]
+        public async Task<IActionResult> GetChatUsers()
+        {
+           var chatUsers=await _chatService.GetChatUsers();
+            return Ok(chatUsers);
+
+        }
     }
 }

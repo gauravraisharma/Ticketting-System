@@ -25,5 +25,10 @@ namespace ApplicationService.Services
         {
            return await _chatRepository.ChatUserRegister(chatUserModel);
         }
+
+        public async Task<List<GetChatUsersResponse>> GetChatUsers()
+        {
+            return await _chatRepository.GetChatUsers();
+        }
     }
 }

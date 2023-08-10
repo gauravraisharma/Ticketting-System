@@ -183,6 +183,17 @@ namespace DataRepository.EntityModels
         public string Status { get; set; }
         public string Message { get; set; }
     }
+    public class GetChatUsersResponse 
+    {
+        public Guid ChatUserId { get; set; }
+        public string ChatUserName { get; set; }
+        public string Email { get; set; }
+        public int PhoneNumber { get; set; }
+        public int DepartmentId { get; set; }
+        public int ChatRoomId { get; set; }
+    }
+
+   
 
 
 }

@@ -10,5 +10,6 @@ namespace ApplicationService.IServices
     public interface IChatService
     {
         Task<ChatUserResponse> ChatUserRegister(ChatUserRegister chatUserModel);
+        Task<List<GetChatUsersResponse>> GetChatUsers();
     }
 }

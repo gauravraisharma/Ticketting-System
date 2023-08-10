@@ -81,5 +81,36 @@ namespace DataRepository.Repositoryy
                 };
             }
         }
+
+        public async Task<List<GetChatUsersResponse>> GetChatUsers()
+        {
+            if (_context.ChatUsers == null)
+                return null;
+            try
+            {
+                var chatUsers = await _context.ChatUsers
+                         .Select(chatUser => new GetChatUsersResponse
+                              {
+                                 ChatUserId = chatUser.Id,
+                                 ChatUserName = chatUser.Name,
+                                 Email = chatUser.email,
+                                 DepartmentId = chatUser.DepartmentId,
+                                 PhoneNumber = chatUser.PhoneNumber,
+                                 ChatRoomId = _context.ChatRooms
+                                              .Where(chatRoom => chatRoom.ChatUserId == chatUser.Id)
+                                              .Select(chatRoom => chatRoom.Id)
+                                              .FirstOrDefault()
+                          })
+                          .ToListAsync();
+
+
+                return chatUsers;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
     }
-}
+    }
+
