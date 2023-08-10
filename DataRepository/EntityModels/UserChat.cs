@@ -24,11 +24,19 @@ namespace DataRepository.EntityModels
         public int DepartmentId { get; set; }
         public bool IsDeleted { get; set; }
     }
-    public class ChatData
+
+    public class ChatRoom
+    {
+        [Key]
+        public int Id { get; set; }
+        public Guid ChatUserId { get; set; }
+    }
+        public class ChatData
     {
 
         [Key]
         public int Id { get; set; }
+        public int ChatRoomId { get; set; }
         [Column(TypeName = "varchar(max)")]
         public string Message { get; set; }
         public string UserType { get; set; } // ADMIN,CHATUSER
