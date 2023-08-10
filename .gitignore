@@ -74,3 +74,4 @@
 /MigrationScript.sql
 /DataRepository/obj
 /socket-io-chat
+/DataRepository/IRepository/Migrations
