@@ -46,7 +46,6 @@ export class AppComponent implements OnInit {
   @HostListener('window:beforeunload', ['$event'])
   beforeunload(event: any): void {
     // Add your condition here
-    debugger
     const isRememberMe = localStorage.getItem('isRememberMe');
 
     if (isRememberMe == "false") {

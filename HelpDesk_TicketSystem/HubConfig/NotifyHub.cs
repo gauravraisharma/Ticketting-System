@@ -8,5 +8,10 @@ namespace HelpDesk_TicketSystem.SignalR
         {
             await Clients.All.SendAsync("responseFormAdmin", message);
         }
+        
+        public async Task sendMessageToAdmin( string message)
+        {
+            await Clients.All.SendAsync("responseFormClient", message);
+        }
     }
 }

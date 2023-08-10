@@ -1,5 +1,5 @@
 <div class="chatpopup-widget">
-
+  
   <div class="chatpopup-widget__body" style="display:block;" [hidden]="!IsChatBot">
     <div class="chatpopup-widget__body-header">
       <span class="chatpopup-icon-close chatpopup-widget-close" (click)="ChatBotToggle()">
@@ -11,22 +11,24 @@
     </div>
     <div class="bg-white">
       <div class="container chat-form">
-        <ng-continer [hidden]="!IsUserDataSubmited">
+        <div [hidden]="!IsUserDataSubmited">
           Welcome to Helpdesk Chat. Please hold on, we are attending to you soon.
-          <ng-container *ngFor="let chatMessage of chatMessages;">
-            <div class="chat-sender" *ngIf="chatMessage.isSentByAdmin">
+          {{chatMessages.length}}
+          <div *ngFor="let chatMessage of chatMessages">
+
+            <div class="chat-sender" *ngIf="chatMessage.isIncoming">
               {{chatMessage.message}}
             </div>
-            <div class="chat-receiver" *ngIf="chatMessage.isSentByAdmin">
+            <div class="chat-receiver" *ngIf="!chatMessage.isIncoming">
               {{chatMessage.message}}
             </div>
-          </ng-container>
-          <div>
-            <input type="text" class="form-control" id="username" [(ngModel)]="messageToSend">
-            <i class="bx bxs-chat size-20 mx-1" aria-hidden="true"></i>
           </div>
-        </ng-continer>
-        <ng-continer [hidden]="IsUserDataSubmited">
+          <div class="d-flex align-items-center send-message-input">
+            <input type="text" class="form-control" id="username" [(ngModel)]="messageToSend">
+            <a href="javascript:;" (click)="sendMessageToAdmin()"> <i class="bx bxs-send mx-1 size-20 text-primary" aria-hidden="true"></i></a>
+          </div>
+        </div>
+        <div [hidden]="IsUserDataSubmited">
           <p>Please fill in details to start the chat</p>
           <form [formGroup]="chatForm" (ngSubmit)="submitchatForm()" autocomplete="off">
 
@@ -71,7 +73,7 @@
 
 
           </form>
-        </ng-continer>
+        </div>
       </div>
     </div>
 

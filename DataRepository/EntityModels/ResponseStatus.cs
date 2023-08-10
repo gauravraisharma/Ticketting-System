@@ -171,5 +171,11 @@ namespace DataRepository.EntityModels
         public int UserCount { get; set; } 
     
      }
+    public class SwitchToAdminResponseStatus
+    {
+        public string Status { get; set; }
+        public string Message { get; set; }
+        public string? Timezone { get;}
+    }
 
 }

@@ -11,7 +11,13 @@ import { ChatService } from '../../../services/ChatService/chat.service';
 export class ChatBotComponent {
   IsChatBot = true;
   IsUserDataSubmited = true;
-  chatMessages: ChatMessage[] = [];
+  chatMessages = [{
+    isIncoming: true,
+    message:'message from admin '
+  }, {
+    isIncoming: false,
+    message:'message from user'
+    }];
   isLoading = false;
   chatForm = this.fb.group({
     name: ['', [Validators.required]],
@@ -41,8 +47,19 @@ export class ChatBotComponent {
   ChatBotToggle() {
     this.IsChatBot = this.IsChatBot?false:true
   }
+
+  sendMessageToAdmin(): void {
+    if (this.messageToSend != null && this.messageToSend != undefined && this.messageToSend.trim() != '') {
+      this.hubConnection.invoke('sendMessageToAdmin', this.messageToSend).then(() => {
+        this.chatMessages.push({ isIncoming: false, message: this.messageToSend });
+        this.messageToSend = '';
+        console.log(this.chatMessages)
+      })
+        .catch(err => console.error(err));
+    }
+  }
 }
-interface ChatMessage {
-  isSentByAdmin: boolean;
+export interface ChatMessage {
+  isIncoming: boolean;
   message: string;
 }

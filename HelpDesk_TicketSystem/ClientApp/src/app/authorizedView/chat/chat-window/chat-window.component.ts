@@ -10,27 +10,35 @@ import { environment } from '../../../../environments/environment';
 export class ChatWindowComponent implements OnDestroy {
 
   private hubConnection: signalR.HubConnection;
-  messages: string[] = [];
-  user: string = 'admin';
-  message: string = 'message to users ';
-
+  chatMessages: ChatMessage[] = [];
+  messageToSend = '';
   constructor(private chatService: ChatService) {
     this.hubConnection = this.chatService.getConnection();
-
-    this.hubConnection.on('ReceiveMessage', (user: string, message: string) => {
-      console.log(`Received message from ${user}: ${message}`);
+    this.hubConnection.on('responseFormClient', (message: string) => {
+      this.chatMessages.push({ isIncoming: true, message: message });
     });
   }
-   
 
-  
 
-  sendMessage(): void {
-    this.hubConnection.invoke('SendMessageToUser', this.message)
-      .catch(err => console.error(err));
+
+
+  SendMessageToUser(): void {
+    if (this.messageToSend != null && this.messageToSend != undefined && this.messageToSend.trim() != '') {
+
+      this.hubConnection.invoke('SendMessageToUser', this.messageToSend).then(() => {
+        this.chatMessages.push({ isIncoming: false, message: this.messageToSend });
+        this.messageToSend = '';
+      })
+        .catch(err => console.error(err));
+    }
   }
 
   ngOnDestroy(): void {
-    this.chatService.closeConnection('ReceiveMessage');
+    this.chatService.closeConnection('responseFormClient');
   }
+}
+
+export interface ChatMessage {
+  isIncoming: boolean;
+  message: string;
 }

@@ -367,3 +367,14 @@ a.chatpopup-whatsapp-button {
   border-radius: 18px;
   margin: 10px 50px 10px 0px;
 }
+/*.bg-white .container{
+    position:relative;
+}
+.send-message-input {
+  bottom: 0;
+  position: absolute;
+  left: 0;
+  right: 0;
+  padding: 10px;
+}
+*/
