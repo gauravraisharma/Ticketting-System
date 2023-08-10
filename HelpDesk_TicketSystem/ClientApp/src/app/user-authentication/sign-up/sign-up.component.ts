@@ -34,7 +34,7 @@ export class SignUpComponent {
       companyName: ['', [Validators.required]],
       phoneNumber: ['', [Validators.pattern('^\\d{10}$')]],
       email: ['', [Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
-      password: ['', [Validators.required]],
+      password: ['', [Validators.required, Validators.pattern('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$')]],
       confirmPassword: ['', [Validators.required]],
     },
       {

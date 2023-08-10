@@ -57,6 +57,9 @@
                   {{option}}
                 </mat-option>
               </mat-autocomplete>
+              <mat-error *ngIf="timeZoneForm.get('timeZone')?.invalid">
+                Please select TimeZone
+              </mat-error>
             </mat-form-field>
           </div>
         </div>

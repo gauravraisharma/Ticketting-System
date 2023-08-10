@@ -72,7 +72,7 @@ export class SettingsComponent implements OnInit {
       }
     }
       else {
-        this.toastr.error("please enter valid data");
+        this.toastr.error("please select a valid TimeZone");
         this.isLoading = false;
     }
   }

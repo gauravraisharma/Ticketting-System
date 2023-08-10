@@ -122,7 +122,7 @@
                   <mat-icon>{{passwordHide ? 'visibility_off' : 'visibility'}}</mat-icon>
                 </button>
                 <mat-error *ngIf="userForm.get('password')?.invalid">
-                  Please enter valid password
+                  Password should be a minimum of 6 characters long and include at least 1 lowercase letter, 1 uppercase letter, 1 special character, and 1 digit.
                 </mat-error>
               </mat-form-field>
   </div>

@@ -7,7 +7,7 @@ export class TimeZonePipe implements PipeTransform {
 
   transform(date: string, timeZone: string, format: string = 'YYYY-MM-DD HH:mm:ss'): string {
     if (!date) return '';
-    if (timeZone === '') {
+    if (timeZone === '' || timeZone === null || timeZone === undefined) {
       timeZone = 'Asia/Kolkata';
       localStorage.setItem('timeZone', timeZone);
     }

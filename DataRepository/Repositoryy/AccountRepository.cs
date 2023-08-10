@@ -204,11 +204,12 @@ namespace DataRepository.Repository
                 {
                     var token = await _userManager.GeneratePasswordResetTokenAsync(userFound);
                     var resetPasswordResult = await _userManager.ResetPasswordAsync(userFound, token, userModel.Password);
+                    var errors = string.Join(" and ", resetPasswordResult.Errors.Select(e => e.Description).ToArray());
                     if (!resetPasswordResult.Succeeded)
                         return new ResponseStatus
                         {
                             Status = "FAILED",
-                            Message = "Something went Wrong"
+                            Message = errors
                         };
                 }
 
