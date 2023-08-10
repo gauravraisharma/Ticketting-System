@@ -9,5 +9,7 @@ namespace DataRepository.IRepository
 {
     public interface IChatRepository
     {
-          }
+        Task<ChatUserResponse> ChatUserRegister(ChatUserRegister chatUserModel);
+    
+    }
 }

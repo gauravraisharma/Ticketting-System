@@ -175,7 +175,14 @@ namespace DataRepository.EntityModels
     {
         public string Status { get; set; }
         public string Message { get; set; }
-        public string? Timezone { get;}
+        public string? Timezone { get; }
     }
+    public class ChatUserResponse 
+    { 
+        public int ChatRoomId { get; set; }
+        public string Status { get; set; }
+        public string Message { get; set; }
+    }
+
 
 }

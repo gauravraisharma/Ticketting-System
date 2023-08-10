@@ -21,6 +21,9 @@ namespace ApplicationService.Services
             _chatRepository = chatRepository;
         }
 
-    
+        public async Task<ChatUserResponse> ChatUserRegister(ChatUserRegister chatUserModel)
+        {
+           return await _chatRepository.ChatUserRegister(chatUserModel);
+        }
     }
 }

@@ -9,6 +9,6 @@ namespace ApplicationService.IServices
 {
     public interface IChatService
     {
-       
+        Task<ChatUserResponse> ChatUserRegister(ChatUserRegister chatUserModel);
     }
 }

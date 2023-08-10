@@ -47,4 +47,5 @@ namespace DataRepository.EntityModels
         [Column(TypeName = "nvarchar(450)")]
         public bool IsDeleted { get; set; }
     }
+   
 }
