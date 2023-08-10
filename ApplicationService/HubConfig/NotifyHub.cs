@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.SignalR;
 
-namespace HelpDesk_TicketSystem.SignalR
+namespace ApplicationService.SignalR
 {
     public class NotifyHub : Hub
     {

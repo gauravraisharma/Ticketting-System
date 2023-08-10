@@ -67,7 +67,7 @@
         </ul>
         <ul class="navbar-nav">
           <li class="nav-item me-0">
-            <a class="btn btn-theme"  href="javascript:;" (click)="gotoSignUpPage()">Free Trial</a>
+            <a class="btn btn-theme" href="javascript:;" (click)="gotoSignUpPage()">Free Trial</a>
           </li>
         </ul>
       </div>
@@ -91,7 +91,7 @@
             a seamless
             and proactive customer support experience.
           </p>
-          <a class="btn btn-theme"  href="javascript:;" (click)="gotoSignUpPage()"  >Start Free Trial</a>
+          <a class="btn btn-theme" href="javascript:;" (click)="gotoSignUpPage()">Start Free Trial</a>
         </div>
       </div>
       <div class="col-md-6">
@@ -160,7 +160,7 @@
             Work smarter as a team with real-time chat. Tag individuals or groups, assign
             comments for action items, and link tasks to get more done together.
           </p>
-          <a class="btn btn-theme btn-orange"  href="javascript:;"  >Get Started</a>
+          <a class="btn btn-theme btn-orange" href="javascript:;">Get Started</a>
         </div>
       </div>
     </div>
@@ -182,7 +182,7 @@
         <div class="col-md-4">
           <div class="pricing-card">
             <div class="title">
-              <p class="sub-title" >Free</p>
+              <p class="sub-title">Free</p>
               <p class="price-tag"><span class="price">$0</span> <span class="month">/month</span></p>
             </div>
             <ul class="listing">
@@ -206,7 +206,7 @@
               </li>
             </ul>
             <div class="text-center">
-              <a class="btn btn-theme w-100"  href="javascript:;" (click)="gotoSignUpPage()" >Start Free Trial</a>
+              <a class="btn btn-theme w-100" href="javascript:;" (click)="gotoSignUpPage()">Start Free Trial</a>
             </div>
 
           </div>
@@ -240,7 +240,7 @@
               </li>
             </ul>
             <div class="text-center">
-              <a class="btn btn-theme w-100"  href="javascript:;" (click)="gotoSignUpPage()" >Start Free Trial</a>
+              <a class="btn btn-theme w-100" href="javascript:;" (click)="gotoSignUpPage()">Start Free Trial</a>
             </div>
 
           </div>
@@ -275,7 +275,7 @@
               </li>
             </ul>
             <div class="text-center">
-              <a class="btn btn-theme w-100"  href="javascript:;" (click)="gotoSignUpPage()">Start Free Trial</a>
+              <a class="btn btn-theme w-100" href="javascript:;" (click)="gotoSignUpPage()">Start Free Trial</a>
             </div>
 
           </div>
@@ -753,7 +753,7 @@
       <p class="desc">
         Start your 21-day free trial. No credit card required. No strings attached.
       </p>
-      <a class="btn btn-theme btn-white"  href="javascript:;"  (click)="gotoSignUpPage()">Start Free Trial</a>
+      <a class="btn btn-theme btn-white" href="javascript:;" (click)="gotoSignUpPage()">Start Free Trial</a>
     </div>
     <img src="../../assets/images/vector-6.svg" class="img-fluid vector-right" alt="vector">
   </div>
@@ -843,4 +843,32 @@
 </footer>
 
 
-<app-chat-bot></app-chat-bot>
+<!--<app-chat-bot></app-chat-bot>-->
+
+
+<div class="chatbot">
+  <div [hidden]="IsChatBot">
+    <mat-card>
+      <mat-card-header class="bg-primary">
+        <h4>Welcome To HelpDesk</h4>
+      </mat-card-header>
+      <mat-card-content>
+        Welcome to Helpdesk Chat. Please hold on, we are attending to you soon.
+
+        {{chatMessages}}
+        <div *ngFor="let chatMessage of chatMessages">
+
+          <div class="chat-sender" *ngIf="chatMessage.isIncoming">
+            {{chatMessage.message}}
+          </div>
+          <div class="chat-receiver" *ngIf="!chatMessage.isIncoming">
+            {{chatMessage.message}}
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <button class=" btn btn-primary chatbutton" (click)="ChatBotToggle()">
+    Chat with Us  <i class="bx bxs-chat  mx-1" aria-hidden="true"></i>
+  </button>
+</div>

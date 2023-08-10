@@ -8,6 +8,16 @@ import { Meta } from '@angular/platform-browser';
   styleUrls: ['./homepage.component.css']
 })
 export class HomepageComponent implements OnInit  {
+
+  IsChatBot = true;
+  chatMessages = [{
+    isIncoming: true,
+    message: 'message from admin '
+  }, {
+    isIncoming: false,
+    message: 'message from user'
+  }];
+
   constructor(private router: Router,
     private meta: Meta) {
    
@@ -16,6 +26,11 @@ export class HomepageComponent implements OnInit  {
   ngOnInit() {
      this.addMetaTags();
   }
+  ChatBotToggle() {
+    this.IsChatBot = this.IsChatBot ? false : true
+  }
+
+
   gotoLoginPage() {
     this.router.navigate(['user-authenticaton/login'])
   }

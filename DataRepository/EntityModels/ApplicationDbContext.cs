@@ -14,5 +14,7 @@ namespace DataRepository.EntityModels
         public DbSet<Attachment> Attachments { get; set; }
         public DbSet<Department> Departments { get; set; }
         public DbSet<Company> Companys { get; set; }
+        public DbSet<ChatUser> ChatUsers { get; set; }
+        public DbSet<ChatData> ChatDatas { get; set; }
     }
 }
