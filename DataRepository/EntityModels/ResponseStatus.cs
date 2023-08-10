@@ -193,7 +193,10 @@ namespace DataRepository.EntityModels
         public int ChatRoomId { get; set; }
     }
 
-   
+   public class ChatResponse
+    {
+        public string Chat { get; set; }
+    }
 
 
 }

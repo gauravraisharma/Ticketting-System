@@ -1,5 +1,6 @@
 ﻿using DataRepository.EntityModels;
 using DataRepository.IRepository;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -79,6 +80,29 @@ namespace DataRepository.Repositoryy
                     Message = "Something went wrong"
 
                 };
+            }
+        }
+
+        public Task<List<ChatResponse>> GetChatByRoomId(int ChatRoomId)
+        {
+            if (_context.ChatDatas == null)
+            {
+                return null;
+            }
+            try
+            {
+                var chats = _context.ChatDatas
+                    .Where(chatData => chatData.ChatRoomId == ChatRoomId)
+                    .OrderByDescending(chatData => chatData.CreatedOn)
+                    .Select(ChatData => new ChatResponse
+                    {
+                      Chat = ChatData.Message
+                    }).ToListAsync();
+                    return chats;
+            }
+            catch (Exception ex)
+            {
+                return null;
             }
         }
 

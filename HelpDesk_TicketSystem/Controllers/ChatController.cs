@@ -37,5 +37,13 @@ namespace HelpDesk_TicketSystem.Controllers
             return Ok(chatUsers);
 
         }
+        [HttpGet("GetChatByRoomId/{ChatRoomId}")]
+        public async Task<IActionResult> GetChatByRoomId(int ChatRoomId)
+        {
+            var chatUsers = await _chatService.GetChatByRoomId(ChatRoomId);
+            return Ok(chatUsers);
+
+        }
+
     }
 }
