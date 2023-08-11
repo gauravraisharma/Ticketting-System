@@ -31,6 +31,11 @@ namespace ApplicationService.Services
            return await _chatRepository.GetChatByRoomId(ChatRoomId);
         }
 
+        public async Task<List<GetChatUsersResponse>> GetChatUserDetails(int ChatRoomId)
+        {
+            return await _chatRepository.GetChatUserDetails(ChatRoomId);
+        }
+
         public async Task<List<GetChatUsersResponse>> GetChatUsers()
         {
             return await _chatRepository.GetChatUsers();

@@ -106,6 +106,39 @@ namespace DataRepository.Repositoryy
             }
         }
 
+        public async Task<List<GetChatUsersResponse>> GetChatUserDetails(int ChatRoomId)
+        {
+            if(_context.ChatRooms == null)
+            {
+                return null;
+            }
+            try
+            {
+
+                var chatUserDetails = await (from chatRoom in _context.ChatRooms
+                                             where chatRoom.Id == ChatRoomId
+                                             join chatUser in _context.ChatUsers
+                                             on chatRoom.ChatUserId equals chatUser.Id
+                                             select new GetChatUsersResponse
+                                             {
+                                                 ChatUserId = chatUser.Id,
+                                                 ChatUserName = chatUser.Name,
+                                                 Email = chatUser.email,
+                                                 DepartmentId = chatUser.DepartmentId,
+                                                 PhoneNumber = chatUser.PhoneNumber,
+                                                 ChatRoomId = ChatRoomId
+                                             })
+                                    .ToListAsync();
+
+                return chatUserDetails;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+
         public async Task<List<GetChatUsersResponse>> GetChatUsers()
         {
             if (_context.ChatUsers == null)
