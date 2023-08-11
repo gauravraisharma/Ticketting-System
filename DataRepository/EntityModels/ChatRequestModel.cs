@@ -18,10 +18,8 @@ namespace DataRepository.EntityModels
         public string Email { get; set; }
         [Required(ErrorMessage = "PhoneNumber is required")]
         [RegularExpression(@"^\d{10}$", ErrorMessage = "Phone number must be exactly 10 digits.")]
-        public int PhoneNumber { get; set; }
+        public long PhoneNumber { get; set; }
         [Required(ErrorMessage = "DepartmentId is required")]
-        [Range(1000, 10000, ErrorMessage = "DepartmentId must be between 1000 and 10000.")]
         public int DepartmentId { get; set; }
-        public bool isDeleted { get; set; }
     }
 }

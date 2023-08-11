@@ -21,7 +21,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 
 @NgModule({
-  declarations: [LoaderComponent, ChatBotComponent],
+  declarations: [LoaderComponent, ChatBotComponent,],
   imports: [MatCardModule,
     MatSortModule,
     MatInputModule,
@@ -56,7 +56,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
     LoaderComponent,
     MatSortModule,
     MatAutocompleteModule,
-    ChatBotComponent],
+    ChatBotComponent,],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class SharedModule { }

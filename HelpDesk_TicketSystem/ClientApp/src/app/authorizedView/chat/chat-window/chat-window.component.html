@@ -34,26 +34,21 @@
 
               </div>
               <div class="inbox_chat">
-                <div class="chat_list active_chat">
-                  <div class="chat_people">
-                    <div class="chat_ib">
-                      <h5>Sunil Rajput <span class="chat_date">8/7/23, 3:34 PM</span></h5>
-                      <p>sunil@gmail.com</p>
+                <ng-container *ngFor="let user of userList">
+                  <div [class]="{'chat_list':true,'active_chat':(user.chatRoomId===chatRoomId) }">
+                    <div class="chat_people" (click)="chatUserSelected(user)">
+                      <div class="chat_ib">
+                        <h5>{{user.chatUserName}}</h5>
+                        <p>{{user.email}}</p>
+                        <span *ngIf="user.unReadMessageCount>0" class="chatUnreadCount">{{user.unReadMessageCount}}</span>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div class="chat_list">
-                  <div class="chat_people">
-                    <div class="chat_ib">
-                      <h5>Vishal Verma <span class="chat_date">8/8/23, 4:34 PM</span></h5>
-                      <p>vishal@gmail.com</p>
-                    </div>
-                  </div>
-                </div>
+                </ng-container>
               </div>
             </div>
-            <div class="mesgs">
-              <div class="msg_history">
+            <div class="mesgs"*ngIf="chatRoomId!='' && chatRoomId !=null && chatRoomId!=undefined" >
+              <div class="msg_history" >
                 <ng-container *ngFor="let chatMessage of chatMessages">
                   <div class="incoming_msg" *ngIf="chatMessage.isIncoming">
                     <div class="received_msg">

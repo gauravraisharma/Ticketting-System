@@ -915,3 +915,54 @@ app-navbar
   text-align: center;
   font-weight: 600;
 }
+
+
+.chatbot {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  margin: 10px 50px;
+  z-index:1000
+}
+
+  .chatbot .chatbutton {
+    float: right;
+  }
+
+  .chatbot mat-card-header {
+    background-color: #0d6efd;
+    color:white;
+  }
+
+  .chatbot mat-card {
+    max-width: 350px !important;
+  }
+
+
+.chat-sender {
+  background-color: #c44e3269;
+  padding: 5px 14px;
+  border-radius: 50px 50px 50px 0px;
+  margin-bottom: 10px;
+  margin-right: 55px;
+}
+
+.chat-receiver {
+  background-color: #03669a57;
+  padding: 5px 14px;
+  border-radius: 50px 50px 0px 50px;
+  margin-bottom: 10px;
+  margin-left: 55px;
+}
+
+
+.chatUnreadCount {
+  border-radius: 50%;
+  padding: 3px 10px;
+  background-color: #ff0000b0;
+  font-weight: 700;
+}
+.chatUnreadSideMenu {
+  color: #ff0000ba;
+  font-weight: 700;
+}

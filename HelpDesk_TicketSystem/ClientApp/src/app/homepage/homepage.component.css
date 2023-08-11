@@ -11,21 +11,3 @@
 {
     line-height: 26px;
 }
-
-.chatbot {
-position: fixed;
-bottom: 0;
-  right: 0;
-  margin: 10px 50px;
-}
-
-  .chatbot .chatbutton{
-      float:right;
-  }
-  .chatbot mat-header {
-    background-color: #0d6efd;
-  }
-
-  .chatbot mat-card{
-      max-width:350px !important; 
-  }

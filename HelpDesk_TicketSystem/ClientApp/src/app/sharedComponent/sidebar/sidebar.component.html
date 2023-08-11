@@ -8,6 +8,7 @@
       <a [routerLink]="'/'+menuItem.route">
         <i [class]='menuItem.iconClass'></i>
         <span class="text">{{menuItem.title}}</span>
+        <span class="px-3 chatUnreadSideMenu" *ngIf="menuItem.route.includes('chat') && chatCount>0">{{chatCount}}</span>
       </a>
     </li>
       </ng-container>

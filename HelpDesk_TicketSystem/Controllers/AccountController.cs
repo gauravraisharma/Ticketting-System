@@ -116,7 +116,8 @@ namespace HelpDesk_TicketSystem.Controllers
         }
         //This method is used to get List of department 
 
-        [Authorize(AuthenticationSchemes = "Bearer")]
+        //[Authorize(AuthenticationSchemes = "Bearer")]
+        [AllowAnonymous]
         [HttpGet("GetDepartmentListDD")]
         public  ActionResult GetDepartmentListDD()
         {

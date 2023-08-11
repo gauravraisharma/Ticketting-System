@@ -36,30 +36,11 @@ export class ChatBotComponent {
       console.log(`Received message from ${message}`);
     });
   }
-  submitchatForm() {
-    if (this.chatForm.valid) {
-      this.IsUserDataSubmited = true;
-    } else {
-      this.toaster.error("Please enter valid data");
-      this.isLoading = false;
-    }
-  }
+ 
   ChatBotToggle() {
     this.IsChatBot = this.IsChatBot?false:true
   }
 
-  sendMessageToAdmin(): void {
-    if (this.messageToSend != null && this.messageToSend != undefined && this.messageToSend.trim() != '') {
-      this.hubConnection.invoke('sendMessageToAdmin', this.messageToSend).then(() => {
-        this.chatMessages.push({ isIncoming: false, message: this.messageToSend });
-        this.messageToSend = '';
-        console.log(this.chatMessages)
-      })
-        .catch(err => console.error(err));
-    }
-  }
+ 
 }
-export interface ChatMessage {
-  isIncoming: boolean;
-  message: string;
-}
+

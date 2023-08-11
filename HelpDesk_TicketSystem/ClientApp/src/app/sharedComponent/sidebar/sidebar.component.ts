@@ -5,6 +5,7 @@ import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.compone
 import { MatDialog } from '@angular/material/dialog';
 import { AccountService } from '../../../services/accountServices/account-service.service';
 import { CompanyService } from '../../../services/companyService/company.service';
+import { ChatService } from '../../../services/ChatService/chat.service';
 
 
 
@@ -55,17 +56,35 @@ export class SidebarComponent implements OnInit {
   menu = [];
   SwitchToSuperadmin = false;
   isLoading = false;
+  private hubConnection: signalR.HubConnection;
+  chatCount = 0;
   constructor(
     private accountService: AccountService,
     private router: Router,
     private toastr: ToastrService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    public chatService: ChatService
   ) {
     router.events.subscribe((val) => {
       if (val instanceof NavigationEnd) {
         this.currentRoute = val.url;
+        if (this.currentRoute.includes('chat')) {
+          this.chatCount = 0;
+
+        }
       }
     });
+    this.hubConnection = this.chatService.getConnection();
+    this.hubConnection.on('NewMessageFromCLient', (chatRoomId: string) => {
+      //Check if current route is chat 
+   
+      //if not than update chatCount
+      if (!this.currentRoute.includes('chat')) {
+        this.chatCount += 1
+      }
+     
+    });
+
   }
 
   ngOnInit() {

@@ -18,7 +18,7 @@ namespace DataRepository.EntityModels
         [Column(TypeName = "varchar(500)")]
         public string Name { get; set; }
         [MaxLength(10)]
-        public int PhoneNumber { get; set; }
+        public long PhoneNumber { get; set; }
         [Column(TypeName = "varchar(500)")]
         public string email { get; set; }
         public int DepartmentId { get; set; }
@@ -30,6 +30,7 @@ namespace DataRepository.EntityModels
         [Key]
         public int Id { get; set; }
         public Guid ChatUserId { get; set; }
+        public int UnReadMessageCount { get; set; }
     }
         public class ChatData
     {

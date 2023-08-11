@@ -97,7 +97,7 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
-app.MapHub<NotifyHub>("/notify");
+app.MapHub<ChatHub>("/chat");
 
 app.MapControllerRoute(
     name: "default",

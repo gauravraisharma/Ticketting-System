@@ -42,6 +42,8 @@ namespace DataRepository.Repositoryy
                     var userChatRoom = await _context.ChatRooms.FirstOrDefaultAsync(r => r.ChatUserId == user.Id);
                     return new ChatUserResponse
                     {
+                        UserId= user.Id,
+                        IsExisting=true,
                         ChatRoomId = userChatRoom.Id,
                         Status = "SUCCEED",
                         Message="Your chat room id is "+userChatRoom.Id+""
@@ -65,6 +67,8 @@ namespace DataRepository.Repositoryy
                 await  _context.SaveChangesAsync();
                 return new ChatUserResponse
                 {
+                    UserId = chatUser.Id,
+                    IsExisting=false,
                     ChatRoomId = chatRoom.Id,
                     Status = "SUCCEED",
                     Message = "Successfully registered you chatroom id is "+chatRoom.Id+ ""
@@ -83,7 +87,7 @@ namespace DataRepository.Repositoryy
             }
         }
 
-        public Task<List<ChatResponse>> GetChatByRoomId(int ChatRoomId)
+        public async Task<List<ChatResponse>> GetChatByRoomId(int ChatRoomId)
         {
             if (_context.ChatDatas == null)
             {
@@ -91,13 +95,22 @@ namespace DataRepository.Repositoryy
             }
             try
             {
-                var chats = _context.ChatDatas
+                var chats =await _context.ChatDatas
                     .Where(chatData => chatData.ChatRoomId == ChatRoomId)
-                    .OrderByDescending(chatData => chatData.CreatedOn)
+                    .OrderBy(chatData => chatData.CreatedOn)
                     .Select(ChatData => new ChatResponse
                     {
-                      Chat = ChatData.Message
+                      message = ChatData.Message,
+                      userType= ChatData.UserType,
                     }).ToListAsync();
+
+                // update the chatroom count 
+               var chatRoom = _context.ChatRooms.FirstOrDefault(room => room.Id == ChatRoomId);
+                if (chatRoom != null)
+                {
+                    chatRoom.UnReadMessageCount = 0;
+                   await  _context.SaveChangesAsync();
+                }
                     return chats;
             }
             catch (Exception ex)
@@ -106,7 +119,7 @@ namespace DataRepository.Repositoryy
             }
         }
 
-        public async Task<List<GetChatUsersResponse>> GetChatUserDetails(int ChatRoomId)
+        public async Task<GetChatUsersResponse> GetChatUserDetails(int ChatRoomId)
         {
             if(_context.ChatRooms == null)
             {
@@ -126,11 +139,12 @@ namespace DataRepository.Repositoryy
                                                  Email = chatUser.email,
                                                  DepartmentId = chatUser.DepartmentId,
                                                  PhoneNumber = chatUser.PhoneNumber,
-                                                 ChatRoomId = ChatRoomId
+                                                 ChatRoomId = ChatRoomId,
+                                                 UnReadMessageCount=chatRoom.UnReadMessageCount
                                              })
                                     .ToListAsync();
 
-                return chatUserDetails;
+                return chatUserDetails.FirstOrDefault();
             }
             catch (Exception ex)
             {
@@ -145,27 +159,78 @@ namespace DataRepository.Repositoryy
                 return null;
             try
             {
-                var chatUsers = await _context.ChatUsers
-                         .Select(chatUser => new GetChatUsersResponse
-                              {
-                                 ChatUserId = chatUser.Id,
-                                 ChatUserName = chatUser.Name,
-                                 Email = chatUser.email,
-                                 DepartmentId = chatUser.DepartmentId,
-                                 PhoneNumber = chatUser.PhoneNumber,
-                                 ChatRoomId = _context.ChatRooms
-                                              .Where(chatRoom => chatRoom.ChatUserId == chatUser.Id)
-                                              .Select(chatRoom => chatRoom.Id)
-                                              .FirstOrDefault()
-                          })
-                          .ToListAsync();
 
-
+                var chatUsers = await (from chatUser in _context.ChatUsers
+                                 join chatRoom in _context.ChatRooms on chatUser.Id equals chatRoom.ChatUserId
+                                 select new GetChatUsersResponse
+                                 {
+                                     ChatUserId = chatUser.Id,
+                                     ChatUserName = chatUser.Name,
+                                     Email = chatUser.email,
+                                     DepartmentId = chatUser.DepartmentId,
+                                     PhoneNumber = chatUser.PhoneNumber,
+                                     ChatRoomId = chatRoom.Id,
+                                     UnReadMessageCount = chatRoom.UnReadMessageCount
+                                 }
+                               ).ToListAsync();
                 return chatUsers;
             }
             catch (Exception ex)
             {
                 return null;
+            }
+        }
+        public async Task SaveChatMessage(string message, string chatRoomId, string userId,bool IsAdmin)
+        {
+            if (_context.ChatUsers == null)
+            {
+                return ;
+
+            }
+            try
+            {
+                ChatData chatdata = new ChatData()
+                {
+                    ChatRoomId=int.Parse(chatRoomId),
+                    Message=message,
+                    CreatedBy=userId,
+                    CreatedOn=DateTime.UtcNow,
+                    UserType=(IsAdmin)?"ADMIN":"CHATUSER",
+                    IsDeleted=false
+                    
+                };
+                _context.ChatDatas.Add(chatdata);
+                await _context.SaveChangesAsync();
+
+                return ;
+            }
+            catch (Exception ex)
+            {
+                 throw;
+            }
+        }
+        
+        public async Task IncreaseUnReadCount(string chatRoomId)
+        {
+            if (_context.ChatUsers == null)
+            {
+                return ;
+
+            }
+            try
+            {
+                
+                var chatRoom =_context.ChatRooms.FirstOrDefault(room=> room.Id==int.Parse( chatRoomId));
+                if (chatRoom != null)
+                {
+                    chatRoom.UnReadMessageCount += 1;
+                   await _context.SaveChangesAsync();
+                }
+                return ;
+            }
+            catch (Exception ex)
+            {
+                 throw;
             }
         }
     }

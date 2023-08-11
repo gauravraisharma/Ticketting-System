@@ -179,7 +179,9 @@ namespace DataRepository.EntityModels
     }
     public class ChatUserResponse 
     { 
+        public Guid UserId { get; set; }
         public int ChatRoomId { get; set; }
+        public bool IsExisting { get; set; }
         public string Status { get; set; }
         public string Message { get; set; }
     }
@@ -188,14 +190,16 @@ namespace DataRepository.EntityModels
         public Guid ChatUserId { get; set; }
         public string ChatUserName { get; set; }
         public string Email { get; set; }
-        public int PhoneNumber { get; set; }
+        public long PhoneNumber { get; set; }
         public int DepartmentId { get; set; }
         public int ChatRoomId { get; set; }
+        public int UnReadMessageCount { get; set; }
     }
 
    public class ChatResponse
     {
-        public string Chat { get; set; }
+        public string message { get; set; }
+        public string userType { get; set; }
     }
 
 

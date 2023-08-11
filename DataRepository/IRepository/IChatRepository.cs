@@ -12,6 +12,9 @@ namespace DataRepository.IRepository
         Task<ChatUserResponse> ChatUserRegister(ChatUserRegister chatUserModel);
         Task<List<GetChatUsersResponse>> GetChatUsers();
         Task<List<ChatResponse>> GetChatByRoomId(int ChatRoomId);
-        Task<List<GetChatUsersResponse>> GetChatUserDetails(int ChatRoomId);
+        Task<GetChatUsersResponse> GetChatUserDetails(int ChatRoomId);
+    
+        Task SaveChatMessage(string message, string chatRoomId, string userId,bool IsAdmin);
+        Task IncreaseUnReadCount(string chatRoomId);
     }
 }
