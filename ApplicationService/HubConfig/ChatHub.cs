@@ -31,7 +31,7 @@ namespace ApplicationService.SignalR
         public async Task sendMessageToAdmin(ChatMessage chatmessage)
         {
             await _chatService.SaveChatMessage(chatmessage.Message, chatmessage.ChatRoomId, chatmessage.UserId, false);
-            await Clients.All.SendAsync("responseFormClient", chatmessage.Message);
+            await Clients.All.SendAsync("responseFormClient", chatmessage.Message, chatmessage.ChatRoomId);
             await Clients.All.SendAsync("NewMessageFromCLient", chatmessage.ChatRoomId);
 
            

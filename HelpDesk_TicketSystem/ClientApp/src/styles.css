@@ -966,3 +966,8 @@ app-navbar
   color: #ff0000ba;
   font-weight: 700;
 }
+
+.NoChatConent{
+ text-align: center;
+  padding-top: 100px;
+}
