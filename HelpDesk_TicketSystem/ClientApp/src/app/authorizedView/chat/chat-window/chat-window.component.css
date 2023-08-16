@@ -37,8 +37,9 @@ img {
   width: 60%;
 }
 
-.headind_srch {
-  padding: 10px 29px 10px 20px;
+.headind_srch
+{
+  padding: 10px 15px;
   overflow: hidden;
   border-bottom: 1px solid #c4c4c4;
 }
@@ -72,7 +73,7 @@ img {
 .chat_ib h5 {
   font-size: 15px;
   color: #464646;
-  margin: 0 0 8px 0;
+  margin: 0 0 4px 0;
 }
 
   .chat_ib h5 span {
@@ -81,7 +82,7 @@ img {
   }
 
 .chat_ib p {
-  font-size: 14px;
+  font-size: 12px;
   color: #989898;
   margin: auto
 }
@@ -93,7 +94,7 @@ img {
 
 .chat_ib {
   float: left;
-  padding: 0 0 0 15px;
+  padding: 0;
   width: 88%;
 }
 
@@ -105,12 +106,13 @@ img {
 .chat_list {
   border-bottom: 1px solid #c4c4c4;
   margin: 0;
-  padding: 18px 16px 10px;
+  padding: 12px 16px 10px;
+  cursor: pointer;
 }
 
 .inbox_chat {
   height: 550px;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 .active_chat {
@@ -124,18 +126,18 @@ img {
 
 .received_msg {
   display: inline-block;
-  padding: 0 0 0 10px;
   vertical-align: top;
   width: 92%;
 }
 
 .received_withd_msg p {
   background: #ebebeb none repeat scroll 0 0;
-  border-radius: 3px;
+  border-radius: 25px;
   color: #646464;
   font-size: 14px;
   margin: 0;
-  padding: 5px 10px 5px 12px;
+  margin-bottom:10px;
+  padding:10px 15px;
   width: 100%;
 }
 
@@ -158,11 +160,11 @@ img {
 
 .sent_msg p {
   background: #05728f none repeat scroll 0 0;
-  border-radius: 3px;
+  border-radius: 25px;
   font-size: 14px;
   margin: 0;
   color: #fff;
-  padding: 5px 10px 5px 12px;
+  padding:10px 15px ;
   width: 100%;
 }
 
@@ -184,6 +186,11 @@ img {
   min-height: 48px;
   width: 100%;
 }
+.input_msg_write input:focus-visible,
+.input_msg_write input:focus
+{
+  outline: 0;
+}
 
 .type_msg {
   border-top: 1px solid #c4c4c4;
@@ -197,15 +204,37 @@ img {
   color: #fff;
   cursor: pointer;
   font-size: 17px;
-  height: 33px;
+  height: 34px;
+  line-height: 38px;
   position: absolute;
   right: 0;
   top: 11px;
-  width: 33px;
+  width: 34px;
 }
 
 .msg_history {
-  height: 490px;
+  height: 505px;
   overflow-y: auto;
 }
 
+@media screen and (max-width:768px) {
+  .inbox_people
+  {
+    width:100%;
+  }
+  .inbox_chat
+  {
+    height:auto;
+    max-height: 300px;
+  }
+  .mesgs
+  {
+    width: 100%;
+    padding-bottom: 10px !important;
+  }
+  .msg_history
+  {
+    height:auto;
+    max-height: 400px;
+  }
+}
