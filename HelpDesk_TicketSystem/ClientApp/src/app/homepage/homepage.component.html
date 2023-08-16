@@ -900,9 +900,9 @@
               <mat-form-field class="full-width-field" appearance="outline">
                 <mat-label>Phone Number</mat-label>
                 <input matInput placeholder="Enter Phonenumber" required formControlName="phoneNumber"
-                       maxlength="10">
+                      minLength="10" maxlength="10">
                 <mat-error>
-                  Please enter  Phonenumber
+                  Please, Enter 10 digit Mobile Number
                 </mat-error>
               </mat-form-field>
             </div>

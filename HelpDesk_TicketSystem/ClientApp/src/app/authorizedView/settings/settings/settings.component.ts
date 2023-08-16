@@ -12,7 +12,8 @@ import { map, Observable, startWith } from 'rxjs';
   styleUrls: ['./settings.component.css']
 })
 export class SettingsComponent implements OnInit {
-  public allTimeZones: string[] = moment.tz.names();
+  public allTimeZones: string[] = moment.tz.names(); 
+  showScript: boolean= false;
   timeZoneForm = this.fb.nonNullable.group({
     timeZone: ['', [Validators.required]],
   });
@@ -76,6 +77,20 @@ export class SettingsComponent implements OnInit {
         this.isLoading = false;
     }
   }
+  generateChatbotScript() {
+    this.showScript = true;
+  }
+  copyText() {
+    const textToCopy = document.getElementById('textToCopy') as HTMLParagraphElement;
+    const textRange = document.createRange();
+    textRange.selectNode(textToCopy);
+    window.getSelection()?.removeAllRanges();
+    window.getSelection()?.addRange(textRange);
+    document.execCommand('copy');
+    window.getSelection()?.removeAllRanges();
+    this.toastr.success('Chatbot Script Copied');
+  }
 }
+
 
 

@@ -67,6 +67,19 @@
         <button mat-raised-button color="primary" type="submit" class="m-t-8" (submit)="saveTimeZone">Save</button>
         <button mat-raised-button color="warn" class="m-t-8 mx-2" routerLink="/dashboard">Cancel</button>
       </form>
+
+    </mat-card-content>
+  </mat-card>
+  <mat-card>
+    <mat-card-content>
+      <h2>Embed Chatbot</h2>
+      <button mat-raised-button color="primary" (click)="generateChatbotScript()">Generate Script</button>
+      <p *ngIf="showScript" id="textToCopy">
+        This is your chatbot script please use this script to use this service in your chat.
+        <button mat-icon-button (click)="copyText()">
+          <mat-icon aria-hidden="false" title="Copy Script" aria-label="content_copy" fontIcon="content_copy"></mat-icon>
+        </button>
+      </p>
     </mat-card-content>
   </mat-card>
 </div>

@@ -20,7 +20,7 @@ export class HomepageComponent implements OnInit, OnDestroy {
 
   chatForm = this.fb.group({
     name: ['', [Validators.required]],
-    phoneNumber: ['', [Validators.required]],
+    phoneNumber: ['', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
     email: ['', [Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
     department: ['', [Validators.required]],
   });
