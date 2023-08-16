@@ -13,7 +13,7 @@ import { CommonService } from '../../services/commonServcices/common-service.ser
 })
 export class HomepageComponent implements OnInit, OnDestroy {
 
-  IsChatBot = true;
+  IsChatBot = false;
   IsUserDataSubmited = false;
 
   chatMessages: ChatMessage[] = [];

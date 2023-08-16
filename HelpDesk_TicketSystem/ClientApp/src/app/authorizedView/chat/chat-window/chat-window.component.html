@@ -33,7 +33,7 @@
                 </div>
 
               </div>
-              <div class="inbox_chat">
+              <div class="inbox_chat" #scrollContainerUsers>
                 <ng-container *ngFor="let user of userList">
                   <div [class]="{'chat_list':true,'active_chat':(user.chatRoomId===chatRoomId) }">
                     <div class="chat_people" (click)="chatUserSelected(user)">
@@ -47,9 +47,14 @@
                 </ng-container>
               </div>
             </div>
-            <div class="mesgs"*ngIf="chatRoomId!='' && chatRoomId !=null && chatRoomId!=undefined" >
-              <div class="msg_history" >
-                <ng-container *ngFor="let chatMessage of chatMessages">
+            <div class="mesgs" >
+              <div class="msg_history" #scrollContainerMessage>
+                <div class="NoChatConent" *ngIf="chatRoomId== null || chatRoomId == undefined || chatRoomId ==''">
+
+                 <h2> Please select a user</h2>
+                  <p>Please select a user to interact with user</p>
+                </div>
+                <ng-container *ngFor="let chatMessage of chatMessages" >
                   <div class="incoming_msg" *ngIf="chatMessage.isIncoming">
                     <div class="received_msg">
                       <div class="received_withd_msg">
@@ -69,9 +74,9 @@
                   </div>
                 </ng-container>
               </div>
-              <div class="type_msg">
+              <div class="type_msg" *ngIf="chatRoomId!='' && chatRoomId !=null && chatRoomId!=undefined">
                 <div class="input_msg_write">
-                  <input type="text" class="write_msg" placeholder="Type a message" [(ngModel)]="messageToSend" (keyup.enter)="SendMessageToUser()"/>
+                  <input type="text" class="write_msg" placeholder="Type a message" [(ngModel)]="messageToSend" (keyup.enter)="SendMessageToUser()" />
                   <button class="msg_send_btn" type="button" (click)="SendMessageToUser()"><i class="bx bxs-send" aria-hidden="true"></i></button>
                 </div>
               </div>
@@ -85,3 +90,7 @@
 </div>
 
 
+
+
+
+<loader *ngIf="isLoading"></loader>

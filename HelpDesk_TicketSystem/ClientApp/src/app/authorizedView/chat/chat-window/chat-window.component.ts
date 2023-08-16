@@ -1,13 +1,17 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { chatMessage, ChatService, ChatUser } from '../../../../services/ChatService/chat.service';
 import * as signalR from '@microsoft/signalr';
 import { environment } from '../../../../environments/environment';
+import { Observable, Observer } from 'rxjs';
+import { Toast, ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-chat-window',
   templateUrl: './chat-window.component.html',
   styleUrls: ['./chat-window.component.css']
 })
 export class ChatWindowComponent implements OnInit, OnDestroy {
+  @ViewChild('scrollContainerMessage', { static: false }) scrollContainerMessage: ElementRef;
+  @ViewChild('scrollContainerUsers', { static: false }) scrollContainerUsers: ElementRef;
 
   private hubConnection: signalR.HubConnection;
   chatMessages: ChatMessage[] = [];
@@ -15,11 +19,19 @@ export class ChatWindowComponent implements OnInit, OnDestroy {
   userList: ChatUser[] = [];
   chatRoomId: string = null;
   chatList = [];
-  constructor(private chatService: ChatService) {
+  isLoading = false;
+  constructor(
+    private chatService: ChatService,
+    private toaster: ToastrService,
+
+  ) {
     debugger
     this.hubConnection = this.chatService.getConnection();
-    this.hubConnection.on('responseFormClient', (message: string) => {
-      this.chatMessages.push({ isIncoming: true, message: message });
+    this.hubConnection.on('responseFormClient', (message: string, chatRoomId: string) => {
+      if (chatRoomId == this.chatRoomId) {
+        this.chatMessages.push({ isIncoming: true, message: message });
+        this.scrollToBottom();
+      }
     });
 
     this.hubConnection.on('newUserChat', this.GetChatUserDetailsByChatRoomId);
@@ -46,13 +58,10 @@ export class ChatWindowComponent implements OnInit, OnDestroy {
     this.GetChatUserList();
   }
 
-
   GetChatUserDetailsByChatRoomId =(ChatRoomId: number) => {
   this.chatService.GetChatUserDetailsByChatRoomId(ChatRoomId).subscribe((response: ChatUser) => {
-
-    console.log('response', response)
-    this.userList.push(response);
-    console.log(' this.userList', this.userList)
+    this.userList.unshift(response);
+    this.scrollToTop();
   })
 }
 
@@ -74,12 +83,15 @@ export class ChatWindowComponent implements OnInit, OnDestroy {
       this.hubConnection.invoke('SendMessageToUser', chatmessage).then(() => {
         this.chatMessages.push({ isIncoming: false, message: this.messageToSend });
         this.messageToSend = '';
+        this.scrollToBottom();
       })
         .catch(err => console.error(err));
     }
   }
   chatUserSelected(user: ChatUser) {
+    this.isLoading = true;
     if (this.chatRoomId == user.chatRoomId) {
+      this.isLoading = false;
       return;
     }
     this.chatService.GetUserChatMessageList(parseInt(user.chatRoomId)).subscribe((response: any) => {
@@ -94,7 +106,50 @@ export class ChatWindowComponent implements OnInit, OnDestroy {
         this.userList[userFoundIndex].unReadMessageCount = 0
       }
       this.chatRoomId = user.chatRoomId
+      this.scrollToBottom();
+      this.isLoading = false;
+    }, (error) => {
+      this.toaster.error("Something went wrong, Please try after sometime.")
+      this.isLoading = false;
     })
+   
+  }
+
+  scrollToTop(): void {
+    const element = this.scrollContainerUsers.nativeElement;
+    const duration = 500; // Animation duration in milliseconds
+
+    this.animateScroll(element,0, duration).subscribe();
+  }
+
+  scrollToBottom(): void {
+    const element = this.scrollContainerMessage.nativeElement;
+    const duration = 500; // Animation duration in milliseconds
+
+    this.animateScroll(element, element.scrollHeight, duration).subscribe();
+  }
+  animateScroll(element: HTMLElement, to: number, duration: number): Observable<number> {
+    const start = element.scrollTop;
+    const change = to - start;
+    const startTime = performance.now();
+
+    return new Observable((observer: Observer<number>) => {
+      const animateScroll = (timestamp: number) => {
+        const elapsedTime = timestamp - startTime;
+        const progress = Math.min(elapsedTime / duration, 1);
+        const easedProgress = easeInOutCubic(progress);
+
+        element.scrollTop = start + change * easedProgress;
+
+        if (progress < 1) {
+          requestAnimationFrame(animateScroll);
+        } else {
+          observer.complete();
+        }
+      };
+
+      requestAnimationFrame(animateScroll);
+    });
   }
 
   ngOnDestroy(): void {
@@ -103,6 +158,10 @@ export class ChatWindowComponent implements OnInit, OnDestroy {
   }
 }
 
+// Easing function for smooth animation
+function easeInOutCubic(t: number): number {
+  return t < 0.5 ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1;
+}
 export interface ChatMessage {
   isIncoming: boolean;
   message: string;
