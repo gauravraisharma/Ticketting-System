@@ -958,9 +958,17 @@ app-navbar
 
 .chatUnreadCount {
   border-radius: 50%;
-  padding: 3px 10px;
-  background-color: #ff0000b0;
+  background-color: #5597b9;
   font-weight: 700;
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  color: #fff;
+  width: 24px;
+  height: 24px;
+  line-height: 24px;
+  text-align: center;
 }
 .chatUnreadSideMenu {
   color: #ff0000ba;
