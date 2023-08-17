@@ -15,13 +15,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { RouterModule } from '@angular/router';
 import { MatSortModule } from '@angular/material/sort';
-import { ChatBotComponent } from './chat-bot/chat-bot.component';
 
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 
 @NgModule({
-  declarations: [LoaderComponent, ChatBotComponent,],
+  declarations: [LoaderComponent,],
   imports: [MatCardModule,
     MatSortModule,
     MatInputModule,
@@ -55,8 +54,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
     CKEditorModule,
     LoaderComponent,
     MatSortModule,
-    MatAutocompleteModule,
-    ChatBotComponent,],
+    MatAutocompleteModule,],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class SharedModule { }

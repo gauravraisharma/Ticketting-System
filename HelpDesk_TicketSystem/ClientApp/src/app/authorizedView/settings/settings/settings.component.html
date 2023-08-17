@@ -74,12 +74,17 @@
     <mat-card-content>
       <h2>Embed Chatbot</h2>
       <button mat-raised-button color="primary" (click)="generateChatbotScript()">Generate Script</button>
-      <p *ngIf="showScript" id="textToCopy">
-        This is your chatbot script please use this script to use this service in your chat.
-        <button mat-icon-button (click)="copyText()">
-          <mat-icon aria-hidden="false" title="Copy Script" aria-label="content_copy" fontIcon="content_copy"></mat-icon>
-        </button>
-      </p>
+      <button mat-icon-button (click)="copyText()" *ngIf="showScript">
+        <mat-icon aria-hidden="false" title="Copy Script" aria-label="content_copy" fontIcon="content_copy"></mat-icon>
+      </button>
+
+      <div *ngIf="showScript" id="textToCopy" style="white-space: pre-line;">
+        <pre><code>
+  {{embeddedScriptForChatBot}}
+</code></pre>
+
+
+      </div>
     </mat-card-content>
   </mat-card>
 </div>

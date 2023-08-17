@@ -31,7 +31,7 @@ namespace ApplicationService.Services
 
             if (!result.IsExisting)
             {
-                await _hubContext.Clients.All.SendAsync("NewUserChat", result.ChatRoomId);
+                await _hubContext.Clients.All.SendAsync("NewUserChat", result.ChatRoomId,chatUserModel.CompanyId);
 
             }
             return result;

@@ -1,0 +1,131 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: arial;
+}
+
+.chatbot-main {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  margin: 10px 50px;
+  z-index: 91;
+  text-align: right;
+}
+
+.chat-form {
+  width: 340px;
+  text-align: left;
+  margin-bottom: 15px;
+}
+
+.chat-btn-main {
+  color: #fff;
+  background-color: #0d6efd;
+  display: inline-block;
+  font-weight: 400;
+  line-height: 1.5;
+  border: 1px solid #0d6efd;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  border-radius: 0.25rem;
+  cursor: pointer;
+}
+
+.chat-form {
+  box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+  background: #fff;
+  border-radius: 5px;
+}
+
+  .chat-form .chat-title h4 {
+    color: #fff;
+    background-color: #0d6efd;
+    padding: 16px;
+    border-radius: 5px 5px 0 0;
+    margin-bottom: 10px;
+  }
+
+  .chat-form .chat-title p {
+    font-size: 14px;
+    padding: 0 16px;
+  }
+
+  .chat-form .chat-col {
+    padding: 16px;
+  }
+
+  .chat-form .chat-input {
+    margin-bottom: 15px;
+    width: 100%;
+  }
+
+    .chat-form .chat-input input,
+    .chat-form .chat-input select {
+      padding: 15px 12px;
+      color: rgba(0, 0, 0, 0.87);
+      font-size: 16px;
+      border-radius: 5px;
+      border: 1px solid #999;
+      width: 100%;
+    }
+
+button.start-chat {
+  color: #fff;
+  background-color: #0d6efd;
+  border: 1px solid #0d6efd;
+  width: 100%;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  border-radius: 0.25rem;
+  cursor: pointer;
+}
+
+  button.start-chat:hover,
+  .chat-btn-main:hover {
+    background-color: #0457d2;
+  }
+
+.send-msg {
+  border: 0;
+  background: none;
+  cursor: pointer;
+  float: right;
+  margin-top: 14px;
+}
+
+  .send-msg svg {
+    max-width: 24px;
+    max-height: 24px;
+    fill: #0d6efd;
+  }
+
+  .send-msg:hover svg {
+    fill: #0457d2;
+  }
+
+.with-btn-input {
+  width: calc(100% - 36px) !important;
+  display: inline-block
+}
+
+.dis-none {
+  display: none !important;
+}
+
+.chat-receiver {
+  background-color: #03669a57;
+  padding: 5px 14px;
+  border-radius: 50px 50px 0px 50px;
+  margin-bottom: 10px;
+  margin-left: 55px;
+  font-size: 16px;
+}
+
+.chat-sender {
+  background-color: #c44e3269;
+  padding: 5px 14px;
+  border-radius: 50px 50px 50px 0px;
+  margin-bottom: 10px;
+  margin-right: 55px;
+}

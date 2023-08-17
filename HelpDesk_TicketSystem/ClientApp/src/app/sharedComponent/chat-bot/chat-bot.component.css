@@ -1,17 +1,22 @@
-/*.chatbot {*/
-  /*position: fixed;*/
-  /*bottom: 0;
+
+
+.chatbot {
+  position: fixed;
+  bottom: 0;
   right: 0;
   margin: 10px 50px;
+  z-index: 1000
 }
 
-  .chatbot .chatbutton{
-      float:right;
-  }
-  .chatbot mat-header {
-    background-color: #0d6efd;
+  .chatbot .chatbutton {
+    float: right;
   }
 
-  .chatbot mat-card{
-      max-width:350px !important; 
-  }*/
+  .chatbot mat-card-header {
+    background-color: #0d6efd;
+    color: white;
+  }
+
+  .chatbot mat-card {
+    max-width: 350px !important;
+  }

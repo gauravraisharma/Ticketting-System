@@ -28,11 +28,11 @@ namespace ApplicationService.SignalR
             }catch (Exception ex) { throw; }
         }
         
-        public async Task sendMessageToAdmin(ChatMessage chatmessage)
+        public async Task sendMessageToAdmin(ChatMessageFromClient chatmessage)
         {
             await _chatService.SaveChatMessage(chatmessage.Message, chatmessage.ChatRoomId, chatmessage.UserId, false);
-            await Clients.All.SendAsync("responseFormClient", chatmessage.Message, chatmessage.ChatRoomId);
-            await Clients.All.SendAsync("NewMessageFromCLient", chatmessage.ChatRoomId);
+            await Clients.All.SendAsync("responseFormClient", chatmessage.Message, chatmessage.ChatRoomId, chatmessage.CompanyId, chatmessage.DepartmentId);
+            await Clients.All.SendAsync("NewMessageFromCLient", chatmessage.ChatRoomId, chatmessage.CompanyId, chatmessage.DepartmentId);
 
            
         }

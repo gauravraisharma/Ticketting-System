@@ -19,6 +19,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy {
   userList: ChatUser[] = [];
   chatRoomId: string = null;
   chatList = [];
+  companyId = localStorage.getItem('companyId');
   isLoading = false;
   constructor(
     private chatService: ChatService,
@@ -27,29 +28,33 @@ export class ChatWindowComponent implements OnInit, OnDestroy {
   ) {
     debugger
     this.hubConnection = this.chatService.getConnection();
-    this.hubConnection.on('responseFormClient', (message: string, chatRoomId: string) => {
-      if (chatRoomId == this.chatRoomId) {
-        this.chatMessages.push({ isIncoming: true, message: message });
-        this.scrollToBottom();
+    this.hubConnection.on('responseFormClient', (message: string, chatRoomId: string, companyId: string, departmentId: string) => {
+      if (companyId == this.companyId) {
+        if (chatRoomId == this.chatRoomId) {
+          this.chatMessages.push({ isIncoming: true, message: message });
+          this.scrollToBottom();
+        }
       }
     });
 
     this.hubConnection.on('newUserChat', this.GetChatUserDetailsByChatRoomId);
 
-    this.hubConnection.on('NewMessageFromCLient', (chatRoomId: string) => {
-      //Check if chatroom is already present or not
-      let userFoundIndex = this.userList.findIndex((user) => { return user.chatRoomId == chatRoomId })
+    this.hubConnection.on('NewMessageFromCLient', (chatRoomId: string, companyId: string, departmentId: string) => {
+      if (companyId == this.companyId) {
+        //Check if chatroom is already present or not
+        let userFoundIndex = this.userList.findIndex((user) => { return user.chatRoomId == chatRoomId })
 
-      //if not  hit the api to get new users data
-      if (userFoundIndex == -1) {
+        //if not  hit the api to get new users data
+        if (userFoundIndex == -1) {
 
-      }
-      //if present increase the count 
-      else {
-        if (this.chatRoomId == chatRoomId) {
-          return;
         }
-        this.userList[userFoundIndex].unReadMessageCount+=1
+        //if present increase the count 
+        else {
+          if (this.chatRoomId == chatRoomId) {
+            return;
+          }
+          this.userList[userFoundIndex].unReadMessageCount += 1
+        }
       }
     });
   }
@@ -58,11 +63,13 @@ export class ChatWindowComponent implements OnInit, OnDestroy {
     this.GetChatUserList();
   }
 
-  GetChatUserDetailsByChatRoomId =(ChatRoomId: number) => {
-  this.chatService.GetChatUserDetailsByChatRoomId(ChatRoomId).subscribe((response: ChatUser) => {
-    this.userList.unshift(response);
-    this.scrollToTop();
-  })
+  GetChatUserDetailsByChatRoomId = (ChatRoomId: number, companyId: number) => {
+    if (companyId.toString() == localStorage.getItem('companyId')) {
+      this.chatService.GetChatUserDetailsByChatRoomId(ChatRoomId).subscribe((response: ChatUser) => {
+        this.userList.unshift(response);
+        this.scrollToTop();
+      })
+    }
 }
 
   GetChatUserList() {

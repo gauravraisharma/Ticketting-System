@@ -6,6 +6,7 @@ import { CompanyService, UpdateTimeZone } from '../../../../services/companyServ
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { map, Observable, startWith } from 'rxjs';
+import { environment } from '../../../../environments/environment';
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html',
@@ -19,6 +20,8 @@ export class SettingsComponent implements OnInit {
   });
   isLoading: boolean = false;
   filteredOptions: Observable<string[]>;
+  companyID = localStorage.getItem('companyId');
+  embeddedScriptForChatBot =''
 
   constructor(private fb: FormBuilder, private companyService: CompanyService,
     private router: Router,
@@ -26,6 +29,10 @@ export class SettingsComponent implements OnInit {
 
   }
   ngOnInit() {
+    this.embeddedScriptForChatBot = `
+    <helpdesk-chatbot company-id="${this.companyID}"></helpdesk-chatbot>
+    <script src="${environment.helpdeskChatbotScript}"></script>
+    `;
     this.filteredOptions = this.timeZoneForm.get('timeZone').valueChanges.pipe(
       startWith(''),
       map(value => this._filter(value || '')),

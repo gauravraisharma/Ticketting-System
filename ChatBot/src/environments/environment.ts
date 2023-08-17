@@ -1,8 +1,8 @@
 export const environment = {
-  production: false,
+  production: true,
   apiBaseUrl: "https://localhost:44455/api/",
   //apiBaseUrl: "https://helpdesk.techbitsolutions.com/api/",
   socketUrl: "https://localhost:7290/",
-  sockeytEndPointNotify: "chat/",
-  helpdeskChatbotScript: "https://helpdesk.techbitsolutions.com/"
+  sockeytEndPointNotify:"chat/"
+
 };

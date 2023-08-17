@@ -48,7 +48,10 @@ export class ChatService {
     let url = `${this.apiUrl}Chat/GetChatUserDetailsByChatRoomId/${ChatRoomId}`;
     return this.http.get(url);
   }
-
+  GetDepartmentDDList() {
+    let url = `${this.apiUrl}Account/GetDepartmentListDD`;
+    return this.http.get(url);
+  }
  }
 
 
@@ -57,11 +60,19 @@ export interface chatMessage {
   chatRoomId: string;
   userId: string;
 }
+export interface chatMessageFromClient {
+  message: string;
+  chatRoomId: string;
+  userId: string;
+  companyId: string;
+  departmentId: string;
+}
 export interface ChatUserModel {
   name: string;
   phoneNumber: number;
   email: string;
   departmentId: string;
+  companyId:number
 }
 export interface ChatUser {
   chatUserId: string;

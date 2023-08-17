@@ -1,5 +1,5 @@
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { NgModule } from '@angular/core';
+import { Injector, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
@@ -22,6 +22,10 @@ import { DashboardService } from '../services/dashboardService/dashboard.service
 import { HomepageComponent } from './homepage/homepage.component';
 import { ChatService } from '../services/ChatService/chat.service';
 import { environment } from '../environments/environment';
+import { CommonModule } from '@angular/common';
+import { ChatBotComponent } from './sharedComponent/chat-bot/chat-bot.component';
+
+import { createCustomElement } from '@angular/elements';
 
 
 @NgModule({
@@ -33,7 +37,6 @@ import { environment } from '../environments/environment';
     AuthorizedLayoutComponent,
     PageNotFoundComponent,
     HomepageComponent,
-   
   ],
   imports: [
     BrowserModule,
@@ -41,6 +44,7 @@ import { environment } from '../environments/environment';
     BrowserAnimationsModule,
     AppRoutingModule,
     SharedModule,
+    CommonModule,
     ToastrModule.forRoot(),
   ],
   providers: [
@@ -51,10 +55,11 @@ import { environment } from '../environments/environment';
     DashboardService,
     ChatService,
     {
-    provide: HTTP_INTERCEPTORS,
-    useClass: APIInterceptor,
-    multi: true
-  }],
+      provide: HTTP_INTERCEPTORS,
+      useClass: APIInterceptor,
+      multi: true
+    }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+

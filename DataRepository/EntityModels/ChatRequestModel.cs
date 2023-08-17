@@ -21,5 +21,7 @@ namespace DataRepository.EntityModels
         public long PhoneNumber { get; set; }
         [Required(ErrorMessage = "DepartmentId is required")]
         public int DepartmentId { get; set; }
+        [Required(ErrorMessage = "CompanyId is required")]
+        public int CompanyId { get; set; }
     }
 }

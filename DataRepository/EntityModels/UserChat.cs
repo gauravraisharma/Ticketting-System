@@ -22,6 +22,7 @@ namespace DataRepository.EntityModels
         [Column(TypeName = "varchar(500)")]
         public string email { get; set; }
         public int DepartmentId { get; set; }
+        public int companyId { get; set; }
         public bool IsDeleted { get; set; }
     }
 

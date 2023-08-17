@@ -56,6 +56,7 @@ namespace DataRepository.Repositoryy
                     PhoneNumber = chatUserModel.PhoneNumber,
                     DepartmentId = chatUserModel.DepartmentId,
                     IsDeleted = false,
+                    companyId=chatUserModel.CompanyId,  
                 };
                 _context.ChatUsers.Add(chatUser);
                 await _context.SaveChangesAsync();

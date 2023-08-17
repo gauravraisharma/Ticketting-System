@@ -44,10 +44,10 @@ builder.Services.AddAuthentication(options =>
 
 builder.Services.AddCors(p => p.AddPolicy("corsapp", builder =>
 {
-    builder.WithOrigins("https://localhost:44455", "http://localhost:4200")
+    builder.AllowAnyOrigin()
+    //WithOrigins("https://localhost:44455", "http://localhost:4200")
     .AllowAnyMethod()
-    .AllowAnyHeader()
-    .AllowCredentials();
+    .AllowAnyHeader();
 }
                                            )
                                          );

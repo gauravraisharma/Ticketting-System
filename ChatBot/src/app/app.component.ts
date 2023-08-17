@@ -1,19 +1,17 @@
-import { CommonModule } from '@angular/common';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { ChatService, ChatUserModel, chatMessage, chatMessageFromClient } from '../service/ChatService/chat.service';
 import { ToastrService } from 'ngx-toastr';
-import { chatMessage, ChatService, ChatUserModel } from '../../../services/ChatService/chat.service';
-import { CommonService } from '../../../services/commonServcices/common-service.service';
-import { SharedModule } from '../shared.module';
 
 @Component({
-  selector: 'app-chat-bot',
-  standalone: true,
-  imports: [CommonModule, SharedModule],
-  templateUrl: './chat-bot.component.html',
-  styleUrls: ['./chat-bot.component.css']
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css'],
+  encapsulation: ViewEncapsulation.ShadowDom
 })
-export class ChatBotComponent implements OnInit, OnDestroy {
+export class AppComponent implements OnInit, OnDestroy {
+
+  @Input() companyId: string;
   IsChatBot = false;
   IsUserDataSubmited = false;
 
@@ -32,9 +30,9 @@ export class ChatBotComponent implements OnInit, OnDestroy {
   DDDepartmentList: any = [];
   chatRoomId = '';
   userId = null;
+  departmentId = '';
   constructor(private fb: FormBuilder,
-    private toaster: ToastrService,
-    private commonService: CommonService,
+    private toaster: ToastrService, 
     private chatService: ChatService) {
     this.hubConnection = this.chatService.getConnection();
 
@@ -42,9 +40,8 @@ export class ChatBotComponent implements OnInit, OnDestroy {
 
   }
   ngOnInit() {
-   
-    this.GetDepartmentDDList();
 
+    this.GetDepartmentDDList();
   }
 
   OnResponseFromAdmin = (message: string) => {
@@ -52,7 +49,7 @@ export class ChatBotComponent implements OnInit, OnDestroy {
   }
   GetDepartmentDDList() {
     this.isLoading = false;
-    this.commonService.GetDepartmentDDList().subscribe((response: any) => {
+    this.chatService.GetDepartmentDDList().subscribe((response: any) => {
       console.log('GetUserTypeDDList', response)
       this.DDDepartmentList = response;
       this.isLoading = false;
@@ -62,7 +59,7 @@ export class ChatBotComponent implements OnInit, OnDestroy {
   }
 
   ChatBotToggle() {
-    this.IsChatBot = this.IsChatBot?false:true
+    this.IsChatBot = this.IsChatBot ? false : true
   }
   submitchatForm() {
     if (this.chatForm.valid) {
@@ -70,8 +67,10 @@ export class ChatBotComponent implements OnInit, OnDestroy {
         name: this.chatForm.get('name').value,
         email: this.chatForm.get('email').value,
         phoneNumber: parseInt(this.chatForm.get('phoneNumber').value),
-        departmentId: this.chatForm.get('department').value
+        departmentId: this.chatForm.get('department').value,
+        companyId: parseInt( this.companyId)
       }
+      this.departmentId = this.chatForm.get('department').value;
       this.chatService.SaveChatUserData(chatData).subscribe((response: any) => {
         if (response.status == 'SUCCEED') {
           console.log(response)
@@ -98,10 +97,13 @@ export class ChatBotComponent implements OnInit, OnDestroy {
   sendMessageToAdmin(): void {
     if (this.messageToSend != null && this.messageToSend != undefined && this.messageToSend.trim() != '') {
       debugger
-      let chatmessage: chatMessage = {
+      let chatmessage: chatMessageFromClient = {
         chatRoomId: this.chatRoomId,
         message: this.messageToSend,
-        userId: this.userId
+        userId: this.userId,
+        companyId: this.companyId,
+       departmentId: this.departmentId
+
       }
       this.hubConnection.invoke('sendMessageToAdmin', chatmessage).then(() => {
         this.chatMessages.push({ isIncoming: false, message: this.messageToSend });
@@ -121,3 +123,4 @@ export interface ChatMessage {
   isIncoming: boolean;
   message: string;
 }
+
