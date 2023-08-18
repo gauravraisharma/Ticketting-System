@@ -1,96 +1,5 @@
-<div class="chatbot">
-  <!--<ng-container *ngIf="IsChatBot">
-      <mat-card>
-        <mat-card-header>
-          <h4>Welcome To HelpDesk</h4>
-        </mat-card-header>
-        <mat-card-content *ngIf="IsUserDataSubmited">
-          <p class="p-1">
-            Welcome to Helpdesk Chat. Please hold on, we are attending to you soon.
-          </p>
-          <div *ngFor="let chatMessage of chatMessages">
 
-            <div class="chat-sender" *ngIf="chatMessage.isIncoming">
-              {{chatMessage.message}}
-            </div>
-            <div class="chat-receiver" *ngIf="!chatMessage.isIncoming">
-              {{chatMessage.message}}
-            </div>
-          </div>
-          <div class="d-flex align-items-center send-message-input">
-            <input type="text" class="form-control" id="username" [(ngModel)]="messageToSend" (keyup.enter)="sendMessageToAdmin()">
-            <a href="javascript:;" (click)="sendMessageToAdmin()"> <i class="bx bxs-send mx-1 size-20 text-primary" aria-hidden="true"></i></a>
-          </div>
-        </mat-card-content>
-        <mat-card-content *ngIf="!IsUserDataSubmited">
-
-          <p class="p-2">Please fill in details to start the chat</p>
-          <form [formGroup]="chatForm" (ngSubmit)="submitchatForm()" autocomplete="off">
-
-            <div class="row">
-              <div class="col-sm-12">
-                <mat-form-field class="full-width-field" appearance="outline">
-                  <mat-label>Name</mat-label>
-                  <input matInput placeholder="Enter Name" formControlName="name"
-                         required>
-
-                  <mat-error>
-                    Please enter  name
-                  </mat-error>
-                </mat-form-field>
-              </div>
-              <div class="col-sm-12">
-                <mat-form-field class="full-width-field" appearance="outline">
-                  <mat-label>Email</mat-label>
-                  <input matInput placeholder="Enter Email" formControlName="email"
-                         required>
-                  <mat-error>
-                    Please enter Email
-                  </mat-error>
-                </mat-form-field>
-              </div>
-              <div class="col-sm-12">
-                <mat-form-field class="full-width-field" appearance="outline">
-                  <mat-label>Phone Number</mat-label>
-                  <input matInput placeholder="Enter Phonenumber" required formControlName="phoneNumber"
-                         maxlength="10">
-                  <mat-error>
-                    Please enter  Phonenumber
-                  </mat-error>
-                </mat-form-field>
-              </div>
-              <div class="col-sm-12">
-                <mat-form-field class="full-width-field" appearance="outline">
-                  <mat-label>Department</mat-label>
-                  <mat-select required formControlName="department">
-                    <ng-container *ngFor="let userType of DDDepartmentList">
-                      <mat-option [value]="userType.id">{{userType.label}}</mat-option>
-                    </ng-container>
-                  </mat-select>
-                  <mat-error>
-                    Please select department
-                  </mat-error>
-                </mat-form-field>
-              </div>
-
-              <div class="col-sm-12">
-                <button class="btn btn-primary w-100" type="submit"> Start chat</button>
-              </div>
-            </div>
-
-
-          </form>
-
-
-        </mat-card-content>
-      </mat-card>
-    </ng-container>
-    <button class=" btn btn-primary chatbutton" (click)="ChatBotToggle()">
-      Chat with Us  <i class="bx bxs-chat  mx-1" aria-hidden="true"></i>
-    </button>
-  </div>-->
-
-
+  
   <div class="chatbot-main">
 
     <div class="chat-form" *ngIf="IsChatBot">
@@ -99,29 +8,50 @@
         <div class="chat-title">
           <h4>Welcome To HelpDesk</h4>
           <p>Please fill in details to start the chat</p>
+          <p class="errorSummary" *ngIf="errorSummary!=''">{{errorSummary}}</p>
         </div>
 
         <div class="chat-col" >
           <form [formGroup]="chatForm" (ngSubmit)="submitchatForm()">
-            <div class="chat-input">
-              <input type="text" placeholder="Enter Name" formControlName="name"
+              <div class="chat-input">
+                  <input type="text"
+                         placeholder="Enter Name" 
+                         formControlName="name"
+                         [ngClass]="(chatForm.get('name')?.invalid && (chatForm.get('name')?.dirty || chatForm.get('name')?.touched)) ? 'invalid form-control' : 'form-control'"
                          required />
-            </div>
-            <div class="chat-input">
-              <input type="email" placeholder="Enter Email" formControlName="email"
-                         required/>
-            </div>
-            <div class="chat-input">
-              <input type="text" placeholder="Enter Phonenumber" required formControlName="phoneNumber"
-                         maxlength="10"/>
-            </div>
-            <div class="chat-input">
-              <select formControlName="department" placeholder="Select department">
-                
-                <option  *ngFor="let userType of DDDepartmentList" [value]="userType.id">{{userType.label}}</option>
-               
-              </select>
-            </div>
+                  <span *ngIf="chatForm.get('name')?.invalid && (chatForm.get('name')?.dirty || chatForm.get('name')?.touched)" class="invalid-message">User Name is required </span>
+
+              </div>
+              <div class="chat-input">
+                  <input type="email" placeholder="Enter Email" formControlName="email"
+                         [ngClass]="(chatForm.get('email')?.invalid && (chatForm.get('email')?.dirty || chatForm.get('email')?.touched)) ? 'invalid form-control' : 'form-control'"
+                         required />
+                  <span *ngIf="chatForm.get('email')?.invalid && (chatForm.get('email')?.dirty || chatForm.get('email')?.touched)" class="invalid-message">Email is required </span>
+
+              </div>
+              <div class="chat-input">
+                  <input type="text" placeholder="Enter Phonenumber" required formControlName="phoneNumber"
+                         maxlength="10" 
+                  [ngClass]="(chatForm.get('phoneNumber')?.invalid && (chatForm.get('phoneNumber')?.dirty || chatForm.get('phoneNumber')?.touched)) ? 'invalid form-control' : 'form-control'"
+                   />
+                  <span *ngIf="chatForm.get('phoneNumber')?.invalid && (chatForm.get('phoneNumber')?.dirty || chatForm.get('phoneNumber')?.touched)" class="invalid-message">PhoneNumber is required </span>
+
+              </div>
+              <div class="chat-input">
+                  <select 
+                          formControlName="department" 
+                          placeholder="Select department" 
+                          required
+                          [ngClass]="(chatForm.get('department')?.invalid && (chatForm.get('department')?.dirty || chatForm.get('department')?.touched)) ? 'invalid form-control' : 'form-control'"
+                                >
+
+                      <option *ngFor="let userType of DDDepartmentList" [value]="userType.id">{{userType.label}}</option>
+
+                  </select>
+                    
+                  <span *ngIf="chatForm.get('department')?.invalid && (chatForm.get('department')?.dirty || chatForm.get('department')?.touched)" class="invalid-message">Department is required </span>
+
+              </div>
 
             <button type="submit" class="start-chat">Start chat</button>
 
@@ -129,39 +59,15 @@
         </div>
       </div>
 
-      <div class="chat-row dis-none">
-
-        <div class="chat-title">
-          <h4>Welcome To HelpDesk</h4>
-          <p>Welcome to Helpdesk Chat. Please hold on, we are attending to you soon.</p>
-        </div>
-
-        <div class="chat-col">
-          <form>
-            <div class="chat-input with-btn-input">
-              <input type="text" />
-            </div>
-            <button class="send-msg">
-              <svg height="800px" width="800px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 495.003 495.003" xml:space="preserve">
-              <g id="XMLID_51_">
-              <path id="XMLID_53_" d="M164.711,456.687c0,2.966,1.647,5.686,4.266,7.072c2.617,1.385,5.799,1.207,8.245-0.468l55.09-37.616 l-67.6-32.22V456.687z" />
-								
-              <path id="XMLID_52_" d="M492.431,32.443c-1.513-1.395-3.466-2.125-5.44-2.125c-1.19,0-2.377,0.264-3.5,0.816L7.905,264.422 c-4.861,2.389-7.937,7.353-7.904,12.783c0.033,5.423,3.161,10.353,8.057,12.689l125.342,59.724l250.62-205.99L164.455,364.414 l156.145,74.4c1.918,0.919,4.012,1.376,6.084,1.376c1.768,0,3.519-0.322,5.186-0.977c3.637-1.438,6.527-4.318,7.97-7.956 L494.436,41.257C495.66,38.188,494.862,34.679,492.431,32.443z" />
-							</g>
-						</svg>
-            </button>
-          </form>
-        </div>
-
-      </div>
-
-
+     
       <div class="chat-row" *ngIf="IsUserDataSubmited">
 
-        <div class="chat-title">
-          <h4>Welcome To HelpDesk</h4>
-          <p>Welcome to Helpdesk Chat. Please hold on, we are attending to you soon.</p>
-        </div>
+          <div class="chat-title">
+              <h4>Welcome To HelpDesk</h4>
+              <p>Welcome to Helpdesk Chat. Please hold on, we are attending to you soon.</p>
+              <p class="errorSummary" *ngIf="errorSummary!=''">{{errorSummary}}</p>
+
+          </div>
 
         <div class="chat-col">
           <div>

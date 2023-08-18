@@ -112,7 +112,8 @@ img {
 }
 
 .inbox_chat {
-  height: 550px;
+  /*height: 550px;*/
+  max-height: calc(100vh - 268px);
   overflow-y: auto;
 }
 
@@ -214,7 +215,8 @@ img {
 }
 
 .msg_history {
-  height: 505px;
+  /*height: 505px;*/
+  max-height: calc(100vh - 310px);
   overflow-y: auto;
 }
 

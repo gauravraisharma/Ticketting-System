@@ -199,6 +199,7 @@ namespace DataRepository.EntityModels
    public class ChatResponse
     {
         public string message { get; set; }
+        public DateTime createdOn { get; set; }
         public string userType { get; set; }
     }
 

@@ -10,7 +10,7 @@ namespace ApplicationService.IServices
     public interface IChatService
     {
         Task<ChatUserResponse> ChatUserRegister(ChatUserRegister chatUserModel);
-        Task<List<GetChatUsersResponse>> GetChatUsers();
+        Task<List<GetChatUsersResponse>> GetChatUsers(int companyId);
         Task<List<ChatResponse>> GetChatByRoomId(int ChatRoomId);
         Task<GetChatUsersResponse> GetChatUserDetails(int ChatRoomId);
         Task SaveChatMessage(string message, string chatRoomId, string userId, bool IsAdmin);

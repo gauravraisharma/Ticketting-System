@@ -17,10 +17,11 @@ import { RouterModule } from '@angular/router';
 import { MatSortModule } from '@angular/material/sort';
 
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { TimeZonePipe } from '../../pipe/time-zone.pipe';
 
 
 @NgModule({
-  declarations: [LoaderComponent,],
+  declarations: [LoaderComponent, TimeZonePipe],
   imports: [MatCardModule,
     MatSortModule,
     MatInputModule,
@@ -54,6 +55,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
     CKEditorModule,
     LoaderComponent,
     MatSortModule,
+    TimeZonePipe,
     MatAutocompleteModule,],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

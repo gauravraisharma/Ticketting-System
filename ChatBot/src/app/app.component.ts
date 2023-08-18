@@ -2,6 +2,7 @@ import { Component, Input, OnDestroy, OnInit, ViewEncapsulation } from '@angular
 import { FormBuilder, Validators } from '@angular/forms';
 import { ChatService, ChatUserModel, chatMessage, chatMessageFromClient } from '../service/ChatService/chat.service';
 import { ToastrService } from 'ngx-toastr';
+import { environment } from '../environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -30,9 +31,9 @@ export class AppComponent implements OnInit, OnDestroy {
   DDDepartmentList: any = [];
   chatRoomId = '';
   userId = null;
-  departmentId = '';
+    departmentId = '';
+    errorSummary=""
   constructor(private fb: FormBuilder,
-    private toaster: ToastrService, 
     private chatService: ChatService) {
     this.hubConnection = this.chatService.getConnection();
 
@@ -41,7 +42,8 @@ export class AppComponent implements OnInit, OnDestroy {
   }
   ngOnInit() {
 
-    this.GetDepartmentDDList();
+      this.GetDepartmentDDList();
+     // this.companyId = '1000';
   }
 
   OnResponseFromAdmin = (message: string) => {
@@ -80,20 +82,30 @@ export class AppComponent implements OnInit, OnDestroy {
 
             this.IsUserDataSubmited = true;
           }).catch((error) => {
-            this.toaster.error(error);
+              this.TimerErrorSummary(error)
           })
 
         }
       }, (error) => {
-
-        this.toaster.error('Something went wrong, We will soon connect with you.')
-      })
+          this.TimerErrorSummary('Something went wrong, We will soon connect with you.')
+         
+               })
 
     } else {
-      this.toaster.error("Please enter valid data");
+        this.chatForm.markAllAsTouched(); 
+        this.TimerErrorSummary("Please enter valid data")
+
       this.isLoading = false;
     }
-  }
+    }
+
+    TimerErrorSummary(message) {
+        this.errorSummary = message;
+        setTimeout(() => {
+            this.errorSummary = '';
+        }, 3000)
+
+    }
   sendMessageToAdmin(): void {
     if (this.messageToSend != null && this.messageToSend != undefined && this.messageToSend.trim() != '') {
       debugger
@@ -111,7 +123,10 @@ export class AppComponent implements OnInit, OnDestroy {
         console.log(this.chatMessages)
       })
         .catch(err => console.error(err));
-    }
+      }
+    else {
+        this.TimerErrorSummary('Please enter message')
+      }
   }
   ngOnDestroy(): void {
     this.hubConnection.invoke('LeaveChatRoom', this.chatRoomId)

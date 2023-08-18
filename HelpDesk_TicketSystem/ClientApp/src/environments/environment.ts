@@ -4,5 +4,5 @@ export const environment = {
   //apiBaseUrl: "https://helpdesk.techbitsolutions.com/api/",
   socketUrl: "https://localhost:7290/",
   sockeytEndPointNotify:"chat/",
-  helpdeskChatbotScript:"D:/Projects/GitHubTicket/ChatBot/dist/chat-bot/helpdeskChatBot.js"
+  helpdeskChatbotScript: "D:/Projects/G_GitProject/ChatBot/dist/chat-bot/helpdesk-chatbot_v1.js"
 };

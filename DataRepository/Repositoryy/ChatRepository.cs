@@ -36,7 +36,7 @@ namespace DataRepository.Repositoryy
             }
             try
             {
-                var user = await _context.ChatUsers.FirstOrDefaultAsync(r => r.email == chatUserModel.Email);
+                var user = await _context.ChatUsers.FirstOrDefaultAsync(r => r.email == chatUserModel.Email && r.companyId==chatUserModel.CompanyId);
                 if (user != null) 
                 {
                     var userChatRoom = await _context.ChatRooms.FirstOrDefaultAsync(r => r.ChatUserId == user.Id);
@@ -103,6 +103,7 @@ namespace DataRepository.Repositoryy
                     {
                       message = ChatData.Message,
                       userType= ChatData.UserType,
+                      createdOn=ChatData.CreatedOn
                     }).ToListAsync();
 
                 // update the chatroom count 
@@ -154,7 +155,7 @@ namespace DataRepository.Repositoryy
         }
 
 
-        public async Task<List<GetChatUsersResponse>> GetChatUsers()
+        public async Task<List<GetChatUsersResponse>> GetChatUsers(int companyId)
         {
             if (_context.ChatUsers == null)
                 return null;
@@ -163,6 +164,7 @@ namespace DataRepository.Repositoryy
 
                 var chatUsers = await (from chatUser in _context.ChatUsers
                                  join chatRoom in _context.ChatRooms on chatUser.Id equals chatRoom.ChatUserId
+                                 where chatUser.companyId== companyId
                                  select new GetChatUsersResponse
                                  {
                                      ChatUserId = chatUser.Id,

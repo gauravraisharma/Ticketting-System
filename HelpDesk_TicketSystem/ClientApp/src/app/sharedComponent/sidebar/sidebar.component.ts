@@ -58,6 +58,7 @@ export class SidebarComponent implements OnInit {
   isLoading = false;
   private hubConnection: signalR.HubConnection;
   chatCount = 0;
+  companyId = localStorage.getItem('companyId');
   constructor(
     private accountService: AccountService,
     private router: Router,
@@ -75,12 +76,14 @@ export class SidebarComponent implements OnInit {
       }
     });
     this.hubConnection = this.chatService.getConnection();
-    this.hubConnection.on('NewMessageFromCLient', (chatRoomId: string) => {
-      //Check if current route is chat 
-   
-      //if not than update chatCount
-      if (!this.currentRoute.includes('chat')) {
-        this.chatCount += 1
+    this.hubConnection.on('NewMessageFromCLient', (chatRoomId: string, companyId) => {
+      //Check if current route is chat
+
+      //if current route is not chat than update chatCount
+      if (this.companyId == companyId) {
+        if (!this.currentRoute.includes('chat')) {
+          this.chatCount += 1
+        }
       }
      
     });

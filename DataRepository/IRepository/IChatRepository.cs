@@ -10,7 +10,7 @@ namespace DataRepository.IRepository
     public interface IChatRepository
     {
         Task<ChatUserResponse> ChatUserRegister(ChatUserRegister chatUserModel);
-        Task<List<GetChatUsersResponse>> GetChatUsers();
+        Task<List<GetChatUsersResponse>> GetChatUsers(int companyId);
         Task<List<ChatResponse>> GetChatByRoomId(int ChatRoomId);
         Task<GetChatUsersResponse> GetChatUserDetails(int ChatRoomId);
     

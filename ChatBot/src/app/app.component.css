@@ -60,16 +60,25 @@
     width: 100%;
   }
 
-    .chat-form .chat-input input,
-    .chat-form .chat-input select {
-      padding: 15px 12px;
-      color: rgba(0, 0, 0, 0.87);
-      font-size: 16px;
-      border-radius: 5px;
-      border: 1px solid #999;
-      width: 100%;
-    }
-
+.chat-form .chat-input input
+{
+    padding: 15px 12px;
+    color: rgba(0, 0, 0, 0.87);
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #999;
+    width: 100%;
+    max-width:calc(100% - 28px);
+}
+.chat-form .chat-input select
+{
+    padding: 15px 12px;
+    color: rgba(0, 0, 0, 0.87);
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #999;
+    width: 100%;
+}
 button.start-chat {
   color: #fff;
   background-color: #0d6efd;
@@ -128,4 +137,20 @@ button.start-chat {
   border-radius: 50px 50px 50px 0px;
   margin-bottom: 10px;
   margin-right: 55px;
+}
+.invalid {
+    border: 1px solid red !important;
+    margin-bottom: 0px !important;
+}
+
+.invalid-message {
+    font-size: 11px;
+    margin-left: 15px;
+    color: red;
+    font-weight: 500;
+}
+.errorSummary {
+    font-size: 11px;
+    color: red;
+    font-weight: 500;
 }

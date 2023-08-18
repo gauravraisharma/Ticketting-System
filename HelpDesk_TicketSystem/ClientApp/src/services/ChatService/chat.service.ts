@@ -35,8 +35,8 @@ export class ChatService {
     let url = `${this.apiUrl}Chat/RegisterChatUser`;
     return this.http.post(url, chatUserdata);
   }
-  GetChatUserList() {
-    let url = `${this.apiUrl}Chat/GetChatUsers`;
+  GetChatUserList(companyId:number) {
+    let url = `${this.apiUrl}Chat/GetChatUsers/${companyId}`;
     return this.http.get(url);
   }
   GetUserChatMessageList(ChatRoomId:number) {

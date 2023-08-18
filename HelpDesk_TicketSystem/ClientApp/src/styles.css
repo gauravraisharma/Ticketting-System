@@ -2,12 +2,16 @@
 @import 'ngx-toastr/toastr';
 
 
-html, body { height: 100%; }
+html, body {
+  height: 100%;
+}
+
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
   background-color: #f5eeee;
 }
+
 .cust-container {
   display: flex;
   justify-content: center;
@@ -94,7 +98,7 @@ body {
 /* SIDEBAR */
 #sidebar {
   position: fixed;
-  top:64px;
+  top: 64px;
   left: 0;
   width: 280px;
   height: 100%;
@@ -104,7 +108,7 @@ body {
   transition: .3s ease;
   overflow-x: hidden;
   scrollbar-width: none;
-  padding:10px 0px;
+  padding: 10px 0px;
 }
 
   #sidebar::--webkit-scrollbar {
@@ -628,17 +632,16 @@ body {
 
 
 .mat-mdc-paginator,
-.mdc-data-table__table
-{
+.mdc-data-table__table {
   background: none !important;
 }
 
-.mdc-data-table__table mat-icon {
-  float: left !important;
-  margin-right: 5px;
-}
-.mdc-card-shadow-0 .mat-mdc-card
-{
+  .mdc-data-table__table mat-icon {
+    float: left !important;
+    margin-right: 5px;
+  }
+
+.mdc-card-shadow-0 .mat-mdc-card {
   box-shadow: none !important
 }
 /* .conversation-main-list
@@ -653,57 +656,67 @@ body {
 .custom-spacer {
   flex: 1 1 auto;
 }
-.back-btn
-{
-    cursor:pointer;
+
+.back-btn {
+  cursor: pointer;
 }
-.back-btn i {
-  font-size: 16px;
-}
+
+  .back-btn i {
+    font-size: 16px;
+  }
 
 .invalid {
   border: 1px solid red !important;
   margin-bottom: 0px !important;
 }
+
 .invalid-message {
   font-size: 11px;
   margin-left: 15px;
   color: red;
   font-weight: 500;
 }
+
 .detail-wrapper {
   margin: 15px 0px;
 }
-  .detail-wrapper .detail-heading{
-      font-weight:500;
-      display:inline;
-      margin-right:5px;
+
+  .detail-wrapper .detail-heading {
+    font-weight: 500;
+    display: inline;
+    margin-right: 5px;
   }
-  .attachment-detail-heading {
-    margin-bottom: 0px !important;
-    font-weight: 600;
-  }
+
+.attachment-detail-heading {
+  margin-bottom: 0px !important;
+  font-weight: 600;
+}
+
 .conversion-message {
   background-color: #e5dddd94;
   padding: 10px;
-  margin:10px;
+  margin: 10px;
   border-radius: 4px;
 }
-.conversion-message > p:last-child
-{
-  margin-bottom:0;
-}
+
+  .conversion-message > p:last-child {
+    margin-bottom: 0;
+  }
+
 .conversion-chat-card {
   margin-bottom: 7px;
   margin-top: 7px;
   /*background-color: #c7e3ff1f !important;*/
 }
+
   .conversion-chat-card.conversion-chat-card-reply {
     background-color: #b3b3b35c;
   }
+
 .full-width-field {
-width:100%;
+  width: 100%;
 }
+
 .mat-alert {
   background-color: green;
   color: #fff;
@@ -714,54 +727,66 @@ width:100%;
   margin-top: 7px;
   /*background-color: #d4d0d647 !important;*/
 }
-.small-font{
-    font-size:9px;
-    font-weight:600;
+
+.small-font {
+  font-size: 9px;
+  font-weight: 600;
 }
+
 .chat-header .mat-mdc-card-header-text {
   width: 100% !important;
 }
+
 .chat-header {
   border-bottom: 1px solid #0000004f;
   padding: 10px 0px !important;
 }
+
 mat-card-title .chat-detail {
   font-size: .9rem;
   font-weight: 400;
 }
+
 .conversation-chat mat-card-content {
   padding-left: 5px !important;
   padding-right: 5px !important;
 }
-.chat-attachment-detail{
-    padding:10px;
+
+.chat-attachment-detail {
+  padding: 10px;
 }
+
 mat-card .replay-card-chat {
   padding: 0px !important;
   color: #7391e6;
 }
+
   mat-card .replay-card-chat mat-icon, mat-card .replay-card-chat span {
     color: #7391e6;
   }
 
 
-#sidebar .brand{
+#sidebar .brand {
   width: 90%;
   margin: auto;
 }
+
 section#content {
-    padding:0px 0px;
+  padding: 0px 0px;
 }
-.ck .ck-powered-by{
-    display:none !important;
+
+.ck .ck-powered-by {
+  display: none !important;
 }
 
 .ck-editor__editable_inline {
   min-height: 180px !important;
 }
+
 .ck-height-500 .ck-editor__editable_inline {
   min-height: 250px !important;
 }
+
 .ck-Editor-container-cust.Invalid ckeditor.ng-invalid .ck-editor__editable_inline {
   border: 2px solid red !important;
   border-radius: 4px !important;
@@ -772,33 +797,31 @@ section#content {
   padding: 10px;
 }
 
-.loading-indicator{
-    z-index:5000 !important;
+.loading-indicator {
+  z-index: 5000 !important;
 }
 
-.left-280px
-{
-    left:-280px !important;
+.left-280px {
+  left: -280px !important;
 }
-.table-listing-main
-{
+
+.table-listing-main {
   width: 100%;
   overflow: auto;
 }
 
 /*==== Main Navbar CSS Start ====*/
-app-navbar
-{
+app-navbar {
   position: sticky !important;
   top: 0;
 }
-.main-nav
-{
-    background: var(--light);
-    position:relative;
-    z-index:91;
-    display:block;
-    padding:10px 15px;
+
+.main-nav {
+  background: var(--light);
+  position: relative;
+  z-index: 91;
+  display: block;
+  padding: 10px 15px;
 }
 
 /*==== Main Navbar CSS End ====*/
@@ -807,33 +830,31 @@ app-navbar
 @media screen and (max-width: 991px) {
   #sidebar {
     width: 240px;
-    left:-240px;
+    left: -240px;
   }
-  #sidebar.left-280px
-  {
-    left:0 !important;
-  }
+
+    #sidebar.left-280px {
+      left: 0 !important;
+    }
+
   #content {
-    width:100% ;
+    width: 100%;
     left: 0px;
   }
 
-  #content nav .nav-link
-  {
-    display: none;
-  }
+    #content nav .nav-link {
+      display: none;
+    }
 }
 
-@media screen and (max-width: 786px)
-{
-  .mdc-data-table__header-cell
-  {
-    min-width:130px;
+@media screen and (max-width: 786px) {
+  .mdc-data-table__header-cell {
+    min-width: 130px;
   }
+
   .mdc-data-table__cell,
-  .mdc-data-table__header-cell
-  {
-    padding:0 10px;
+  .mdc-data-table__header-cell {
+    padding: 0 10px;
   }
 }
 
@@ -884,9 +905,9 @@ app-navbar
   #content main .table-data .todo .todo-list {
     min-width: 420px;
   }
-  #content main .head-title .left h1
-  {
-    font-size:24px;
+
+  #content main .head-title .left h1 {
+    font-size: 24px;
   }
 }
 
@@ -947,15 +968,27 @@ app-navbar
   line-height: 24px;
   text-align: center;
 }
+
 .chatUnreadSideMenu {
-  color: #ff0000ba;
+  border-radius: 50%;
+  background-color: #5597b9;
   font-weight: 700;
+  position: absolute;
+  margin-top: 24px;
+  right: 10px;
+  transform: translateY(-50%);
+  color: #fff;
+  width: 24px;
+  height: 24px;
+  line-height: 24px;
+  text-align: center;
 }
 
-.NoChatConent{
- text-align: center;
+.NoChatConent {
+  text-align: center;
   padding-top: 100px;
 }
+
 pre {
   display: block;
   margin-top: 0;

@@ -97,3 +97,12 @@
 /ChatBot/.editorconfig
 /ChatBot/ChatBot.esproj
 /ChatBot/package-lock.json
+/ApplicationService/bin/Debug/net7.0
+/ApplicationService/obj/Debug/net7.0
+/DataRepository/bin/Debug/net7.0
+/HelpDesk_TicketSystem/ClientApp/.angular/cache/16.2.0/angular-webpack
+/HelpDesk_TicketSystem/ClientApp/.angular/cache/16.2.0/babel-webpack
+/ApplicationService/obj/Release/net7.0
+/ApplicationService/bin/Release/net7.0
+/DataRepository/bin/Release/net7.0
+/HelpDesk_TicketSystem/.config

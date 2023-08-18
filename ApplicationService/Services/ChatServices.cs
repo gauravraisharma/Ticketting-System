@@ -47,9 +47,9 @@ namespace ApplicationService.Services
             return await _chatRepository.GetChatUserDetails(ChatRoomId);
         }
 
-        public async Task<List<GetChatUsersResponse>> GetChatUsers()
+        public async Task<List<GetChatUsersResponse>> GetChatUsers(int companyId)
         {
-            return await _chatRepository.GetChatUsers();
+            return await _chatRepository.GetChatUsers(companyId);
         }
         
         public  async Task SaveChatMessage(string message, string chatRoomId, string userId, bool IsAdmin)

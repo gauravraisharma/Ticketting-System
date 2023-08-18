@@ -6,5 +6,5 @@ const concat = require('concat');
     './dist/chat-bot/polyfills.js',
     './dist/chat-bot/main.js',
   ];
-  await concat(files, './dist/chat-bot/helpdeskChatBot.js');
+    await concat(files, './dist/chat-bot/helpdesk-chatbot_v1.js');
 })();

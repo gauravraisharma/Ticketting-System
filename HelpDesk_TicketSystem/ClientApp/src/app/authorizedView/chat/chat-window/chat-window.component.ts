@@ -13,6 +13,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy {
   @ViewChild('scrollContainerMessage', { static: false }) scrollContainerMessage: ElementRef;
   @ViewChild('scrollContainerUsers', { static: false }) scrollContainerUsers: ElementRef;
 
+  currentTimeZone: string = localStorage.getItem('timeZone');
   private hubConnection: signalR.HubConnection;
   chatMessages: ChatMessage[] = [];
   messageToSend = '';
@@ -31,7 +32,10 @@ export class ChatWindowComponent implements OnInit, OnDestroy {
     this.hubConnection.on('responseFormClient', (message: string, chatRoomId: string, companyId: string, departmentId: string) => {
       if (companyId == this.companyId) {
         if (chatRoomId == this.chatRoomId) {
-          this.chatMessages.push({ isIncoming: true, message: message });
+          this.chatMessages.push({
+            isIncoming: true, message: message,
+            createdOn: this.GetCurrentUtcDateTime().toString()
+          });
           this.scrollToBottom();
         }
       }
@@ -70,16 +74,33 @@ export class ChatWindowComponent implements OnInit, OnDestroy {
         this.scrollToTop();
       })
     }
-}
+  }
 
   GetChatUserList() {
-    this.chatService.GetChatUserList().subscribe((response: ChatUser[]) => {
+    this.isLoading = true;
+    this.chatService.GetChatUserList(parseInt(this.companyId)).subscribe((response: ChatUser[]) => {
       this.userList = response;
+      this.isLoading = false;
+    }, (errorn) => {
+      this.toaster.error('Something went wrong')
+      this.isLoading = false;
     })
-  } 
+  }
 
 
+  GetCurrentUtcDateTime() {
+    return new Date(Date.UTC(
+      new Date().getFullYear(),
+      new Date().getMonth(),
+      new Date().getDate(),
+      new Date().getHours(),
+      new Date().getMinutes(),
+      new Date().getSeconds(),
+      new Date().getMilliseconds()
+    ));
 
+
+  }
   SendMessageToUser(): void {
     if (this.messageToSend != null && this.messageToSend != undefined && this.messageToSend.trim() != '') {
       let chatmessage: chatMessage = {
@@ -88,7 +109,11 @@ export class ChatWindowComponent implements OnInit, OnDestroy {
         userId: localStorage.getItem('userId')
       }
       this.hubConnection.invoke('SendMessageToUser', chatmessage).then(() => {
-        this.chatMessages.push({ isIncoming: false, message: this.messageToSend });
+        this.chatMessages.push({
+          isIncoming: false,
+          message: this.messageToSend,
+          createdOn: this.GetCurrentUtcDateTime().toString()
+        });
         this.messageToSend = '';
         this.scrollToBottom();
       })
@@ -104,8 +129,9 @@ export class ChatWindowComponent implements OnInit, OnDestroy {
     this.chatService.GetUserChatMessageList(parseInt(user.chatRoomId)).subscribe((response: any) => {
       this.chatMessages = response.map((chat): ChatMessage => {
         return {
-          isIncoming:(chat.userType == 'ADMIN') ? false : true,
-          message:chat.message
+          isIncoming: (chat.userType == 'ADMIN') ? false : true,
+          message: chat.message,
+          createdOn: chat.createdOn
         }
       });
       let userFoundIndex = this.userList.findIndex((userItem) => { return userItem.chatRoomId == user.chatRoomId })
@@ -119,15 +145,16 @@ export class ChatWindowComponent implements OnInit, OnDestroy {
       this.toaster.error("Something went wrong, Please try after sometime.")
       this.isLoading = false;
     })
-   
+
   }
 
   scrollToTop(): void {
     const element = this.scrollContainerUsers.nativeElement;
     const duration = 500; // Animation duration in milliseconds
 
-    this.animateScroll(element,0, duration).subscribe();
+    this.animateScroll(element, 0, duration).subscribe();
   }
+
 
   scrollToBottom(): void {
     const element = this.scrollContainerMessage.nativeElement;
@@ -159,7 +186,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy(): void {
+   ngOnDestroy(): void {
     this.hubConnection.invoke('LeaveChatRoom', this.chatRoomId)
     this.chatService.closeConnection('responseFormClient');
   }
@@ -172,4 +199,5 @@ function easeInOutCubic(t: number): number {
 export interface ChatMessage {
   isIncoming: boolean;
   message: string;
+  createdOn: string
 }

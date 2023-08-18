@@ -62,6 +62,7 @@
                         <p>
                           {{chatMessage.message}}
                         </p>
+                        <small class="text-start d-block ms-2 mt-1">{{chatMessage.createdOn |  timeZone :currentTimeZone:  'DD-MM-YYYY h:mm a'}}</small>
                       </div>
                     </div>
                   </div>
@@ -70,6 +71,8 @@
                       <p>
                         {{chatMessage.message}}
                       </p>
+                      <small class="text-end d-block me-2 mt-1">{{chatMessage.createdOn |  timeZone :currentTimeZone: 'DD-MM-YYYY h:mm a'}}</small>
+
                     </div>
                   </div>
                 </ng-container>

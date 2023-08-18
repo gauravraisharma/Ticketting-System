@@ -15,7 +15,6 @@ import { TimeZonePipe } from '../../../pipe/time-zone.pipe';
     TicketListComponent,
     AddTicketComponent,
     ViewTicketComponent,
-    TimeZonePipe
   ],
   imports: [
     CommonModule,
