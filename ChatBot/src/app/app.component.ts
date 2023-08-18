@@ -19,8 +19,8 @@ export class AppComponent implements OnInit, OnDestroy {
   chatMessages: ChatMessage[] = [];
 
   chatForm = this.fb.group({
-    name: ['', [Validators.required]],
-    phoneNumber: ['', [Validators.required]],
+      name: ['', [Validators.required]],
+      phoneNumber: ['', [Validators.required, Validators.pattern('^\\d{10,}$')]],
     email: ['', [Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
     department: ['', [Validators.required]],
   });
@@ -43,7 +43,7 @@ export class AppComponent implements OnInit, OnDestroy {
   ngOnInit() {
 
       this.GetDepartmentDDList();
-     // this.companyId = '1000';
+    //  this.companyId = '1004';
   }
 
   OnResponseFromAdmin = (message: string) => {

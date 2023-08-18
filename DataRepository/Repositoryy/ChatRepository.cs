@@ -82,7 +82,7 @@ namespace DataRepository.Repositoryy
                 {
                     ChatRoomId = 0,
                     Status = "FAILED",
-                    Message = "Something went wrong"
+                    Message = ex.Message
 
                 };
             }
@@ -162,20 +162,24 @@ namespace DataRepository.Repositoryy
             try
             {
 
-                var chatUsers = await (from chatUser in _context.ChatUsers
-                                 join chatRoom in _context.ChatRooms on chatUser.Id equals chatRoom.ChatUserId
-                                 where chatUser.companyId== companyId
-                                 select new GetChatUsersResponse
-                                 {
-                                     ChatUserId = chatUser.Id,
-                                     ChatUserName = chatUser.Name,
-                                     Email = chatUser.email,
-                                     DepartmentId = chatUser.DepartmentId,
-                                     PhoneNumber = chatUser.PhoneNumber,
-                                     ChatRoomId = chatRoom.Id,
-                                     UnReadMessageCount = chatRoom.UnReadMessageCount
-                                 }
-                               ).ToListAsync();
+                var chatUsers = await (
+                     from chatUser in _context.ChatUsers
+                     join chatRoom in _context.ChatRooms on chatUser.Id equals chatRoom.ChatUserId
+                     join chatData in _context.ChatDatas on chatRoom.Id equals chatData.ChatRoomId into chatDataGroup
+                     where chatUser.companyId== companyId
+                     let latestChatData = chatDataGroup.OrderByDescending(cd => cd.CreatedOn).FirstOrDefault()
+                     orderby latestChatData.CreatedOn descending
+                     select new GetChatUsersResponse
+                     {
+                         ChatUserId = chatUser.Id,
+                         ChatUserName = chatUser.Name,
+                         Email = chatUser.email,
+                         DepartmentId = chatUser.DepartmentId,
+                         PhoneNumber = chatUser.PhoneNumber,
+                         ChatRoomId = chatRoom.Id,
+                         UnReadMessageCount = chatRoom.UnReadMessageCount,
+                     }
+       ).ToListAsync();
                 return chatUsers;
             }
             catch (Exception ex)

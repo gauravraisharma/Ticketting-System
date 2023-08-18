@@ -27,7 +27,6 @@ export class ChatWindowComponent implements OnInit, OnDestroy {
     private toaster: ToastrService,
 
   ) {
-    debugger
     this.hubConnection = this.chatService.getConnection();
     this.hubConnection.on('responseFormClient', (message: string, chatRoomId: string, companyId: string, departmentId: string) => {
       if (companyId == this.companyId) {
@@ -58,6 +57,8 @@ export class ChatWindowComponent implements OnInit, OnDestroy {
             return;
           }
           this.userList[userFoundIndex].unReadMessageCount += 1
+          this.userList.splice(0, 0, this.userList[userFoundIndex]);
+          this.userList.splice(userFoundIndex + 1, 1);
         }
       }
     });
@@ -186,8 +187,10 @@ export class ChatWindowComponent implements OnInit, OnDestroy {
     });
   }
 
-   ngOnDestroy(): void {
-    this.hubConnection.invoke('LeaveChatRoom', this.chatRoomId)
+  ngOnDestroy(): void {
+    if (this.chatRoomId != null && this.chatRoomId != undefined && this.chatRoomId != '') {
+      this.hubConnection.invoke('LeaveChatRoom', this.chatRoomId.toString())
+    }
     this.chatService.closeConnection('responseFormClient');
   }
 }

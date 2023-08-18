@@ -154,3 +154,16 @@ button.start-chat {
     color: red;
     font-weight: 500;
 }
+
+.close-button {
+    cursor:pointer;
+    font-size: 20px;
+    width: 24px;
+    height: 24px;
+    text-align: center;
+    margin: 0px 0px 8px auto;
+    background: #0d6efd;
+    border-radius: 50%;
+    padding: 3px;
+    color: #fff;
+}

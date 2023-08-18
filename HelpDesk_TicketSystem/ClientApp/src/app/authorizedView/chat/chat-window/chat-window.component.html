@@ -45,6 +45,9 @@
                     </div>
                   </div>
                 </ng-container>
+                <ng-container *ngIf="userList==null || userList ==undefined || userList.length==0">
+                  <h2 class="mt-2 text-center">No User Found</h2>
+                </ng-container>
               </div>
             </div>
             <div class="mesgs" >
@@ -52,7 +55,7 @@
                 <div class="NoChatConent" *ngIf="chatRoomId== null || chatRoomId == undefined || chatRoomId ==''">
 
                  <h2> Please select a user</h2>
-                  <p>Please select a user to interact with user</p>
+                  <p>Please select a user to start chat</p>
                 </div>
                 <ng-container *ngFor="let chatMessage of chatMessages" >
                   <div class="incoming_msg" *ngIf="chatMessage.isIncoming">
