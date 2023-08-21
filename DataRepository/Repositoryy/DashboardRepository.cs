@@ -22,6 +22,51 @@ namespace DataRepository.Repositoryy
             _context = context;
         }
 
+        public async Task<List<PrioritChartResponse>> GetAllTicketsWithPriority(string userId, int companyId)
+        {
+            if (_context.Tickets == null)
+            {
+                return null;
+            }
+            try
+            {
+                var users = await _userManager.FindByIdAsync(userId);
+                var userRoles = await _userManager.GetRolesAsync(users);
+
+                if (userRoles.FirstOrDefault().ToUpper() == "ADMIN")
+                 {
+                    var Tickets = await (from ticket in _context.Tickets
+                                         join user in _context.Users on ticket.CreatedBy equals user.Id
+                                         where user.CompanyId == companyId
+                                         group ticket by ticket.Priority into g
+                                         select new PrioritChartResponse
+                                         {
+                                             PriorityName = g.Key,
+                                             Value = g.Count()
+                                         }).ToListAsync();
+                    return Tickets;
+                }
+                else
+                {
+                    var Tickets = await (from ticket in _context.Tickets
+                                         join user in _context.Users on ticket.CreatedBy equals user.Id
+                                         where user.CompanyId == companyId && user.Id == userId
+                                         group ticket by ticket.Priority into g
+                                         select new PrioritChartResponse
+                                         {
+                                             PriorityName = g.Key,
+                                             Value = g.Count()
+                                         }).ToListAsync();
+                    return Tickets;
+                }
+                
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
         public  ResponseStatus GetCompanyCount()
         {
             if (_context.Companys == null)

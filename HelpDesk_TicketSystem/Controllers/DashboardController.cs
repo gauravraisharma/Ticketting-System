@@ -4,10 +4,11 @@ using DataRepository.EntityModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Globalization;
 
 namespace HelpDesk_TicketSystem.Controllers
 {
-    [Authorize(AuthenticationSchemes = "Bearer")]
+  //  [Authorize(AuthenticationSchemes = "Bearer")]
     [Route("api/[controller]")]
     [ApiController]
     public class DashboardController : ControllerBase
@@ -38,6 +39,13 @@ namespace HelpDesk_TicketSystem.Controllers
                 return BadRequest(dbResponse);
             }
             return Ok(dbResponse);
+        }
+
+        [HttpGet("GetAllTicketsWithPriority/{userId}/{companyId}")]
+        public async Task<ActionResult<PrioritChartResponse>> GetAllTicketsWithPriority(string userId,int companyId)
+        {
+           var response=await _dasboardService.GetAllTicketsWithPriority(userId, companyId);
+            return Ok(response);
         }
     }
 }

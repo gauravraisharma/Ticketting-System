@@ -20,5 +20,8 @@ export class DashboardService {
       let url = `${this.apiUrl}Dashboard/GetUserAndTicketCount/${userId}/${companyId}`;
       return this.http.get(url);
     }
- 
+  GetAllTicketsWithPriority(userId: string, companyId: number) {
+    let url = `${this.apiUrl}Dashboard/GetAllTicketsWithPriority/${userId}/${companyId}`;
+    return this.http.get(url);
+  }
 }

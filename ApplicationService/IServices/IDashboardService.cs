@@ -11,5 +11,6 @@ namespace ApplicationService.IServices
     {
         ResponseStatus GetCompanyCount();
         Task<DashboardResponseStatus> GetUserAndTicketCount(string userId, int companyId);
+        Task<List<PrioritChartResponse>> GetAllTicketsWithPriority(string userId, int companyId);
     }
 }

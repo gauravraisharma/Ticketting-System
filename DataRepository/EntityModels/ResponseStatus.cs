@@ -203,5 +203,10 @@ namespace DataRepository.EntityModels
         public string userType { get; set; }
     }
 
+    public class PrioritChartResponse
+    {
+        public string PriorityName { get; set; }
+        public int Value { get; set; }
+    }
 
 }

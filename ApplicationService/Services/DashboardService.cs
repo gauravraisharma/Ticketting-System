@@ -22,6 +22,11 @@ namespace ApplicationService.Services
             _config = config;
         }
 
+        public Task<List<PrioritChartResponse>> GetAllTicketsWithPriority(string userId, int companyId)
+        {
+            return _dashboardRepository.GetAllTicketsWithPriority(userId, companyId);
+        }
+
         public ResponseStatus GetCompanyCount()
         {
            return _dashboardRepository.GetCompanyCount();

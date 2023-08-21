@@ -10,8 +10,8 @@ import { priority } from '../../../../../data';
 })
 export class PriorityChartComponent {
   priority: any[];
-  Data: "";
-  view: [number, number] = [400, 300];
+  Data: any[];
+  view: [number, number] = [400,400];
 
   // options
   gradient: boolean = true;
@@ -33,12 +33,28 @@ export class PriorityChartComponent {
   };
 
   constructor(private dashboardService: DashboardService,) {
-     Object.assign(this, { priority });
+
   }
   ngOnInit() {
-  
+    this.TicketsWithPriority();
+    // Object.assign(this.Data);
   }
+  TicketsWithPriority() {
+    this.dashboardService.GetAllTicketsWithPriority(localStorage.getItem('userId'), parseInt(localStorage.getItem('companyId'))).subscribe((response: any) => {
+      console.log(response)
+      this.Data = response.map(item => {
+        let mapped = {
+          "name": item.priorityName,
+          "value": item.value
 
+        }
+
+        return mapped;
+        });
+    }, error => {
+      console.log(error)
+    })
+  }
   onSelect(data): void {
     console.log('Item clicked', JSON.parse(JSON.stringify(data)));
   }
