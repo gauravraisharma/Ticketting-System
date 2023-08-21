@@ -18,6 +18,7 @@ import { MatSortModule } from '@angular/material/sort';
 
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { TimeZonePipe } from '../../pipe/time-zone.pipe';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 
 @NgModule({
@@ -37,7 +38,7 @@ import { TimeZonePipe } from '../../pipe/time-zone.pipe';
     FormsModule,
     MatToolbarModule, RouterModule,
     MatAutocompleteModule,
-    CKEditorModule, MatSortModule],
+    CKEditorModule, MatSortModule, NgxChartsModule],
   exports: [MatCardModule,
     MatInputModule,
     MatSortModule,
@@ -56,7 +57,7 @@ import { TimeZonePipe } from '../../pipe/time-zone.pipe';
     LoaderComponent,
     MatSortModule,
     TimeZonePipe,
-    MatAutocompleteModule,],
+    MatAutocompleteModule, NgxChartsModule],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class SharedModule { }

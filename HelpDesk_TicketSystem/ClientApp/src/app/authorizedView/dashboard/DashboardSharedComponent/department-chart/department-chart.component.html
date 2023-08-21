@@ -1,0 +1,14 @@
+<li>
+  <ngx-charts-bar-horizontal [view]="view"
+                             [scheme]="colorScheme"
+                             [results]="department"
+                             [gradient]="gradient"
+                             [yAxis]="showYAxis"
+                             [showYAxisLabel]="showYAxisLabel"
+                             [xAxisLabel]="xAxisLabel"
+                             [showDataLabel]="showDataLabel"
+                             (select)="onSelect($event)"
+                             (activate)="onActivate($event)"
+                             (deactivate)="onDeactivate($event)">
+  </ngx-charts-bar-horizontal>
+</li>

@@ -25,8 +25,6 @@ import { environment } from '../environments/environment';
 import { CommonModule } from '@angular/common';
 import { ChatBotComponent } from './sharedComponent/chat-bot/chat-bot.component';
 
-import { createCustomElement } from '@angular/elements';
-
 
 @NgModule({
   declarations: [

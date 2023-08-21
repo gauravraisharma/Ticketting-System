@@ -7,6 +7,8 @@ import { CompanyAdminDashboardComponent } from './company-admin-dashboard/compan
 import { NormalUserDashboardComponent } from './normal-user-dashboard/normal-user-dashboard.component';
 import { SuperadminDashboardComponent } from './superadmin-dashboard/superadmin-dashboard.component';
 import { DashboardInitializerComponent } from './dashboard-initializer/dashboard-initializer.component';
+import { DepartmentChartComponent } from './DashboardSharedComponent/department-chart/department-chart.component';
+import { PriorityChartComponent } from './DashboardSharedComponent/priority-chart/priority-chart.component';
 
 
 
@@ -17,6 +19,8 @@ import { DashboardInitializerComponent } from './dashboard-initializer/dashboard
     CompanyAdminDashboardComponent,
     NormalUserDashboardComponent,
     SuperadminDashboardComponent,
+    DepartmentChartComponent,
+    PriorityChartComponent,
 ],
   imports: [
     CommonModule,
