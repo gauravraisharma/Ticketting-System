@@ -38,12 +38,11 @@ export class HomepageComponent implements OnInit {
 
 
   addMetaTags() {
-    this.meta.addTag({ name: 'description', content: 'Helps Industries to handle their customer support with a automatic ticketing management system' });
-    this.meta.addTag({ name: 'og:title', content: 'HelpDesk - Techbit Solutions' });
+    this.meta.addTag({name: 'description', content: 'Tech Desk is a unique SAAS based ticketting system which empowers multiple organizations to create their account and manage their customer support system via this software. ChatBot helps to provide instant communication'});
+    this.meta.addTag({ name: 'og:title', content: 'Tech Desk - Unique Ticketting and ChatBot system' });
     this.meta.addTag({ name: 'og:image', content: 'https://helpdesk.techbitsolutions.com/assets/images/online-communication.gif' });
-    this.meta.addTag({ name: 'og:description', content: 'Helps Industries to handle their customer support with a automatic ticketing management system' });
+    this.meta.addTag({ name: 'og:description', content: 'Tech Desk is a unique SAAS based ticketting system which empowers multiple organizations to create their account and manage their customer support system via this software. ChatBot helps to provide instant communication' });
     this.meta.addTag({ name: 'og:url', content: 'https://helpdesk.techbitsolutions.com/' });
-
   }
 
   
