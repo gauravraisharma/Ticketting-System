@@ -41,10 +41,10 @@ namespace HelpDesk_TicketSystem.Controllers
             return Ok(dbResponse);
         }
 
-        [HttpGet("GetAllTicketsWithPriority/{userId}/{companyId}")]
-        public async Task<ActionResult<PrioritChartResponse>> GetAllTicketsWithPriority(string userId,int companyId)
+        [HttpGet("GetAllTicketsWithPriority/{userId}/{userType}/{companyId}")]
+        public async Task<ActionResult<PrioritChartResponse>> GetAllTicketsWithPriority(string userId, string userType, int companyId)
         {
-           var response=await _dasboardService.GetAllTicketsWithPriority(userId, companyId);
+           var response=await _dasboardService.GetAllTicketsWithPriority(userId, userType,companyId);
             return Ok(response);
         }
         [HttpGet("GetAllTicketCreated/{userId}/{companyId}/{startDate}/{endDate}")]
@@ -52,6 +52,17 @@ namespace HelpDesk_TicketSystem.Controllers
         {
             var response=await _dasboardService.GetAllTicketCreated(startDate, endDate, userId, companyId);
             return Ok(response);
+        }
+        
+        [HttpGet("GetChartDataByDepartment/{userId}/{userType}/{companyId}")]
+        public ActionResult<ChartResponse> GetChartDataByDepartment(string userId, string userType, int companyId)
+        {
+            var dbResponse =  _dasboardService.GetChartDataByDepartment(userId, userType,companyId);
+            if (dbResponse.Status == "FAILED")
+            {
+                return BadRequest(dbResponse);
+            }
+            return Ok(dbResponse);
         }
     }
 }

@@ -19,9 +19,14 @@ export class DashboardService {
     GetUserAndTicketCount(userId: string, companyId: number) {
       let url = `${this.apiUrl}Dashboard/GetUserAndTicketCount/${userId}/${companyId}`;
       return this.http.get(url);
+  }
+
+  GetChartDataByDepartment(userId: string, userType: string ,companyId: number) {
+    let url = `${this.apiUrl}Dashboard/GetChartDataByDepartment/${userId}/${userType}/${companyId}`;
+      return this.http.get(url);
     }
-  GetAllTicketsWithPriority(userId: string, companyId: number) {
-    let url = `${this.apiUrl}Dashboard/GetAllTicketsWithPriority/${userId}/${companyId}`;
+  GetAllTicketsWithPriority(userId: string, userType: string,companyId: number) {
+    let url = `${this.apiUrl}Dashboard/GetAllTicketsWithPriority/${userId}/${userType}/${companyId}`;
     return this.http.get(url);
   }
   GetAllTicketCreated(startDate: string, endDate: string, userId: string, companyId: number) {

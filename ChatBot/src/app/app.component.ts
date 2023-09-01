@@ -1,8 +1,9 @@
-import { Component, Input, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ChatService, ChatUserModel, chatMessage, chatMessageFromClient } from '../service/ChatService/chat.service';
 import { ToastrService } from 'ngx-toastr';
 import { environment } from '../environments/environment';
+import { Observable, Observer } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -12,6 +13,7 @@ import { environment } from '../environments/environment';
 })
 export class AppComponent implements OnInit, OnDestroy {
 
+   @ViewChild('scrollContainerMessage', { static: false }) scrollContainerMessage: ElementRef;
   @Input() companyId: string;
   IsChatBot = false;
   IsUserDataSubmited = false;
@@ -43,12 +45,43 @@ export class AppComponent implements OnInit, OnDestroy {
   ngOnInit() {
 
       this.GetDepartmentDDList();
-    //  this.companyId = '1004';
+    // this.companyId = '1004';
   }
 
   OnResponseFromAdmin = (message: string) => {
-    this.chatMessages.push({ isIncoming: true, message: message });
-  }
+      this.chatMessages.push({ isIncoming: true, message: message });
+      this.scrollToBottom();
+    }
+    scrollToBottom(): void {
+        const element = this.scrollContainerMessage.nativeElement;
+        const duration = 500; // Animation duration in milliseconds
+
+        this.animateScroll(element, element.scrollHeight, duration).subscribe();
+    }
+    animateScroll(element: HTMLElement, to: number, duration: number): Observable<number> {
+        const start = element.scrollTop;
+        const change = to - start;
+        const startTime = performance.now();
+
+        return new Observable((observer: Observer<number>) => {
+            const animateScroll = (timestamp: number) => {
+                const elapsedTime = timestamp - startTime;
+                const progress = Math.min(elapsedTime / duration, 1);
+                const easedProgress:any = easeInOutCubic(progress);
+
+                element.scrollTop = start + change * easedProgress;
+
+                if (progress < 1) {
+                    requestAnimationFrame(animateScroll);
+                } else {
+                    observer.complete();
+                }
+            };
+
+            requestAnimationFrame(animateScroll);
+        });
+    }
+
   GetDepartmentDDList() {
     this.isLoading = false;
     this.chatService.GetDepartmentDDList().subscribe((response: any) => {
@@ -118,7 +151,8 @@ export class AppComponent implements OnInit, OnDestroy {
 
       }
       this.hubConnection.invoke('sendMessageToAdmin', chatmessage).then(() => {
-        this.chatMessages.push({ isIncoming: false, message: this.messageToSend });
+          this.chatMessages.push({ isIncoming: false, message: this.messageToSend });
+          this.scrollToBottom();
         this.messageToSend = '';
         console.log(this.chatMessages)
       })
@@ -139,3 +173,8 @@ export interface ChatMessage {
   message: string;
 }
 
+
+// Easing function for smooth animation
+function easeInOutCubic(t: number): number {
+    return t < 0.5 ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1;
+}

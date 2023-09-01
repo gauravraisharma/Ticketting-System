@@ -999,3 +999,8 @@ pre {
   font-family: -webkit-body;
   background: #0000000a;
 }
+.dashborad-card {
+  padding: 24px;
+  background: var(--light);
+  border-radius: 20px;
+}

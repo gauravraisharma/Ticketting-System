@@ -1,6 +1,6 @@
 ﻿using DataRepository.EntityModels;
 using DataRepository.IRepository;
-using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -269,7 +269,7 @@ namespace DataRepository.Repositoryy
              }
          } */
 
-        public async Task<List<PrioritChartResponse>> GetAllTicketsWithPriority(string userId, int companyId)
+        public async Task<List<PrioritChartResponse>> GetAllTicketsWithPriority(string userId, string userType, int companyId)
         {
             if (_context.Tickets == null)
             {
@@ -277,12 +277,10 @@ namespace DataRepository.Repositoryy
             }
             try
             {
-                var users = await _userManager.FindByIdAsync(userId);
-                var userRoles = await _userManager.GetRolesAsync(users);
-
-                if (userRoles.FirstOrDefault().ToUpper() == "ADMIN")
+                List < PrioritChartResponse > chartData= null;
+                if (userType == "ADMIN")
                  {
-                    var Tickets = await (from ticket in _context.Tickets
+                    chartData = await (from ticket in _context.Tickets
                                          join user in _context.Users on ticket.CreatedBy equals user.Id
                                          where user.CompanyId == companyId
                                          group ticket by ticket.Priority into g
@@ -291,11 +289,11 @@ namespace DataRepository.Repositoryy
                                              PriorityName = g.Key,
                                              Value = g.Count()
                                          }).ToListAsync();
-                    return Tickets;
+                   
                 }
-                else
+                else if(userType == "NORMALUSER")
                 {
-                    var Tickets = await (from ticket in _context.Tickets
+                    chartData = await (from ticket in _context.Tickets
                                          join user in _context.Users on ticket.CreatedBy equals user.Id
                                          where user.CompanyId == companyId && user.Id == userId
                                          group ticket by ticket.Priority into g
@@ -304,9 +302,9 @@ namespace DataRepository.Repositoryy
                                              PriorityName = g.Key,
                                              Value = g.Count()
                                          }).ToListAsync();
-                    return Tickets;
+                   
                 }
-                
+                return chartData;
             }
             catch (Exception ex)
             {
@@ -388,6 +386,61 @@ namespace DataRepository.Repositoryy
                 return new DashboardResponseStatus()
                 {
                     Message = "Something went wrong",
+                    Status = "FAILED"
+                };
+            }
+            finally
+            {
+                // _context.Dispose();
+            }
+        }
+        
+        public  ChartResponse GetChartDataByDepartment(string userId, string userType, int companyId)
+        {
+            if (_context.Tickets == null)
+            {
+                return null;
+            }
+            try
+            {
+                List<ChartData> chartData = null;
+                if (userType == "ADMIN")
+                {
+                    chartData = (from department in _context.Departments
+                                  select new ChartData
+                                  {
+                                      DepartmentName = department.Name,
+                                      Value=(from ticket in _context.Tickets
+                                             join appUser in _context.Users on ticket.CreatedBy equals appUser.Id
+                                             where ticket.DepartmentId == department.DepartmentId && appUser.CompanyId == companyId
+                                             select ticket).Count()
+                                  }
+                                 ).ToList();
+                }
+                else if (userType == "NORMALUSER")
+                {
+                    chartData = (from department in _context.Departments
+                                  select new ChartData
+                                  {
+                                      DepartmentName = department.Name,
+                                      Value = (from ticket in _context.Tickets
+                                               where ticket.DepartmentId == department.DepartmentId && ticket.CreatedBy == userId
+                                               select ticket).Count()
+                                  }
+                                ).ToList();
+                }
+
+                return new ChartResponse()
+                {
+                    Status = "SUCCEED",
+                    ChartData = chartData
+                };
+            }
+            catch (Exception ex)
+            {
+                return new ChartResponse()
+                {
+                    Message = ex.Message,
                     Status = "FAILED"
                 };
             }

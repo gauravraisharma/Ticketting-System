@@ -167,3 +167,7 @@ button.start-chat {
     padding: 3px;
     color: #fff;
 }
+.chat-message-container {
+    overflow-y: scroll;
+    max-height: 250px;
+}

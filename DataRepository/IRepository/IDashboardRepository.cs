@@ -13,5 +13,7 @@ namespace DataRepository.IRepository
         Task<DashboardResponseStatus> GetUserAndTicketCount(string userId, int companyId);
         Task<List<PrioritChartResponse>> GetAllTicketsWithPriority(string userId, int companyId);
         Task<LinechartData> GetAllTicketCreated(string startDate , string endDate,string userId,int companyId);
+        Task<List<PrioritChartResponse>> GetAllTicketsWithPriority(string userId, string userType, int companyId);
+        ChartResponse GetChartDataByDepartment(string userId, string userType, int companyId);
     }
 }

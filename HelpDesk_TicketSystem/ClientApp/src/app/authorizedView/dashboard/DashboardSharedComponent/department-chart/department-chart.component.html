@@ -1,14 +1,17 @@
-<li>
-  <ngx-charts-bar-horizontal [view]="view"
-                             [scheme]="colorScheme"
-                             [results]="department"
-                             [gradient]="gradient"
-                             [yAxis]="showYAxis"
-                             [showYAxisLabel]="showYAxisLabel"
-                             [xAxisLabel]="xAxisLabel"
-                             [showDataLabel]="showDataLabel"
-                             (select)="onSelect($event)"
-                             (activate)="onActivate($event)"
-                             (deactivate)="onDeactivate($event)">
-  </ngx-charts-bar-horizontal>
-</li>
+<Div class="dashborad-card">
+  <h3>Ticket by Department</h3>
+  <ng-container *ngIf="department==null  || department==undefined || department.length==0">
+    No Record found
+  </ng-container>
+  <ng-container *ngIf="department!=null  && department!=undefined && department.length>0">
+
+    <ngx-charts-bar-horizontal [view]="view"
+                               [scheme]="colorScheme"
+                               [results]="department"
+                               [gradient]="gradient"
+                               [yAxis]="showYAxis"
+                               [showYAxisLabel]="showYAxisLabel"
+                               [showDataLabel]="showDataLabel">
+    </ngx-charts-bar-horizontal>
+    </ng-container>
+</Div>

@@ -29,7 +29,7 @@ namespace ApplicationService.Services
 
         public Task<List<PrioritChartResponse>> GetAllTicketsWithPriority(string userId, int companyId)
         {
-            return _dashboardRepository.GetAllTicketsWithPriority(userId, companyId);
+            return _dashboardRepository.GetAllTicketsWithPriority(userId,userType, companyId);
         }
 
         public ResponseStatus GetCompanyCount()
@@ -39,6 +39,10 @@ namespace ApplicationService.Services
         public Task<DashboardResponseStatus> GetUserAndTicketCount(string userId, int companyId)
         {
             return _dashboardRepository.GetUserAndTicketCount(userId, companyId);
+        }
+        public ChartResponse GetChartDataByDepartment(string userId, string userType, int companyId)
+        {
+            return _dashboardRepository.GetChartDataByDepartment(userId,userType ,companyId);
         }
 
     }
