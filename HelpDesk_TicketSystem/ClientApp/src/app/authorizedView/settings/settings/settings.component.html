@@ -20,13 +20,8 @@
   <mat-card>
 
     <mat-card-content>
-      <h2>Time Zone</h2>
-
-      <form [formGroup]="timeZoneForm" class="form-field-full" (ngSubmit)="saveTimeZone()">
-
+      
         <div class="row">
-
-
 
         <!--  <div class="col-sm-6">
 
@@ -43,33 +38,48 @@
 
 
           <div class="col-sm-6">
-
+            <h2>Time Zone</h2>
+            <form [formGroup]="timeZoneForm" class="form-field-full" (ngSubmit)="saveTimeZone()">
             <mat-form-field class="full-width-field" appearance="outline">
               <mat-label>Time Zone</mat-label>
-              <input type="text"
-                     placeholder="Select Time Zone"
-                     aria-label="Number"
-                     matInput
-                     formControlName="timeZone"
-                     [matAutocomplete]="auto">
-              <mat-autocomplete #auto="matAutocomplete">
-                <mat-option *ngFor="let option of filteredOptions | async" value="{{option}}">
-                  {{option}}
-                </mat-option>
-              </mat-autocomplete>
-              <mat-error *ngIf="timeZoneForm.get('timeZone')?.invalid">
-                Please select TimeZone
-              </mat-error>
-            </mat-form-field>
+                  <input type="text" placeholder="Select Time Zone" aria-label="Number" matInput
+                        formControlName="timeZone"
+                        [matAutocomplete]="auto">
+                  <mat-autocomplete #auto="matAutocomplete">
+                    <mat-option *ngFor="let option of filteredOptions | async" value="{{option}}">
+                      {{option}}
+                    </mat-option>
+                  </mat-autocomplete>
+                  <mat-error *ngIf="timeZoneForm.get('timeZone')?.invalid">
+                    Please select TimeZone
+                  </mat-error>
+                </mat-form-field>
+              <button mat-raised-button color="primary" type="submit" class="m-t-8" (submit)="saveTimeZone">Save</button>
+              <button mat-raised-button color="warn" class="m-t-8 mx-2" routerLink="/dashboard">Cancel</button>
+            </form>
           </div>
+          
+          <div class="col-sm-6">
+            <mat-card-content>
+              <h2>Embed Chatbot</h2>
+              <button mat-raised-button color="primary" (click)="generateChatbotScript()">Generate Script</button>
+              <button mat-icon-button (click)="copyText()" *ngIf="showScript">
+                <mat-icon aria-hidden="false" title="Copy Script" aria-label="content_copy" fontIcon="content_copy"></mat-icon>
+              </button>
+        
+              <div *ngIf="showScript" id="textToCopy" style="white-space: pre-line;">
+                <pre><code>{{embeddedScriptForChatBot}}</code></pre>
+              </div>
+            </mat-card-content>
+          </div>
+
         </div>
 
-        <button mat-raised-button color="primary" type="submit" class="m-t-8" (submit)="saveTimeZone">Save</button>
-        <button mat-raised-button color="warn" class="m-t-8 mx-2" routerLink="/dashboard">Cancel</button>
-      </form>
+        
 
     </mat-card-content>
   </mat-card>
+  <!--
   <mat-card>
     <mat-card-content>
       <h2>Embed Chatbot</h2>
@@ -86,7 +96,7 @@
 
       </div>
     </mat-card-content>
-  </mat-card>
+  </mat-card> -->
 </div>
 
 

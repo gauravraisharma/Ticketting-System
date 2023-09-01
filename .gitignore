@@ -106,3 +106,4 @@
 /ApplicationService/bin/Release/net7.0
 /DataRepository/bin/Release/net7.0
 /HelpDesk_TicketSystem/.config
+/HelpDesk_TicketSystem/ClientApp/src/environments/environment.development.ts

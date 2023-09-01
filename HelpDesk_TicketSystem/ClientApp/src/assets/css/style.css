@@ -188,7 +188,7 @@ section {
 
 /* ------------------------trsuted-partners css ends--------------------------- */
 
-/* ------------------------chat-highlight css ends--------------------------- */
+/* ------------------------chat-highlight css start--------------------------- */
 .chat-highlight {
     position: relative;
     background: var(--orange-light);
@@ -218,6 +218,38 @@ section {
 }
 
 /* ------------------------chat-highlight css ends--------------------------- */
+
+/* ------------------------bot-highlight css start--------------------------- */
+.bot-highlight {
+    position: relative;
+    background: var(--bg-blue-light);
+    border-radius: 120px 120px 0px 0px;
+    padding: 120px 0;
+    margin: 50px 0;
+}
+
+.text-sb-48 {
+    font-size: 48px !important;
+}
+
+.bot-highlight .left-side img {
+    width: 100%;
+    position: relative;
+    z-index: 0;
+}
+
+.bot-highlight .vector-left {
+    left: 60px;
+}
+
+.bot-highlight .vector-right {
+    right: 80px;
+    top: 60px;
+    bottom: unset;
+}
+
+/* ------------------------bot-highlight css ends--------------------------- */
+
 
 /* ------------------------testimonials css ends--------------------------- */
 
