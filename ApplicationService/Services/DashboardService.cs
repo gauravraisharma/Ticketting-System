@@ -22,6 +22,11 @@ namespace ApplicationService.Services
             _config = config;
         }
 
+        public Task<LinechartData> GetAllTicketCreated(string startDate, string endDate, string userId, int companyId)
+        {
+           return _dashboardRepository.GetAllTicketCreated(startDate, endDate,userId,companyId);
+        }
+
         public Task<List<PrioritChartResponse>> GetAllTicketsWithPriority(string userId, int companyId)
         {
             return _dashboardRepository.GetAllTicketsWithPriority(userId, companyId);

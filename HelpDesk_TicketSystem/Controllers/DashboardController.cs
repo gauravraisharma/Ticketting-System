@@ -47,5 +47,11 @@ namespace HelpDesk_TicketSystem.Controllers
            var response=await _dasboardService.GetAllTicketsWithPriority(userId, companyId);
             return Ok(response);
         }
+        [HttpGet("GetAllTicketCreated/{userId}/{companyId}/{startDate}/{endDate}")]
+        public async Task<ActionResult<LinechartData>> GetAllTicketCreated(string startDate ,string endDate,string userId,int companyId)
+        {
+            var response=await _dasboardService.GetAllTicketCreated(startDate, endDate, userId, companyId);
+            return Ok(response);
+        }
     }
 }

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Color, ScaleType } from '@swimlane/ngx-charts';
-import { department } from '../../../../../data';
+//import { department } from '../../../../../data';
 
 @Component({
   selector: 'app-department-chart',
@@ -27,7 +27,7 @@ export class DepartmentChartComponent {
   };
 
   constructor() {
-    Object.assign(this, { department });
+    //Object.assign(this, { department });
   }
 
   onSelect(data): void {

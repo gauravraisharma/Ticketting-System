@@ -2,8 +2,7 @@
   <app-count-display [count]="userCount"
                      heading="Total Users"
                      iconClass="bx bxs-user"
-                     (RedirectTo)="gotToUserList()"
-                    ></app-count-display>
+                     (RedirectTo)="gotToUserList()"></app-count-display>
   <app-count-display [count]="ticketCount"
                      iconClass="bx bxs-bug"
                      heading="Total Tickets"
@@ -11,8 +10,9 @@
   </app-count-display>
 </ul>
 <ul class="box-info mt-3">
-    <app-department-chart></app-department-chart>
-    <app-priority-chart></app-priority-chart>
+  <app-department-chart></app-department-chart>
+  <app-priority-chart></app-priority-chart>
 </ul>
+<app-line-date-chart></app-line-date-chart>
 
 <loader *ngIf="isLoading"></loader>

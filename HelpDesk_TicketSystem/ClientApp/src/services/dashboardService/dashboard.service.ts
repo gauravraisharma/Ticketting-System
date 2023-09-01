@@ -24,4 +24,8 @@ export class DashboardService {
     let url = `${this.apiUrl}Dashboard/GetAllTicketsWithPriority/${userId}/${companyId}`;
     return this.http.get(url);
   }
+  GetAllTicketCreated(startDate: string, endDate: string, userId: string, companyId: number) {
+    let url = `${this.apiUrl}Dashboard/GetAllTicketCreated/${userId}/${companyId}/${startDate}/${endDate}`;
+    return this.http.get(url);
+  }
 }

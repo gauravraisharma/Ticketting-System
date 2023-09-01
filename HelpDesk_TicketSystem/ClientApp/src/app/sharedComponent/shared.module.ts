@@ -15,10 +15,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { RouterModule } from '@angular/router';
 import { MatSortModule } from '@angular/material/sort';
-
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { TimeZonePipe } from '../../pipe/time-zone.pipe';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { ChartjsModule } from '@coreui/angular-chartjs';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 
 @NgModule({
@@ -38,7 +40,9 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
     FormsModule,
     MatToolbarModule, RouterModule,
     MatAutocompleteModule,
-    CKEditorModule, MatSortModule, NgxChartsModule],
+    CKEditorModule, MatSortModule, NgxChartsModule, ChartjsModule,
+    MatDatepickerModule,
+  MatNativeDateModule],
   exports: [MatCardModule,
     MatInputModule,
     MatSortModule,
@@ -57,7 +61,8 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
     LoaderComponent,
     MatSortModule,
     TimeZonePipe,
-    MatAutocompleteModule, NgxChartsModule],
+    MatAutocompleteModule, NgxChartsModule, ChartjsModule, MatDatepickerModule,
+  MatNativeDateModule],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class SharedModule { }

@@ -208,5 +208,10 @@ namespace DataRepository.EntityModels
         public string PriorityName { get; set; }
         public int Value { get; set; }
     }
+    public class TicketCreated
+    {
+        public DateTime Date { get; set; }
+        public int Value { get; set; }
 
+    }
 }
