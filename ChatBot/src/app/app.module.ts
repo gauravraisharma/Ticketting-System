@@ -31,7 +31,7 @@ import { APIInterceptor } from '../../apiInterceptor/api.interceptor';
     useClass: APIInterceptor,
     multi: true
   }],
-  //bootstrap: [AppComponent]
+//  bootstrap: [AppComponent]
 })
 export class AppModule {
 

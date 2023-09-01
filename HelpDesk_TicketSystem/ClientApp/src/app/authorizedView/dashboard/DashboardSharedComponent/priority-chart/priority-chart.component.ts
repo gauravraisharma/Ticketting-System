@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { Color, LegendPosition, ScaleType } from '@swimlane/ngx-charts';
 import { DashboardService } from '../../../../../services/dashboardService/dashboard.service';
-import { priority } from '../../../../../data';
 
 @Component({
   selector: 'app-priority-chart',
@@ -13,7 +12,6 @@ export class PriorityChartComponent {
   Data: any[];
   view: [number, number] = [400,400];
 
-  // options
   gradient: boolean = true;
   showLegend: boolean = false;
   showLabels: boolean = true;
@@ -21,9 +19,6 @@ export class PriorityChartComponent {
   arcWidth: number = .5;
   legendPosition: LegendPosition = LegendPosition.Below;
 
-  //colorScheme = {
-  //  domain: ['#704FC4', '#4B852C', '#B67A3D', '#5B6FC8']
-  // };
 
   colorScheme: Color = {
     domain: ['#FF0000', '#00FFFF', '#00FF00'],
@@ -37,10 +32,10 @@ export class PriorityChartComponent {
   }
   ngOnInit() {
     this.TicketsWithPriority();
-    // Object.assign(this.Data);
+    
   }
   TicketsWithPriority() {
-    this.dashboardService.GetAllTicketsWithPriority(localStorage.getItem('userId'), parseInt(localStorage.getItem('companyId'))).subscribe((response: any) => {
+    this.dashboardService.GetAllTicketsWithPriority(localStorage.getItem('userId'), localStorage.getItem('userType'), parseInt(localStorage.getItem('companyId'))).subscribe((response: any) => {
       console.log(response)
       this.Data = response.map(item => {
         let mapped = {
