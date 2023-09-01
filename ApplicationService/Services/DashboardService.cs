@@ -27,7 +27,7 @@ namespace ApplicationService.Services
            return _dashboardRepository.GetAllTicketCreated(startDate, endDate,userId,companyId);
         }
 
-        public Task<List<PrioritChartResponse>> GetAllTicketsWithPriority(string userId, int companyId)
+        public Task<List<PrioritChartResponse>> GetAllTicketsWithPriority(string userId, string userType, int companyId)
         {
             return _dashboardRepository.GetAllTicketsWithPriority(userId,userType, companyId);
         }
