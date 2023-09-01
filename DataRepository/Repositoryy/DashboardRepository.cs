@@ -5,7 +5,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -23,6 +25,188 @@ namespace DataRepository.Repositoryy
             _context = context;
         }
 
+        public async Task<LinechartData> GetAllTicketCreated(string startDate, string endDate, string userId, int companyId)
+        {
+
+        if (_context.Tickets == null)
+        {
+             return null;
+         }
+            try
+            {
+                var users = await _userManager.FindByIdAsync(userId);
+                var userRoles = await _userManager.GetRolesAsync(users);
+                DateTime start = DateTime.Parse(startDate);
+                DateTime end = DateTime.Parse(endDate);
+
+                var dateRange = Enumerable.Range(0, 1 + end.Subtract(start).Days)
+                                          .Select(offset => start.AddDays(offset));
+
+                LinechartData chartData = new LinechartData();
+                if (userRoles.FirstOrDefault().ToUpper() == "ADMIN")
+                {
+                    chartData.TicketCreatedOnData = await (from tickets in _context.Tickets
+                                                           join user in _context.Users on tickets.CreatedBy equals user.Id
+                                                           where tickets.CreatedOn.Date >= start && tickets.CreatedOn.Date <= end && user.CompanyId == companyId
+                                                           group tickets by tickets.CreatedOn.Date into g
+                                                           select new ChartData {
+                                                               Date = g.Key,
+                                                               Value = g.Count()
+                                                           }).ToListAsync();
+
+
+                    chartData.TicketCloseData = await (from ticket in _context.Tickets
+                                                       join user in _context.Users on ticket.CreatedBy equals user.Id
+                                                       where ticket.ModifiedOn.Value.Date >= start
+                                                       && ticket.ModifiedOn.Value.Date <=end
+                                                       && user.CompanyId == companyId && ticket.status == "CLOSED"
+                                                       group ticket by ticket.ModifiedOn.Value.Date into g
+                                                       select new ChartData
+                                                       {
+                                                           Date = g.Key,
+                                                           Value = g.Count()
+                                                       }).ToListAsync();
+
+
+                    chartData.TicketReOpenData = await (from ticket in _context.Tickets
+                                                      join user in _context.Users on ticket.CreatedBy equals user.Id
+                                                      where ticket.ModifiedOn.Value.Date >= start
+                                                      && ticket.ModifiedOn.Value.Date <= end
+                                                        && user.CompanyId == companyId && ticket.status == "OPEN"
+                                                      group ticket by ticket.ModifiedOn.Value.Date into g
+                                                      select new ChartData
+                                                      {
+                                                          Date = g.Key,
+                                                          Value = g.Count()
+                                                      }).ToListAsync();
+                    chartData.TicketOverdueDate = await (from ticket in _context.Tickets
+                                                         join user in _context.Users on ticket.CreatedBy equals user.Id
+                                                         where ticket.CreatedOn.Date >= start && ticket.CreatedOn.Date <= end
+                                                           && user.CompanyId == companyId && ticket.status == "OPEN"
+                                                         group ticket by ticket.CreatedOn.Date into g
+                                                         select new ChartData
+                                                         {
+                                                             Date = g.Key,
+                                                             Value = g.Count()
+                                                         }).ToListAsync();
+                }
+                else
+                {
+                    chartData.TicketCreatedOnData = await (from tickets in _context.Tickets
+                                                           join user in _context.Users on tickets.CreatedBy equals user.Id
+                                                           where tickets.CreatedOn.Date >= start && tickets.CreatedOn.Date <= end 
+                                                           && user.CompanyId == companyId && user.Id == userId
+                                                           group tickets by tickets.CreatedOn.Date into g
+                                                           select new ChartData
+                                                           {
+                                                               Date = g.Key,
+                                                               Value = g.Count()
+                                                           }).ToListAsync();
+
+
+
+
+                    chartData.TicketCloseData = await (from ticket in _context.Tickets
+                                                       join user in _context.Users on ticket.CreatedBy equals user.Id
+                                                       where ticket.ModifiedOn.Value.Date >= start
+                                                       && ticket.ModifiedOn.Value.Date <= end
+                                                       && user.CompanyId == companyId && user.Id == userId
+                                                       && ticket.status == "CLOSED"
+                                                       group ticket by ticket.ModifiedOn.Value.Date into g
+                                                       select new ChartData
+                                                       {
+                                                           Date = g.Key,
+                                                           Value = g.Count()
+                                                       }).ToListAsync();
+
+
+                    chartData.TicketReOpenData = await (from ticket in _context.Tickets
+                                                      join user in _context.Users on ticket.CreatedBy equals user.Id
+                                                      where ticket.ModifiedOn.Value.Date >= start
+                                                      && ticket.ModifiedOn.Value.Date <= end
+                                                      && user.CompanyId == companyId && user.Id == userId
+                                                      && ticket.status == "OPEN"
+                                                      group ticket by ticket.ModifiedOn.Value.Date into g
+                                                      select new ChartData
+                                                      {
+                                                          Date = g.Key,
+                                                          Value = g.Count()
+                                                      }).ToListAsync();
+                    chartData.TicketOverdueDate = await (from ticket in _context.Tickets
+                                                         join user in _context.Users on ticket.CreatedBy equals user.Id
+                                                         where ticket.CreatedOn.Date >= start && ticket.CreatedOn.Date <= end
+                                                           && user.CompanyId == companyId && user.Id == userId
+                                                           && ticket.status == "OPEN"
+                                                         group ticket by ticket.CreatedOn.Date into g
+                                                         select new ChartData
+                                                         {
+                                                             Date = g.Key,
+                                                             Value = g.Count()
+                                                         }).ToListAsync();
+                }
+                var result = dateRange.GroupJoin(chartData.TicketCreatedOnData,
+                        date => date.Date,
+                        ticket => ticket.Date,
+                        (date, tickets) => new ChartData
+                        {
+                            Date = date.Date,
+                            Value = tickets.Any() ? tickets.Sum(t => t.Value) : 0
+                        });
+               
+
+                var reOpenResult = dateRange.GroupJoin(chartData.TicketReOpenData,
+                        date => date.Date,
+                        ticket => ticket.Date,
+                        (date, tickets) => new ChartData
+                        {
+                            Date = date.Date,
+                            Value = tickets.Any() ? tickets.Sum(t => t.Value) : 0
+                        });
+
+                    var closeResult = dateRange.GroupJoin(chartData.TicketCloseData,
+                        date => date.Date,
+                        ticket => ticket.Date,
+                        (date, tickets) => new ChartData
+                        {
+                            Date = date.Date,
+                            Value = tickets.Any() ? tickets.Sum(t => t.Value) : 0
+                        });
+                var overDueResult = dateRange.GroupJoin(chartData.TicketOverdueDate,
+                       date => date.Date,
+                       ticket => ticket.Date,
+                       (date, tickets) => new ChartData
+                       {
+                           Date = date.Date,
+                           Value = tickets.Any() ? tickets.Sum(t => t.Value) : 0
+                       });
+
+                return new LinechartData
+                            {
+                             Status = "SUCCEED",
+                             Message = "Linechart Data successfully",
+                             TicketCreatedOnData = result.ToList(),
+                             TicketReOpenData = reOpenResult.ToList(),
+                             TicketCloseData = closeResult.ToList(),
+                             TicketOverdueDate = overDueResult.ToList()
+                             };
+                          
+              
+                 }
+            catch (Exception ex)
+            {
+                return new LinechartData
+                {
+                    Status = "FAILED",
+                    Message = ex.Message,
+                    TicketCreatedOnData = null,
+                    TicketReOpenData = null,
+                    TicketCloseData = null,
+                    TicketOverdueDate=null
+                };
+            }
+        }
+
+       
         public async Task<List<PrioritChartResponse>> GetAllTicketsWithPriority(string userId, string userType, int companyId)
         {
             if (_context.Tickets == null)
@@ -157,11 +341,11 @@ namespace DataRepository.Repositoryy
             }
             try
             {
-                List<ChartData> chartData = null;
+                List<DepartmentChartData> chartData = null;
                 if (userType == "ADMIN")
                 {
                     chartData = (from department in _context.Departments
-                                  select new ChartData
+                                  select new DepartmentChartData
                                   {
                                       DepartmentName = department.Name,
                                       Value=(from ticket in _context.Tickets
@@ -174,7 +358,7 @@ namespace DataRepository.Repositoryy
                 else if (userType == "NORMALUSER")
                 {
                     chartData = (from department in _context.Departments
-                                  select new ChartData
+                                  select new DepartmentChartData
                                   {
                                       DepartmentName = department.Name,
                                       Value = (from ticket in _context.Tickets
@@ -187,7 +371,7 @@ namespace DataRepository.Repositoryy
                 return new ChartResponse()
                 {
                     Status = "SUCCEED",
-                    ChartData = chartData
+                    DepartmentChartData = chartData
                 };
             }
             catch (Exception ex)

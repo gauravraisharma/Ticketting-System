@@ -9,6 +9,7 @@ import { SuperadminDashboardComponent } from './superadmin-dashboard/superadmin-
 import { DashboardInitializerComponent } from './dashboard-initializer/dashboard-initializer.component';
 import { DepartmentChartComponent } from './DashboardSharedComponent/department-chart/department-chart.component';
 import { PriorityChartComponent } from './DashboardSharedComponent/priority-chart/priority-chart.component';
+import { LineDateChartComponent } from './DashboardSharedComponent/line-date-chart/line-date-chart.component';
 
 
 
@@ -21,6 +22,7 @@ import { PriorityChartComponent } from './DashboardSharedComponent/priority-char
     SuperadminDashboardComponent,
     DepartmentChartComponent,
     PriorityChartComponent,
+    LineDateChartComponent,
 ],
   imports: [
     CommonModule,

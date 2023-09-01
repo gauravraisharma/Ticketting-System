@@ -43,8 +43,9 @@ export class PriorityChartComponent {
           "value": item.value
 
         }
-
+       
         return mapped;
+
         });
     }, error => {
       console.log(error)
@@ -61,4 +62,15 @@ export class PriorityChartComponent {
   onDeactivate(data): void {
     console.log('Deactivate', JSON.parse(JSON.stringify(data)));
   }
+  convertToPercentage(value: number, total: number): string {
+    const percentage = (value / total) * 100;
+    return `${percentage.toFixed(2)}%`;
+  }
+
+  // ... other methods ...
+
+  private getTotalValue(): number {
+    return this.Data.map(item => item.value).reduce((acc, value) => acc + value, 0);
+  }
 }
+
