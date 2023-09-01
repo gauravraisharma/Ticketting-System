@@ -206,69 +206,7 @@ namespace DataRepository.Repositoryy
             }
         }
 
-        /* public async Task<LinechartData> GetAllTicketCreated(string startDate, string endDate)
-         {
-             if (_context.Tickets == null)
-             {
-                 return null;
-             }
-             try
-             {
-                 LinechartData chartData=new LinechartData();
-                 chartData.TicketCreatedOnData = await (from ticket in _context.Tickets
-                                      where ticket.CreatedOn.Date >= DateTime.Parse(startDate)
-                                      && ticket.CreatedOn.Date <= DateTime.Parse(endDate)
-                                       group ticket by ticket.CreatedOn.Date into g
-                                      select new ChartData
-                                      {
-                                          Date = g.Key,
-                                          Value = g.Count()
-                                      }).ToListAsync();
-
-                 chartData.TicketOpenData = await (from ticket in _context.Tickets
-                                                    where ticket.ModifiedOn.Value.Date >= DateTime.Parse(startDate)
-                                                    && ticket.ModifiedOn.Value.Date <= DateTime.Parse(endDate) && ticket.status=="OPEN"
-                                                    group ticket by ticket.ModifiedOn.Value.Date into g
-                                                    select new ChartData
-                                                    {
-                                                        Date = g.Key,
-                                                        Value = g.Count()
-                                                    }).ToListAsync();
-                 chartData.TicketCloseData = await (from ticket in _context.Tickets
-                                                   where ticket.ModifiedOn.Value.Date >= DateTime.Parse(startDate)
-                                                   && ticket.ModifiedOn.Value.Date <= DateTime.Parse(endDate) && ticket.status == "CLOSED"
-                                                    group ticket by ticket.ModifiedOn.Value.Date into g
-                                                   select new ChartData
-                                                   {
-                                                       Date = g.Key,
-                                                       Value = g.Count()
-                                                   }).ToListAsync();
-                 return new LinechartData()
-                 {
-                     Status = "SUCCEED",
-                     Message = "Linechart Data successyfully",
-                     TicketCreatedOnData = chartData.TicketCreatedOnData,
-                     TicketOpenData = chartData.TicketOpenData,
-                     TicketCloseData = chartData.TicketCloseData,
-
-                 };
-
-             }
-
-             catch ( Exception ex )
-             {
-                 return new LinechartData()
-                 {
-                     Status = "FAILED",
-                     Message = "Something went wrong",
-                     TicketCreatedOnData = null,
-                     TicketOpenData = null,
-                     TicketCloseData = null,
-
-                 };
-             }
-         } */
-
+       
         public async Task<List<PrioritChartResponse>> GetAllTicketsWithPriority(string userId, string userType, int companyId)
         {
             if (_context.Tickets == null)
@@ -403,11 +341,11 @@ namespace DataRepository.Repositoryy
             }
             try
             {
-                List<ChartData> chartData = null;
+                List<DepartmentChartData> chartData = null;
                 if (userType == "ADMIN")
                 {
                     chartData = (from department in _context.Departments
-                                  select new ChartData
+                                  select new DepartmentChartData
                                   {
                                       DepartmentName = department.Name,
                                       Value=(from ticket in _context.Tickets
@@ -420,7 +358,7 @@ namespace DataRepository.Repositoryy
                 else if (userType == "NORMALUSER")
                 {
                     chartData = (from department in _context.Departments
-                                  select new ChartData
+                                  select new DepartmentChartData
                                   {
                                       DepartmentName = department.Name,
                                       Value = (from ticket in _context.Tickets
@@ -433,7 +371,7 @@ namespace DataRepository.Repositoryy
                 return new ChartResponse()
                 {
                     Status = "SUCCEED",
-                    ChartData = chartData
+                    DepartmentChartData = chartData
                 };
             }
             catch (Exception ex)

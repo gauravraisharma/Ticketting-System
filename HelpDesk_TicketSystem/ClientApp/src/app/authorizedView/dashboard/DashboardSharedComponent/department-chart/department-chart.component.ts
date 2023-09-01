@@ -36,7 +36,7 @@ export class DepartmentChartComponent implements OnInit {
     this.dashboardService.GetChartDataByDepartment(localStorage.getItem('userId'), localStorage.getItem('userType'),parseInt( localStorage.getItem('companyId'))).subscribe((response:any) => {
 
       if (response.status == 'SUCCEED') {
-        this.department = response.chartData.map(item => {
+        this.department = response.departmentChartData.map(item => {
           return {
             name: item.departmentName,
             value: item.value

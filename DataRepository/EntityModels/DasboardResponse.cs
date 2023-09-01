@@ -12,9 +12,9 @@ namespace DataRepository.EntityModels
     public class ChartResponse {
         public string Status { get; set; }
         public string Message { get; set; }
-        public List<ChartData> ChartData { get; set; }
+        public List<DepartmentChartData> DepartmentChartData { get; set; }
     }
-    public class ChartData {
+    public class DepartmentChartData {
        public string DepartmentName { get; set; }
         public int Value { get; set; }
     }
