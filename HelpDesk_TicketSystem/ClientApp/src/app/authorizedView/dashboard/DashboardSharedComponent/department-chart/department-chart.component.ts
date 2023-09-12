@@ -34,7 +34,6 @@ export class DepartmentChartComponent implements OnInit {
 
   GetChartDataByDepartment() {
     this.dashboardService.GetChartDataByDepartment(localStorage.getItem('userId'), localStorage.getItem('userType'),parseInt( localStorage.getItem('companyId'))).subscribe((response:any) => {
-
       if (response.status == 'SUCCEED') {
         this.department = response.departmentChartData.map(item => {
           return {
@@ -46,8 +45,7 @@ export class DepartmentChartComponent implements OnInit {
         if (localStorage.getItem('userType') == "NORMALUSER") {
           this.department = this.department.filter(item => item.value!=0)
         }
-        this.colorScheme.domain = this.commonService.GetChartColor(response.chartData.length);
-
+        this.colorScheme.domain = this.commonService.GetChartColor(response.departmentChartData.length);
       }
     })
   }

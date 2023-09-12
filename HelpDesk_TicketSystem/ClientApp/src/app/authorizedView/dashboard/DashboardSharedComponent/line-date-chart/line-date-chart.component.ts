@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Chart } from 'chart.js';
 import { DashboardService } from '../../../../../services/dashboardService/dashboard.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-line-date-chart',
@@ -23,7 +24,7 @@ export class LineDateChartComponent implements OnInit{
   maxDate = `${this.year}-${this.month}-${this.day}`;
    
   
-  constructor(private fb: FormBuilder, private dashboardService: DashboardService) {
+  constructor(private fb: FormBuilder, private dashboardService: DashboardService, private toastr: ToastrService) {
     this.dateForm = this.fb.group({
       filterStartDate: ['', [Validators.required]],
       filterEndDate: ['', [Validators.required]],
@@ -55,7 +56,6 @@ export class LineDateChartComponent implements OnInit{
     const overDueTicket: number[] = [];
     this.dashboardService.GetAllTicketCreated(this.dateFormatString(startDate), this.dateFormatString(endDate), localStorage.getItem('userId'), parseInt(localStorage.getItem('companyId'))).subscribe((response: any) => {
       this.data = response;
-console.log(this.data)
       if (this.data != null) {
         for (let i = 0; i < labels.length; i++) {
           createdTicket.push(this.data.ticketCreatedOnData[i].value);
@@ -73,10 +73,11 @@ console.log(this.data)
 
   }
   dateSubmit() {
-    console.log('click');
     if (this.dateForm.valid) {
-      console.log("Great its working")
       this.createChart();
+    }
+    else {
+      this.toastr.error("Please enter valid dates");
     }
   }
   startEndDate(): any {

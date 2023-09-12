@@ -36,7 +36,6 @@ export class PriorityChartComponent {
   }
   TicketsWithPriority() {
     this.dashboardService.GetAllTicketsWithPriority(localStorage.getItem('userId'), localStorage.getItem('userType'), parseInt(localStorage.getItem('companyId'))).subscribe((response: any) => {
-      console.log(response)
       this.Data = response.map(item => {
         let mapped = {
           "name": item.priorityName,
