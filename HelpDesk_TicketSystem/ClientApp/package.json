@@ -35,7 +35,7 @@
     "@coreui/chartjs": "^3.1.2",
     "@microsoft/signalr": "^7.0.10",
     "@swimlane/ngx-charts": "^20.4.1",
-    "bootstrap": "^5.3.0",
+    "bootstrap": "^5.0.2",
     "chart.js": "^4.4.0",
     "jest-editor-support": "*",
     "moment": "^2.29.4",
