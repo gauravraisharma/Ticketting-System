@@ -1004,3 +1004,10 @@ pre {
   background: var(--light);
   border-radius: 20px;
 }
+
+
+@media (min-width: 992px) {
+  .mobile-nav {
+    display: none !important;
+  }
+}

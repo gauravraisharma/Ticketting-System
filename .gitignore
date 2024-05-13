@@ -107,3 +107,4 @@
 /DataRepository/bin/Release/net7.0
 /HelpDesk_TicketSystem/.config
 /HelpDesk_TicketSystem/ClientApp/src/environments/environment.development.ts
+/HelpDesk_TicketSystem/ClientApp/node_modules.zip

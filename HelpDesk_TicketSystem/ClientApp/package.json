@@ -36,7 +36,7 @@
     "@microsoft/signalr": "^7.0.10",
     "@swimlane/ngx-charts": "^20.4.1",
     "bootstrap": "^5.0.2",
-    "chart.js": "^4.4.0",
+    "chart.js": "^3.9.1",
     "jest-editor-support": "*",
     "moment": "^2.29.4",
     "moment-timezone": "^0.5.43",
