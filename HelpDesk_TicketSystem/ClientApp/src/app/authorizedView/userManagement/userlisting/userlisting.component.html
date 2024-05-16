@@ -15,52 +15,52 @@
       </ul>
     </div>
     <div class="mb-3">
-      <a mat-raised-button color="primary" routerLink="/users/adduser">Add User</a>
+      <a mat-raised-button color="primary" class="db-btn-theme" routerLink="/users/adduser">Add User</a>
     </div>
   </div>
 
 
-<div class="mat-elevation-z8 bg-white rounded-3">
-  <div class="table-listing-main">
-    <table mat-table [dataSource]="dataSource" matSort >
+  <div class="mat-elevation-z8 bg-white rounded-3 table-wrapper card-warpper">
+    <div class="table-listing-main">
+      <table mat-table [dataSource]="dataSource" matSort>
 
-      <tr class="mat-row" *matNoDataRow>
-        <td class="mat-cell no-record-found" [attr.colspan]="displayedColumns.length">
-          No records found.
-        </td>
-      </tr>
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell no-record-found" [attr.colspan]="displayedColumns.length">
+            No records found.
+          </td>
+        </tr>
 
-      <ng-container matColumnDef="name" >
-        <th mat-header-cell *matHeaderCellDef > Name </th>
-        <td mat-cell *matCellDef="let element"> {{element.firstName}} {{element.lastName}} </td>
-      </ng-container>
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef> Name </th>
+          <td mat-cell *matCellDef="let element"> {{element.firstName}} {{element.lastName}} </td>
+        </ng-container>
 
-      <ng-container matColumnDef="userName" >
-        <th mat-header-cell *matHeaderCellDef mat-sort-header > User name </th>
+        <ng-container matColumnDef="userName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> User name </th>
 
           <td mat-cell *matCellDef="let element"> {{element.userName}} </td>
 
         </ng-container>
 
-      <ng-container matColumnDef="userType">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header > User Type </th>
-        <td mat-cell *matCellDef="let element"> {{element.userType}} </td>
-      </ng-container>
+        <ng-container matColumnDef="userType">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> User Type </th>
+          <td mat-cell *matCellDef="let element"> {{element.userType}} </td>
+        </ng-container>
 
-      <ng-container matColumnDef="email">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header > Email</th>
-        <td mat-cell *matCellDef="let element"> {{element.email}} </td>
-      </ng-container>
+        <ng-container matColumnDef="email">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Email</th>
+          <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+        </ng-container>
 
-      <ng-container matColumnDef="department">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header > Department</th>
-        <td mat-cell *matCellDef="let element">
-          <ng-container *ngIf="element.department==null">
-            NA
-          </ng-container>
-          <ng-container *ngIf="element.department!=null">
-            {{element.department}}
-          </ng-container>
+        <ng-container matColumnDef="department">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Department</th>
+          <td mat-cell *matCellDef="let element">
+            <ng-container *ngIf="element.department==null">
+              NA
+            </ng-container>
+            <ng-container *ngIf="element.department!=null">
+              {{element.department}}
+            </ng-container>
 
           </td>
         </ng-container>
@@ -69,8 +69,10 @@
         <ng-container matColumnDef="action">
           <th mat-header-cell *matHeaderCellDef> Action </th>
           <td mat-cell *matCellDef="let element">
-            <mat-icon aria-hidden="false" title="Edit User" aria-label="edit" fontIcon="edit" class="text-secondary" [routerLink]="['/users/edituser',element.id]" style="cursor:pointer;"></mat-icon>
-            <mat-icon aria-hidden="false" title="Delete User" aria-label="delete" fontIcon="delete" class="text-danger" (click)="deleteUser(element)" style="cursor:pointer;"></mat-icon>
+            <mat-icon aria-hidden="false" title="Edit User" aria-label="edit" fontIcon="edit" class="text-secondary"
+              [routerLink]="['/users/edituser',element.id]" style="cursor:pointer;"></mat-icon>
+            <mat-icon aria-hidden="false" title="Delete User" aria-label="delete" fontIcon="delete" class="text-danger"
+              (click)="deleteUser(element)" style="cursor:pointer;"></mat-icon>
           </td>
         </ng-container>
 
@@ -78,12 +80,9 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>
     </div>
-    <mat-paginator class="pb-3" [pageSizeOptions]="[5, 10, 20]"
-                   showFirstLastButtons
-                   aria-label="Select page of periodic elements">
+    <mat-paginator class="pb-3" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
+      aria-label="Select page of periodic elements">
     </mat-paginator>
   </div>
   <loader *ngIf="isLoading"></loader>
 </div>
-
-
