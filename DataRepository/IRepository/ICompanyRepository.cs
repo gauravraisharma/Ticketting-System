@@ -10,7 +10,11 @@ namespace DataRepository.IRepository
     public interface ICompanyRepository
     {
         Task<ResponseStatus> RegisterCompany(RegisterCompanyModel registerCompanyModel);
+        Task<RegisterCompanyApplicationResponse> RegisterCompanyApplication(RegisterCompanyApplicationBLLModel registerCompanyAppModel);
+
         Task<List<GetCompanyResponse>> GetCompany();
+        Task<List<GetCompanyRegisteredApplicationResponse>> GetCompanyRegisteredApplication();
+
         Task<ResponseStatus> UpdateTimeZone(UpdateTimeZone updateTimeZoneModel);
     }
 }

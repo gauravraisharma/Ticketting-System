@@ -51,6 +51,37 @@ namespace DataRepository.Repositoryy
             }
         }
 
+        public async Task<List<GetCompanyRegisteredApplicationResponse>> GetCompanyRegisteredApplication()
+        {
+            if (_context.CompanyRegisteredApplications == null)
+            {
+                return null;
+            }
+            try
+            {
+                var company = await _context.CompanyRegisteredApplications
+                        .Select(Application => new GetCompanyRegisteredApplicationResponse
+                        {
+                            Id = Application.Id,
+                            ApplicationName = Application.ApplicationName,
+                            ApplicationURL = Application.ApplicationURL,
+                            ClientSecretKey = Application.ClientSecretKey,
+                            CreatedOn = Application.CreatedOn,
+                        })
+                        .ToListAsync();
+
+                return company;
+            }
+            catch (Exception ex)
+            {
+                // Handle any exception that might occur during the query.
+                // You might want to log the exception for debugging purposes.
+                Console.WriteLine(ex.Message);
+                return null;
+            }
+        }
+
+
         public async Task<ResponseStatus> RegisterCompany(RegisterCompanyModel registerCompanyModel)
         {
             using (var transaction = _context.Database.BeginTransaction())
@@ -151,6 +182,56 @@ namespace DataRepository.Repositoryy
                 }
             }
 
+        }
+
+        public async Task<RegisterCompanyApplicationResponse> RegisterCompanyApplication(RegisterCompanyApplicationBLLModel registerCompanyAppModel)
+        {
+            //Check Application Name is Unique 
+            var sameCompanyNameCount = (from registerApplication in _context.CompanyRegisteredApplications
+                                        where registerApplication.ApplicationName.ToLower() == registerCompanyAppModel.ApplicationName.ToLower()
+                                        select registerApplication
+                                     ).Count();
+
+            if (sameCompanyNameCount > 0)
+            {
+                return new RegisterCompanyApplicationResponse
+                {
+                    Status = "FAILED",
+                    Message = "Application Name already exists, Please choose another name."
+                };
+
+            }
+            CompanyRegisteredApplication registeApplicationModel = new CompanyRegisteredApplication()
+            {
+                ApplicationName = registerCompanyAppModel.ApplicationName,
+                ApplicationURL = registerCompanyAppModel.ApplicationURL,
+                ClientSecretKey = registerCompanyAppModel.ClientSecretKey,
+                CreatedBy = Guid.Empty.ToString(),
+                CreatedOn = DateTime.UtcNow,
+                IsActive = true,
+                CompanyId = 1000
+            };
+            try
+            {
+                var registeredApplication = _context.CompanyRegisteredApplications.Add(registeApplicationModel);
+                _context.SaveChanges();
+
+                return new RegisterCompanyApplicationResponse
+                {
+                    ClientSecretKey = registerCompanyAppModel.ClientSecretKey,
+                    Status = "SUCCEED",
+                    Message = "Application registered successfully"
+                };
+            }
+            catch (Exception ex)
+            {
+                return new RegisterCompanyApplicationResponse
+                {
+                    ClientSecretKey = null,
+                    Status = "FAILED",
+                    Message = "Something went wrong"
+                };
+            }
         }
 
         public async Task<ResponseStatus> UpdateTimeZone(UpdateTimeZone updateTimeZoneModel)

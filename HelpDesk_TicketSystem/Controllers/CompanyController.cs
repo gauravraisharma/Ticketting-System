@@ -4,6 +4,7 @@ using DataRepository.EntityModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace HelpDesk_TicketSystem.Controllers
 {
@@ -70,6 +71,34 @@ namespace HelpDesk_TicketSystem.Controllers
             }
 
         }
+        [HttpGet("GetCompanyRegisteredApplication")]
+        public async Task<IActionResult> GetCompanyRegisteredApplication()
+        {
+            var registeredApplications = await _companyService.GetCompanyRegisteredApplication();
+            return Ok(registeredApplications);
+        }
+
+        [HttpPost("RegisterCompanyApplication")]
+        public async Task<IActionResult> RegisterCompanyApplication(RegisterCompanyApplicationModel registerCompanyAppModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest("Please pass the valid Input.");
+            }
+
+
+            var responseStatus = await _companyService.RegisterCompanyApplication(registerCompanyAppModel);
+
+            if (responseStatus.Status == "SUCCEED")
+            {
+                return Ok(responseStatus);
+            }
+            else
+            {
+                return BadRequest(responseStatus.Message);
+            }
+
+        }
     }
-    }
+}
 

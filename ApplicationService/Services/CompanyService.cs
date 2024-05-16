@@ -26,6 +26,11 @@ namespace ApplicationService.Services
            return _companyRepository.GetCompany();
         }
 
+        public Task<List<GetCompanyRegisteredApplicationResponse>> GetCompanyRegisteredApplication()
+        {
+            return _companyRepository.GetCompanyRegisteredApplication();
+        }
+
         public async Task<ResponseStatus> RegisterCompany(RegisterCompanyModel registerCompanyModel)
         {
             var response = await _companyRepository.RegisterCompany(registerCompanyModel);
@@ -47,6 +52,20 @@ namespace ApplicationService.Services
 
                 }
             return response;
+        }
+
+        public Task<RegisterCompanyApplicationResponse> RegisterCompanyApplication(RegisterCompanyApplicationModel registerCompanyAppModel)
+        {
+            var clientSecretKey = ClientKeyOperation.GenerateSecretKey();
+            RegisterCompanyApplicationBLLModel model = new RegisterCompanyApplicationBLLModel()
+            {
+                ApplicationName = registerCompanyAppModel.ApplicationName,
+                ApplicationURL = registerCompanyAppModel.ApplicationURL,
+                ClientSecretKey = clientSecretKey
+            };
+            var response =  _companyRepository.RegisterCompanyApplication(model);
+            return response;
+
         }
 
         public Task<ResponseStatus> UpdateTimeZone(UpdateTimeZone updateTimeZoneModel)
