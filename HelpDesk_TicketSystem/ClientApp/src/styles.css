@@ -700,7 +700,7 @@ body {
 }
 
 .conversion-message {
-  background-color: #e5dddd94;
+  background-color: #f6f6f6;
   padding: 10px;
   margin: 10px;
   border-radius: 4px;
@@ -711,13 +711,14 @@ body {
 }
 
 .conversion-chat-card {
-  margin-bottom: 7px;
+  margin-bottom: 20px;
   margin-top: 7px;
   /*background-color: #c7e3ff1f !important;*/
 }
 
 .conversion-chat-card.conversion-chat-card-reply {
-  background-color: #b3b3b35c;
+  background-color: #f6f6f6;
+  box-shadow: unset;
 }
 
 .full-width-field {
@@ -745,8 +746,8 @@ body {
 }
 
 .chat-header {
-  border-bottom: 1px solid #0000004f;
-  padding: 10px 0px !important;
+  border-bottom: 1px solid #e6e6e6;
+  padding: 10px 10px !important;
 }
 
 mat-card-title .chat-detail {
@@ -818,6 +819,62 @@ section#content {
   max-height: calc(100vh - 300px);
 }
 
+.table-wrapper thead tr {
+  background: #d3e4ee;
+}
+
+.table-wrapper .status-badge {
+  min-width: 64px;
+  padding: 6px 8px;
+  font-size: 12px;
+  font-weight: 500;
+  border-radius: 6px;
+  display: inline-block;
+  text-align: center;
+  background-color: #dc354517;
+  border: 1px solid #d82424;
+  color: #d82424;
+}
+
+.table-wrapper .status-badge.open {
+  background-color: #19875412;
+  border: 1px solid #198754;
+  color: #198754;
+}
+
+.table-wrapper .priority-badge {
+  width: fit-content;
+  padding: 6px 8px;
+  background: #ffc107;
+  border-radius: 6px;
+  width: 100px;
+  justify-content: center;
+}
+
+.table-wrapper .priority-badge.medium {
+  background: #ffc107;
+}
+
+.table-wrapper .priority-badge.high {
+  background: #d82424;
+}
+
+.table-wrapper .priority-badge.low {
+  background: #0dcaf0;
+}
+
+.table-wrapper .priority-badge .mat-icon {
+  height: 18px;
+  width: 18px;
+  font-size: 18px;
+  float: unset;
+  color: #fff;
+}
+
+.table-wrapper .priority-badge span {
+  color: #fff;
+}
+
 .card-warpper {
   box-shadow: unset;
   overflow: hidden;
@@ -829,6 +886,7 @@ section#content {
   padding: 20px 24px !important;
   font-family: var(--roboto);
   letter-spacing: normal;
+  color: #fff !important;
 }
 
 .db-btn-theme.cancel-btn {
@@ -854,8 +912,21 @@ section#content {
   margin-bottom: 20px;
 }
 
+.conversation-chat {
+  border: 1px solid #e6e6e6 !important;
+  box-shadow: unset !important;
+  margin-bottom: 20px;
+}
 
+.conversation-chat table {
+  border: 1px solid #444;
+  width: 100%;
+}
 
+.conversation-chat table td {
+  padding: 6px;
+  border-right: 1px solid;
+}
 
 /*==== Main Navbar CSS Start ====*/
 app-navbar {
