@@ -1,12 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import * as moment from 'moment-timezone';
-import { Moment } from 'moment';
+import { MatTableDataSource } from '@angular/material/table';
 import { FormBuilder, Validators } from '@angular/forms';
 import { CompanyService, UpdateTimeZone } from '../../../../services/companyService/company.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { map, Observable, startWith } from 'rxjs';
 import { environment } from '../../../../environments/environment';
+import { MatSort } from '@angular/material/sort';
+
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html',
@@ -14,7 +16,13 @@ import { environment } from '../../../../environments/environment';
 })
 export class SettingsComponent implements OnInit {
   public allTimeZones: string[] = moment.tz.names(); 
-  showScript: boolean= false;
+  showScript: boolean = false;
+
+  displayedColumns: string[] = ['applicationName', 'applicationURL', 'clientSecretKey', 'createdOn', 'action'];
+  dataSource = new MatTableDataSource<registeredApplicationModel>([]);
+  public registeredApplications: registeredApplicationModel[] = [];
+  @ViewChild(MatSort) sort: MatSort;
+
   timeZoneForm = this.fb.nonNullable.group({
     timeZone: ['', [Validators.required]],
   });
@@ -25,7 +33,8 @@ export class SettingsComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private companyService: CompanyService,
     private router: Router,
-    private toastr: ToastrService,) {
+    private toastr: ToastrService,
+  ) {
 
   }
   ngOnInit() {
@@ -39,6 +48,8 @@ export class SettingsComponent implements OnInit {
     );
     this.timeZoneForm.get('timeZone')!.setValue(localStorage.getItem('timeZone'));
     console.log(this.allTimeZones);
+    this.getCompanyRegisteredApplication();
+
   }
 
   private _filter(value: string): string[] {
@@ -84,6 +95,25 @@ export class SettingsComponent implements OnInit {
         this.isLoading = false;
     }
   }
+
+  getCompanyRegisteredApplication() {
+    this.companyService.getCompanyRegisteredApplication().subscribe(
+      (response: any) => {
+        try {
+          this.registeredApplications = response;
+          this.dataSource = new MatTableDataSource<registeredApplicationModel>(response);
+          this.dataSource.sort = this.sort;
+        }
+        catch (error) {
+          console.log(error, "Error processing response");
+        }
+      },
+      error => {
+        console.log(error, "Something went wrong");
+      }
+    );
+  }
+
   generateChatbotScript() {
     this.showScript = true;
   }
@@ -97,7 +127,21 @@ export class SettingsComponent implements OnInit {
     window.getSelection()?.removeAllRanges();
     this.toastr.success('Chatbot Script Copied');
   }
+
+  //dataSource = [
+  //  { applicationName: 'App 1', applicationURL: 'URL 1', createdBy: 'Admin' },
+  //  { applicationName: 'App 2', applicationURL: 'URL 2', createdBy: 'User' },
+  //  { applicationName: 'App 3', applicationURL: 'URL 3', createdBy: 'Admin' }
+  //];
+
+  //displayedColumns: string[] = ['applicationName', 'applicationURL', 'createdOn', 'action'];
 }
 
-
+export interface registeredApplicationModel {
+  id: number;
+  applicationName: string;
+  applicationURL: string;
+  clientSecretKey: string;
+  createdOn: Date;
+}
 

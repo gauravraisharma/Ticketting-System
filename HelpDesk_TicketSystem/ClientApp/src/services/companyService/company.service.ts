@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
+import { registeredApplicationModel } from '../../app/authorizedView/settings/settings/settings.component';
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +24,14 @@ export class CompanyService {
     let url = `${this.apiUrl}Company/UpdateTimeZone`;
     return this.http.post(url, timeZoneModel);
   }
+  getCompanyRegisteredApplication() {
+    let url = `${this.apiUrl}Company/GetCompanyRegisteredApplication`;
+    return this.http.get(url);
+  }
+  registerCompanyApplication(application: RegisterCompanyApplication) {
+    let url = `${this.apiUrl}Company/RegisterCompanyApplication`;
+    return this.http.post(url, application);
+  }
  
 }
 export class RegisterCompanyUser {
@@ -38,4 +47,9 @@ export class RegisterCompanyUser {
 export class UpdateTimeZone {
   companyId: number = null;
   timeZone: string = '';
+}
+
+export class RegisterCompanyApplication {
+  applicationName: string = '';
+  applicationURL: string = '';
 }
