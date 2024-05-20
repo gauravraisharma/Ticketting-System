@@ -1,10 +1,15 @@
-<h1 mat-dialog-title>{{data.title}}</h1>
-<div mat-dialog-content [innerHTML]="data.message">
-  {{data.message}}
-</div>
-<div mat-dialog-actions>
+<div class="confirm-dialog text-center">
 
-  <button mat-button cdkFocusInitial mat-dialog-close="ok">Yes</button>
-  <button mat-button mat-dialog-close="close">No</button>
-</div>
+  <div mat-dialog-title>
+    <img src="../../../assets/images/delete-icon.png" class="img-fluid mb-3">
+    <h1>{{data.title}}</h1>
+  </div>
+  <div mat-dialog-content [innerHTML]="data.message">
+    {{data.message}}
+  </div>
+  <div mat-dialog-actions>
 
+    <button mat-button cdkFocusInitial mat-dialog-close="ok" class="db-btn-theme">Yes</button>
+    <button mat-button mat-dialog-close="close" class="db-btn-theme cancel-btn">No</button>
+  </div>
+</div>
