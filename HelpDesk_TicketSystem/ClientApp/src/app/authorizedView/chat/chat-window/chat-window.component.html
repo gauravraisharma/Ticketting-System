@@ -1,4 +1,3 @@
-
 <div class="head-title">
   <div class="left">
     <h1>Chat Box</h1>
@@ -18,11 +17,11 @@
   </div>
 </div>
 
-<div class="mat-elevation-z8 bg-white rounded-3">
+<div class="mat-elevation-z8 bg-white rounded-3 card-warpper">
   <div class="col-sm-12">
     <mat-card>
 
-      <mat-card-content>
+      <mat-card-content class="p-0">
 
         <div class="messaging">
           <div class="inbox_msg">
@@ -40,7 +39,8 @@
                       <div class="chat_ib">
                         <h5>{{user.chatUserName}}</h5>
                         <p>{{user.email}}</p>
-                        <span *ngIf="user.unReadMessageCount>0" class="chatUnreadCount">{{user.unReadMessageCount}}</span>
+                        <span *ngIf="user.unReadMessageCount>0"
+                          class="chatUnreadCount">{{user.unReadMessageCount}}</span>
                       </div>
                     </div>
                   </div>
@@ -50,14 +50,15 @@
                 </ng-container>
               </div>
             </div>
-            <div class="mesgs" >
+            <div class="mesgs">
               <div class="msg_history" #scrollContainerMessage>
                 <div class="NoChatConent" *ngIf="chatRoomId== null || chatRoomId == undefined || chatRoomId ==''">
-
-                 <h2> Please select a user</h2>
-                  <p>Please select a user to start chat</p>
+                  <div>
+                    <h2> Please select a user</h2>
+                    <p>Please select a user to start chat</p>
+                  </div>
                 </div>
-                <ng-container *ngFor="let chatMessage of chatMessages" >
+                <ng-container *ngFor="let chatMessage of chatMessages">
                   <div class="incoming_msg" *ngIf="chatMessage.isIncoming">
                     <div class="received_msg">
                       <div class="received_withd_msg">
@@ -65,7 +66,8 @@
                         <p>
                           {{chatMessage.message}}
                         </p>
-                        <small class="text-start d-block ms-2 mt-1">{{chatMessage.createdOn |  timeZone :currentTimeZone:  'DD-MM-YYYY h:mm a'}}</small>
+                        <small class="text-start d-block ms-2 mt-1">{{chatMessage.createdOn | timeZone :currentTimeZone:
+                          'DD-MM-YYYY h:mm a'}}</small>
                       </div>
                     </div>
                   </div>
@@ -74,7 +76,8 @@
                       <p>
                         {{chatMessage.message}}
                       </p>
-                      <small class="text-end d-block me-2 mt-1">{{chatMessage.createdOn |  timeZone :currentTimeZone: 'DD-MM-YYYY h:mm a'}}</small>
+                      <small class="text-end d-block me-2 mt-1">{{chatMessage.createdOn | timeZone :currentTimeZone:
+                        'DD-MM-YYYY h:mm a'}}</small>
 
                     </div>
                   </div>
@@ -82,8 +85,10 @@
               </div>
               <div class="type_msg" *ngIf="chatRoomId!='' && chatRoomId !=null && chatRoomId!=undefined">
                 <div class="input_msg_write">
-                  <input type="text" class="write_msg" placeholder="Type a message" [(ngModel)]="messageToSend" (keyup.enter)="SendMessageToUser()" />
-                  <button class="msg_send_btn" type="button" (click)="SendMessageToUser()"><i class="bx bxs-send" aria-hidden="true"></i></button>
+                  <input type="text" class="write_msg" placeholder="Type a message" [(ngModel)]="messageToSend"
+                    (keyup.enter)="SendMessageToUser()" />
+                  <button class="msg_send_btn" type="button" (click)="SendMessageToUser()"><i class="bx bxs-send"
+                      aria-hidden="true"></i></button>
                 </div>
               </div>
             </div>
