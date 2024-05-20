@@ -7,7 +7,7 @@
       </li>
       <li><i class='bx bx-chevron-right'></i></li>
       <li>
-        <a routerLink="/settings  ">Settings</a>
+        <a routerLink="/settings">Settings</a>
       </li>
       <li><i class='bx bx-chevron-right'></i></li>
 
@@ -32,7 +32,7 @@
               <mat-label>Application Name</mat-label>
               <input type="text" placeholder="Application Name" formControlName="applicationName" aria-label="Application Name" matInput />
               <mat-error *ngIf="applicationForm.get('applicationName')?.invalid">
-                Please enter application name
+                Please enter Application Name
               </mat-error>
             </mat-form-field>
           </div>
@@ -40,20 +40,34 @@
             <mat-form-field class="full-width-field" appearance="outline">
               <mat-label>Application URL</mat-label>
               <input type="text" placeholder="Application URL" formControlName="applicationURL" aria-label="Application URL" matInput />
+
+              <mat-icon matSuffix matTooltip="Please enter a valid URL"><i class="fa fa-exclamation-circle" style="color: black;" aria-hidden="true"></i></mat-icon>
               <mat-error *ngIf="applicationForm.get('applicationURL')?.invalid">
-                Please enter application URL
+                Please enter Application URL
               </mat-error>
             </mat-form-field>
           </div>
         </div>
         <div class="row">
-          <div class="col-sm-12">
-            <button mat-raised-button color="primary" type="submit" class="m-t-8">Save</button>
-            <button mat-raised-button color="warn" class="m-t-8 mx-2" routerLink="/settings">Cancel</button>
+          <div class="col-sm-6">
+            <mat-form-field class="full-width-field" appearance="outline">
+              <mat-label>Domain URL</mat-label>
+              <input type="text" placeholder="Domain URL" formControlName="domainURL" aria-label="Domain URL" matInput />
+              <mat-icon matSuffix matTooltip="Please enter a valid URL"><i class="fa fa-exclamation-circle" style="color: black;" aria-hidden="true"></i></mat-icon>
+              <mat-error *ngIf="applicationForm.get('domainURL')?.invalid">
+                Please enter Domain URL
+              </mat-error>
+            </mat-form-field>
+            </div>
           </div>
-        </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <button mat-raised-button color="primary" type="submit" class="m-t-8">Save</button>
+              <button mat-raised-button color="warn" class="m-t-8 mx-2" routerLink="/settings">Cancel</button>
+            </div>
+          </div>
 
-      </form>
+</form>
     </mat-card-content>
   </mat-card>
 </div>

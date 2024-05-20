@@ -9,5 +9,6 @@ namespace DataRepository.EntityModels
     public class ClientUserDataRequest
     {
         public string Token { get; set; }
+        public string Type { get; set; }
     }
 }

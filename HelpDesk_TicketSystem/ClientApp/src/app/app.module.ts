@@ -24,6 +24,7 @@ import { ChatService } from '../services/ChatService/chat.service';
 import { environment } from '../environments/environment';
 import { CommonModule } from '@angular/common';
 import { ChatBotComponent } from './sharedComponent/chat-bot/chat-bot.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 
 @NgModule({
@@ -44,6 +45,7 @@ import { ChatBotComponent } from './sharedComponent/chat-bot/chat-bot.component'
     SharedModule,
     CommonModule,
     ToastrModule.forRoot(),
+    MatTooltipModule
   ],
   providers: [
     AccountService,

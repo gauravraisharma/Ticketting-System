@@ -44,6 +44,7 @@ namespace DataRepository.Repositoryy
             {
                 ClientSecretKey = applicationDetails.ClientSecretKey,
                 ApplicationURL = applicationDetails.ApplicationURL,
+                DomainURL = applicationDetails.DomainURL,
                 Status = "SUCCEED",
                 Message = "Fetched application details"
             };

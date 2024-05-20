@@ -1,4 +1,5 @@
-﻿using ApplicationService.IServices;
+﻿using ApplicationService.Constants;
+using ApplicationService.IServices;
 using Azure;
 using Azure.Core;
 using DataRepository.EntityModels;
@@ -42,12 +43,10 @@ namespace ApplicationService.Services
 
 
             // Fetch the values
-            string email = cipherDataModel.Email;
-            string endpointUrl = cipherDataModel.EndpointUrl;
             DateTime sessionStartTime = DateTime.Parse(cipherDataModel.SessionStartTime.ToString());
 
             //Session Validation
-            if (DateTime.UtcNow - sessionStartTime > TimeSpan.FromMinutes(59))
+            if (DateTime.UtcNow - sessionStartTime > TimeSpan.FromMinutes(5))
             {
                 // Session start time exceeded five minutes
                 return new LoginStatus { Status = "FAILED", Message = "Time limit exceeded." };
@@ -60,7 +59,7 @@ namespace ApplicationService.Services
                 // host url does not exist in the database
                 return new LoginStatus { Status = "FAILED", Message = "Endpoint URL not found in the database." };
             }
-            var loginResponse = await CallbackRequestToClient(endpointUrl, clientRequest.CipherText, response.ClientSecretKey, clientRequest.ApplicationName);
+            var loginResponse = await CallbackRequestToClient(response.DomainURL, clientRequest.CipherText, response.ClientSecretKey, clientRequest.ApplicationName);
             return loginResponse;
 
         }
@@ -76,6 +75,7 @@ namespace ApplicationService.Services
                     ClientUserDataRequest clientUserDataRequest = new ClientUserDataRequest()
                     {
                         Token = token,
+                        Type = TokenConstants.GenerateToken
                     };
                     string jsonData = JsonConvert.SerializeObject(clientUserDataRequest);
                     var content = new StringContent(jsonData, Encoding.UTF8, "application/json");

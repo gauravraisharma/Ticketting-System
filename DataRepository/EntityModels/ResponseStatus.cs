@@ -232,5 +232,6 @@ namespace DataRepository.EntityModels
     {
         public string ClientSecretKey { get; set; }
         public string ApplicationURL { get; set; }
+        public string DomainURL { get; set; }
     }
 }

@@ -9,7 +9,6 @@ namespace DataRepository.EntityModels
     public class CipherDataModel
     {
         public string Email { get; set; }
-        public string EndpointUrl { get; set; }
         public string SessionStartTime { get; set; }
     }
 }

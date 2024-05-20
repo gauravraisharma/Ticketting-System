@@ -102,10 +102,36 @@
               <td mat-cell *matCellDef="let application" style="white-space: pre-wrap; word-break: break-all; max-width: 260px; ">{{ application.applicationURL }}</td>
             </ng-container>
 
+            <!--<ng-container matColumnDef="clientSecretKey">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Client Secret Key</th>
+    <td mat-cell *matCellDef="let application" style="white-space: pre-wrap; word-break: break-all; max-width: 260px; ">{{ application.clientSecretKey }}</td>
+  </ng-container>-->
             <ng-container matColumnDef="clientSecretKey">
               <th mat-header-cell *matHeaderCellDef mat-sort-header>Client Secret Key</th>
-              <td mat-cell *matCellDef="let application" style="white-space: pre-wrap; word-break: break-all; max-width: 260px; ">{{ application.clientSecretKey }}</td>
+              <td mat-cell *matCellDef="let application" style="white-space: pre-wrap; word-break: break-all; max-width: 350px;">
+                <ng-container *ngIf="secretKeyVisible[application.id]; else hiddenKey">
+                  <td style="display: inline-block; vertical-align: middle;">
+                    {{ application.clientSecretKey }}
+                  </td>
+                  <button matTooltip="Copy Secret Key" mat-icon-button (click)="copySecretKey(application.clientSecretKey)" style="display: inline-block; vertical-align: middle;">
+                    <mat-icon aria-hidden="false" title="Copy Key" aria-label="content_copy">content_copy</mat-icon>
+                  </button>
+                  <button matTooltip="Hide Secret Key" mat-icon-button (click)="toggleSecretKeyVisibility(application.id)" style="display: inline-block; vertical-align: middle;">
+                    <mat-icon aria-hidden="false" title="Hide Key" aria-label="visibility_off">visibility_off</mat-icon>
+                  </button>
+                </ng-container>
+                <ng-template #hiddenKey>
+                  <td style="display: inline-block; vertical-align: middle;">
+                    ••••••••••
+                  </td>
+                  <button matTooltip="View Secret Key" mat-icon-button (click)="toggleSecretKeyVisibility(application.id)" style="display: inline-block; vertical-align: middle;">
+                    <mat-icon aria-hidden="false" title="View Key" aria-label="visibility">visibility</mat-icon>
+                  </button>
+                </ng-template>
+              </td>
             </ng-container>
+
+
 
             <!-- Created On Column -->
             <ng-container matColumnDef="createdOn">
