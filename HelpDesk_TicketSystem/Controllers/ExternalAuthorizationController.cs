@@ -10,11 +10,9 @@ namespace HelpDesk_TicketSystem.Controllers
     public class ExternalAuthorizationController : Controller
     {
         private readonly IExternalAuthorizationService _externalAuthorizationService;
-        private readonly ITokenService _tokenService;
-        public ExternalAuthorizationController(IExternalAuthorizationService externalAuthorizationService, ITokenService tokenService)
+        public ExternalAuthorizationController(IExternalAuthorizationService externalAuthorizationService)
         {
             _externalAuthorizationService = externalAuthorizationService;
-            _tokenService = tokenService;
         }
 
         [HttpPost("ConnectWithClient")]

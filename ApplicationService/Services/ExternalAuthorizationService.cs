@@ -24,11 +24,9 @@ namespace ApplicationService.Services
     public class ExternalAuthorizationService : IExternalAuthorizationService
     {
         private readonly IExternalAuthorizationRepository _externalAuthorizationRepository;
-        private readonly ITokenService _tokenService;
-        public ExternalAuthorizationService(IExternalAuthorizationRepository externalAuthorizationRepository, ITokenService tokenService)
+        public ExternalAuthorizationService(IExternalAuthorizationRepository externalAuthorizationRepository)
         {
             _externalAuthorizationRepository = externalAuthorizationRepository;
-            _tokenService = tokenService;   
         }
         public async Task<LoginStatus> ConnectWithClient(ConnectWithClientRequest clientRequest)
         {

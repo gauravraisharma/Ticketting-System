@@ -70,7 +70,6 @@ builder.Services.AddScoped<IExternalAuthorizationService, ExternalAuthorizationS
 
 builder.Services.AddScoped<IChatService, ChatService>();
 builder.Services.AddScoped<IChatRepository, ChatRepository>();
-builder.Services.AddScoped<ITokenService, TokenService>();
 
 builder.Services.AddSignalR();
 
