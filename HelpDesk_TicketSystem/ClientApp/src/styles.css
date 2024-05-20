@@ -928,6 +928,30 @@ section#content {
   border-right: 1px solid;
 }
 
+/* -------------------confirm-dialog------------------------ */
+.confirm-dialog .mat-mdc-dialog-actions {
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.confirm-dialog .mat-mdc-dialog-title {
+  margin-bottom: 0;
+  padding-top: 20px;
+  padding-bottom: 0;
+}
+
+.confirm-dialog .mat-mdc-dialog-title h1 {
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 0;
+}
+
+.confirm-dialog .mat-mdc-dialog-content {
+  padding-bottom: 12px !important;
+}
+
+/* -------------------confirm-dialog------------------------ */
+
 /*==== Main Navbar CSS Start ====*/
 app-navbar {
   position: sticky !important;
@@ -1104,7 +1128,10 @@ app-navbar {
 
 .NoChatConent {
   text-align: center;
-  padding-top: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 62vh;
 }
 
 pre {
