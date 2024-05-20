@@ -1,4 +1,3 @@
-
 <div class="head-title">
   <div class="left">
     <h1>My Profile</h1>
@@ -10,7 +9,7 @@
       <li>
         <a class="active" routerLink="/userProfile">User Profile</a>
       </li>
-     
+
     </ul>
   </div>
   <div>
@@ -18,9 +17,9 @@
   </div>
 </div>
 
-<div class="mat-elevation-z8 bg-white rounded-3">
+<div class="mat-elevation-z8 bg-white rounded-3 form-wrapper card-warpper">
   <div class="col-sm-12">
-    <mat-card>
+    <mat-card class="pt-3">
 
       <mat-card-content>
         <form [formGroup]="userForm" class="form-field-full">
@@ -29,8 +28,7 @@
             <div class="col-sm-4">
               <mat-form-field class="full-width-field" appearance="outline">
                 <mat-label>Username </mat-label>
-                <input matInput placeholder="Enter Username" formControlName="username"
-                       required>
+                <input matInput placeholder="Enter Username" formControlName="username" required>
                 <mat-error *ngIf="userForm.get('username')?.invalid">
                   Please enter subject
                 </mat-error>
@@ -40,8 +38,7 @@
             <div class="col-sm-4">
               <mat-form-field class="full-width-field" appearance="outline">
                 <mat-label>First Name</mat-label>
-                <input matInput placeholder="Enter Fiest Name" formControlName="firstName"
-                       required>
+                <input matInput placeholder="Enter Fiest Name" formControlName="firstName" required>
                 <mat-error *ngIf="userForm.get('firstName')?.invalid">
                   Please enter first name
                 </mat-error>
@@ -60,8 +57,7 @@
             <div class="col-sm-4">
               <mat-form-field class="full-width-field" appearance="outline">
                 <mat-label>Email</mat-label>
-                <input matInput placeholder="Enter Email" formControlName="email"
-                       required>
+                <input matInput placeholder="Enter Email" formControlName="email" required>
                 <mat-error *ngIf="userForm.get('email')?.invalid">
                   Please enter valid email
                 </mat-error>
@@ -84,7 +80,8 @@
                 <mat-select required formControlName="userType" required>
 
                   <ng-container *ngFor="let userType of DDUserTypeList">
-                    <mat-option [value]="userType.id" (click)="onUserTypeChange(userType.label)">{{userType.label}}</mat-option>
+                    <mat-option [value]="userType.id"
+                      (click)="onUserTypeChange(userType.label)">{{userType.label}}</mat-option>
                   </ng-container>
                 </mat-select>
                 <mat-error *ngIf="userForm.get('userType')?.invalid">
@@ -106,8 +103,10 @@
                 </mat-error>
               </mat-form-field>
             </div>
-            <div [class]="(isUserTypeAdmin)?'align-items-center col-sm-8 d-flex justify-content-end':'align-items-center col-sm-12 d-flex justify-content-end'">
-              <button mat-raised-button color="warn" class="m-t-8 mx-2" routerLink="/dashboard">Back</button>
+            <div
+              [class]="(isUserTypeAdmin)?'align-items-center col-sm-12 d-flex justify-content-end':'align-items-center col-sm-12 d-flex justify-content-end'">
+              <button mat-raised-button color="warn" class="db-btn-theme cancel-btn"
+                routerLink="/dashboard">Back</button>
             </div>
           </div>
 
@@ -117,4 +116,3 @@
     </mat-card>
   </div>
 </div>
-
