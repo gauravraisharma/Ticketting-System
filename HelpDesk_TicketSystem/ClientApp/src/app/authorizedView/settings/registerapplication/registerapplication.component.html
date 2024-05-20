@@ -20,40 +20,44 @@
 
   </div>
 </div>
+<div class="card-warpper form-wrapper">
+  <div class="col-sm-12">
+    <mat-card>
+      <mat-card-content>
+        <h2>Register Application</h2>
+        <form [formGroup]="applicationForm" (ngSubmit)="submitApplication()" class="form-field-full">
+          <div class="row">
+            <div class="col-sm-6">
+              <mat-form-field class="full-width-field" appearance="outline">
+                <mat-label>Application Name</mat-label>
+                <input type="text" placeholder="Application Name" formControlName="applicationName"
+                  aria-label="Application Name" matInput />
+                <mat-error *ngIf="applicationForm.get('applicationName')?.invalid">
+                  Please enter application name
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col-sm-6">
+              <mat-form-field class="full-width-field" appearance="outline">
+                <mat-label>Application URL</mat-label>
+                <input type="text" placeholder="Application URL" formControlName="applicationURL"
+                  aria-label="Application URL" matInput />
+                <mat-error *ngIf="applicationForm.get('applicationURL')?.invalid">
+                  Please enter application URL
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row text-end">
+            <div class="col-sm-12">
+              <button mat-raised-button color="primary" type="submit" class="db-btn-theme">Save</button>
+              <button mat-raised-button color="warn" class="db-btn-theme cancel-btn ms-2"
+                routerLink="/settings">Cancel</button>
+            </div>
+          </div>
 
-<div class="col-sm-12">
-  <mat-card>
-    <mat-card-content>
-      <h2>Register Application</h2>
-      <form [formGroup]="applicationForm" (ngSubmit)="submitApplication()" class="form-field-full">
-        <div class="row">
-          <div class="col-sm-6">
-            <mat-form-field class="full-width-field" appearance="outline">
-              <mat-label>Application Name</mat-label>
-              <input type="text" placeholder="Application Name" formControlName="applicationName" aria-label="Application Name" matInput />
-              <mat-error *ngIf="applicationForm.get('applicationName')?.invalid">
-                Please enter application name
-              </mat-error>
-            </mat-form-field>
-          </div>
-          <div class="col-sm-6">
-            <mat-form-field class="full-width-field" appearance="outline">
-              <mat-label>Application URL</mat-label>
-              <input type="text" placeholder="Application URL" formControlName="applicationURL" aria-label="Application URL" matInput />
-              <mat-error *ngIf="applicationForm.get('applicationURL')?.invalid">
-                Please enter application URL
-              </mat-error>
-            </mat-form-field>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-12">
-            <button mat-raised-button color="primary" type="submit" class="m-t-8">Save</button>
-            <button mat-raised-button color="warn" class="m-t-8 mx-2" routerLink="/settings">Cancel</button>
-          </div>
-        </div>
-
-      </form>
-    </mat-card-content>
-  </mat-card>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>
 </div>
