@@ -24,12 +24,8 @@
 
   <ItemGroup>
     <!-- Don't publish the SPA source files, but do show them in the project files list -->
-    <Compile Remove="ClientApp\src\NewFolder\**" />
     <Content Remove="$(SpaRoot)**" />
-    <Content Remove="ClientApp\src\NewFolder\**" />
-    <EmbeddedResource Remove="ClientApp\src\NewFolder\**" />
     <None Remove="$(SpaRoot)**" />
-    <None Remove="ClientApp\src\NewFolder\**" />
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
   </ItemGroup>
 
@@ -39,6 +35,7 @@
 
   <ItemGroup>
     <Folder Include="ClientApp\src\app\authorizedView\dashboard\DashboardSharedComponent\" />
+    <Folder Include="ClientApp\src\utils\" />
   </ItemGroup>
 
     <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

@@ -13,7 +13,7 @@ namespace DataRepository.IRepository
         Task<RegisterCompanyApplicationResponse> RegisterCompanyApplication(RegisterCompanyApplicationBLLModel registerCompanyAppModel);
 
         Task<List<GetCompanyResponse>> GetCompany();
-        Task<List<GetCompanyRegisteredApplicationResponse>> GetCompanyRegisteredApplication();
+        Task<List<GetCompanyRegisteredApplicationResponse>> GetCompanyRegisteredApplication(int companyId);
 
         Task<ResponseStatus> UpdateTimeZone(UpdateTimeZone updateTimeZoneModel);
     }

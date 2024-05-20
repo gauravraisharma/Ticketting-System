@@ -57,18 +57,20 @@ builder.Services.AddDbContext<ApplicationDbContext>(item => item.UseSqlServer(bu
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders(); ;
 
 //Implement and adding dependant services 
-builder.Services.AddScoped<IAccountRepository, AccountRepository>();
-builder.Services.AddScoped<IAccountService, AccountService>();
+builder.Services.AddTransient<IAccountRepository, AccountRepository>();
+builder.Services.AddTransient<IAccountService, AccountService>();
 builder.Services.AddScoped<ITicketRepository, TicketRepository>();
 builder.Services.AddScoped<ITicketService, TicketService>();
 builder.Services.AddScoped<ICompanyService, CompanyService>();
 builder.Services.AddScoped<ICompanyRepository, CompanyRepository>();
 builder.Services.AddScoped<IDashboardService, DashboardService>();
 builder.Services.AddScoped<IDashboardRepository, DashboardRepository>();
+builder.Services.AddScoped<IExternalAuthorizationRepository, ExternalAuthorizationRepository>();
+builder.Services.AddScoped<IExternalAuthorizationService, ExternalAuthorizationService>();
 
 builder.Services.AddScoped<IChatService, ChatService>();
 builder.Services.AddScoped<IChatRepository, ChatRepository>();
-
+builder.Services.AddScoped<ITokenService, TokenService>();
 
 builder.Services.AddSignalR();
 

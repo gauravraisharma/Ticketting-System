@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace DataRepository.Repositoryy
 {
@@ -51,7 +52,7 @@ namespace DataRepository.Repositoryy
             }
         }
 
-        public async Task<List<GetCompanyRegisteredApplicationResponse>> GetCompanyRegisteredApplication()
+        public async Task<List<GetCompanyRegisteredApplicationResponse>> GetCompanyRegisteredApplication(int companyId)
         {
             if (_context.CompanyRegisteredApplications == null)
             {
@@ -60,6 +61,7 @@ namespace DataRepository.Repositoryy
             try
             {
                 var company = await _context.CompanyRegisteredApplications
+                     .Where(application => application.CompanyId == companyId)
                         .Select(Application => new GetCompanyRegisteredApplicationResponse
                         {
                             Id = Application.Id,
@@ -209,7 +211,7 @@ namespace DataRepository.Repositoryy
                 CreatedBy = Guid.Empty.ToString(),
                 CreatedOn = DateTime.UtcNow,
                 IsActive = true,
-                CompanyId = 1000
+                CompanyId = registerCompanyAppModel.CompanyId
             };
             try
             {

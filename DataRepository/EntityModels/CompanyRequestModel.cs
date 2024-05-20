@@ -35,4 +35,15 @@ namespace DataRepository.EntityModels
         [Required(ErrorMessage = "TimeZone is required")]
         public string TimeZone { get; set; }
     }
+    public class RegisterCompanyApplicationModel
+    {
+        [Required(ErrorMessage = "Application Name is required")]
+        public string ApplicationName { get; set; }
+        [Required(ErrorMessage = "Application URL is required")]
+
+        public string ApplicationURL { get; set; }
+        [Required(ErrorMessage = "Company id  is required")]
+
+        public int CompanyId { get; set; }
+    }
 }

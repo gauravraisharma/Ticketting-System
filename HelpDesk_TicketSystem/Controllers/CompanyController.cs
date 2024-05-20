@@ -71,10 +71,10 @@ namespace HelpDesk_TicketSystem.Controllers
             }
 
         }
-        [HttpGet("GetCompanyRegisteredApplication")]
-        public async Task<IActionResult> GetCompanyRegisteredApplication()
+        [HttpGet("GetCompanyRegisteredApplication/{companyId}")]
+        public async Task<IActionResult> GetCompanyRegisteredApplication(int companyId)
         {
-            var registeredApplications = await _companyService.GetCompanyRegisteredApplication();
+            var registeredApplications = await _companyService.GetCompanyRegisteredApplication(companyId);
             return Ok(registeredApplications);
         }
 

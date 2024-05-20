@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace DataRepository.EntityModels
 {
@@ -213,5 +214,23 @@ namespace DataRepository.EntityModels
         public DateTime Date { get; set; }
         public int Value { get; set; }
 
+    }
+    public class GetCompanyRegisteredApplicationResponse
+    {
+        public int Id { get; set; }
+        public string ApplicationName { get; set; }
+        public string ApplicationURL { get; set; }
+        public string ClientSecretKey { get; set; }
+        public DateTime CreatedOn { get; set; }
+
+    }
+    public class RegisterCompanyApplicationResponse : ResponseStatus
+    {
+        public string ClientSecretKey { get; set; }
+    }
+    public class ConnectWithClientResponse : ResponseStatus
+    {
+        public string ClientSecretKey { get; set; }
+        public string ApplicationURL { get; set; }
     }
 }

@@ -17,5 +17,6 @@ namespace DataRepository.EntityModels
         public DbSet<ChatUser> ChatUsers { get; set; }
         public DbSet<ChatData> ChatDatas { get; set; }
         public DbSet<ChatRoom> ChatRooms { get; set; }
+        public DbSet<CompanyRegisteredApplication> CompanyRegisteredApplications { get; set;}
     }
 }

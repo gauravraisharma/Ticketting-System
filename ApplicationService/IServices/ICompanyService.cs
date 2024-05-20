@@ -13,7 +13,7 @@ namespace ApplicationService.IServices
         Task<RegisterCompanyApplicationResponse> RegisterCompanyApplication(RegisterCompanyApplicationModel registerCompanyAppModel);
 
         Task<List<GetCompanyResponse>> GetCompany();
-        Task<List<GetCompanyRegisteredApplicationResponse>> GetCompanyRegisteredApplication();
+        Task<List<GetCompanyRegisteredApplicationResponse>> GetCompanyRegisteredApplication(int companyId);
         Task<ResponseStatus> UpdateTimeZone(UpdateTimeZone updateTimeZoneModel);
     }
 }

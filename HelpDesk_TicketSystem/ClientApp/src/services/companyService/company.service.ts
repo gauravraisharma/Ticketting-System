@@ -24,8 +24,8 @@ export class CompanyService {
     let url = `${this.apiUrl}Company/UpdateTimeZone`;
     return this.http.post(url, timeZoneModel);
   }
-  getCompanyRegisteredApplication() {
-    let url = `${this.apiUrl}Company/GetCompanyRegisteredApplication`;
+  getCompanyRegisteredApplication(companyId: number) {
+    let url = `${this.apiUrl}Company/GetCompanyRegisteredApplication/${companyId}`;
     return this.http.get(url);
   }
   registerCompanyApplication(application: RegisterCompanyApplication) {
@@ -52,4 +52,5 @@ export class UpdateTimeZone {
 export class RegisterCompanyApplication {
   applicationName: string = '';
   applicationURL: string = '';
+  companyId: number = null;
 }

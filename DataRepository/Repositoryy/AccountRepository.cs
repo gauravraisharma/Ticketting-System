@@ -1,6 +1,7 @@
 ﻿using Azure.Core;
 using DataRepository.EntityModels;
 using DataRepository.IRepository;
+using DataRepository.Utils;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -124,10 +125,7 @@ namespace DataRepository.Repository
                     Message = "Something went wrong "
                 };
             }
-            finally
-            {
-                _context.Dispose();
-            }
+            
         }
 
         public async Task<ResponseStatus> UpdateApplicationUser(UpdateApplicationUserModel userModel)
@@ -235,29 +233,29 @@ namespace DataRepository.Repository
             }
         }
 
-        private async Task<string> GenerateToken(ApplicationUser user,bool rememberMe)
-        {
-            try
-            {
-                var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
-                var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+        //private async Task<string> GenerateToken(ApplicationUser user,bool rememberMe)
+        //{
+        //    try
+        //    {
+        //        var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
+        //        var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
-                //Find UserRole 
-                var userRoles = await _userManager.GetRolesAsync(user);
+        //        //Find UserRole 
+        //        var userRoles = await _userManager.GetRolesAsync(user);
 
-                List<Claim> claims = new List<Claim> {
-                    new Claim(ClaimTypes.Name,user.UserName),
-                    new Claim(ClaimTypes.Role,userRoles.FirstOrDefault().ToUpper())
-                };
+        //        List<Claim> claims = new List<Claim> {
+        //            new Claim(ClaimTypes.Name,user.UserName),
+        //            new Claim(ClaimTypes.Role,userRoles.FirstOrDefault().ToUpper())
+        //        };
 
-                var token = new JwtSecurityToken(claims: claims, expires:(rememberMe)? DateTime.Now.AddDays(30): DateTime.Now.AddHours(12), signingCredentials: credentials);
-                return new JwtSecurityTokenHandler().WriteToken(token);
-            }
-            catch (Exception ex)
-            {
-                return null;
-            }
-        }
+        //        var token = new JwtSecurityToken(claims: claims, expires:(rememberMe)? DateTime.Now.AddDays(30): DateTime.Now.AddHours(12), signingCredentials: credentials);
+        //        return new JwtSecurityTokenHandler().WriteToken(token);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return null;
+        //    }
+        //}
 
         public async Task<LoginStatus> UserLogin(UserLoginModel userModel)
         {
@@ -291,7 +289,7 @@ namespace DataRepository.Repository
                     {
                         authClaims.Add(new Claim(ClaimTypes.Role, userRole));
                     };
-                    var token = await GenerateToken(user, userModel.RememberMe);
+                    var token =  Helper.GenerateToken(user, userModel.RememberMe, _config["Jwt:Key"], userRoles.FirstOrDefault().ToUpper());
 
                     var CompanyTimeZone = (from Company in _context.Companys
                                     where Company.Id == user.CompanyId
@@ -742,7 +740,7 @@ namespace DataRepository.Repository
                     };
                 }
                
-                var token = await GenerateToken(user,false);
+                var token =  Helper.GenerateToken(user, false, _config["Jwt:Key"], userRoles.FirstOrDefault().ToUpper());
 
                 return new ResponseStatus
                 {

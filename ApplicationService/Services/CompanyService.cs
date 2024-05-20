@@ -26,9 +26,9 @@ namespace ApplicationService.Services
            return _companyRepository.GetCompany();
         }
 
-        public Task<List<GetCompanyRegisteredApplicationResponse>> GetCompanyRegisteredApplication()
+        public Task<List<GetCompanyRegisteredApplicationResponse>> GetCompanyRegisteredApplication(int companyId)
         {
-            return _companyRepository.GetCompanyRegisteredApplication();
+            return _companyRepository.GetCompanyRegisteredApplication(companyId);
         }
 
         public async Task<ResponseStatus> RegisterCompany(RegisterCompanyModel registerCompanyModel)
@@ -61,7 +61,8 @@ namespace ApplicationService.Services
             {
                 ApplicationName = registerCompanyAppModel.ApplicationName,
                 ApplicationURL = registerCompanyAppModel.ApplicationURL,
-                ClientSecretKey = clientSecretKey
+                ClientSecretKey = clientSecretKey,
+                CompanyId = registerCompanyAppModel.CompanyId
             };
             var response =  _companyRepository.RegisterCompanyApplication(model);
             return response;

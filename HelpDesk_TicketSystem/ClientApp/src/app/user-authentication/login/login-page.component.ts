@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AccountService } from '../../../services/accountServices/account-service.service';
+import { Helper } from '../../../utils/Helper';
 
 @Component({
   selector: 'app-login-page',
@@ -17,7 +18,8 @@ export class LoginPageComponent implements OnInit {
     private fb: FormBuilder,
     private accountService: AccountService,
     private router: Router,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private helper: Helper
   ) {
   }
 
@@ -36,7 +38,7 @@ export class LoginPageComponent implements OnInit {
       this.accountService.loginUser(this.loginForm.value).subscribe((response: any) => {
         if (response.status == "SUCCEED") {
           this.toastr.success('Logged in successfully');
-          this.setDataInLocalStorage(response.token, response.userType, response.userId, response.companyId, response.timeZone);
+          this.helper.setDataInLocalStorage(response.token, response.userType, response.userId, response.companyId, response.timeZone, this.loginForm.get('rememberMe').value);
           this.router.navigate(['dashboard'])
         } else {
         
@@ -62,20 +64,6 @@ export class LoginPageComponent implements OnInit {
       this.toastr.error("Please enter valid credentials");
       this.isLoading = false;
     }
-  }
-
-  setDataInLocalStorage(token: string, userType: string, userId: string, companyId: any,timeZone:string) {
-    localStorage.clear();
-    localStorage.setItem('token', token);
-    localStorage.setItem('loggedInTime', Date.now().toString());
-    localStorage.setItem('userType', userType.toUpperCase());
-    localStorage.setItem('userId', userId); 
-    localStorage.setItem('timeZone', (timeZone==null)?'':timeZone);
-    localStorage.setItem('isRememberMe', this.loginForm.get('rememberMe').value); 
-    if (userType.toUpperCase() != 'SUPERADMIN') {
-      localStorage.setItem('companyId', companyId.toString());
-    }
-  
   }
   get username() { return this.loginForm.get('username');}
   get password() { return this.loginForm.get('password');}

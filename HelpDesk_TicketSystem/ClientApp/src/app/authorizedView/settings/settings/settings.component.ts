@@ -97,9 +97,11 @@ export class SettingsComponent implements OnInit {
   }
 
   getCompanyRegisteredApplication() {
-    this.companyService.getCompanyRegisteredApplication().subscribe(
+    let companyId = localStorage.getItem('companyId')
+    this.companyService.getCompanyRegisteredApplication(parseInt(companyId, 10)).subscribe(
       (response: any) => {
         try {
+          console.log(response)
           this.registeredApplications = response;
           this.dataSource = new MatTableDataSource<registeredApplicationModel>(response);
           this.dataSource.sort = this.sort;
@@ -127,14 +129,6 @@ export class SettingsComponent implements OnInit {
     window.getSelection()?.removeAllRanges();
     this.toastr.success('Chatbot Script Copied');
   }
-
-  //dataSource = [
-  //  { applicationName: 'App 1', applicationURL: 'URL 1', createdBy: 'Admin' },
-  //  { applicationName: 'App 2', applicationURL: 'URL 2', createdBy: 'User' },
-  //  { applicationName: 'App 3', applicationURL: 'URL 3', createdBy: 'Admin' }
-  //];
-
-  //displayedColumns: string[] = ['applicationName', 'applicationURL', 'createdOn', 'action'];
 }
 
 export interface registeredApplicationModel {
