@@ -44,7 +44,7 @@ namespace DataRepository.EntityModels
         public string ApplicationURL { get; set; }
         [Required(ErrorMessage = "Domain URL is required")]
 
-        public string DomainURL { get; set; }
+        public string APIEndpoint { get; set; }
         [Required(ErrorMessage = "Company id  is required")]
 
         public int CompanyId { get; set; }
