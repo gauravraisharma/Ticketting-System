@@ -22,49 +22,57 @@
 </div>
 
 <div class="card-warpper form-wrapper">
-<div class="col-sm-12">
-  <mat-card>
-    <mat-card-content>
-      <h2>Register Application</h2>
-      <form [formGroup]="applicationForm" (ngSubmit)="submitApplication()" class="form-field-full">
-        <div class="row">
-          <div class="col-sm-6">
-            <mat-form-field class="full-width-field" appearance="outline">
-              <mat-label>Application Name</mat-label>
-              <input type="text" placeholder="Application Name" formControlName="applicationName" aria-label="Application Name" matInput />
-              <mat-error *ngIf="applicationForm.get('applicationName')?.invalid">
-                Please enter Application Name
-              </mat-error>
-            </mat-form-field>
-          </div>
-          <div class="col-sm-6">
-            <mat-form-field class="full-width-field" appearance="outline">
-              <mat-label>Application URL</mat-label>
-              <input type="text" placeholder="Application URL" formControlName="applicationURL" aria-label="Application URL" matInput />
+  <div class="col-sm-12">
+    <mat-card>
+      <mat-card-content>
+        <h2>Register Application</h2>
+        <form [formGroup]="applicationForm" (ngSubmit)="submitApplication()" class="form-field-full">
+          <div class="row">
+            <div class="col-sm-6">
+              <mat-form-field class="full-width-field" appearance="outline">
+                <mat-label>Application Name</mat-label>
+                <input type="text" placeholder="Application Name" formControlName="applicationName"
+                  aria-label="Application Name" matInput />
+                <mat-error *ngIf="applicationForm.get('applicationName')?.invalid">
+                  Please enter Application Name
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col-sm-6">
+              <mat-form-field class="full-width-field" appearance="outline">
+                <mat-label>Application URL</mat-label>
+                <input type="text" placeholder="Application URL" formControlName="applicationURL"
+                  aria-label="Application URL" matInput />
 
-              <mat-icon matSuffix matTooltip="Please enter a valid URL"><i class="fa fa-exclamation-circle" style="color: black;" aria-hidden="true"></i></mat-icon>
-              <mat-error *ngIf="applicationForm.get('applicationURL')?.invalid">
-                Please enter Application URL
-              </mat-error>
-            </mat-form-field>
+                <mat-icon matSuffix matTooltip="Please enter a valid URL" style="height: 20px;
+                width: 20px; padding-top: 0;"><i class="fa fa-exclamation-circle"
+                    style="font-size: 20px; color: #c0c0c0;" aria-hidden="true"></i></mat-icon>
+                <mat-error *ngIf="applicationForm.get('applicationURL')?.invalid">
+                  Please enter Application URL
+                </mat-error>
+              </mat-form-field>
+            </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-6">
-            <mat-form-field class="full-width-field" appearance="outline">
-              <mat-label>Domain URL</mat-label>
-              <input type="text" placeholder="Domain URL" formControlName="domainURL" aria-label="Domain URL" matInput />
-              <mat-icon matSuffix matTooltip="Please enter a valid URL"><i class="fa fa-exclamation-circle" style="color: black;" aria-hidden="true"></i></mat-icon>
-              <mat-error *ngIf="applicationForm.get('domainURL')?.invalid">
-                Please enter Domain URL
-              </mat-error>
-            </mat-form-field>
+          <div class="row">
+            <div class="col-sm-6">
+              <mat-form-field class="full-width-field" appearance="outline">
+                <mat-label>Domain URL</mat-label>
+                <input type="text" placeholder="Domain URL" formControlName="domainURL" aria-label="Domain URL"
+                  matInput />
+                <mat-icon matSuffix matTooltip="Please enter a valid URL" style="height: 20px;
+                width: 20px; padding-top: 0;"><i class="fa fa-exclamation-circle"
+                    style="font-size: 20px; color: #c0c0c0;" aria-hidden="true"></i></mat-icon>
+                <mat-error *ngIf="applicationForm.get('domainURL')?.invalid">
+                  Please enter Domain URL
+                </mat-error>
+              </mat-form-field>
             </div>
           </div>
           <div class="row text-end">
             <div class="col-sm-12">
               <button mat-raised-button color="primary" type="submit" class="db-btn-theme">Save</button>
-              <button mat-raised-button color="warn" class="db-btn-theme cancel-btn ms-2" routerLink="/settings">Cancel</button>
+              <button mat-raised-button color="warn" class="db-btn-theme cancel-btn ms-2"
+                routerLink="/settings">Cancel</button>
             </div>
           </div>
 
