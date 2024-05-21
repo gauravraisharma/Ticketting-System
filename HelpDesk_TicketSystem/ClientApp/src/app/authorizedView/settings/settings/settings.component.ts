@@ -8,6 +8,8 @@ import { ToastrService } from 'ngx-toastr';
 import { map, Observable, startWith } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { MatSort } from '@angular/material/sort';
+import { Clipboard } from '@angular/cdk/clipboard';
+
 
 @Component({
   selector: 'app-settings',
@@ -30,10 +32,11 @@ export class SettingsComponent implements OnInit {
   filteredOptions: Observable<string[]>;
   companyID = localStorage.getItem('companyId');
   embeddedScriptForChatBot =''
-
+  secretKeyVisible: { [key: string]: boolean } = {};
   constructor(private fb: FormBuilder, private companyService: CompanyService,
     private router: Router,
     private toastr: ToastrService,
+    private clipboard: Clipboard
   ) {
 
   }
@@ -113,6 +116,17 @@ export class SettingsComponent implements OnInit {
       error => {
         console.log(error, "Something went wrong");
       }
+    );
+  }
+
+  toggleSecretKeyVisibility(applicationId: string) {
+    this.secretKeyVisible[applicationId] = !this.secretKeyVisible[applicationId];
+  }
+
+  copySecretKey(secretKey: string) {
+    navigator.clipboard.writeText(secretKey).then(
+      () => this.toastr.success('Secret key copied to clipboard'),
+      () => this.toastr.error('Failed to copy secret key')
     );
   }
 

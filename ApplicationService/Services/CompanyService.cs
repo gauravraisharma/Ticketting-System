@@ -61,6 +61,7 @@ namespace ApplicationService.Services
             {
                 ApplicationName = registerCompanyAppModel.ApplicationName,
                 ApplicationURL = registerCompanyAppModel.ApplicationURL,
+                DomainURL = registerCompanyAppModel.DomainURL,
                 ClientSecretKey = clientSecretKey,
                 CompanyId = registerCompanyAppModel.CompanyId
             };

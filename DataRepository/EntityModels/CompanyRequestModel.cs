@@ -42,6 +42,9 @@ namespace DataRepository.EntityModels
         [Required(ErrorMessage = "Application URL is required")]
 
         public string ApplicationURL { get; set; }
+        [Required(ErrorMessage = "Domain URL is required")]
+
+        public string DomainURL { get; set; }
         [Required(ErrorMessage = "Company id  is required")]
 
         public int CompanyId { get; set; }

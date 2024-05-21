@@ -14,8 +14,10 @@ namespace DataRepository.EntityModels
         public int Id { get; set; }
         [Column(TypeName = "varchar(500)")]
         public string? ApplicationName { get; set; }
-        [Column(TypeName = "varchar(500)")]
+        [Column(TypeName = "nvarchar(2048)")]
         public string? ApplicationURL{ get; set; }
+        [Column(TypeName = "nvarchar(2048)")]
+        public string? DomainURL { get; set; }
         [Column(TypeName = "varchar(500)")]
         public string? ClientSecretKey { get; set; }
             

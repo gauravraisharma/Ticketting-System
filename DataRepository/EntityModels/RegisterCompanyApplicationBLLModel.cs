@@ -10,6 +10,7 @@ namespace DataRepository.EntityModels
     {
         public string ApplicationName { get; set; }
         public string ApplicationURL { get; set; }
+        public string DomainURL {  get; set; }
         public string ClientSecretKey { get; set; }
         public int CompanyId { get; set; }
     }

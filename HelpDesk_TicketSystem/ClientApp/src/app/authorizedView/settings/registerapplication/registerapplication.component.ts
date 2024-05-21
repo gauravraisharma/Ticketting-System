@@ -7,10 +7,11 @@ import { CompanyService, RegisterCompanyApplication } from '../../../../services
 import { ConfirmDialogComponent } from '../../../sharedComponent/confirm-dialog/confirm-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 
+
 @Component({
   selector: 'app-registerapplication',
   templateUrl: './registerapplication.component.html',
-  styleUrls: ['./registerapplication.component.css']
+  styleUrls: ['./registerapplication.component.css'],
 })
 export class RegisterapplicationComponent {
   constructor(private fb: FormBuilder,
@@ -22,6 +23,7 @@ export class RegisterapplicationComponent {
   applicationForm = this.fb.group({
     applicationName: ['', [Validators.required]],
     applicationURL: ['', [Validators.required]],
+    domainURL: ['', [Validators.required]],
   })
   isLoading: boolean = false;
 
@@ -33,6 +35,8 @@ export class RegisterapplicationComponent {
       var application = new RegisterCompanyApplication();
       application.applicationName = this.applicationForm.get('applicationName')!.value;
       application.applicationURL = this.applicationForm.get('applicationURL')!.value;
+      application.domainURL = this.applicationForm.get('domainURL')!.value;
+
       application.companyId = parseInt(companyId, 10);
       this.companyService.registerCompanyApplication(application).subscribe((response: any) => {
         console.log(response)

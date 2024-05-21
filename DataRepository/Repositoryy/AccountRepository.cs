@@ -517,8 +517,9 @@ namespace DataRepository.Repository
                 var result = (from user in _context.Users
                               join userrole in _context.UserRoles on user.Id equals userrole.UserId
                               join role in _context.Roles on userrole.RoleId equals role.Id
-                              join creator in _context.Users on user.CreatedBy equals creator.Id
+
                               //left join 
+                              join creator in _context.Users on user.CreatedBy equals creator.Id into userCreator from uCreator in userCreator.DefaultIfEmpty()
                               join department in _context.Departments on user.DepartmentId equals department.DepartmentId into userDepartmentGroup
                               from depart in userDepartmentGroup.DefaultIfEmpty()
                               where user.IsDeleted == false && user.CompanyId==companyId
@@ -531,7 +532,7 @@ namespace DataRepository.Repository
                                   UserName = user.UserName,
                                   UserType = role.Name,
                                   Department = depart.Name,
-                                  CreatedBy = string.Concat(creator.FirstName, ' ', creator.LastName),
+                                  CreatedBy = string.Concat(uCreator.FirstName, ' ', uCreator.LastName),
                                   Email = user.Email,
                                   PhoneNumber = user.PhoneNumber
                               }

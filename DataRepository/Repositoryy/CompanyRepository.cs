@@ -207,6 +207,7 @@ namespace DataRepository.Repositoryy
             {
                 ApplicationName = registerCompanyAppModel.ApplicationName,
                 ApplicationURL = registerCompanyAppModel.ApplicationURL,
+                DomainURL = registerCompanyAppModel.DomainURL,
                 ClientSecretKey = registerCompanyAppModel.ClientSecretKey,
                 CreatedBy = Guid.Empty.ToString(),
                 CreatedOn = DateTime.UtcNow,
