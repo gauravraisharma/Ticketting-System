@@ -127,7 +127,7 @@
         </ng-container>-->
                 <ng-container matColumnDef="clientSecretKey">
                   <th mat-header-cell *matHeaderCellDef mat-sort-header>Client Secret Key</th>
-                  <td mat-cell *matCellDef="let application" style="white-space: pre-wrap; word-break: break-all; max-width: 350px;">
+                  <td mat-cell *matCellDef="let application" style="white-space: pre-wrap; word-break: break-all; max-width: 380px;">
                     <ng-container *ngIf="secretKeyVisible[application.id]; else hiddenKey">
                       <td style="display: inline-block; vertical-align: middle;">
                         {{ application.clientSecretKey }}

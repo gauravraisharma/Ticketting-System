@@ -44,17 +44,16 @@ namespace DataRepository.Repositoryy
             {
                 ClientSecretKey = applicationDetails.ClientSecretKey,
                 ApplicationURL = applicationDetails.ApplicationURL,
-                DomainURL = applicationDetails.DomainURL,
+                APIEndpoint = applicationDetails.APIEndpoint,
                 Status = "SUCCEED",
                 Message = "Fetched application details"
             };
         }
 
-        public  async Task<ApplicationUser> IsUserFound(string userEmail, string userName)
+        public  async Task<ApplicationUser> IsUserFound(string userEmail)
         {
             var userFound = await _userManager.FindByEmailAsync(userEmail);
-            var userNameFound = await _userManager.FindByNameAsync(userName);
-            if(userFound == null || userNameFound == null)
+            if(userFound == null)
             { 
                 return null;
             }
@@ -85,7 +84,7 @@ namespace DataRepository.Repositoryy
                 return ex.Message;
             }
         }
-        public async Task<LoginStatus> AuthenticateExternalUser(string email, string refreshToken, string applicationName)
+        public async Task<LoginStatus> AuthenticateExternalUser(string email)
         {
             var user = await _userManager.FindByEmailAsync(email);
             if (user == null)
@@ -96,8 +95,7 @@ namespace DataRepository.Repositoryy
                     Message = "User doesn't exist"
                 };
             }
-            await _userManager.SetAuthenticationTokenAsync(user, applicationName, "Refresh Token", refreshToken);
-            var gettoken = _userManager.GetAuthenticationTokenAsync(user, applicationName, "Refresh Token");
+           
 
             var userRoles = await _userManager.GetRolesAsync(user);
             var token = Helper.GenerateToken(user, false, _config["Jwt:Key"], userRoles.FirstOrDefault().ToUpper());
@@ -145,12 +143,36 @@ namespace DataRepository.Repositoryy
             var userResponse = await _accountRepository.CreateApplicationUser(userModel);
             if (userResponse.Status == "SUCCEED")
             {
-                var loginResponse = await AuthenticateExternalUser(userModel.Email, refreshToken, applicationName);
+                var loginResponse = await AuthenticateExternalUser(userModel.Email);
                 return loginResponse;
 
             }
             return new LoginStatus { Status = "FAILED", Message = "Failed to register user." };
 
+        }
+
+        public async Task<ResponseStatus> SaveExternalTokens(string email, string applicationName, string accessToken, string refreshToken)
+        {
+            try
+            {
+                var user = await _userManager.FindByEmailAsync(email);
+
+                await _userManager.SetAuthenticationTokenAsync(user, applicationName, "External Access Token", refreshToken);
+                await _userManager.SetAuthenticationTokenAsync(user, applicationName, "External Refresh Token", refreshToken);
+                return new ResponseStatus()
+                {
+                    Status = "SUCCEED",
+                    Message = "Successfully Saved tokens"
+                };
+            }
+            catch
+            {
+                return new ResponseStatus()
+                {
+                    Status = "FAILED",
+                    Message = "Failed to save tokens"
+                };
+            }
         }
     }
         

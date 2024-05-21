@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { ToastrService } from 'ngx-toastr';
 import { CompanyService, RegisterCompanyApplication } from '../../../../services/companyService/company.service';
-import { ConfirmDialogComponent } from '../../../sharedComponent/confirm-dialog/confirm-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { SecretKeyDialogComponent } from '../../../sharedComponent/secret-key-dialog/secret-key-dialog.component';
 
 
 @Component({
@@ -22,10 +22,19 @@ export class RegisterapplicationComponent {
   }
   applicationForm = this.fb.group({
     applicationName: ['', [Validators.required]],
-    applicationURL: ['', [Validators.required]],
-    domainURL: ['', [Validators.required]],
+    applicationURL: ['', [Validators.required, this.urlValidator]],
+    apiEndpoint: ['', [Validators.required, this.urlValidator]],
   })
   isLoading: boolean = false;
+
+  urlValidator(control: FormControl) {
+    // Basic URL validation with regular expression
+    const urlRegex = /^(http|https):\/\/[^\s]+/;
+    if (!control.value.match(urlRegex)) {
+      return { 'invalidUrl': true };
+    }
+    return null;
+  }
 
 
   submitApplication() {
@@ -35,7 +44,7 @@ export class RegisterapplicationComponent {
       var application = new RegisterCompanyApplication();
       application.applicationName = this.applicationForm.get('applicationName')!.value;
       application.applicationURL = this.applicationForm.get('applicationURL')!.value;
-      application.domainURL = this.applicationForm.get('domainURL')!.value;
+      application.apiEndpoint = this.applicationForm.get('apiEndpoint')!.value;
 
       application.companyId = parseInt(companyId, 10);
       this.companyService.registerCompanyApplication(application).subscribe((response: any) => {
@@ -63,23 +72,13 @@ export class RegisterapplicationComponent {
       this.isLoading = false;
     }
   }
-  openModal(clientKey: string) {
-    const message = `
-      <h4>Secret key for registered application</h4>
-      <p>${clientKey}</p>
-      <br/>
-      <h4>Note</h4>
-      <p>
-        Please note that this key is shown only once.
-        If lost, you'll need to re-register your application.
-        Keep this key confidential and never share it with anyone.
-        Refer to our developer manual for instructions on how to use this key to communicate with our application.
-      </p>
-    `;
-    const dialogRef =  this.dialog.open(ConfirmDialogComponent, {
+  openModal(clientKey: string) {     
+   
+    const dialogRef = this.dialog.open(SecretKeyDialogComponent, {
       data: {
-        message,
-        title: 'Application Secret Key'
+        message: 'Secret key for registered application',
+        title: 'Application Secret Key',
+        content: clientKey
       },
       width: '650px',
       enterAnimationDuration: '0',
@@ -88,7 +87,6 @@ export class RegisterapplicationComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result == "ok") {
-        this.toastr.success("Copied Secret Key");
         this.router.navigate(['/settings']);
       } else {
 
