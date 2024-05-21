@@ -36,37 +36,50 @@ namespace ApplicationService.Services
             {
                 ApplicationName = clientRequest.ApplicationName,
             };
-            var response = await _externalAuthorizationRepository.ConnectWithClient(clientModel);
+            
+                var response = await _externalAuthorizationRepository.ConnectWithClient(clientModel);
 
-            var decryptedToken = JWT.Decode(clientRequest.CipherText, Convert.FromBase64String(response.ClientSecretKey));
-            CipherDataModel cipherDataModel = JsonConvert.DeserializeObject<CipherDataModel>(decryptedToken);
+                var decryptedToken = JWT.Decode(clientRequest.CipherText, Convert.FromBase64String(response.ClientSecretKey));
+
+                CipherDataModel cipherDataModel = JsonConvert.DeserializeObject<CipherDataModel>(decryptedToken);
 
 
-            // Fetch the values
-            DateTime sessionStartTime = DateTime.Parse(cipherDataModel.SessionStartTime.ToString());
+                // Fetch the values
+                string email = cipherDataModel.Email;
+                DateTime sessionStartTime = DateTime.Parse(cipherDataModel.SessionStartTime.ToString());
 
-            //Session Validation
-            if (DateTime.UtcNow - sessionStartTime > TimeSpan.FromMinutes(5))
+                //Session Validation
+                if (DateTime.UtcNow - sessionStartTime > TimeSpan.FromMinutes(5))
+                {
+                    // Session start time exceeded five minutes
+                    return new LoginStatus { Status = "FAILED", Message = "Time limit exceeded." };
+                }
+
+
+                // Validate endpointUrl existence in the database
+                if (response.ApplicationURL != null && response.ApplicationURL != clientRequest.ClientHostURL)
+                {
+                    // host url does not exist in the database
+                    return new LoginStatus { Status = "FAILED", Message = "Endpoint URL not found in the database." };
+                }
+            var userFound = await _externalAuthorizationRepository.IsUserFound(email);
+            if (userFound != null)
             {
-                // Session start time exceeded five minutes
-                return new LoginStatus { Status = "FAILED", Message = "Time limit exceeded." };
+                var loginResponse = await _externalAuthorizationRepository.AuthenticateExternalUser(userFound.Email);
+                return loginResponse;
             }
-
-
-            // Validate endpointUrl existence in the database
-            if (response.ApplicationURL != null && response.ApplicationURL != clientRequest.ClientHostURL)
+            else
             {
-                // host url does not exist in the database
-                return new LoginStatus { Status = "FAILED", Message = "Endpoint URL not found in the database." };
+                var loginResponse = await CallbackRequestToClient(email, response.APIEndpoint, clientRequest.CipherText, response.ClientSecretKey, clientRequest.ApplicationName);
+                return loginResponse;
             }
-            var loginResponse = await CallbackRequestToClient(response.DomainURL, clientRequest.CipherText, response.ClientSecretKey, clientRequest.ApplicationName);
-            return loginResponse;
-
+           
         }
-        private async Task<LoginStatus> CallbackRequestToClient(string endpointUrl, string token, string clientSecretKey, string applicationName)
+        private async Task<LoginStatus> CallbackRequestToClient(string email, string endpointUrl, string token, string clientSecretKey, string applicationName)
         {
             try
             {
+
                 using (var httpClient = new HttpClient())
                 {
                     httpClient.BaseAddress = new Uri(endpointUrl);
@@ -80,7 +93,7 @@ namespace ApplicationService.Services
                     string jsonData = JsonConvert.SerializeObject(clientUserDataRequest);
                     var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
 
-                    HttpResponseMessage httpResponse = await httpClient.PostAsync("api/ConnectWithHelpdesk/GetUserDetails", content);
+                    HttpResponseMessage httpResponse = await httpClient.PostAsync("",content);
 
                     if (httpResponse.IsSuccessStatusCode)
                     {
@@ -88,6 +101,7 @@ namespace ApplicationService.Services
                         CipherClientResponse cipherClientResponse = JsonConvert.DeserializeObject<CipherClientResponse>(responseBody);
                         string responseStatus = cipherClientResponse.Status;
                         string accessToken = responseStatus == "SUCCEED" ? cipherClientResponse.AccessToken : "";
+                        string refreshToken = responseStatus == "SUCCEED" ? cipherClientResponse.RefreshToken : "";
 
                         if (accessToken == "")
                         {
@@ -97,19 +111,10 @@ namespace ApplicationService.Services
                         var decryptToken = JWT.Decode(accessToken, Convert.FromBase64String(clientSecretKey));
                         CipherUserDataModel cipherUserDataModel = JsonConvert.DeserializeObject<CipherUserDataModel>(decryptToken);
 
-                        var userFound = await _externalAuthorizationRepository.IsUserFound(cipherUserDataModel.Email, cipherUserDataModel.UserName);
-                        if (userFound != null)
-                        {
-                            var loginResponse = await _externalAuthorizationRepository.AuthenticateExternalUser(userFound.Email, cipherClientResponse.RefreshToken, applicationName);
-                            return loginResponse;
-                        }
-                        else
-                        {
-                            await _externalAuthorizationRepository.RegisterExternalUser(cipherUserDataModel, cipherClientResponse.RefreshToken, applicationName);
-                            // After registration, attempt to authenticate the user again
-                            var loginResponse = await _externalAuthorizationRepository.AuthenticateExternalUser(cipherUserDataModel.Email, cipherClientResponse.RefreshToken, applicationName);
-                            return loginResponse;
-                        }
+                        var loginResponse = await _externalAuthorizationRepository.RegisterExternalUser(cipherUserDataModel, cipherClientResponse.RefreshToken, applicationName);
+                        var tokenres = await _externalAuthorizationRepository.SaveExternalTokens(email, applicationName, accessToken, refreshToken);
+
+                        return loginResponse;
                     }
                     else
                     {

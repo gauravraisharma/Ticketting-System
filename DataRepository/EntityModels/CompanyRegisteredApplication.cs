@@ -17,7 +17,7 @@ namespace DataRepository.EntityModels
         [Column(TypeName = "nvarchar(2048)")]
         public string? ApplicationURL{ get; set; }
         [Column(TypeName = "nvarchar(2048)")]
-        public string? DomainURL { get; set; }
+        public string? APIEndpoint { get; set; }
         [Column(TypeName = "varchar(500)")]
         public string? ClientSecretKey { get; set; }
             

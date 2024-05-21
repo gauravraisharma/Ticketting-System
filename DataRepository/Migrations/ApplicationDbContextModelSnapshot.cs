@@ -280,6 +280,9 @@ namespace DataRepository.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("APIEndpoint")
+                        .HasColumnType("nvarchar(2048)");
+
                     b.Property<string>("ApplicationName")
                         .HasColumnType("varchar(500)");
 
@@ -298,9 +301,6 @@ namespace DataRepository.Migrations
 
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("DomainURL")
-                        .HasColumnType("nvarchar(2048)");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");

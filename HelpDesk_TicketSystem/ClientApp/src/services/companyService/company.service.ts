@@ -52,6 +52,6 @@ export class UpdateTimeZone {
 export class RegisterCompanyApplication {
   applicationName: string = '';
   applicationURL: string = '';
-  domainURL: string = '';
+  apiEndpoint: string = '';
   companyId: number = null;
 }

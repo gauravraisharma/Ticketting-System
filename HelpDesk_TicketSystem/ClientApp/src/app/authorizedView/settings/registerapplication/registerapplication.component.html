@@ -40,11 +40,14 @@
           <div class="col-sm-6">
             <mat-form-field class="full-width-field" appearance="outline">
               <mat-label>Application URL</mat-label>
-              <input type="text" placeholder="Application URL" formControlName="applicationURL" aria-label="Application URL" matInput />
+              <input type="text" placeholder="Application URL" formControlName="applicationURL" aria-label="Application URL" matInput
+                    />
 
-              <mat-icon matSuffix matTooltip="Please enter a valid URL"><i class="fa fa-exclamation-circle" style="color: black;" aria-hidden="true"></i></mat-icon>
+              <mat-icon matSuffix matTooltip="Enter the domain URL of your application from which the Single Sign-On (SSO) requests will be initiated.
+                        Example:'https:/yourdomain.com/'">
+              <i class="fa fa-exclamation-circle" style="color: black;" aria-hidden="true"></i></mat-icon>
               <mat-error *ngIf="applicationForm.get('applicationURL')?.invalid">
-                Please enter Application URL
+                Please enter a valid Application URL
               </mat-error>
             </mat-form-field>
           </div>
@@ -52,11 +55,12 @@
         <div class="row">
           <div class="col-sm-6">
             <mat-form-field class="full-width-field" appearance="outline">
-              <mat-label>Domain URL</mat-label>
-              <input type="text" placeholder="Domain URL" formControlName="domainURL" aria-label="Domain URL" matInput />
-              <mat-icon matSuffix matTooltip="Please enter a valid URL"><i class="fa fa-exclamation-circle" style="color: black;" aria-hidden="true"></i></mat-icon>
-              <mat-error *ngIf="applicationForm.get('domainURL')?.invalid">
-                Please enter Domain URL
+              <mat-label>API Endpoint</mat-label>
+              <input type="text" placeholder="API Endpoint" formControlName="apiEndpoint" aria-label="API Endpoint" matInput
+                  />
+              <mat-icon matSuffix matTooltip="Provide the API endpoint URL of your application that the Helpdesk system will call to retrieve user details during the SSO process. "><i class="fa fa-exclamation-circle" style="color: black;" aria-hidden="true"></i></mat-icon>
+              <mat-error *ngIf="applicationForm.get('apiEndpoint')?.invalid">
+                Please enter a valid API Endpoint
               </mat-error>
             </mat-form-field>
             </div>
