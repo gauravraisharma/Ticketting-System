@@ -1,4 +1,5 @@
-﻿using DataRepository.EntityModels;
+﻿using Azure.Core;
+using DataRepository.EntityModels;
 using DataRepository.IRepository;
 using DataRepository.Repository;
 using DataRepository.Utils;
@@ -84,18 +85,20 @@ namespace DataRepository.Repositoryy
                 return ex.Message;
             }
         }
-        public async Task<LoginStatus> AuthenticateExternalUser(string email)
+        public async Task<ExternalLoginStatus> AuthenticateExternalUser(string email, string applicationName)
         {
             var user = await _userManager.FindByEmailAsync(email);
             if (user == null)
             {
-                return new LoginStatus
+                return new ExternalLoginStatus
                 {
                     Status = "FAILED",
                     Message = "User doesn't exist"
                 };
             }
-           
+            var accessToken = await _userManager.GetAuthenticationTokenAsync(user, applicationName, "External Access Token");
+            var refreshToken = await _userManager.GetAuthenticationTokenAsync(user, applicationName, "External Refresh Token");
+
 
             var userRoles = await _userManager.GetRolesAsync(user);
             var token = Helper.GenerateToken(user, false, _config["Jwt:Key"], userRoles.FirstOrDefault().ToUpper());
@@ -107,7 +110,7 @@ namespace DataRepository.Repositoryy
                                        TimeZone = Company.TimeZone
                                    }
                                   ).FirstOrDefault();
-            return new LoginStatus
+            return new ExternalLoginStatus
             {
                 Status = "SUCCEED",
                 Message = "Login Successfully",
@@ -115,12 +118,15 @@ namespace DataRepository.Repositoryy
                 UserType = userRoles[0],
                 UserId = user.Id,
                 CompanyId = user.CompanyId,
-                TimeZone = (userRoles[0].ToUpper() == "SUPERADMIN") ? null : CompanyTimeZone.TimeZone
+                TimeZone = (userRoles[0].ToUpper() == "SUPERADMIN") ? null : CompanyTimeZone.TimeZone,
+                AccessToken = accessToken,
+                RefreshToken = refreshToken
+
             };
         }
 
 
-        public async Task<LoginStatus> RegisterExternalUser(CipherUserDataModel cipherUserDataModel, string refreshToken, string applicationName)
+        public async Task<ExternalLoginStatus> RegisterExternalUser(CipherUserDataModel cipherUserDataModel, string accessToken, string refreshToken, string applicationName)
         {
             var userType = await GetRoleId(cipherUserDataModel.UserType.ToString());
             var companyId =  (from companyApplication in _context.CompanyRegisteredApplications  where companyApplication.ApplicationName == applicationName
@@ -143,11 +149,13 @@ namespace DataRepository.Repositoryy
             var userResponse = await _accountRepository.CreateApplicationUser(userModel);
             if (userResponse.Status == "SUCCEED")
             {
-                var loginResponse = await AuthenticateExternalUser(userModel.Email);
+                var tokenres = await SaveExternalTokens(userModel.Email, applicationName, accessToken, refreshToken);
+
+                var loginResponse = await AuthenticateExternalUser(userModel.Email, applicationName);
                 return loginResponse;
 
             }
-            return new LoginStatus { Status = "FAILED", Message = "Failed to register user." };
+            return new ExternalLoginStatus { Status = "FAILED", Message = "Failed to register user." };
 
         }
 
@@ -157,7 +165,7 @@ namespace DataRepository.Repositoryy
             {
                 var user = await _userManager.FindByEmailAsync(email);
 
-                await _userManager.SetAuthenticationTokenAsync(user, applicationName, "External Access Token", refreshToken);
+                await _userManager.SetAuthenticationTokenAsync(user, applicationName, "External Access Token", accessToken);
                 await _userManager.SetAuthenticationTokenAsync(user, applicationName, "External Refresh Token", refreshToken);
                 return new ResponseStatus()
                 {

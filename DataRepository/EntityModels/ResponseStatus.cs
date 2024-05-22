@@ -22,7 +22,7 @@ namespace DataRepository.EntityModels
     {
         public string Status { get; set; }
         public string Message { get; set; }
-        public int ConversationId { get; set;}
+        public int ConversationId { get; set; }
     }
     public class ConversationDBResponseStatus
     {
@@ -38,7 +38,7 @@ namespace DataRepository.EntityModels
         public int TicketId { get; set; }
         public List<ReceiverMailModel> Emails { get; set; }
     }
-    
+
     public class TicketMailModel
     {
         public string CreatorName { get; set; }
@@ -169,24 +169,24 @@ namespace DataRepository.EntityModels
         public int CompanyId { get; set; }
         public string CompanyName { get; set; }
         public DateTime CreatedOn { get; set; }
-        public int UserCount { get; set; } 
-    
-     }
+        public int UserCount { get; set; }
+
+    }
     public class SwitchToAdminResponseStatus
     {
         public string Status { get; set; }
         public string Message { get; set; }
         public string? Timezone { get; }
     }
-    public class ChatUserResponse 
-    { 
+    public class ChatUserResponse
+    {
         public Guid UserId { get; set; }
         public int ChatRoomId { get; set; }
         public bool IsExisting { get; set; }
         public string Status { get; set; }
         public string Message { get; set; }
     }
-    public class GetChatUsersResponse 
+    public class GetChatUsersResponse
     {
         public Guid ChatUserId { get; set; }
         public string ChatUserName { get; set; }
@@ -197,7 +197,7 @@ namespace DataRepository.EntityModels
         public int UnReadMessageCount { get; set; }
     }
 
-   public class ChatResponse
+    public class ChatResponse
     {
         public string message { get; set; }
         public DateTime createdOn { get; set; }
@@ -233,5 +233,10 @@ namespace DataRepository.EntityModels
         public string ClientSecretKey { get; set; }
         public string ApplicationURL { get; set; }
         public string APIEndpoint { get; set; }
+    }
+    public class ExternalLoginStatus : LoginStatus
+    {
+        public string AccessToken { get; set; }
+        public string RefreshToken {  get; set; }
     }
 }

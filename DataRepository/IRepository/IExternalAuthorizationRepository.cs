@@ -12,8 +12,8 @@ namespace DataRepository.IRepository
         Task<ConnectWithClientResponse> ConnectWithClient(ConnectWithClientBLLModel clientRequest);
         Task<ApplicationUser> IsUserFound(string userEmail);
         Task<string> GetRoleId(string roleName);
-        Task<LoginStatus> RegisterExternalUser(CipherUserDataModel cipherUserDataModel, string refreshToken, string applicationName);
-        Task<LoginStatus> AuthenticateExternalUser(string email);
+        Task<ExternalLoginStatus> RegisterExternalUser(CipherUserDataModel cipherUserDataModel, string accessToken, string refreshToken, string applicationName);
+        Task<ExternalLoginStatus> AuthenticateExternalUser(string email, string applicationName);
         Task<ResponseStatus> SaveExternalTokens(string email, string applicationName, string accessToken, string refreshToken);
     }
 }
