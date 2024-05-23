@@ -1,4 +1,5 @@
-﻿using ApplicationService.IServices;
+﻿using ApplicationService.Constants;
+using ApplicationService.IServices;
 using DataRepository.EntityModels;
 using Jose;
 using Microsoft.AspNetCore.Mvc;
@@ -26,7 +27,15 @@ namespace HelpDesk_TicketSystem.Controllers
             
 
             var response = await _externalAuthorizationService.ConnectWithClient(clientRequest);
+            if (response.Status == "REDIRECT")
+            {
+                 // Set up the response to redirect
+                 Response.StatusCode = StatusCodes.Status302Found;
+                 Response.Headers["Location"] = response.Message;
+                 return new EmptyResult(); 
+            }
             return Ok(response);
-        }
+            }
+        
     }
 }

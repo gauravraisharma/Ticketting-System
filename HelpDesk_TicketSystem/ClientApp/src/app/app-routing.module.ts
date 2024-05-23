@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import {  RouterModule, Routes } from '@angular/router';
 import { HomepageComponent } from './homepage/homepage.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { PageNotAuthorizedComponent } from './page-not-authorized/page-not-authorized.component';
 
 const appRoutes: Routes = [
   {
@@ -43,6 +44,10 @@ const appRoutes: Routes = [
   {
     path: 'chat',
     loadChildren: () => import('./authorizedView/chat/chat.module').then(m => m.ChatModule)
+  },
+  {
+    path: 'page-not-authorized',
+    component: PageNotAuthorizedComponent
   },
   {
     path: '**',

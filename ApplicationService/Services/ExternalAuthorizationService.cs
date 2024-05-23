@@ -147,7 +147,7 @@ namespace ApplicationService.Services
                     }
                     else
                     {
-                        return new ExternalLoginStatus { Status = "FAILED", Message = "Failed to connect with Client." };
+                        return new ExternalLoginStatus { Status = "REDIRECT", Message = "page-not-authorized" };
                     }
                 }
             }
@@ -157,8 +157,8 @@ namespace ApplicationService.Services
                 Console.WriteLine($"Error in CallbackRequestToClient: {ex.Message}");
                 return new ExternalLoginStatus { Status = "FAILED", Message = "An error occurred" };
             }
-        }
-
+            }
+       
     }
 }
 

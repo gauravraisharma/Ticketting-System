@@ -25,6 +25,7 @@ import { environment } from '../environments/environment';
 import { CommonModule } from '@angular/common';
 import { ChatBotComponent } from './sharedComponent/chat-bot/chat-bot.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { PageNotAuthorizedComponent } from './page-not-authorized/page-not-authorized.component';
 
 
 @NgModule({
@@ -35,6 +36,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     AnonymousLayoutComponent,
     AuthorizedLayoutComponent,
     PageNotFoundComponent,
+    PageNotAuthorizedComponent,
     HomepageComponent,
   ],
   imports: [
