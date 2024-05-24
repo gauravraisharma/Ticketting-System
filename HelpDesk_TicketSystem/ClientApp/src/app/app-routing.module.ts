@@ -4,6 +4,7 @@ import {  RouterModule, Routes } from '@angular/router';
 import { HomepageComponent } from './homepage/homepage.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { PageNotAuthorizedComponent } from './page-not-authorized/page-not-authorized.component';
+import { DevelopersGuideComponent } from './developers-guide/developers-guide.component';
 
 const appRoutes: Routes = [
   {
@@ -48,6 +49,10 @@ const appRoutes: Routes = [
   {
     path: 'page-not-authorized',
     component: PageNotAuthorizedComponent
+  },
+  {
+    path: 'developersGuide',
+    component: DevelopersGuideComponent
   },
   {
     path: '**',

@@ -1,7 +1,10 @@
-﻿using DataRepository.EntityModels;
+﻿using DataRepository.Constants;
+using DataRepository.EntityModels;
 using DataRepository.IRepository;
+using DataRepository.Utils;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,12 +18,15 @@ namespace DataRepository.Repositoryy
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ApplicationDbContext _context;
+        private readonly IConfiguration _config;
+
         public CompanyRepository(UserManager<ApplicationUser> userManager,
-            ApplicationDbContext context
+            ApplicationDbContext context, IConfiguration config
            )
         {
         _userManager = userManager;
             _context = context;
+            _config = config;
         }
 
         public async Task<List<GetCompanyResponse>> GetCompany()
@@ -275,6 +281,63 @@ namespace DataRepository.Repositoryy
                 };
             }
             }
+
+        public async Task<CompanyLogoResponseStatus> UploadCompanyLogo(CompanyLogoBLLModel companyLogoModel)
+        {
+            if (_context.Companys == null)
+            {
+                return new CompanyLogoResponseStatus
+                {
+                    Status = "FAILED",
+                    Message = "Database context is null"
+                };
+            }
+            try
+            {
+                var company = await _context.Companys.FindAsync(companyLogoModel.CompanyId);
+                if (company == null)
+                {
+                    return new CompanyLogoResponseStatus
+                    {
+                        Status = "FAILED",
+                        Message = "Company not found"
+                    };
+                }
+                if (companyLogoModel.CompanyLogoDetails != null && companyLogoModel.CompanyLogoDetails.Count > 0)
+                {
+                    var file = companyLogoModel.CompanyLogoDetails.First();
+                    company.CompanyLogo = file.FileName;
+                    company.ByteSize = file.ByteSize;
+
+                    _context.Companys.Update(company);
+                    await _context.SaveChangesAsync();
+
+                    return new CompanyLogoResponseStatus
+                    {
+                        Status = "SUCCEED",
+                        Message = "Logo saved successfully",
+                        CompanyLogo =  AttachmentHelper.GetAssetLink(_config["AssetLink"], "\\" + ImageFolderConstants.CompanyLogo + "\\", company.CompanyLogo)
+                    };
+                }
+                else
+                {
+                    return new CompanyLogoResponseStatus
+                    {
+                        Status = "FAILED",
+                        Message = "No file provided"
+                    };
+                }
+            }
+            catch (Exception ex)
+            {
+                return new CompanyLogoResponseStatus
+                {
+                    Status = "FAILED",
+                    Message = ex.Message
+                };
+            }
         }
-    
+
+    }
+
 }

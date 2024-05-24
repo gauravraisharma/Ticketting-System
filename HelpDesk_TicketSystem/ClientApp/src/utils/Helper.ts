@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 })
 export class Helper {
 
-  setDataInLocalStorage(token: string, userType: string, userId: string, companyId: any, timeZone: string, rememberMe: string) {
+  setDataInLocalStorage(token: string, userType: string, userId: string, companyId: any, timeZone: string, rememberMe: string, companyLogo :string) {
     localStorage.clear();
     localStorage.setItem('token', token);
     localStorage.setItem('loggedInTime', Date.now().toString());
@@ -17,6 +17,7 @@ export class Helper {
     if (userType.toUpperCase() != 'SUPERADMIN') {
       localStorage.setItem('companyId', companyId.toString());
     }
+    localStorage.setItem('companyLogo', (companyLogo == null) ? null : companyLogo)
 
   }
 }

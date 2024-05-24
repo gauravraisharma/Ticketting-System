@@ -1,5 +1,7 @@
 ﻿using ApplicationService.IRepository;
+using DataRepository.Constants;
 using DataRepository.EntityModels;
+using DataRepository.Utils;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -173,7 +175,8 @@ namespace DataRepository.Repository
                                                                 select new AttachmentDetail
                                                                 {
                                                                     attachmentName= attachment.Name,
-                                                                    downLoadLink= string.Concat( _config["AssetLink"], "\\Attachments\\", attachment.Name)
+                                                                    downLoadLink = AttachmentHelper.GetAssetLink(_config["AssetLink"], "\\"+ImageFolderConstants.Attachment+"\\", attachment.Name)
+                                                                    //downLoadLink= string.Concat( _config["AssetLink"], "\\Attachments\\", attachment.Name)
                                                                 }
                                                                 ).ToList()
                                              }

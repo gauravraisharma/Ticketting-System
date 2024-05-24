@@ -11,10 +11,10 @@ namespace ApplicationService.Utilities
     public static class FileOperation
     {
       
-        public static List<FileUploadResponse> UploadFile(IFormFileCollection files, IWebHostEnvironment _hostingEnvironment,IConfiguration _config)
+        public static List<FileUploadResponse> UploadFile(IFormFileCollection files, IWebHostEnvironment _hostingEnvironment,IConfiguration _config, string pathType)
         {
             string webRootPath = _hostingEnvironment.WebRootPath;
-            string attachmentsPath = Path.Combine(_config["AssetPath"], "Attachments");
+            string attachmentsPath = Path.Combine(_config["AssetPath"], pathType);
 
             try
             {
@@ -24,7 +24,7 @@ namespace ApplicationService.Utilities
                 List<FileUploadResponse> attachmentsResponse = new List<FileUploadResponse>();
                 for(int index=0; index< files.Count();index++)
                 {
-                    string fileName = String.Concat(DateTime.Now.ToString("MM_dd_yyyy_HH_mm"),"_",index ,"_attachment", Path.GetExtension(ContentDispositionHeaderValue.Parse(files[index].ContentDisposition).FileName.Trim('"')));
+                    string fileName = String.Concat(DateTime.Now.ToString("MM_dd_yyyy_HH_mm"),"_",index, "_" + pathType, Path.GetExtension(ContentDispositionHeaderValue.Parse(files[index].ContentDisposition).FileName.Trim('"')));
                     string fullPath = Path.Combine(attachmentsPath, fileName);
                     using (var stream = new FileStream(fullPath, FileMode.Create))
                     {

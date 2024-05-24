@@ -1,0 +1,11 @@
+.hidden-label {
+  visibility: hidden;
+}
+
+.mat-form-field-appearance-outline .mat-form-field-outline {
+  border-color: rgba(0, 0, 0, 0.54);
+}
+
+.mat-form-field-appearance-outline.mat-focused .mat-form-field-outline {
+  border-color: rgba(0, 0, 0, 0.87);
+}

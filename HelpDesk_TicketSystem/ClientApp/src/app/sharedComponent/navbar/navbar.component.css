@@ -1,0 +1,5 @@
+.img-fluid {
+  max-width: 100%;
+  width: 260px; /* Set the desired width */
+  height: 50px !important; /* Set the desired height */
+}

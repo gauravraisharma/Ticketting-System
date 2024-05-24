@@ -1,8 +1,11 @@
 ﻿using ApplicationService.IServices;
 using ApplicationService.Utilities;
+using DataRepository.Constants;
 using DataRepository.EntityModels;
 using DataRepository.IRepository;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting.Internal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,10 +18,12 @@ namespace ApplicationService.Services
     {
         private readonly ICompanyRepository _companyRepository;
         private readonly IConfiguration _config;
-        public CompanyService(ICompanyRepository companyRepository,IConfiguration config)
+        private readonly IWebHostEnvironment _hostingEnvironment;
+        public CompanyService(ICompanyRepository companyRepository,IConfiguration config, IWebHostEnvironment hostingEnvironment)
         {
             _companyRepository = companyRepository;
             _config = config;
+            _hostingEnvironment = hostingEnvironment;
         }
 
         public Task<List<GetCompanyResponse>> GetCompany()
@@ -73,6 +78,27 @@ namespace ApplicationService.Services
         public Task<ResponseStatus> UpdateTimeZone(UpdateTimeZone updateTimeZoneModel)
         {
            return _companyRepository.UpdateTimeZone(updateTimeZoneModel);
+        }
+
+        public async Task<CompanyLogoResponseStatus> UploadCompanyLogo(CompanyLogoModel companyLogoModel)
+        {
+            List<FileUploadResponse> attachmentsResponse = FileOperation.UploadFile(companyLogoModel.CompanyLogo, _hostingEnvironment, _config, ImageFolderConstants.CompanyLogo);
+            if (attachmentsResponse != null)
+            {
+                CompanyLogoBLLModel model = new CompanyLogoBLLModel
+                {
+                    CompanyId = int.Parse(companyLogoModel.CompanyId),
+                    CompanyLogoDetails = attachmentsResponse,
+                };
+                CompanyLogoResponseStatus attachmentResponse = await _companyRepository.UploadCompanyLogo(model);
+                return attachmentResponse;
+            }
+            return new CompanyLogoResponseStatus
+            {
+                Status = "FAILED",
+                Message = "Something went wrong while uploading the attachment.",
+            };
+
         }
     }
 }

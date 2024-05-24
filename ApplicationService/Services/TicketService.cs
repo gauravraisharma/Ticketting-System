@@ -14,6 +14,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting.Internal;
 using ApplicationService.Utilities;
 using Microsoft.AspNetCore.Http;
+using DataRepository.Constants;
 
 namespace ApplicationService.Services
 {
@@ -32,7 +33,7 @@ namespace ApplicationService.Services
         public ResponseStatus AddAttachMents(int ticketId, IFormFileCollection files, string attachmentType)
         {
             // Upload the file in system 
-            List<FileUploadResponse> attachmentsResponse = FileOperation.UploadFile(files, _hostingEnvironment, _config);
+            List<FileUploadResponse> attachmentsResponse = FileOperation.UploadFile(files, _hostingEnvironment, _config, ImageFolderConstants.Attachment);
             if (attachmentsResponse != null)
             {
                 ResponseStatus attachmentResponse = _ticketRepository.AddAttachMents(ticketId, attachmentsResponse, attachmentType);

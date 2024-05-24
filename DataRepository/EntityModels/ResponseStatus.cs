@@ -12,6 +12,7 @@ namespace DataRepository.EntityModels
         public string? UserId { get; set; }
         public int? CompanyId { get; set; }
         public string? TimeZone { get; set; }
+        public string CompanyLogo {  get; set; }
     }
     public class ResponseStatus
     {
@@ -238,5 +239,9 @@ namespace DataRepository.EntityModels
     {
         public string AccessToken { get; set; }
         public string RefreshToken {  get; set; }
+    }
+    public class CompanyLogoResponseStatus : ResponseStatus
+    {
+        public string CompanyLogo { get; set; }
     }
 }

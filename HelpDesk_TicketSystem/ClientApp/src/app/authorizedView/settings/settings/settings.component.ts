@@ -17,7 +17,7 @@ import { Clipboard } from '@angular/cdk/clipboard';
   styleUrls: ['./settings.component.css']
 })
 export class SettingsComponent implements OnInit {
-  public allTimeZones: string[] = moment.tz.names(); 
+  public allTimeZones: string[] = moment.tz.names();
   showScript: boolean = false;
 
   displayedColumns: string[] = ['applicationName', 'applicationURL', 'clientSecretKey', 'createdOn', 'action'];
@@ -28,15 +28,23 @@ export class SettingsComponent implements OnInit {
   timeZoneForm = this.fb.nonNullable.group({
     timeZone: ['', [Validators.required]],
   });
+  companyLogoForm = this.fb.nonNullable.group({
+    companyLogo: [''],
+  })
+
   isLoading: boolean = false;
   filteredOptions: Observable<string[]>;
   companyID = localStorage.getItem('companyId');
-  embeddedScriptForChatBot =''
+  embeddedScriptForChatBot = ''
   secretKeyVisible: { [key: string]: boolean } = {};
+
+  selectedFile: File | null = null;
+  selectedFileSrc: string | ArrayBuffer | null = null;
+
   constructor(private fb: FormBuilder, private companyService: CompanyService,
     private router: Router,
     private toastr: ToastrService,
-    private clipboard: Clipboard
+    private clipboard: Clipboard,
   ) {
 
   }
@@ -93,9 +101,9 @@ export class SettingsComponent implements OnInit {
         this.isLoading = false;
       }
     }
-      else {
-        this.toastr.error("please select a valid TimeZone");
-        this.isLoading = false;
+    else {
+      this.toastr.error("please select a valid TimeZone");
+      this.isLoading = false;
     }
   }
 
@@ -143,7 +151,74 @@ export class SettingsComponent implements OnInit {
     window.getSelection()?.removeAllRanges();
     this.toastr.success('Chatbot Script Copied');
   }
+
+
+  onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      this.selectedFile = input.files[0];
+
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        this.selectedFileSrc = e.target?.result;
+      };
+      reader.readAsDataURL(this.selectedFile);
+    }
+  }
+
+  uploadCompanyLogo(): void {
+    debugger
+    if (this.selectedFile) {
+      let companyId = localStorage.getItem('companyId')
+      let companyLogoData = new FormData();
+      companyLogoData.append('CompanyId', companyId);
+      companyLogoData.append('CompanyLogo', this.selectedFile);
+      this.companyService.uploadCompanyLogo(companyLogoData).subscribe((response: any) => {
+        debugger
+        this.toastr.success(response.message);
+
+        setTimeout(() => {
+          const newLogoUrl = response.companyLogo
+          this.companyService.updateCompanyLogo(newLogoUrl);
+          this.isLoading = false;
+        }, 1000);
+        //this.router.navigate(['/dashboard']);
+        this.isLoading = false;
+      },
+        (error: any) => {
+          console.log(error)
+          if (error.status == 404) {
+            this.toastr.error("UnAuthorize access");
+          }
+          else if (error.status == 400) {
+            this.toastr.error(error.error);
+          }
+          else {
+            this.toastr.error("Something went wrong");
+          }
+          this.isLoading = false;
+        });
+    }
+    else {
+      this.toastr.error('Please select a file to upload.');
+      return;
+    }
+  }
+  showLabel(): void {
+    const label = document.getElementById('file-label');
+    if (label) {
+      label.classList.remove('hidden-label');
+    }
+  }
+
+  hideLabel(): void {
+    const label = document.getElementById('file-label');
+    if (label) {
+      label.classList.add('hidden-label');
+    }
+  }
 }
+ 
 
 export interface registeredApplicationModel {
   id: number;
@@ -152,4 +227,5 @@ export interface registeredApplicationModel {
   clientSecretKey: string;
   createdOn: Date;
 }
+
 

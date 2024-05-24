@@ -99,6 +99,27 @@ namespace HelpDesk_TicketSystem.Controllers
             }
 
         }
+        [HttpPost("UploadCompanyLogo")]
+        public async Task<IActionResult> UploadCompanyLogo([FromForm] CompanyLogoModel companyLogoModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest("Please pass the valid Input.");
+            }
+
+
+            var responseStatus = await _companyService.UploadCompanyLogo(companyLogoModel);
+
+            if (responseStatus.Status == "SUCCEED")
+            {
+                return Ok(responseStatus);
+            }
+            else
+            {
+                return BadRequest(responseStatus.Message);
+            }
+
+        }
     }
 }
 

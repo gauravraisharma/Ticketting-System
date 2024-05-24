@@ -1,4 +1,5 @@
 ﻿using Azure.Core;
+using DataRepository.Constants;
 using DataRepository.EntityModels;
 using DataRepository.IRepository;
 using DataRepository.Utils;
@@ -298,6 +299,13 @@ namespace DataRepository.Repository
                                         TimeZone = Company.TimeZone
                                     }
                                    ).FirstOrDefault();
+                    var CompanyLogo = (from Company in _context.Companys
+                                           where Company.Id == user.CompanyId
+                                           select new
+                                           {
+                                               companyLogo = Company.CompanyLogo
+                                           }
+                                   ).FirstOrDefault();
 
                     return new LoginStatus
                     {
@@ -306,8 +314,10 @@ namespace DataRepository.Repository
                         Token = token,
                         UserType = userRoles[0],
                         UserId = user.Id,
-                        CompanyId=user.CompanyId,
-                        TimeZone= (userRoles[0].ToUpper()=="SUPERADMIN")?null:CompanyTimeZone.TimeZone
+                        CompanyId = user.CompanyId,
+                        TimeZone = (userRoles[0].ToUpper() == "SUPERADMIN") ? null : CompanyTimeZone.TimeZone,
+                        CompanyLogo =CompanyLogo.companyLogo == "" ? null : AttachmentHelper.GetAssetLink(_config["AssetLink"], "\\" + ImageFolderConstants.CompanyLogo + "\\", CompanyLogo.companyLogo)
+                        
                     };
 
                 }
