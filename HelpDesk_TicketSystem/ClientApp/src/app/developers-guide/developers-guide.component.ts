@@ -8,75 +8,31 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 export class DevelopersGuideComponent {
   @ViewChild('overviewDataSection') overviewDataSection: ElementRef;
   @ViewChild('getStartedDataSection') getStartedDataSection: ElementRef;
+  activeTab: string = 'overview';
+  activeSection: string = '';
+
+  setActiveTab(tab: string, sectionId: string) {
+    this.activeTab = tab;
+    this.activeSection = ''; 
+    this.scrollToSection(sectionId);
+  }
+  setActiveSection(section: string, sectionId: string) {
+    this.activeSection = section;
+    this.scrollToSection(sectionId);
+  }
 
   scrollToSection(sectionId: string): void {
     const element = document.getElementById(sectionId);
 
     if (element) {
-      // Improved scrolling behavior with optional smooth scrolling and offset
       element.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   }
-  scrollToIntroduction() {
-    this.scrollToElement('introduction');
-  }
-
-  scrollToKeyFeatures() {
-    this.scrollToElement('key-features');
-  }
-
-  scrollToBenefits() {
-    this.scrollToElement('benefits');
-  }
-
-  scrollToAudience() {
-    this.scrollToElement('audience');
-  }
-  scrollToJWT() {
-    this.scrollToElement('jwt')
-  }
-  scrolltoRegisterApp() {
-    this.scrollToElement('register-app')
-  }
-  scrolltoUsingAPIKey() {
-    this.scrollToElement('using-api-key')
-  }
-  scrollToGenerateAuthenticationToken() {
-    this.scrollToElement('authentication-token')
-  }
-  scrollToWhyJWE() {
-    this.scrollToElement('why-jwe')
-  }
-  scrollToApiEndpoint() {
-    this.scrollToElement('api-endpoint')
-  }
-  scrollToUserIdentityToken() {
-    this.scrollToElement('user-identity-token')
-  }
-  scrollToRefreshToken() {
-    this.scrollToElement('refresh-token')
-  }
-  scrollToRequestPayload() {
-    this.scrollToElement('request-payload')
-  }
-  scrollToResponsePayload() {
-    this.scrollToElement('response-payload')
-  }
-  scrollToInvalidToken() {
-    this.scrollToElement('invalid-token')
-  }
-  scrollToTokenExpired() {
-    this.scrollToElement('token-expired')
-  }
-  scrollToServerError() {
-    this.scrollToElement('server-error')
-  }
-
+ 
   scrollToElement(elementId: string): void {
     const element = document.getElementById(elementId);
 
     if (element) {
-      // Improved scrolling behavior with optional smooth scrolling and offset
       element.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   }
