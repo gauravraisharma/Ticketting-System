@@ -26,6 +26,10 @@ import { CommonModule } from '@angular/common';
 import { ChatBotComponent } from './sharedComponent/chat-bot/chat-bot.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { PageNotAuthorizedComponent } from './page-not-authorized/page-not-authorized.component';
+import { ThemeModule } from './@theme/theme.module';
+import { NbActionsModule, NbButtonModule, NbContextMenuModule, NbIconModule, NbLayoutModule, NbMenuModule, NbSearchModule, NbSelectModule, NbSidebarModule, NbUserModule } from '@nebular/theme';
+import { NbSecurityModule } from '@nebular/security';
+import { NbEvaIconsModule } from '@nebular/eva-icons';
 
 
 @NgModule({
@@ -47,7 +51,20 @@ import { PageNotAuthorizedComponent } from './page-not-authorized/page-not-autho
     SharedModule,
     CommonModule,
     ToastrModule.forRoot(),
-    MatTooltipModule
+    MatTooltipModule,
+    ThemeModule.forRoot(),
+    NbLayoutModule,
+    NbMenuModule,
+    NbUserModule,
+    NbActionsModule,
+    NbSearchModule,
+    NbSidebarModule,
+    NbContextMenuModule,
+    NbSecurityModule,
+    NbButtonModule,
+    NbSelectModule,
+    NbIconModule,
+    NbEvaIconsModule,
   ],
   providers: [
     AccountService,
