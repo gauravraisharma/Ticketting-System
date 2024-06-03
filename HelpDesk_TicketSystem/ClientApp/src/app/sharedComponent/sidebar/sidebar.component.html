@@ -1,34 +1,3 @@
 <!-- SIDEBAR -->
-<!--[ngClass]="status ? 'hide' : ''"-->
-<section id="sidebar" [ngClass]="SideMenuStatus ? 'left-280px' : ''">
-
-  <ul class="side-menu top">
-    <ng-container *ngFor="let menuItem of menu">
-    <li [ngClass]="(currentRoute.includes(menuItem.route)) ? 'active' : ''" >
-      <a [routerLink]="'/'+menuItem.route">
-        <i [class]='menuItem.iconClass'></i>
-        <span class="text">{{menuItem.title}}</span>
-        <span class="chatUnreadSideMenu " *ngIf="menuItem.route.includes('chat') && chatCount>0">{{chatCount}}</span>
-        
-      </a>
-    </li>
-      </ng-container>
-
-  </ul>
-  <ul class="side-menu">
-
-    <li *ngIf="SwitchToSuperadmin">
-      <a href="javascript:;" (click)="SwitchBackToSuperadmin()" class="text-primary">
-        <i class='bx bxs-exit'></i>
-        <span class="text">Switch Back to Superadmin</span>
-      </a>
-    </li>
-    <li>
-      <a href="javascript:;" (click)="logout()" class="logout">
-        <i class='bx bxs-log-out-circle'></i>
-        <span class="text">Logout</span>
-      </a>
-    </li>
-  </ul>
-</section>
-<!-- SIDEBAR -->
+  <nb-menu [items]="menu" (click)="menuClick($event)"></nb-menu>
+<!--SIDEBAR-->

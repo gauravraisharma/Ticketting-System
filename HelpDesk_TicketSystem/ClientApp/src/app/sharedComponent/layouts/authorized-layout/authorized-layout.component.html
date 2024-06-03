@@ -1,6 +1,6 @@
 
 
-<nb-layout windowMode>
+<!-- <nb-layout windowMode>
   <nb-layout-header fixed>
     <ngx-header></ngx-header>
   </nb-layout-header>
@@ -16,4 +16,20 @@
   <nb-layout-footer fixed>
     <ngx-footer></ngx-footer>
   </nb-layout-footer>
+</nb-layout> -->
+<nb-layout windowMode>
+  <nb-layout-header fixed>
+    <ngx-header class="display-None-Large-screen main-nav" (onSideMenuChange)="onSideMenuChange($event)"></ngx-header>
+  </nb-layout-header>
+
+  <nb-sidebar tag="menu-sidebar" class="menu-sidebar" responsive>
+    <app-sidebar [SideMenuStatus]="SideMenuStatus"></app-sidebar>
+  </nb-sidebar>
+  
+  <nb-layout-column id="content" [class]="(SideMenuStatus) ? 'w-100 start-0' : ''">
+    <router-outlet></router-outlet>
+  </nb-layout-column>
+
+  <nb-layout-footer fixed>© 2023 Company Name</nb-layout-footer>
 </nb-layout>
+

@@ -27,9 +27,13 @@ import { ChatBotComponent } from './sharedComponent/chat-bot/chat-bot.component'
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { PageNotAuthorizedComponent } from './page-not-authorized/page-not-authorized.component';
 import { ThemeModule } from './@theme/theme.module';
-import { NbActionsModule, NbButtonModule, NbContextMenuModule, NbIconModule, NbLayoutModule, NbMenuModule, NbSearchModule, NbSelectModule, NbSidebarModule, NbUserModule } from '@nebular/theme';
-import { NbSecurityModule } from '@nebular/security';
+import { NbActionsModule, NbButtonModule, NbContextMenuModule, NbIconModule, NbLayoutModule, NbMenuModule, NbMenuService, NbSearchModule, NbSelectModule, NbSidebarModule, NbSidebarService, NbThemeModule, NbUserModule } from '@nebular/theme';
+import { NbAccessChecker, NbAclService, NbRoleProvider, NbSecurityModule } from '@nebular/security';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
+import { UserService } from './@core/mock/users.service';
+import { LayoutService } from './@core/utils';
+import { NbSimpleRoleProvider } from './@core/core.module';
+import { UserData } from './@core/data/users';
 
 
 @NgModule({
@@ -53,18 +57,20 @@ import { NbEvaIconsModule } from '@nebular/eva-icons';
     ToastrModule.forRoot(),
     MatTooltipModule,
     ThemeModule.forRoot(),
+    NbThemeModule.forRoot({ name: 'default' }),
     NbLayoutModule,
-    NbMenuModule,
+    NbMenuModule.forRoot(),
     NbUserModule,
     NbActionsModule,
     NbSearchModule,
-    NbSidebarModule,
+    NbSidebarModule.forRoot(),
     NbContextMenuModule,
     NbSecurityModule,
     NbButtonModule,
     NbSelectModule,
     NbIconModule,
     NbEvaIconsModule,
+    
   ],
   providers: [
     AccountService,
@@ -73,11 +79,25 @@ import { NbEvaIconsModule } from '@nebular/eva-icons';
     CompanyService,
     DashboardService,
     ChatService,
+    NbSidebarService,
+    NbMenuService,
+    LayoutService,
+    NbAccessChecker,
+    NbAclService,
+    
     {
       provide: HTTP_INTERCEPTORS,
       useClass: APIInterceptor,
       multi: true
-    }],
+    },
+    {
+      provide: UserData,
+      useClass: UserService, 
+    },
+    {
+      provide: NbRoleProvider,
+      useClass: NbSimpleRoleProvider, 
+    },],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

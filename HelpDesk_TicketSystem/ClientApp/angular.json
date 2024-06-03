@@ -30,11 +30,9 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/@nebular/theme/styles/prebuilt/default.css",
               "./node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "@angular/material/prebuilt-themes/indigo-pink.css",
-              "src/assets/css/style.css",
-              "src/styles.css"
-
+              "src/app/@theme/styles/styles.scss"
             ],
             "scripts": ["./node_modules/bootstrap/dist/js/bootstrap.min.js" ]
           },
