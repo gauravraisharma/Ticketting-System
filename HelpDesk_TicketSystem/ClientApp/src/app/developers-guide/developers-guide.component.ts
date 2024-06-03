@@ -8,13 +8,15 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 export class DevelopersGuideComponent {
   @ViewChild('overviewDataSection') overviewDataSection: ElementRef;
   @ViewChild('getStartedDataSection') getStartedDataSection: ElementRef;
+
   activeTab: string = 'overview';
   activeSection: string = '';
 
+ 
   setActiveTab(tab: string, sectionId: string) {
     this.activeTab = tab;
     this.activeSection = ''; 
-    this.scrollToSection(sectionId);
+    this.scrollToElement(sectionId);
   }
   setActiveSection(section: string, sectionId: string) {
     this.activeSection = section;
@@ -36,5 +38,5 @@ export class DevelopersGuideComponent {
       element.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   }
-
+  
 }
