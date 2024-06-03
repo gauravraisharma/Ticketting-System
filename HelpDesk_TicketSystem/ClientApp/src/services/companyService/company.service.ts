@@ -8,7 +8,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class CompanyService {
-  private defaultLogo: string = '../../assets/images/Logo@1x.png';
+  private defaultLogo: string = '../../assets/images/Logo-White@1x.png';
   private logoUrl = new BehaviorSubject<string>(this.defaultLogo);
 
   constructor(private http: HttpClient) {

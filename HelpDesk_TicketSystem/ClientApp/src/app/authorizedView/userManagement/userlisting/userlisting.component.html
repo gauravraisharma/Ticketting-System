@@ -1,4 +1,4 @@
-<div>
+<!-- <div>
 
   <div class="head-title">
     <div class="left">
@@ -85,4 +85,162 @@
     </mat-paginator>
   </div>
   <loader *ngIf="isLoading"></loader>
-</div>
+</div> -->
+
+
+<!-- 
+
+
+<nb-card>
+  <nb-card-header>
+    User Management
+  </nb-card-header>
+
+  <nb-card-body>
+    <div class="head-title">
+      <div class="left">
+        <h1>User Management</h1>
+        <ul class="breadcrumb">
+          <li>
+            <a routerLink="/dashboard">Home</a>
+          </li>
+          <li><i class='bx bx-chevron-right'></i></li>
+          <li>
+            <a class="active" href="javascript:;">User Management</a>
+          </li>
+        </ul>
+      </div>
+      <div class="mb-3">
+        <a nbButton status="primary" routerLink="/users/adduser">Add User</a>
+      </div>
+    </div>
+
+  </nb-card-body>
+
+  <loader *ngIf="isLoading"></loader>
+</nb-card> -->
+
+
+<nb-card>
+  <nb-card-header>
+      User Management
+      <!-- <ul class="breadcrumb">
+        <li>
+          <a routerLink="/dashboard">Home</a>
+        </li>
+        <li><i class='bx bx-chevron-right'></i></li>
+        <li>
+          <a class="active" href="javascript:;">User Management</a>
+        </li>
+      </ul> -->
+  
+  </nb-card-header>
+
+  <nb-card-body>
+    
+    <p-table [value]="dataSource" [paginator]="true" [rows]="5"  dataKey="id" editMode="row" [tableStyle]="{'min-width': '50rem'}">
+      <ng-template pTemplate="header">
+        <tr>
+          <th *ngFor="let col of displayedColumns" [pSortableColumn]="col">
+            {{ col | titlecase }}
+            <p-sortIcon [field]="col"></p-sortIcon>
+          </th>
+          <th>Action</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-user let-editing="editing" let-ri="rowIndex">
+        <tr [pEditableRow]="user" >
+          <td [pEditableColumn]="user.name" pEditableColumnField="name">
+            <p-cellEditor>
+              <ng-template pTemplate="input">
+                <input pInputText type="text" [(ngModel)]="user.name" />
+              </ng-template>
+              <ng-template pTemplate="output">
+                {{user.firstName}} {{user.lastName}}
+              </ng-template>
+            </p-cellEditor>
+          </td>
+          <td [pEditableColumn]="user.userName" pEditableColumnField="userName">
+            <p-cellEditor>
+              <ng-template pTemplate="input">
+                <input pInputText type="text" [(ngModel)]="user.userName" />
+              </ng-template>
+              <ng-template pTemplate="output">
+                {{user.userName}}
+              </ng-template>
+            </p-cellEditor>
+          </td>
+          <td [pEditableColumn]="user.userType" pEditableColumnField="userType">
+            <p-cellEditor>
+              <ng-template pTemplate="input">
+                <input pInputText type="text" [(ngModel)]="user.userType" />
+              </ng-template>
+              <ng-template pTemplate="output">
+                {{user.userType}}
+              </ng-template>
+            </p-cellEditor>
+          </td>
+          <td [pEditableColumn]="user.email" pEditableColumnField="email">
+            <p-cellEditor>
+              <ng-template pTemplate="input">
+                <input pInputText type="text" [(ngModel)]="user.email" />
+              </ng-template>
+              <ng-template pTemplate="output">
+                {{user.email}}
+              </ng-template>
+            </p-cellEditor>
+          </td>
+          <td [pEditableColumn]="user.department" pEditableColumnField="department">
+            <p-cellEditor>DDDepartmentList
+              <ng-template pTemplate="input">
+                <input pInputText type="text" [(ngModel)]="user.department" />
+              </ng-template>
+              <ng-template *ngIf="user.department==null" pTemplate="output">
+                NA
+              </ng-template >
+              <ng-template *ngIf="user.department!=null" pTemplate="output">
+               {{user.department}}
+              </ng-template>
+            </p-cellEditor>
+          </td>
+          <td>
+            <div class="flex align-items-center justify-content-center gap-2">
+              <button 
+                  *ngIf="!editing" 
+                  pButton 
+                  pRipple 
+                  type="button" 
+                  pInitEditableRow 
+                  icon="eva eva-edit-outline" 
+                  (click)="onRowEditInit(user)" 
+                  class="p-button-rounded p-button-text"
+                  >
+              </button>
+              <button 
+                  *ngIf="editing" 
+                  pButton 
+                  pRipple 
+                  type="button" 
+                  pSaveEditableRow 
+                  icon="eva eva-checkmark-outline" 
+                  (click)="onRowEditSave(user)" 
+                  class="p-button-rounded p-button-text p-button-success mr-2">
+              </button>
+              <button 
+                  *ngIf="editing" 
+                  pButton pRipple 
+                  type="button" 
+                  pCancelEditableRow 
+                  icon="eva eva-close-outline" 
+                  (click)="onRowEditCancel(user, ri)" 
+                  class="p-button-rounded p-button-text p-button-danger">
+              </button>
+          </div>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+    <!-- <p-paginator [rowsPerPageOptions]="[5, 10, 20]" [totalRecords]="dataSource?.length || 0"></p-paginator> -->
+</nb-card-body>
+</nb-card>
+ 

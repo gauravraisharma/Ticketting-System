@@ -4,10 +4,14 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { AccountService } from '../../../../services/accountServices/account-service.service';
+import { AccountService, UpdateApplicationUser } from '../../../../services/accountServices/account-service.service';
 import { ConfirmDialogComponent } from '../../../sharedComponent/confirm-dialog/confirm-dialog.component';
+import { userModel } from '../add-user/add-user.component';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { CommonService } from 'src/services/commonServcices/common-service.service';
+import { SelectItem } from 'primeng/api';
 
 @Component({
   selector: 'app-userlisting',
@@ -15,20 +19,26 @@ import { ConfirmDialogComponent } from '../../../sharedComponent/confirm-dialog/
   styleUrls: ['./userlisting.component.css']
 })
 export class UserlistingComponent {
-  displayedColumns: string[] = ['name', 'userName', 'userType', 'email', 'department','action'];
-  dataSource = new MatTableDataSource<UserModel>([]);
-  isLoading = false
+  displayedColumns: string[] = ['name', 'userName', 'userType', 'email', 'department'];
+  dataSource: any[] = [];
+    isLoading = false
   data1 = [];
+  clonedUsers: { [s: string]: userModel } = {};
+
   userType = localStorage.getItem('userType');
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
+  DDUserTypeList: any = [];
+
   constructor(private accountService: AccountService,
      private toastr: ToastrService,
-    public dialog: MatDialog) { }
+    public dialog: MatDialog,
+) { }
 
   ngOnInit() {
     this.getUserList();
+    
   }
   getUserList() {
     this.isLoading = true;
@@ -36,14 +46,15 @@ export class UserlistingComponent {
     this.accountService.getUserList(companyId).subscribe((response: any) => {
       console.log('userList', response)
       this.data1 = response;
-      this.dataSource = new MatTableDataSource<UserModel>(response);
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
+      this.dataSource = response;
+      // this.dataSource.paginator = this.paginator;
+      // this.dataSource.sort = this.sort;
       this.isLoading = false;
     }, error => {
       this.isLoading = false;
     })
   }
+
 
   async deleteUser(user) {
     const dialogRef = await this.dialog.open(ConfirmDialogComponent, {
@@ -73,13 +84,27 @@ export class UserlistingComponent {
       }
     });
   }
+  onRowEditInit(user: userModel) {
+    
 }
 
-export interface UserModel {
-  name: string;
-  userName: number;
-  userType: string;
-  email: string;
-  department: string;
+
+
+onRowEditCancel(user: userModel, index: number) {
+    
 }
+onRowEditSave(user: userModel) {
+
+
+}
+
+}
+
+// export interface UserModel {
+//   name: string;
+//   userName: number;
+//   userType: string;
+//   email: string;
+//   department: string;
+// }
 

@@ -21,10 +21,14 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { ChartjsModule } from '@coreui/angular-chartjs';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { TableModule } from 'primeng/table';
+import { ButtonModule } from 'primeng/button';
+import { PaginatorModule } from 'primeng/paginator';
+import { InputTextModule } from 'primeng/inputtext';
 
 
 @NgModule({
-  declarations: [LoaderComponent, TimeZonePipe],
+  declarations: [LoaderComponent, TimeZonePipe, ],
   imports: [MatCardModule,
     MatSortModule,
     MatInputModule,
@@ -42,7 +46,12 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatAutocompleteModule,
     CKEditorModule, MatSortModule, NgxChartsModule, ChartjsModule,
     MatDatepickerModule,
-  MatNativeDateModule],
+  MatNativeDateModule,
+  TableModule,
+  ButtonModule,
+  PaginatorModule,
+  InputTextModule,
+],
   exports: [MatCardModule,
     MatInputModule,
     MatSortModule,
@@ -62,7 +71,11 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatSortModule,
     TimeZonePipe,
     MatAutocompleteModule, NgxChartsModule, ChartjsModule, MatDatepickerModule,
-  MatNativeDateModule],
+  MatNativeDateModule,
+  TableModule,
+  ButtonModule,
+  PaginatorModule,
+  InputTextModule], 
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class SharedModule { }

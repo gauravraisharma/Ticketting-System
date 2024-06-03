@@ -5,6 +5,9 @@ import { UserlistingComponent } from './userlisting/userlisting.component';
 import { UserRoutingModule } from './user-routing.module';
 import { SharedModule } from '../../sharedComponent/shared.module';
 import { EditUserComponent } from './edit-user/edit-user.component';
+import { NbCardModule } from '@nebular/theme';
+import { Ng2SmartTableModule } from 'ng2-smart-table';
+
 
 
 
@@ -16,7 +19,8 @@ import { EditUserComponent } from './edit-user/edit-user.component';
   imports: [
     CommonModule,
     UserRoutingModule,
-    SharedModule
+    SharedModule,
+    NbCardModule,
   ]
 })
 export class UserModule { }
