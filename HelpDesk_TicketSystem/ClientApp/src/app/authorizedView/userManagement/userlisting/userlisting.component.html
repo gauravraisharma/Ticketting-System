@@ -145,97 +145,28 @@
             {{ col | titlecase }}
             <p-sortIcon [field]="col"></p-sortIcon>
           </th>
-          <th>Action</th>
+          <th>Actions</th>
         </tr>
       </ng-template>
-      <ng-template pTemplate="body" let-user let-editing="editing" let-ri="rowIndex">
-        <tr [pEditableRow]="user" >
-          <td [pEditableColumn]="user.name" pEditableColumnField="name">
-            <p-cellEditor>
-              <ng-template pTemplate="input">
-                <input pInputText type="text" [(ngModel)]="user.name" />
-              </ng-template>
-              <ng-template pTemplate="output">
-                {{user.firstName}} {{user.lastName}}
-              </ng-template>
-            </p-cellEditor>
+      <ng-template pTemplate="body" let-user >
+        <tr>
+          <td>{{user.firstName}} {{user.lastName}}</td>
+          <td >{{user.userName}}
           </td>
-          <td [pEditableColumn]="user.userName" pEditableColumnField="userName">
-            <p-cellEditor>
-              <ng-template pTemplate="input">
-                <input pInputText type="text" [(ngModel)]="user.userName" />
-              </ng-template>
-              <ng-template pTemplate="output">
-                {{user.userName}}
-              </ng-template>
-            </p-cellEditor>
+          <td>{{user.userType}}
           </td>
-          <td [pEditableColumn]="user.userType" pEditableColumnField="userType">
-            <p-cellEditor>
-              <ng-template pTemplate="input">
-                <input pInputText type="text" [(ngModel)]="user.userType" />
-              </ng-template>
-              <ng-template pTemplate="output">
-                {{user.userType}}
-              </ng-template>
-            </p-cellEditor>
-          </td>
-          <td [pEditableColumn]="user.email" pEditableColumnField="email">
-            <p-cellEditor>
-              <ng-template pTemplate="input">
-                <input pInputText type="text" [(ngModel)]="user.email" />
-              </ng-template>
-              <ng-template pTemplate="output">
-                {{user.email}}
-              </ng-template>
-            </p-cellEditor>
-          </td>
-          <td [pEditableColumn]="user.department" pEditableColumnField="department">
-            <p-cellEditor>DDDepartmentList
-              <ng-template pTemplate="input">
-                <input pInputText type="text" [(ngModel)]="user.department" />
-              </ng-template>
-              <ng-template *ngIf="user.department==null" pTemplate="output">
-                NA
-              </ng-template >
-              <ng-template *ngIf="user.department!=null" pTemplate="output">
-               {{user.department}}
-              </ng-template>
-            </p-cellEditor>
+          <td>{{user.email}}</td>
+          <td>
+            {{ user.department ? user.department : 'NA' }}
           </td>
           <td>
-            <div class="flex align-items-center justify-content-center gap-2">
-              <button 
-                  *ngIf="!editing" 
-                  pButton 
-                  pRipple 
-                  type="button" 
-                  pInitEditableRow 
-                  icon="eva eva-edit-outline" 
-                  (click)="onRowEditInit(user)" 
-                  class="p-button-rounded p-button-text"
-                  >
+              <button class="btn btn-sm" >
+                <i class="pi pi-check" style="font-size: 2rem"></i>
               </button>
-              <button 
-                  *ngIf="editing" 
-                  pButton 
-                  pRipple 
-                  type="button" 
-                  pSaveEditableRow 
-                  icon="eva eva-checkmark-outline" 
-                  (click)="onRowEditSave(user)" 
-                  class="p-button-rounded p-button-text p-button-success mr-2">
+              <button class="btn btn-sm" >
+                <i class="pi pi-times" style="font-size: 2rem"></i>
               </button>
-              <button 
-                  *ngIf="editing" 
-                  pButton pRipple 
-                  type="button" 
-                  pCancelEditableRow 
-                  icon="eva eva-close-outline" 
-                  (click)="onRowEditCancel(user, ri)" 
-                  class="p-button-rounded p-button-text p-button-danger">
-              </button>
-          </div>
+              
           </td>
         </tr>
       </ng-template>
