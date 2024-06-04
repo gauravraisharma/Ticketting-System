@@ -2,9 +2,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
 :root {
-    --blue: #03669A;
+    --blue: #03669a;
     --white: #ffffff;
-    --orange: #C44E32;
+    --orange: #c44e32;
     --black: #000000;
     --bg-light: #f3f3f3;
     --orange-light: #F9EDEB;
@@ -48,8 +48,8 @@ h6 {
     box-shadow: 0px 2.9477px 40px rgb(0 0 0 / 25%);
     border-radius: 6px;
     color: var(--white);
-    padding: 18px 44px;
-    font-size: 20px;
+    padding: 12px 34px;
+    font-size: 16px;
     font-weight: 500;
 }
 
@@ -92,11 +92,11 @@ section {
 }
 
 .header .navbar-nav .nav-item {
-    margin-right: 30px;
+    padding: 0 14px;
 }
 
 .nav-link {
-    font-size: 20px;
+    font-size: 16px;
     font-weight: 400;
     color: var(--black) !important;
 }
@@ -110,7 +110,7 @@ section {
 /* ------------------------first-fold css starts--------------------------- */
 .first-fold {
     position: relative;
-    /* padding-top: 100px; */
+    padding-top: 80px;
 }
 
 
@@ -121,19 +121,20 @@ section {
     color: var(--black);
     position: relative;
     z-index: 1;
-    line-height:1.2;
+    line-height: 1.2;
 }
 
 .content .desc {
     font-size: 20px;
     font-weight: 400;
-    margin-bottom: 56px;
+    margin-bottom: 36px;
     line-height: 32px;
 }
 
 .vector-left {
     position: absolute;
     left: 0;
+    opacity: 0.3;
 }
 
 .vector-right {
@@ -148,8 +149,8 @@ section {
 
 .first-fold .line-orange img {
     position: absolute;
-    bottom: -7px;
-    right: 140px;
+    bottom: -19px;
+    right: 340px;
 }
 
 .line-blue {
@@ -158,8 +159,8 @@ section {
 
 .line-blue img {
     position: absolute;
-    bottom: 0px;
-    right: 37%;
+    bottom: -20px;
+    right: 38%;
 }
 
 /* ------------------------first-fold css ends--------------------------- */
@@ -174,6 +175,7 @@ section {
 .trusted-partners .logo img {
     width: 100%;
     height: 30px;
+    object-fit: contain;
 }
 
 .title-20-md {
@@ -191,7 +193,7 @@ section {
 /* ------------------------chat-highlight css start--------------------------- */
 .chat-highlight {
     position: relative;
-    background: var(--orange-light);
+    background: linear-gradient(133deg, rgb(196 78 50 / 6%), rgb(196 78 50 / 10%) 55.73%, rgb(196 78 50 / 3%));
     border-radius: 120px 120px 0px 0px;
     padding: 120px 0;
     margin: 50px 0;
@@ -222,9 +224,9 @@ section {
 /* ------------------------bot-highlight css start--------------------------- */
 .bot-highlight {
     position: relative;
-    background: var(--bg-blue-light);
+    background: linear-gradient(133deg, rgb(3 102 154 / 4%), rgb(3 102 154 / 4%) 55.73%, rgba(218, 237, 255, .2));
     border-radius: 120px 120px 0px 0px;
-    padding: 120px 0;
+    padding: 80px 0;
     margin: 50px 0;
 }
 
@@ -259,17 +261,19 @@ section {
     text-align: center;
     margin-bottom: 60px;
     color: var(--black);
+    line-height: normal;
 }
 
 .testimonials .info img {
-    width: 120px;
-    margin-bottom: 40px;
+    width: 70px;
+    margin-bottom: 20px;
 }
 
 .testimonials .info .desc {
-    font-size: 30px;
+    font-size: 20px;
     font-weight: 400;
     margin-bottom: 40px;
+    color: #000;
 }
 
 .testimonials .info .name h3 {
@@ -285,20 +289,20 @@ section {
 }
 
 .testimonials .right-side img {
-    width: 520px;
-    height: 520px;
+    width: 400px;
+    height: 400px;
     object-fit: cover;
-    border-radius: 80px 0px;
+    border-radius: 60px 0px;
 }
 
 .custom-carousel .carousel-control-prev {
     border: 2px solid var(--blue);
-    width: 80px;
-    height: 80px;
+    width: 50px;
+    height: 50px;
     border-radius: 100%;
     position: absolute;
     left: 0;
-    top: 88%;
+    top: 96%;
 }
 
 .custom-carousel .carousel-control-prev-icon {
@@ -307,12 +311,12 @@ section {
 
 .custom-carousel .carousel-control-next {
     border: 2px solid var(--blue);
-    width: 80px;
-    height: 80px;
+    width: 50px;
+    height: 50px;
     border-radius: 100%;
     position: absolute;
-    left: 100px;
-    top: 88%;
+    left: 70px;
+    top: 96%;
 }
 
 .custom-carousel .carousel-control-next-icon {
@@ -323,15 +327,18 @@ section {
 
 /* ------------------------our-packages css ends--------------------------- */
 .our-packages {
-    background: var(--orange-light);
+    /* background: var(--orange-light);
     border-radius: 0 0 120px 120px;
-    padding: 120px 0;
-    margin: 50px 0;
+    padding: 120px 0; */
+    margin: 50px 0 0;
 }
 
 .package-card {
     text-align: center;
-    margin-bottom: 60px;
+    margin-bottom: 30px;
+    background: linear-gradient(136deg, rgb(196 78 50 / 6%), hsl(11.51deg 59.35% 48.24% / 13%) 34.3%, hsl(11.51deg 59.35% 48.24% / 8%) 67.34%, rgb(196 78 50 / 5%));
+    border-radius: 20px;
+    padding: 30px;
 }
 
 .package-card i {
@@ -341,11 +348,13 @@ section {
 }
 
 .package-card .title-20-md {
-    padding: 0 100px;
+    font-size: 24px;
+    font-weight: 600;
 }
 
 .package-card .desc {
-    font-size: 18px;
+    font-size: 16px;
+    min-height: 180px;
 }
 
 .package-card img {
@@ -873,7 +882,10 @@ section {
 .pricing-card {
     border: 1px solid var(--border-color);
     border-radius: 6px;
-    padding: 40px 24px;
+    padding: 30px 20px;
+    z-index: 1;
+    position: relative;
+    background: #fff;
 }
 
 .pricing-card .title {
@@ -882,12 +894,13 @@ section {
 }
 
 .pricing-card .sub-title {
-    font-size: 22px;
+    font-size: 18px;
     margin-bottom: 0;
+    color: #000;
 }
 
 .pricing-card .price {
-    font-size: 48px;
+    font-size: 38px;
     font-weight: 600;
     color: var(--black);
 }
@@ -901,7 +914,7 @@ section {
 }
 
 .pricing-card .listing li {
-    font-size: 20px;
+    font-size: 16px;
     margin-bottom: 16px;
 }
 
@@ -1610,15 +1623,18 @@ section {
 /* ------------------------Profile ends--------------------------- */
 
 /* ------------------------Responsive starts------------------------*/
-@media only screen and (max-width: 1440px) {
+@media only screen and (max-width: 1700px) {
+    .logo img {
+        width: 150px;
+    }
+}
+
+@media only screen and (max-width: 1440.98px) {
 
     .logo img {
         width: 180px;
     }
 
-    .nav-link {
-        font-size: 16px;
-    }
 
     .btn-theme {
         padding: 12px 32px;
@@ -1628,6 +1644,20 @@ section {
     .content .title {
         font-size: 40px;
         margin-bottom: 10px;
+    }
+
+    .header .navbar-nav .nav-item {
+        margin-right: 24px;
+        padding: 0;
+    }
+
+    .navbar-nav .nav-link {
+        font-size: 16px;
+    }
+
+    .btn-theme {
+        padding: 12px 16px;
+        font-size: 14px;
     }
 
     .first-fold .line-orange img {
@@ -1659,19 +1689,6 @@ section {
 
     .testimonials .info img {
         width: 74px;
-    }
-
-    .custom-carousel .carousel-control-prev {
-        width: 60px;
-        height: 60px;
-        top: 82%;
-    }
-
-    .custom-carousel .carousel-control-next {
-        width: 60px;
-        height: 60px;
-        top: 82%;
-        left: 80px;
     }
 
     .line-blue img {
@@ -1713,9 +1730,6 @@ section {
         width: 300px;
     }
 
-    .header .navbar-nav .nav-item {
-        margin-right: 24px;
-    }
 
     .content .desc {
         font-size: 16px;
@@ -2135,27 +2149,6 @@ section {
 }
 
 @media only screen and (max-width: 1366px) {
-    .custom-carousel .carousel-control-prev {
-        width: 48px;
-        height: 48px;
-        top: 86%;
-    }
-
-    .custom-carousel .carousel-control-prev-icon {
-        width: 20px;
-    }
-
-    .custom-carousel .carousel-control-next {
-        width: 48px;
-        height: 48px;
-        top: 86%;
-        left: 60px;
-    }
-
-    .custom-carousel .carousel-control-next-icon {
-        width: 20px;
-    }
-
     .pricing-card .sub-title {
         font-size: 18px;
     }
@@ -2291,6 +2284,14 @@ section {
 }
 
 @media only screen and (max-width: 1199px) {
+    .navbar-nav .nav-link {
+        font-size: 14px;
+    }
+
+    .header .navbar-nav .nav-item {
+        margin-right: 0;
+    }
+
     .ticket-details .sub-header .left-content {
         margin-bottom: 10px;
     }
@@ -2324,12 +2325,8 @@ section {
         top: 0;
     }
 
-    .custom-carousel .carousel-control-prev {
-        top: 94%;
-    }
-
-    .custom-carousel .carousel-control-next {
-        top: 94%;
+    .logo img {
+        width: 140px;
     }
 
     .pricing-card .sub-title {
@@ -2469,7 +2466,23 @@ section {
     }
 }
 
-@media only screen and (max-width: 991px) {
+@media only screen and (max-width: 991.98px) {
+    .pricing-card {
+        margin-bottom: 30px;
+    }
+
+    .pricing-card:last-child {
+        margin-bottom: 0;
+    }
+
+    .custom-carousel .carousel-control-prev {
+        top: 100%;
+    }
+
+    .custom-carousel .carousel-control-next {
+        top: 100%;
+    }
+
     .db-header .navbar-nav {
         flex-direction: row;
     }
