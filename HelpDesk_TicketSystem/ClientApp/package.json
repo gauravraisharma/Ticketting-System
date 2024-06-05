@@ -51,6 +51,7 @@
     "ngx-mat-select-search": "^7.0.2",
     "ngx-toastr": "^17.0.2",
     "oidc-client": "^1.11.5",
+    "primeicons": "^7.0.0",
     "primeng": "^17.18.0",
     "run-script-os": "^1.1.6",
     "rxjs": "~7.8.0",

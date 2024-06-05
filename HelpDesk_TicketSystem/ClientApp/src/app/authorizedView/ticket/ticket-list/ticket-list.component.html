@@ -16,57 +16,63 @@
   </div>
 </div> -->
 
-<h5>Filter Tickets by :</h5>
-<div class="col-sm-4">
-  <div class="form-group">
-    <label for="priority" class="label">Priority</label>
-    <nb-select class="formSelect"   placeholder="Select Priority">
-      <nb-option *ngFor="let priority of priorityList" [value]="priority.id"
-      >{{ priority.label }}
-      </nb-option>
-    </nb-select>
-  </div>
-</div>
 
-<div class="col-sm-4">
-  <div class="form-group">
-    <label for="status" class="label">Status</label>
-    <nb-select class="formSelect"   placeholder="Select Priority">
-      <nb-option *ngFor="let status of statusList" [value]="status.id"
-      >{{ status.label }}
-      </nb-option>
-    </nb-select>
+<div class="row align-items-center mb-3">
+  <div class="col-sm-3">
+    <h5>Filter Tickets by :</h5>
   </div>
-</div>  <div class="col-sm-4">
-  <div class="form-group">
-    <input type="text" nbInput fullWidth id="filterTicket" placeholder="Ticket Number or Subject" >
-    
+  <div class="col-sm-3">
+    <div class="form-group">
+      <!-- <label for="priority" class="label">Priority</label> -->
+      <nb-select class="formSelect" placeholder="Select Priority">
+        <nb-option *ngFor="let priority of priorityList" [value]="priority.id">{{ priority.label }}
+        </nb-option>
+      </nb-select>
+    </div>
+  </div>
+
+  <div class="col-sm-3">
+    <div class="form-group">
+      <!-- <label for="status" class="label">Status</label> -->
+      <nb-select class="formSelect" placeholder="Select Priority">
+        <nb-option *ngFor="let status of statusList" [value]="status.id">{{ status.label }}
+        </nb-option>
+      </nb-select>
+    </div>
+  </div>
+  <div class="col-sm-3">
+    <div class="form-group">
+      <!-- <label class="label">Ticket Number or Subject</label> -->
+      <input type="text" nbInput fullWidth id="filterTicket" placeholder="Ticket Number or Subject">
+    </div>
   </div>
 </div>
 <nb-card>
   <nb-card-header>
     <div class="d-flex justify-content-between align-items-center">
       <h5><b>Ticket</b></h5>
-        <a nbButton status="primary" routerLink="/ticket/addTicket" *ngIf="userType=='NORMALUSER'">Add Ticket</a>
-        </div>
+      <a nbButton status="primary" routerLink="/ticket/addTicket" *ngIf="userType=='NORMALUSER'">Add Ticket</a>
+
+    </div>
   </nb-card-header>
-<nb-card-body>
-  <p-table [value]="dataSource" [paginator]="true" [rows]="5"  [rowsPerPageOptions]="[5, 10, 20]"  styleClass="p-datatable-striped"  dataKey="id" [tableStyle]="{'min-width': '50rem'}">
-    <ng-template pTemplate="header">
-      <tr *ngIf="displayedColumns.length < 1">
-        <td colspan="100%">No records found.</td>
-      </tr>
-      <tr *ngIf="displayedColumns.length > 0">
-        <th *ngFor="let col of displayedColumns" [pSortableColumn]="col">
-          {{ col | titlecase }}
-          <p-sortIcon [field]="col"></p-sortIcon>
-        </th>
-      </tr> 
-      </ng-template> 
-      <ng-template pTemplate="body" let-ticket >
+  <nb-card-body>
+    <p-table [value]="dataSource" [paginator]="true" [rows]="5" [rowsPerPageOptions]="[5, 10, 20]"
+      styleClass="p-datatable-striped" dataKey="id" [tableStyle]="{'min-width': '50rem'}" class="tickets-listing">
+      <ng-template pTemplate="header">
+        <tr *ngIf="displayedColumns.length < 1">
+          <td colspan="100%">No records found.</td>
+        </tr>
+        <tr *ngIf="displayedColumns.length > 0">
+          <th *ngFor="let col of displayedColumns" [pSortableColumn]="col">
+            {{ col | titlecase }}
+            <p-sortIcon [field]="col"></p-sortIcon>
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-ticket>
         <tr>
           <td>{{ticket.ticketNumber}}</td>
-          <td > {{ticket.subject}} </td>
+          <td> {{ticket.subject}} </td>
           <td> {{ticket.createdOn | timeZone :currentTimeZone: 'DD-MM-YYYY' }}</td>
           <td>
             <p-tag [value]="ticket.priority" [severity]="getSeverity(ticket.priority)">
@@ -84,26 +90,26 @@
           </td>
           <td>
             <ng-container *ngIf="ticket.status=='OPEN'">
-              <button nbButton matRipple outline status="success"style="font-size: 12px;"> {{ticket.status}}</button>
+              <button class="status-badge" nbButton matRipple outline status="success"> {{ticket.status}}</button>
             </ng-container>
             <ng-container *ngIf="ticket.status=='CLOSED'">
-              <button  nbButton matRipple outline status="danger" style="font-size: 12px;"> {{ticket.status}}</button>
+              <button class="status-badge" nbButton matRipple outline status="danger"> {{ticket.status}}</button>
             </ng-container>
           </td>
-         
-          <td>
-              <button class="btn btn-md" [routerLink]="['/ticket/viewTicket',ticket.ticketNumber]">
-                <i class="eva eva-eye-outline" style="color:#6200ee; font-size: 26px;" ></i> 
-              </button>
-             
-              
-          </td>
-        </tr>    
-    </ng-template>
-  </p-table>
 
-</nb-card-body>
-<!-- <div class="mat-elevation-z8 bg-white rounded-3 table-wrapper card-warpper">
+          <td>
+            <button class="btn btn-md" [routerLink]="['/ticket/viewTicket',ticket.ticketNumber]">
+              <i class="eva eva-eye-outline" style="color:#6200ee; font-size: 26px;"></i>
+            </button>
+
+
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+
+  </nb-card-body>
+  <!-- <div class="mat-elevation-z8 bg-white rounded-3 table-wrapper card-warpper">
   <div class="table-listing-main">
     <table mat-table [dataSource]="dataSource" matSort>
       <tr class="mat-row" *matNoDataRow>

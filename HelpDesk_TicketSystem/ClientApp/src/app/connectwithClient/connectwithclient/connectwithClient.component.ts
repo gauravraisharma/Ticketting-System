@@ -25,6 +25,7 @@ export class ConnectWithClientComponent implements OnInit {
   ngOnInit() {
     debugger
     // Extract the host URL
+    this.isLoading = true;
     const clientHostURL = this.extractHost();
     this.route.queryParams.subscribe(params => {
       const cipherText = params['cipherText'];
@@ -34,21 +35,22 @@ export class ConnectWithClientComponent implements OnInit {
         clientRequest.cipherText = cipherText;
         clientRequest.applicationName = applicationName;
         clientRequest.clientHostURL = clientHostURL;
-        debugger
+        
         this.connectWithClientService.connectWithClient(clientRequest).subscribe((response: any) => {
           try {
-            debugger;
             if (response.status == "SUCCEED") {
               this.toastr.success('Welcome to Helpdesk');
               this.helper.setDataInLocalStorage(response.token, response.userType, response.userId, response.companyId, response.timeZone, 'false', response.companyLogo, response.name);
               this.router.navigate(['dashboard'])
             }
             else if (response.status == "REDIRECT") {
-              debugger
               this.router.navigate([response.message]);
+              this.isLoading = false;
             }
             else {
               this.toastr.error(response.message);
+              this.isLoading = false;
+
             }
             this.isLoading = false;
           } catch (error) {

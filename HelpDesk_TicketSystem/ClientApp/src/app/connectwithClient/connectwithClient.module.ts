@@ -10,7 +10,8 @@ import { ConnectWithClientComponent } from './connectwithclient/connectwithClien
   declarations: [ConnectWithClientComponent],
   imports: [
     CommonModule,
-    connectwithClientRoutingModule
+    connectwithClientRoutingModule,
+    SharedModule
   ]
 })
 export class connectwithClientModule { }

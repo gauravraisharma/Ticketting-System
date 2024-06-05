@@ -27,13 +27,7 @@ export class ViewTicketComponent implements OnInit {
   fileCount = 0;
   @ViewChild('fileattachment') fileAttachments!: ElementRef;
 
-  files: [
-    {
-      url: 'https://i.gifer.com/no.gif',
-      type: 'image/jpeg',
-      icon: false,
-    },
-  ]
+  
   public Editor = ClassicEditor;
   constructor(
     private fb: FormBuilder,
@@ -188,6 +182,7 @@ get message() { return this.messageForm.get('message'); }
 parseDate(dateString: string): Date {
   return new Date(dateString); 
 }
+
 prepareFiles(attachments: any[]): any[] {
   return attachments.map(attachment => ({
     url: attachment.downLoadLink

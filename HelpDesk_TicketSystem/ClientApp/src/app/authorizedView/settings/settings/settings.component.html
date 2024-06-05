@@ -175,10 +175,9 @@
               <ng-container matColumnDef="action">
                 <th mat-header-cell *matHeaderCellDef> Action </th>
                 <td mat-cell *matCellDef="let application">
-                  <mat-icon aria-hidden="false" title="Active" aria-label="edit" fontIcon="check" class="text-secondary"
-                            style="cursor:pointer;"></mat-icon>
+                  
                   <mat-icon aria-hidden="false" title="Delete User" aria-label="delete" fontIcon="delete"
-                            class="text-danger" style="cursor:pointer;"></mat-icon>
+                            class="text-danger" style="cursor:pointer;" (click)="deleteApplication(application.id)"></mat-icon>
                 </td>
               </ng-container>
               <!-- Add more columns here if needed -->
@@ -191,7 +190,7 @@
         </div>
 
 
-        <!--<loader *ngIf="isLoading"></loader>-->
+        <loader *ngIf="isLoading"></loader>
 
       </mat-card-content>
     </mat-card>

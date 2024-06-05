@@ -250,58 +250,6 @@
             </mat-card-content>
     
           </mat-card>
-    
-          <!-- <nb-card>
-            <nb-card-header>
-           Conversation
-            </nb-card-header>
-            <nb-card-body> -->
-              <div class="row">
-                <div class="chat-container col-md-12 col-lg-12 col-xxxl-12">
-                  <nb-chat title="Conversation" size="large" status="primary">
-                    <nb-chat-message *ngFor="let message of conversationDetailList"
-                                     [message]="message.message"
-                                     [reply]="message.userType === 'ADMIN'"
-                                     [sender]="message.createdBy"
-                                     [date] = "parseDate(message.createdOn)"
-                                     [avatar]="message.userType === 'ADMIN' ? 'person_outline' : 'person'">
-                                     
-                      <ng-container *ngIf="message.attachments && message.attachments.length > 0">
-                        <div class="attachment-detail-heading">Attachments:</div>
-                        <ng-container *ngFor="let attachment of message.attachments">
-                          <a [href]="attachment.downLoadLink" [download]="attachment.attachmentName" target="_blank"
-                             class="d-flex download-link-info align-items-center mt-2">
-                            <i class="material-icons me-2">download</i><span>{{ attachment.attachmentName }}</span>
-                          </a>
-                        </ng-container>
-                      </ng-container>
-                    </nb-chat-message>
-                  
-                    <!-- Display ticket details as a chat message -->
-                    <nb-chat-message [message]="ticketDetail.description"
-                                     [sender]="ticketDetail.createdBy"
-                                     [date] = "parseDate(ticketDetail.createdOn)"
-                                     [files]="prepareFiles(ticketDetail.attachments)">
-
-                                     >
-                                     <!-- <ng-container *ngIf="ticketDetail.attachments && ticketDetail.attachments.length > 0">
-                                      <div class="attachment-detail-heading">Attachments:</div>
-                                      <ng-container *ngFor="let attachment of ticketDetail.attachments">
-                                        <a [href]="attachment.downLoadLink" [download]="attachment.attachmentName" target="_blank"
-                                           class="d-flex download-link-info align-items-center mt-2">
-                                          <i class="material-icons">download</i><span>{{ attachment.attachmentName }}</span>
-                                        </a>
-                                      </ng-container> 
-                                    </ng-container>-->
-                    </nb-chat-message>
-                  </nb-chat>
-                  
-                </div>
-              </div>
-            <!-- </nb-card-body>
-            
-          </nb-card> -->
-          
         </div>
       </div>
     </div>

@@ -52,7 +52,11 @@ export class CompanyService {
     localStorage.setItem('companyLogo', newValue);
     this.logoUrl.next(newValue);
   }
- 
+  deleteApplication(id: number) {
+    let url = `${this.apiUrl}Company/DeleteApplication/${id}`;
+    return this.http.delete(url);
+  }
+
 }
 export class RegisterCompanyUser {
 

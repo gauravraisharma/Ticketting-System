@@ -120,7 +120,8 @@ namespace DataRepository.Repositoryy
                 CompanyId = user.CompanyId,
                 TimeZone = (userRoles[0].ToUpper() == "SUPERADMIN") ? null : CompanyTimeZone.TimeZone,
                 AccessToken = accessToken,
-                RefreshToken = refreshToken
+                RefreshToken = refreshToken,
+                Name= user.FirstName + " " + user.LastName,
 
             };
         }

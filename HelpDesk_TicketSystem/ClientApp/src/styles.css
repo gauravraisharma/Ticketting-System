@@ -1244,3 +1244,17 @@ nb-select.formSelect button{
     .details .title {
       text-align: center;
     }
+
+    .tickets-listing .p-tag {
+      width: 100px;
+      padding: 8px;
+    }
+    
+    .tickets-listing .p-tag i {
+      margin-right: 6px;
+    }
+    
+    .status-badge {
+      padding: 8px !important;
+      width: 100px;
+    }

@@ -73,16 +73,30 @@ namespace ApplicationService.Services
                         CipherUserDataModel cipherUserDataModel = JsonConvert.DeserializeObject<CipherUserDataModel>(decryptToken);
                         var expUnix = long.Parse(cipherUserDataModel.Exp);
                         var expDateTime = DateTimeOffset.FromUnixTimeSeconds(expUnix).UtcDateTime;
-                        if (expDateTime < DateTime.UtcNow)
+                    if (expDateTime >= DateTime.UtcNow)
+                    {
+                        //token not expired return login response
+                        return loginResponse;
+                    }
+                    //Check if refresh token is valid and not expired
+                    if (IsRefreshTokenValid(loginResponse.RefreshToken, out var refreshTokenExp))
+                    {
+                        if (refreshTokenExp < DateTime.UtcNow)
                         {
-                            // Token Expired, refresh token
-                            var refreshTokenResponse =  await CallbackRequestToClient(response.APIEndpoint, loginResponse.RefreshToken, response.ClientSecretKey, clientRequest.ApplicationName, TokenConstants.RefreshToken);
-                            return refreshTokenResponse;
+                            var loginRes= await CallbackRequestToClient(response.APIEndpoint, clientRequest.CipherText, response.ClientSecretKey, clientRequest.ApplicationName, TokenConstants.GenerateToken);
+                            return loginRes;
                         }
                         else
-                        {
-                            return loginResponse;
+                        {                       
+                            // Token Expired, refresh token
+                            var refreshTokenResponse = await CallbackRequestToClient(response.APIEndpoint, loginResponse.RefreshToken, response.ClientSecretKey, clientRequest.ApplicationName, TokenConstants.RefreshToken);
+                            return refreshTokenResponse;
                         }
+                    }
+                    else
+                    {
+                        return new ExternalLoginStatus { Status = "REDIRECT", Message = "page-not-authorized" };
+                    }
                     }
                     else
                     {
@@ -95,8 +109,47 @@ namespace ApplicationService.Services
                     return loginResponse;
                 }
             }
-       
-            private async Task<ExternalLoginStatus> CallbackRequestToClient(string endpointUrl, string token, string clientSecretKey, string applicationName, string tokenType)
+
+        public bool IsRefreshTokenValid(string refreshToken, out DateTime expDateTime)
+        {
+            expDateTime = DateTime.MinValue;
+
+            if (string.IsNullOrEmpty(refreshToken))
+            {
+                return false; // Empty string is not a JWT token
+            }
+
+            // Split the string into three parts based on '.' (dot) separator
+            var parts = refreshToken.Split('.');
+
+            // A valid JWT token has three parts separated by dots
+            if (parts.Length != 3)
+            {
+                return false;
+            }
+            var jwtHandler = new JwtSecurityTokenHandler();
+
+            if (!jwtHandler.CanReadToken(refreshToken))
+            {
+                return false; // Invalid JWT token structure
+            }
+
+            var token = jwtHandler.ReadJwtToken(refreshToken);
+            var expClaim = token.Claims.FirstOrDefault(claim => claim.Type == "exp");
+
+            if (expClaim == null)
+            {
+                return false; // Expiration claim is missing
+            }
+
+            var expUnix = long.Parse(expClaim.Value);
+            expDateTime = DateTimeOffset.FromUnixTimeSeconds(expUnix).UtcDateTime;
+
+            return true;
+        }
+
+
+        private async Task<ExternalLoginStatus> CallbackRequestToClient(string endpointUrl, string token, string clientSecretKey, string applicationName, string tokenType)
             {
                 try
                 {

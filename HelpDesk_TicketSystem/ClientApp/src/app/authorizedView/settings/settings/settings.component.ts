@@ -217,6 +217,19 @@ export class SettingsComponent implements OnInit {
       label.classList.add('hidden-label');
     }
   }
+  deleteApplication(applicationId: number) {
+    this.companyService.deleteApplication(applicationId).subscribe(
+      (response: any) => {
+        this.toastr.success(response.message);
+        this.getCompanyRegisteredApplication();
+      },
+      error => {
+        this.toastr.error(error.message); 
+      }
+    );
+  }
+
+  
 }
  
 
