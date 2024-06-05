@@ -1,4 +1,4 @@
-<ul class="box-info mt-3">
+<!-- <ul class="box-info mt-3">
   <app-count-display [count]="ticketCount"
                      iconClass="bx bxs-bug"
                      heading="Total Tickets"
@@ -10,7 +10,37 @@
   <app-department-chart></app-department-chart>
   <app-priority-chart></app-priority-chart>
 </ul>
-<app-line-date-chart></app-line-date-chart>
+<app-line-date-chart></app-line-date-chart> -->
+<div class="row">
+<div class="col-xxxl-3 col-md-12">
+  <nb-card matRipple (click)="gotToTicketList()">
+    <div class="icon-container">
+      <div class="icon status-success">
+        <i class="eva eva-book"></i>
+      </div>
+    </div>
+    <div class="details">
+      <app-count-display [count]="ticketCount"
+                         (RedirectTo)="gotToTicketList()">
+      </app-count-display>
+      <div class="title h6">Total Tickets</div>
 
+    </div>
+  </nb-card>
+</div>
+</div>
+
+
+<ul class="box-info mt-3">
+  <div class="row">
+  <div class="col-xxxl-3 col-md-6">
+  <app-department-chart></app-department-chart>
+  </div>
+  <div class="col-xxxl-3 col-md-6">
+  <app-priority-chart></app-priority-chart>
+  </div>
+</div>
+</ul>
+<app-line-date-chart></app-line-date-chart>
 
 <loader *ngIf="isLoading"></loader>

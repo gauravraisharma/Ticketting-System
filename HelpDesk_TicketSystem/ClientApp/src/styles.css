@@ -5,6 +5,8 @@
 
   @import "primeng/resources/themes/lara-light-blue/theme.css";
 @import "primeng/resources/primeng.css";
+@import "primeicons/primeicons.css";
+@import "~eva-icons/style/eva-icons.css";
   html, body {
     height: 100%;
   }
@@ -12,7 +14,7 @@
   body {
     margin: 0;
     font-family: 'Roboto', sans-serif;
-    background-color: #f5eeee;
+    background-color: #fff;
   }
 
   .cust-container {
@@ -49,11 +51,11 @@
 
   @import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Poppins:wght@400;500;600;700&display=swap');
 
-  * {
+  /* * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-  }
+  } */
 
   a {
     text-decoration: none;
@@ -68,7 +70,7 @@
     --lato: 'Lato', sans-serif;
     --roboto: 'Roboto', sans-serif;
     --light: #F9F9F9;
-    --blue: #3C91E6;
+    /* --blue: #3C91E6; */
     --light-blue: #CFE8FF;
     --grey: #eee;
     --dark-grey: #AAAAAA;
@@ -76,7 +78,7 @@
     --red: #DB504A;
     --yellow: #FFCE26;
     --light-yellow: #FFF2C6;
-    --orange: #FD7238;
+    /* --orange: #FD7238; */
     --light-orange: #FFE0D3;
     --theme: #03669a;
   }
@@ -92,7 +94,6 @@
   }
 
   body {
-    background: var(--grey);
     overflow-x: hidden;
   }
 
@@ -1158,3 +1159,88 @@
       display: none !important;
     }
   }
+
+  
+  
+
+.password-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-container input {
+  padding-right: 30px; /* Adjust padding based on button size */
+}
+
+.password-container button {
+  position: absolute;
+  right: 10px; /* Adjust right positioning based on button size */
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+.text-red{
+  color : red;
+}
+.form-control{
+  padding: 20px;
+}
+
+nb-select.formSelect {
+  max-width: unset !important;
+  width: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.42);
+  border-radius: 4px;
+  padding: 5px 0;
+
+}
+nb-select.formSelect button{
+  border-bottom: 0 !important
+}
+
+
+.eye-button{
+    background-color: white !important;
+}
+
+
+  .icon-container {
+    height: 100%;
+    padding: 0.625rem;
+  }
+
+  .icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 5rem;
+    height: 4rem;
+    font-size: 3rem;
+    border-radius: nb-theme(card-border-radius);
+    transition: width 0.4s ease;
+    transform: translate3d(0, 0, 0);
+    color: nb-theme(text-control-color);
+  }
+  
+  .status-primary i {
+      color: #007bff; /* Primary color */
+    }
+    
+    .status-primary i:hover {
+      color: #0056b3; /* Darker shade for hover */
+    }
+    
+    .status-success i {
+      color: #28a745; /* Success color */
+    }
+    
+    .status-success i:hover {
+      color: #1e7e34; /* Darker shade for hover */
+    }
+    
+    .details .title {
+      text-align: center;
+    }

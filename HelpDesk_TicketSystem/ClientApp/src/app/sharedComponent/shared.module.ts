@@ -25,6 +25,8 @@ import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { PaginatorModule } from 'primeng/paginator';
 import { InputTextModule } from 'primeng/inputtext';
+import { NbActionsModule, NbButtonModule, NbCardModule, NbChatModule, NbDialogService, NbIconModule, NbInputModule, NbSelectModule, NbUserModule } from '@nebular/theme';
+import { TagModule } from 'primeng/tag';
 
 
 @NgModule({
@@ -51,8 +53,17 @@ import { InputTextModule } from 'primeng/inputtext';
   ButtonModule,
   PaginatorModule,
   InputTextModule,
-],
-  exports: [MatCardModule,
+  NbCardModule,
+  NbInputModule,
+  NbActionsModule,
+  NbIconModule,
+  NbButtonModule,
+  NbUserModule,
+  NbSelectModule,
+  TagModule,
+  NbChatModule,
+],  
+exports: [MatCardModule,
     MatInputModule,
     MatSortModule,
     MatButtonModule,
@@ -75,7 +86,17 @@ import { InputTextModule } from 'primeng/inputtext';
   TableModule,
   ButtonModule,
   PaginatorModule,
-  InputTextModule], 
+  InputTextModule,
+  NbActionsModule,
+  NbCardModule,
+  NbInputModule,
+  NbIconModule,
+  NbButtonModule,
+  NbUserModule,
+  NbSelectModule,
+  TagModule,
+  NbChatModule
+], 
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class SharedModule { }

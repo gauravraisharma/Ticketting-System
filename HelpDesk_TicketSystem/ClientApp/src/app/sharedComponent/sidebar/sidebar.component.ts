@@ -299,11 +299,11 @@ export class SidebarComponent implements OnInit {
 
   
   menuClick(event: any) {
-    const { action } = event.item.queryParams || {};
+    const { action } = event.item?.queryParams || {};
  if (action === 'switch') {
       this.SwitchBackToSuperadmin();
-    } else if (event.item.link) {
-      this.router.navigate([event.item.link]);
+    } else if (event.item?.link) {
+      this.router.navigate([event.item?.link]);
     }
   }
   

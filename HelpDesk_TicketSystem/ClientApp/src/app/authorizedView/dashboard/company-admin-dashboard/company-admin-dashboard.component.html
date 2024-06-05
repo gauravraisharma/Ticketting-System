@@ -1,4 +1,4 @@
-<ul class="box-info mt-3">
+<!-- <ul class="box-info mt-3">
   <app-count-display [count]="userCount"
                      heading="Total Users"
                      iconClass="bx bxs-user"
@@ -8,10 +8,53 @@
                      heading="Total Tickets"
                      (RedirectTo)="gotToTicketList()">
   </app-count-display>
-</ul>
+</ul> -->
+<div class="row">
+  <div class="col-xxxl-3 col-md-6">
+    <nb-card matRipple (click)="gotToUserList()" class="card-container">
+      <div class="icon-container">
+        <div class="icon status-primary">
+          <i class="eva eva-people"></i>
+        </div>
+      </div>
+      <div class="details">
+        <app-count-display [count]="userCount"
+                           (RedirectTo)="gotToUserList()">
+        </app-count-display>
+        <div class="title h6">Total Users</div>
+
+      </div>
+    </nb-card>
+  </div>
+  <div class="col-xxxl-3 col-md-6">
+    <nb-card matRipple (click)="gotToTicketList()">
+      <div class="icon-container">
+        <div class="icon status-success">
+          <i class="eva eva-book"></i>
+        </div>
+      </div>
+      <div class="details">
+        <app-count-display [count]="ticketCount"
+                           (RedirectTo)="gotToTicketList()">
+        </app-count-display>
+        <div class="title h6">Total Tickets</div>
+
+      </div>
+    </nb-card>
+  </div>
+</div>
+
+
+
 <ul class="box-info mt-3">
+  <div class="row">
+  <div class="col-xxxl-3 col-md-6">
   <app-department-chart></app-department-chart>
+  </div>
+  <div class="col-xxxl-3 col-md-6">
   <app-priority-chart></app-priority-chart>
+  </div>
+</div>
 </ul>
 <app-line-date-chart></app-line-date-chart>
 

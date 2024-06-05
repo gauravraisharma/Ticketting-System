@@ -15,12 +15,22 @@ import { TicketService } from '../../../../services/ticketServices/ticketservcie
 export class TicketListComponent implements AfterViewInit, OnInit {
   currentTimeZone: string = localStorage.getItem('timeZone');
   displayedColumns: string[] = ['ticketNumber', 'subject', 'createdOn', 'priority','status','action'];
-  dataSource = new MatTableDataSource<ticketModel>([]);
+  dataSource:any[]=[];
   isLoading = false
   data1 = [];
   userType = localStorage.getItem('userType');
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
+
+  priorityList:any[] = [
+    {id:1,label: "LOW"},
+    {id:2,label: "MEDIUM"},
+    {id:3,label : "HIGH"}
+  ]
+  statusList:any[] = [
+    {id:1,label: "OPEN"},
+    {id:2,label: "CLOSE"},
+  ]
   constructor(private ticketService: TicketService,
     private router: Router,
     private toastr: ToastrService) { }
@@ -37,14 +47,28 @@ export class TicketListComponent implements AfterViewInit, OnInit {
     this.ticketService.GetTicket(localStorage.getItem('userId')!, parseInt(localStorage.getItem('companyId'))).subscribe((response: any) => {
       console.log('prio', response)
       this.data1 = response;
-      this.dataSource = new MatTableDataSource<ticketModel>(response);
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
+      this.dataSource = response;
+      // this.dataSource.paginator = this.paginator;
+      // this.dataSource.sort = this.sort;
       this.isLoading = false;
     }, error => {
       this.isLoading = false;
     })
   }
+  getSeverity(status: string) {
+    switch (status) {
+        case 'LOW':
+            return 'info';
+        case 'MEDIUM':
+            return 'warning';
+        case 'HIGH':
+            return 'danger';
+        default:
+            return 'info'; 
+    }
+}
+
+
 }
 
 export interface ticketModel {

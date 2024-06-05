@@ -40,7 +40,7 @@ export class ConnectWithClientComponent implements OnInit {
             debugger;
             if (response.status == "SUCCEED") {
               this.toastr.success('Welcome to Helpdesk');
-              this.helper.setDataInLocalStorage(response.token, response.userType, response.userId, response.companyId, response.timeZone, 'false', response.companyLogo);
+              this.helper.setDataInLocalStorage(response.token, response.userType, response.userId, response.companyId, response.timeZone, 'false', response.companyLogo, response.name);
               this.router.navigate(['dashboard'])
             }
             else if (response.status == "REDIRECT") {

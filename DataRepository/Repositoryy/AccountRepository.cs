@@ -316,7 +316,9 @@ namespace DataRepository.Repository
                         UserId = user.Id,
                         CompanyId = user.CompanyId,
                         TimeZone = (userRoles[0].ToUpper() == "SUPERADMIN") ? null : CompanyTimeZone.TimeZone,
-                        CompanyLogo =CompanyLogo.companyLogo == "" ? null : AttachmentHelper.GetAssetLink(_config["AssetLink"], "\\" + ImageFolderConstants.CompanyLogo + "\\", CompanyLogo.companyLogo)
+                        CompanyLogo =CompanyLogo.companyLogo == "" ? null : AttachmentHelper.GetAssetLink(_config["AssetLink"], "\\" + ImageFolderConstants.CompanyLogo + "\\", CompanyLogo.companyLogo),
+                        Name = user.FirstName + " " + user.LastName,
+
                         
                     };
 

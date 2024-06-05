@@ -12,6 +12,7 @@ import { userModel } from '../add-user/add-user.component';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CommonService } from 'src/services/commonServcices/common-service.service';
 import { SelectItem } from 'primeng/api';
+import { NbDialogService } from '@nebular/theme';
 
 @Component({
   selector: 'app-userlisting',
@@ -34,6 +35,7 @@ export class UserlistingComponent {
   constructor(private accountService: AccountService,
      private toastr: ToastrService,
     public dialog: MatDialog,
+    private dialogService: NbDialogService
 ) { }
 
   ngOnInit() {
@@ -55,35 +57,30 @@ export class UserlistingComponent {
     })
   }
 
-
-  async deleteUser(user) {
-    const dialogRef = await this.dialog.open(ConfirmDialogComponent, {
-      data: {
-        message: 'Are you sure you want to delete user "' + user.firstName + ' ' + user.lastName+'"',
+async deleteUser(user): Promise<void> {
+    const dialogRef = this.dialogService.open(ConfirmDialogComponent, {
+      context: {
+        message: `Are you sure you want to delete user "${user.firstName} ${user.lastName}"`,
         title: 'Delete User'
       },
-      width: '450px',
-      enterAnimationDuration: '0',
-      exitAnimationDuration: '0',
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result == "ok") {
-        let status = 'CLOSED'
-        this.accountService.deleteUser(user.id).subscribe((response: any) => {
-          this.toastr.success(response.message);
-          this.getUserList();
-          this.isLoading = false;
-        }, (error: any) => {
-          this.toastr.error('Something went wrong');
-          this.isLoading = false;
-        });
-      }
-      else {
-
+      dialogClass: 'modal-danger',
+    }).onClose.subscribe(result => {
+      if (result === 'ok') {
+        debugger
+        this.accountService.deleteUser(user.id).subscribe(
+          (response: any) => {
+            this.toastr.success(response.message);
+            this.getUserList();
+            this.isLoading = false;
+          },
+          (error: any) => {
+            this.toastr.error('Something went wrong');
+            this.isLoading = false;
+          }
+        );
       }
     });
-  }
+}
   onRowEditInit(user: userModel) {
     
 }

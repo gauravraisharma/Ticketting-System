@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
-import { NbMediaBreakpointsService, NbMenuItem, NbMenuService, NbSidebarService, NbThemeService } from '@nebular/theme';
+import { NbDialogService, NbMediaBreakpointsService, NbMenuItem, NbMenuService, NbSidebarService, NbThemeService } from '@nebular/theme';
 
 import { UserData } from '../../../@core/data/users';
 import { LayoutService } from '../../../@core/utils';
@@ -30,35 +30,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   public readonly materialTheme$: Observable<boolean>;
   userPictureOnly: boolean = false;
   user: any;
-
-  themes = [
-    {
-      value: 'default',
-      name: 'Light',
-    },
-    {
-      value: 'dark',
-      name: 'Dark',
-    },
-    {
-      value: 'cosmic',
-      name: 'Cosmic',
-    },
-    {
-      value: 'corporate',
-      name: 'Corporate',
-    },
-    {
-      value: 'material-light',
-      name: 'Material Light',
-    },
-    {
-      value: 'material-dark',
-      name: 'Material Dark',
-    },
-  ];
-
-  currentTheme = 'default';
+  userName = localStorage.getItem('name')
+  profilePicture = '../../../../assets/images/profileImg.png';
 
   userMenu = [ { title: 'Profile' }, { title: 'Log out' } ];
 
@@ -71,7 +44,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private breakpointService: NbMediaBreakpointsService,
     private rippleService: RippleService,
     private companyLogoService: CompanyService,
-    public dialog: MatDialog,
+    public dialog: NbDialogService,
     private accountService: AccountService,
     private router: Router,
     private toastr: ToastrService,
@@ -87,11 +60,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.logoSubscription = this.companyLogoService.observeCompanyLogoChange().subscribe((newLogo) => {
       this.logoUrl = newLogo;
     });
-    this.currentTheme = this.themeService.currentTheme;
 
-    this.userService.getUsers()
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((users: any) => this.user = users.nick);
+    // this.userService.getUsers()
+    //   .pipe(takeUntil(this.destroy$))
+    //   .subscribe((users: any) => this.user = this.userName);
 
     const { xl } = this.breakpointService.getBreakpointsMap();
     this.themeService.onMediaQueryChange()
@@ -106,10 +78,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
         map(({ name }) => name),
         takeUntil(this.destroy$),
       )
-      .subscribe(themeName => {
-        this.currentTheme = themeName;
-        this.rippleService.toggle(themeName?.startsWith('material'));
-      });
+      // .subscribe(themeName => {
+      //   this.currentTheme = themeName;
+      //   this.rippleService.toggle(themeName?.startsWith('material'));
+      // });
       this.nbMenuService.onItemClick()
       .pipe(filter(({ tag }) => tag === 'user-menu'))
       .subscribe((menuItem: { item: NbMenuItem }) => {
@@ -190,12 +162,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   async logout() {
-    const dialogRef = await this.dialog.open(ConfirmDialogComponent, {
-      data: { message: 'Are you sure you want to logout', title: 'Logout' },
-      width: '450px',
-    });
+    const dialogRef =  this.dialog.open(ConfirmDialogComponent, {
+      context: { 
+        message: 'Are you sure you want to logout', 
+        title: 'Logout' },
+        dialogClass: 'modal-danger',
 
-    dialogRef.afterClosed().subscribe((result) => {
+    }).onClose.subscribe(result => {
       if (result === 'ok') {
         this.accountService.Logout();
         this.toastr.success('Successfully logout');

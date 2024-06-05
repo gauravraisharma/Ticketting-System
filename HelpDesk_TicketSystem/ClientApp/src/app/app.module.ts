@@ -27,7 +27,7 @@ import { ChatBotComponent } from './sharedComponent/chat-bot/chat-bot.component'
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { PageNotAuthorizedComponent } from './page-not-authorized/page-not-authorized.component';
 import { ThemeModule } from './@theme/theme.module';
-import { NbActionsModule, NbButtonModule, NbCardModule, NbContextMenuModule, NbIconModule, NbLayoutModule, NbMenuModule, NbMenuService, NbSearchModule, NbSelectModule, NbSidebarModule, NbSidebarService, NbThemeModule, NbUserModule } from '@nebular/theme';
+import { NbActionsModule, NbButtonModule, NbCardModule, NbChatModule, NbContextMenuModule, NbDialogModule, NbDialogService, NbIconModule, NbLayoutModule, NbMenuModule, NbMenuService, NbSearchModule, NbSelectModule, NbSidebarModule, NbSidebarService, NbThemeModule, NbToastrModule, NbUserModule } from '@nebular/theme';
 import { NbAccessChecker, NbAclService, NbRoleProvider, NbSecurityModule } from '@nebular/security';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { UserService } from './@core/mock/users.service';
@@ -74,6 +74,10 @@ import { UserData } from './@core/data/users';
     NbIconModule,
     NbEvaIconsModule,
     NbCardModule,
+    NbToastrModule.forRoot(),
+    NbDialogModule.forRoot(),
+    NbChatModule.forRoot()
+    
   ],
   providers: [
     AccountService,
@@ -87,8 +91,8 @@ import { UserData } from './@core/data/users';
     LayoutService,
     NbAccessChecker,
     NbAclService,
-    
-    {
+    NbDialogService,
+   {
       provide: HTTP_INTERCEPTORS,
       useClass: APIInterceptor,
       multi: true

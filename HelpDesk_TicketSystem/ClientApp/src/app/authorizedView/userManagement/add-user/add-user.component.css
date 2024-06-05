@@ -1,0 +1,42 @@
+
+  
+
+.password-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+  
+  .password-container input {
+    padding-right: 30px; /* Adjust padding based on button size */
+  }
+  
+  .password-container button {
+    position: absolute;
+    right: 10px; /* Adjust right positioning based on button size */
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+  }
+  .text-red{
+    color : red;
+  }
+
+  
+
+ .invalid-input input {
+    border-color: red !important;
+  }
+  
+  .invalid-input .nb-input,
+  .invalid-input ::ng-deep input {
+    border-color: red !important;
+  }
+  
+  .invalid-feedback {
+    color: red;
+    font-size: 0.875em;
+  }
+  
