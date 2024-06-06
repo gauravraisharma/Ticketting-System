@@ -24,7 +24,7 @@
               Overview
             </button>
             <div id="overview-section"
-                 class="collapse"
+                 [class]="(isOverViewSection)?'collapse show':'collapse'"
                  aria-labelledby="overview-tab"
                  data-parent="#v-pills-tab">
               <ul>
@@ -74,7 +74,7 @@
                 Get Started
               </button>
               <div id="get-started-section"
-                   class="collapse"
+                      [class]="(getStarted)?'collapse show':'collapse'"
                    aria-labelledby="get-started-tab"
                    data-parent="#v-pills-tab">
                 <ul>
@@ -103,7 +103,7 @@
                 Creating a Token: Types and How to Generate a Secure Token
               </button>
               <div id="create-token-section"
-                   class="collapse"
+                   [class]="(createToken)?'collapse show':'collapse'"
                    aria-labelledby="create-token-tab"
                    data-parent="#v-pills-tab">
                 <ul>
@@ -137,7 +137,7 @@
                 User Verification
               </button>
               <div id="user-token-section"
-                   class="collapse"
+                     [class]="(userToken)?'collapse show':'collapse'"
                    aria-labelledby="user-token-tab"
                    data-parent="#v-pills-tab">
                 <ul>
@@ -181,7 +181,7 @@
                 Error-Handling
               </button>
               <div id="error-handling-section"
-                   class="collapse"
+                  [class]="(errorHandling)?'collapse show':'collapse'"
                    aria-labelledby="error-handling-tab"
                    data-parent="#v-pills-tab">
                 <ul>
@@ -424,20 +424,23 @@ Authorization: <span class="bold-code">Bearer eyJhbGciOiJBMjU2R0NNS1ciLCJpdiI6Il
               <h4 class="main-title">Generate Token</h4>
               <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item" role="presentation">
-                  <button class="nav-link active" id="home-tab" data-toggle="tab" data-target="#cSharpGenerateToken"
-                          type="button" role="tab" aria-controls="home" aria-selected="true">
+                  <button 
+                          [class]="(IsNodeTab)?'nav-link':'nav-link active'"
+                          id="home-tab" data-toggle="tab" data-target="#cSharpGenerateToken"
+                          type="button" role="tab" aria-controls="home" aria-selected="true" (click)="toggleCodeTab(false)">
                     C#
                   </button>
                 </li>
                 <li class="nav-item" role="presentation">
-                  <button class="nav-link" id="profile-tab" data-toggle="tab" data-target="#nodeGenerateToken" type="button"
-                          role="tab" aria-controls="profile" aria-selected="false">
-                    Node
+                  <button [class]="(IsNodeTab)?'nav-link active':'nav-link'"
+                          id="profile-tab" data-toggle="tab" data-target="#nodeGenerateToken" type="button"
+                          role="tab" aria-controls="profile" aria-selected="false" (click)="toggleCodeTab(true)">
+                    Node 
                   </button>
                 </li>
               </ul>
               <div class="tab-content" id="myTabContent">
-                <div class="tab-pane fade show active" id="cSharpGenerateToken" role="tabpanel" aria-labelledby="home-tab">
+                <div [class]="(IsNodeTab)?'tab-pane fade ':'tab-pane fade  show active'" id="cSharpGenerateToken" role="tabpanel" aria-labelledby="home-tab">
                   <pre class="code-preview mt-0">
                   <code>
 public string GenerateToken(CipherDataModel dataModel)
@@ -470,7 +473,7 @@ public string GenerateToken(CipherDataModel dataModel)
                     </code>
                     </pre>
                 </div>
-                <div class="tab-pane fade" id="nodeGenerateToken" role="tabpanel" aria-labelledby="profile-tab">
+                <div [class]="(IsNodeTab)?'tab-pane fade show active':'tab-pane fade'" id="nodeGenerateToken" role="tabpanel" aria-labelledby="profile-tab">
                   <pre class="code-preview mt-0">
                   <code>
 const cors = require('cors');
@@ -508,20 +511,20 @@ const generateToken = async () =>
               <h3 class="main-title">Encrypt Token</h3>
               <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item" role="presentation">
-                  <button class="nav-link active" id="home-tab" data-toggle="tab" data-target="#cSharpEncryptToken"
-                          type="button" role="tab" aria-controls="home" aria-selected="true">
+                  <button [class]="(IsNodeTab)?'nav-link ':'nav-link active'" id="home-tab" data-toggle="tab" data-target="#cSharpEncryptToken"
+                          type="button" role="tab" aria-controls="home" aria-selected="true" (click)="toggleCodeTab(false)">
                     C#
                   </button>
                 </li>
                 <li class="nav-item" role="presentation">
-                  <button class="nav-link" id="profile-tab" data-toggle="tab" data-target="#nodeEncryptToken" type="button"
-                          role="tab" aria-controls="profile" aria-selected="false">
-                    Node
+                  <button [class]="(IsNodeTab)?'nav-link active':'nav-link '" id="profile-tab" data-toggle="tab" data-target="#nodeEncryptToken" type="button"
+                          role="tab" aria-controls="profile" aria-selected="false" (click)="toggleCodeTab(true)">
+                    Node 
                   </button>
                 </li>
               </ul>
               <div class="tab-content" id="myTabContent">
-                <div class="tab-pane fade show active" id="cSharpEncryptToken" role="tabpanel" aria-labelledby="home-tab">
+                <div [class]="(IsNodeTab)?'tab-pane fade ':'tab-pane fade  show active'" id="cSharpEncryptToken" role="tabpanel" aria-labelledby="home-tab">
                   <pre class="code-preview mt-0">
                   <code>
 private string EncryptToken(string token, string clientSecretKey)
@@ -533,7 +536,7 @@ private string EncryptToken(string token, string clientSecretKey)
               </code>
               </pre>
                 </div>
-                <div class="tab-pane fade" id="nodeEncryptToken" role="tabpanel" aria-labelledby="profile-tab">
+                <div [class]="(IsNodeTab)?'tab-pane fade show active':'tab-pane fade '" id="nodeEncryptToken" role="tabpanel" aria-labelledby="profile-tab">
                   <pre class="code-preview mt-0">
                   <code>
 const encryptedToken = await new jose.EncryptJWT(payload)
