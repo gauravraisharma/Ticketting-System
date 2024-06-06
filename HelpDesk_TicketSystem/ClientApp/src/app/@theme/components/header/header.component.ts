@@ -154,14 +154,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
     return false;
   }
   onMenuClick(event: any) {
-    debugger
     this.nbMenuService.onItemClick()
       .pipe(filter(({ tag }) => tag === 'user-menu'))
       .subscribe((menuItem) => {
         if (menuItem.item.title === 'Log out') {
           this.logout();
         }
-        debugger
         if(menuItem.item.title === 'Profile'){
           this.router.navigate(['/userProfile'])
         }

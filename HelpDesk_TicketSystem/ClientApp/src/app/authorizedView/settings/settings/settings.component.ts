@@ -167,14 +167,12 @@ export class SettingsComponent implements OnInit {
   }
 
   uploadCompanyLogo(): void {
-    debugger
     if (this.selectedFile) {
       let companyId = localStorage.getItem('companyId')
       let companyLogoData = new FormData();
       companyLogoData.append('CompanyId', companyId);
       companyLogoData.append('CompanyLogo', this.selectedFile);
       this.companyService.uploadCompanyLogo(companyLogoData).subscribe((response: any) => {
-        debugger
         this.toastr.success(response.message);
 
         setTimeout(() => {

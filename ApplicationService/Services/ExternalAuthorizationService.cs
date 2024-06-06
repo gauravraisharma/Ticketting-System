@@ -66,18 +66,18 @@ namespace ApplicationService.Services
                 var userFound = await _externalAuthorizationRepository.IsUserFound(email);
                 if (userFound != null)
                 {
-                    var loginResponse = await _externalAuthorizationRepository.AuthenticateExternalUser(userFound.Email, clientRequest.ApplicationName);
-                    if (loginResponse.Status == "SUCCEED")
+                var loginResponse = await _externalAuthorizationRepository.AuthenticateExternalUser(userFound.Email, clientRequest.ApplicationName);
+                if (loginResponse.Status == "SUCCEED")
                     {
                         var decryptToken = JWT.Decode(loginResponse.UserIdentityToken, Convert.FromBase64String(response.ClientSecretKey));
                         CipherUserDataModel cipherUserDataModel = JsonConvert.DeserializeObject<CipherUserDataModel>(decryptToken);
                         var expUnix = long.Parse(cipherUserDataModel.Exp);
                         var expDateTime = DateTimeOffset.FromUnixTimeSeconds(expUnix).UtcDateTime;
-                    if (expDateTime >= DateTime.UtcNow)
-                    {
-                        //token not expired return login response
-                        return loginResponse;
-                    }
+                        if (expDateTime >= DateTime.UtcNow)
+                        {
+                            //token not expired return login response
+                            return loginResponse;
+                        }
                     //Check if refresh token is valid and not expired
                     if (IsRefreshTokenValid(loginResponse.RefreshToken, out var refreshTokenExp) && refreshTokenExp < DateTime.UtcNow)
                     {
@@ -151,12 +151,12 @@ namespace ApplicationService.Services
 
 
         private async Task<ExternalLoginStatus> CallbackRequestToClient(string endpointUrl, string token, string clientSecretKey, string applicationName, string tokenType)
+        {
+            try
             {
-                try
-                {
 
-                    using (var httpClient = new HttpClient())
-                    {
+                using (var httpClient = new HttpClient())
+                {
                     httpClient.BaseAddress = new Uri(endpointUrl);
                     httpClient.DefaultRequestHeaders.Clear();
 
@@ -170,7 +170,7 @@ namespace ApplicationService.Services
 
                     HttpResponseMessage httpResponse = await httpClient.PostAsync("",content);
 
-                        if (httpResponse.IsSuccessStatusCode)
+                    if (httpResponse.IsSuccessStatusCode)
                     {
                         var responseBody = await httpResponse.Content.ReadAsStringAsync();
                         CipherClientResponse cipherClientResponse = JsonConvert.DeserializeObject<CipherClientResponse>(responseBody);
@@ -211,8 +211,32 @@ namespace ApplicationService.Services
                 Console.WriteLine($"Error in CallbackRequestToClient: {ex.Message}");
                 return new ExternalLoginStatus { Status = "FAILED", Message = ex.Message };
             }
+        }
+        public async Task<ResponseStatus> ValidateToken(ValidateTokenRequest validateTokenRequest)
+        {
+            var decryptedToken = JWT.Decode(validateTokenRequest.Token, Convert.FromBase64String(validateTokenRequest.SecretKey));
+            if(validateTokenRequest.Type == "AccessToken")
+            {
+                //valid payload will be email and session start time
+                return new ResponseStatus()
+                {
+                    Status = "SUCCEED",
+                    Message = "Token validated successfully"
+                };
             }
-       
+            else
+            {
+                //valid payload will be user id,first name,last name, email, username,  usertype, mobilephone
+                return new ResponseStatus()
+                {
+                    Status = "FAILED",
+                    Message = "Validation failed"
+                };
+            }
+
+        }
+
+
     }
 }
 

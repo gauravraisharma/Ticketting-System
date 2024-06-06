@@ -97,7 +97,6 @@ export class ChatBotComponent implements OnInit, OnDestroy {
   }
   sendMessageToAdmin(): void {
     if (this.messageToSend != null && this.messageToSend != undefined && this.messageToSend.trim() != '') {
-      debugger
       let chatmessage: chatMessage = {
         chatRoomId: this.chatRoomId,
         message: this.messageToSend,

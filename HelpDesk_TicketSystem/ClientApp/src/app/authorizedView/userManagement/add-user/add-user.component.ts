@@ -70,7 +70,7 @@ export class AddUserComponent implements OnInit {
   
   submitUser() {
     //this.isLoading = true;
-    debugger
+    
     if (this.userForm.valid) {
       console.log(this.userForm)
 

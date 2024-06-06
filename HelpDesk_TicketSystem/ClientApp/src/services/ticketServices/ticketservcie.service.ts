@@ -12,12 +12,10 @@ export class TicketService {
   auth_token = localStorage.getItem('token');
  
   createTicket(ticket: FormData) {
-    debugger
     let url = `${this.apiUrl}Tickets/CreateTicket`;
     return this.http.post(url, ticket);
   }
   AddConversationMessage(conversationMessage: FormData) {
-    debugger
     let url = `${this.apiUrl}Tickets/AddConversationMessage`;
     return this.http.post(url, conversationMessage);
   }

@@ -23,7 +23,6 @@ export class ConnectWithClientComponent implements OnInit {
 
 
   ngOnInit() {
-    debugger
     // Extract the host URL
     this.isLoading = true;
     const clientHostURL = this.extractHost();
