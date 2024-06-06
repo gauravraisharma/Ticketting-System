@@ -10,6 +10,8 @@ export class AuthorizedLayoutComponent {
 
   isUserLoggedIn = false;
   SideMenuStatus = false;
+  companyName = localStorage.getItem('companyName')
+
   constructor(
     private router: Router,) {
     router.events.subscribe((val) => {

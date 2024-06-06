@@ -10,7 +10,7 @@ namespace DataRepository.EntityModels
 {
     public class ConnectWithClientRequest
     {
-        public string? CipherText { get; set; }
+        public string? AccessToken { get; set; }
         public string? ApplicationName {  get; set; }
         public string? ClientHostURL { get; set; }
     }

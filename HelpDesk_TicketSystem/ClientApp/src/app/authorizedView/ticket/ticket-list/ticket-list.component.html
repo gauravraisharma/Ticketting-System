@@ -59,18 +59,17 @@
     <p-table [value]="dataSource" [paginator]="true" [rows]="5" [rowsPerPageOptions]="[5, 10, 20]"
       styleClass="p-datatable-striped" dataKey="id" [tableStyle]="{'min-width': '50rem'}" class="tickets-listing">
       <ng-template pTemplate="header">
-        <tr *ngIf="displayedColumns.length < 1">
-          <td colspan="100%">No records found.</td>
-        </tr>
-        <tr *ngIf="displayedColumns.length > 0">
+        <tr >
           <th *ngFor="let col of displayedColumns" [pSortableColumn]="col">
             {{ col | titlecase }}
             <p-sortIcon [field]="col"></p-sortIcon>
           </th>
         </tr>
+
       </ng-template>
       <ng-template pTemplate="body" let-ticket>
         <tr>
+          <td *ngIf="dataSource.length === 0" colspan="100%">No records found</td>
           <td>{{ticket.ticketNumber}}</td>
           <td> {{ticket.subject}} </td>
           <td> {{ticket.createdOn | timeZone :currentTimeZone: 'DD-MM-YYYY' }}</td>

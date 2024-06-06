@@ -150,6 +150,8 @@
       </ng-template>
       <ng-template pTemplate="body" let-user >
         <tr>
+          <td *ngIf="dataSource.length === 0" colspan="100%">No records found</td>
+
           <td>{{user.firstName}} {{user.lastName}}</td>
           <td >{{user.userName}}
           </td>

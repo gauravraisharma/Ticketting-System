@@ -1,4 +1,4 @@
-<div class="head-title">
+<!-- <div class="head-title">
   <div class="left">
     <h1>Register Application</h1>
     <ul class="breadcrumb">
@@ -19,9 +19,101 @@
   <div>
 
   </div>
-</div>
+</div> -->
+<nb-card>
+  <nb-card-header>
+    <div class="d-flex justify-content-between align-items-center">
+      <h5><b>Register Application</b></h5>
+        <a nbButton status="primary" routerLink="/settings">Back</a>
+      </div>
+  </nb-card-header>
 
-<div class="card-warpper form-wrapper">
+  <nb-card-body>
+    <form [formGroup]="applicationForm" (ngSubmit)="submitApplication()" class="form-field-full">
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="applicationName" class="label">Application Name <span class="text-red">*</span></label>
+            <input type="text" nbInput fullWidth id="applicationName" placeholder="Application Name" formControlName="applicationName" required>
+            <ng-container *ngIf="applicationForm.get('applicationName')?.invalid && applicationForm.get('applicationName')?.touched">
+              <p class="caption status-danger">
+                Application Name is required!
+              </p>
+            </ng-container>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="applicationURL" class="label">Application URL <span class="text-red">*</span></label>
+            <div class="input-container">
+              <input
+                type="text"
+                nbInput
+                fullWidth
+                id="applicationURL"
+                placeholder="Application URL"
+                formControlName="applicationURL"
+                required
+                class="input-field"
+              />
+              <nb-icon
+                icon="question-mark-circle-outline"
+                status="secondary"
+                nbTooltip="Enter the domain URL of your application from which the Single Sign-On (SSO) requests will be initiated. Example: 'https:/yourdomain.com/'"
+                nbButton
+                class="tooltip-icon"
+              ></nb-icon>
+            </div>
+            
+            <ng-container *ngIf="applicationForm.get('applicationURL')?.invalid && applicationForm.get('applicationURL')?.touched">
+              <p class="caption status-danger">
+                Please provide a valid Application URL !
+              </p>
+            </ng-container>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="apiEndpoint" class="label">API Endpoint <span class="text-red">*</span></label>
+            <div class="input-container">
+              <input
+                type="text"
+                nbInput
+                fullWidth
+                id="apiEndpoint"
+                placeholder="API Endpoint"
+                formControlName="apiEndpoint"
+                required
+                class="input-field"
+              />
+              <nb-icon
+                icon="question-mark-circle-outline"
+                status="secondary"
+                nbTooltip="Provide the API endpoint URL of your application that the Helpdesk system will call to retrieve user details during the SSO process."
+                nbButton
+                class="tooltip-icon"
+              ></nb-icon>
+            </div>            
+            <ng-container *ngIf="applicationForm.get('apiEndpoint')?.invalid && applicationForm.get('apiEndpoint')?.touched">
+              <p class="caption status-danger">
+                Please provide a valid API Endpoint!
+              </p>
+            </ng-container>
+          </div>
+        </div>
+        </div>
+    <div class="row text-end">
+      <div class="col-sm-12">
+        <button nbButton status="primary" type="submit" >Save</button>
+        <button nbButton status="danger" class="mx-2" routerLink="/settings">Cancel</button>
+      </div>
+    </div>
+  </form>
+
+    </nb-card-body>
+</nb-card>
+
+<!-- <div class="card-warpper form-wrapper">
 <div class="col-sm-12">
   <mat-card>
     <mat-card-content>
@@ -81,4 +173,4 @@
       </mat-card-content>
     </mat-card>
   </div>
-</div>
+</div> -->

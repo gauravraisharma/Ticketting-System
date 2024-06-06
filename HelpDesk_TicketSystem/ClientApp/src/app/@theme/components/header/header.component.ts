@@ -88,6 +88,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
         if (menuItem.item.title === 'Log out') {
           this.logout();
         }
+        if(menuItem.item.title === 'Profile'){
+          this.router.navigate(['/userProfile'])
+        }
       });
   }
 
@@ -157,6 +160,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
       .subscribe((menuItem) => {
         if (menuItem.item.title === 'Log out') {
           this.logout();
+        }
+        debugger
+        if(menuItem.item.title === 'Profile'){
+          this.router.navigate(['/userProfile'])
         }
       });
   }

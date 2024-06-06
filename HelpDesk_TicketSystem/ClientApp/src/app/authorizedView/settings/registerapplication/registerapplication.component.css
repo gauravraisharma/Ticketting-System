@@ -1,0 +1,17 @@
+.input-container {
+    position: relative;
+    display: flex; /* Use flexbox to align items */
+  }
+  
+  .input-field {
+    flex: 1; /* The input field takes up remaining space */
+  }
+  
+  .tooltip-icon {
+    position: absolute;
+    right: 10px; /* Adjust the distance from the right as needed */
+    top: 50%;
+    transform: translateY(-50%);
+    color: #838383;
+  }
+  

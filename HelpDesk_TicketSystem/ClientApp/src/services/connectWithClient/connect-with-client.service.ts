@@ -21,7 +21,7 @@ export class ConnectWithClientService {
 }
 export class ClientRequest {
 
-  cipherText: string = '';
+  accessToken: string = '';
   applicationName: string = '';
   clientHostURL: string = '';
 }

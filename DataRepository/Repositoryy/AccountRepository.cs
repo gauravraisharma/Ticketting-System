@@ -306,6 +306,13 @@ namespace DataRepository.Repository
                                                companyLogo = Company.CompanyLogo
                                            }
                                    ).FirstOrDefault();
+                    var CompanyName = (from Company in _context.Companys
+                                       where Company.Id == user.CompanyId
+                                       select new
+                                       {
+                                           companyName = Company.Name
+                                       }
+                                   ).FirstOrDefault();
 
                     return new LoginStatus
                     {
@@ -318,8 +325,9 @@ namespace DataRepository.Repository
                         TimeZone = (userRoles[0].ToUpper() == "SUPERADMIN") ? null : CompanyTimeZone.TimeZone,
                         CompanyLogo =CompanyLogo.companyLogo == "" ? null : AttachmentHelper.GetAssetLink(_config["AssetLink"], "\\" + ImageFolderConstants.CompanyLogo + "\\", CompanyLogo.companyLogo),
                         Name = user.FirstName + " " + user.LastName,
+                        CompanyName = CompanyName.companyName
 
-                        
+
                     };
 
                 }

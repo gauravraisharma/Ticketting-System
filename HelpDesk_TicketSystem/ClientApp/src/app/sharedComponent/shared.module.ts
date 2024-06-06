@@ -25,7 +25,7 @@ import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { PaginatorModule } from 'primeng/paginator';
 import { InputTextModule } from 'primeng/inputtext';
-import { NbActionsModule, NbButtonModule, NbCardModule, NbChatModule, NbDialogService, NbIconModule, NbInputModule, NbSelectModule, NbUserModule } from '@nebular/theme';
+import { NbActionsModule, NbButtonModule, NbCardModule, NbChatModule, NbDialogService, NbIconModule, NbInputModule, NbSelectModule, NbTooltipModule, NbUserModule } from '@nebular/theme';
 import { TagModule } from 'primeng/tag';
 
 
@@ -62,6 +62,7 @@ import { TagModule } from 'primeng/tag';
   NbSelectModule,
   TagModule,
   NbChatModule,
+  NbTooltipModule
 ],  
 exports: [MatCardModule,
     MatInputModule,
@@ -95,7 +96,8 @@ exports: [MatCardModule,
   NbUserModule,
   NbSelectModule,
   TagModule,
-  NbChatModule
+  NbChatModule,
+  NbTooltipModule
 ], 
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

@@ -20,8 +20,8 @@ export class SettingsComponent implements OnInit {
   public allTimeZones: string[] = moment.tz.names();
   showScript: boolean = false;
 
-  displayedColumns: string[] = ['applicationName', 'applicationURL', 'clientSecretKey', 'createdOn', 'action'];
-  dataSource = new MatTableDataSource<registeredApplicationModel>([]);
+  displayedColumns: string[] = ['ApplicationName', 'ApplicationURL', 'ClientSecretKey', 'CreatedOn', 'Action'];
+  dataSource :any[]=[];
   public registeredApplications: registeredApplicationModel[] = [];
   @ViewChild(MatSort) sort: MatSort;
 
@@ -114,8 +114,8 @@ export class SettingsComponent implements OnInit {
         try {
           console.log(response)
           this.registeredApplications = response;
-          this.dataSource = new MatTableDataSource<registeredApplicationModel>(response);
-          this.dataSource.sort = this.sort;
+         this.dataSource = response;
+          // this.dataSource.sort = this.sort;
         }
         catch (error) {
           console.log(error, "Error processing response");

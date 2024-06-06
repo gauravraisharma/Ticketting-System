@@ -39,7 +39,7 @@ namespace ApplicationService.Services
             
                 var response = await _externalAuthorizationRepository.ConnectWithClient(clientModel);
 
-                var decryptedToken = JWT.Decode(clientRequest.CipherText, Convert.FromBase64String(response.ClientSecretKey));
+                var decryptedToken = JWT.Decode(clientRequest.AccessToken, Convert.FromBase64String(response.ClientSecretKey));
 
                 CipherDataModel cipherDataModel = JsonConvert.DeserializeObject<CipherDataModel>(decryptedToken);
 
@@ -56,11 +56,11 @@ namespace ApplicationService.Services
                 }
 
 
-                // Validate endpointUrl existence in the database
-                if (response.ApplicationURL != null && response.ApplicationURL != clientRequest.ClientHostURL)
-                {
-                    // host url does not exist in the database
-                    return new LoginStatus { Status = "FAILED", Message = "Endpoint URL not found in the database." };
+            // Validate endpointUrl existence in the database
+            if (response.ApplicationURL != null && response.ApplicationURL.IndexOf(clientRequest.ClientHostURL, StringComparison.OrdinalIgnoreCase) < 0)
+            {
+                // host url does not exist in the database
+                return new LoginStatus { Status = "FAILED", Message = "Endpoint URL not found in the database." };
                 }
 
                 var userFound = await _externalAuthorizationRepository.IsUserFound(email);
@@ -83,7 +83,7 @@ namespace ApplicationService.Services
                     {
                         if (refreshTokenExp < DateTime.UtcNow)
                         {
-                            var loginRes= await CallbackRequestToClient(response.APIEndpoint, clientRequest.CipherText, response.ClientSecretKey, clientRequest.ApplicationName, TokenConstants.GenerateToken);
+                            var loginRes= await CallbackRequestToClient(response.APIEndpoint, clientRequest.AccessToken, response.ClientSecretKey, clientRequest.ApplicationName, TokenConstants.GenerateToken);
                             return loginRes;
                         }
                         else
@@ -95,7 +95,7 @@ namespace ApplicationService.Services
                     }
                     else
                     {
-                        return new ExternalLoginStatus { Status = "REDIRECT", Message = "page-not-authorized" };
+                        return new LoginStatus { Status = "REDIRECT", Message = "page-not-authorized" };
                     }
                     }
                     else
@@ -105,7 +105,7 @@ namespace ApplicationService.Services
                 }
                 else
                 {
-                    var loginResponse = await CallbackRequestToClient(response.APIEndpoint, clientRequest.CipherText, response.ClientSecretKey, clientRequest.ApplicationName, TokenConstants.GenerateToken);
+                    var loginResponse = await CallbackRequestToClient(response.APIEndpoint, clientRequest.AccessToken, response.ClientSecretKey, clientRequest.ApplicationName, TokenConstants.GenerateToken);
                     return loginResponse;
                 }
             }
@@ -174,17 +174,17 @@ namespace ApplicationService.Services
                         var responseBody = await httpResponse.Content.ReadAsStringAsync();
                         CipherClientResponse cipherClientResponse = JsonConvert.DeserializeObject<CipherClientResponse>(responseBody);
                         string responseStatus = cipherClientResponse.Status;
-                        string accessToken = responseStatus == "SUCCEED" ? cipherClientResponse.AccessToken : "";
+                        string userIdentityToken = responseStatus == "SUCCEED" ? cipherClientResponse.UserIdentityToken : "";
                         string refreshToken = responseStatus == "SUCCEED" ? cipherClientResponse.RefreshToken : "";
 
-                        if (accessToken == null)
+                        if (userIdentityToken == null)
                         {
                             return new ExternalLoginStatus { Status = "FAILED", Message = "No data found" };
                         }
 
-                        var decryptToken = JWT.Decode(accessToken, Convert.FromBase64String(clientSecretKey));
+                        var decryptToken = JWT.Decode(userIdentityToken, Convert.FromBase64String(clientSecretKey));
                         CipherUserDataModel cipherUserDataModel = JsonConvert.DeserializeObject<CipherUserDataModel>(decryptToken);
-                        var tokenres = await _externalAuthorizationRepository.SaveExternalTokens(cipherUserDataModel.Email, applicationName, accessToken, refreshToken);
+                        var tokenres = await _externalAuthorizationRepository.SaveExternalTokens(cipherUserDataModel.Email, applicationName, userIdentityToken, refreshToken);
 
                         var userFound = await _externalAuthorizationRepository.IsUserFound(cipherUserDataModel.Email);
                         if (userFound != null)
@@ -194,7 +194,7 @@ namespace ApplicationService.Services
                         }
                         else
                         {
-                            var loginResponse = await _externalAuthorizationRepository.RegisterExternalUser(cipherUserDataModel, cipherClientResponse.AccessToken, cipherClientResponse.RefreshToken, applicationName);
+                            var loginResponse = await _externalAuthorizationRepository.RegisterExternalUser(cipherUserDataModel, cipherClientResponse.UserIdentityToken, cipherClientResponse.RefreshToken, applicationName);
                             return loginResponse;
                         }
                     }
