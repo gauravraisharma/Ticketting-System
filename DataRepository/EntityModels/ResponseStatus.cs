@@ -240,7 +240,7 @@ namespace DataRepository.EntityModels
     }
     public class ExternalLoginStatus : LoginStatus
     {
-        public string AccessToken { get; set; }
+        public string UserIdentityToken { get; set; }
         public string RefreshToken {  get; set; }
     }
     public class CompanyLogoResponseStatus : ResponseStatus

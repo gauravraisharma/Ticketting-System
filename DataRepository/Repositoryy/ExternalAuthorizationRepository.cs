@@ -97,7 +97,7 @@ namespace DataRepository.Repositoryy
                     Message = "User doesn't exist"
                 };
             }
-            var accessToken = await _userManager.GetAuthenticationTokenAsync(user, applicationName, "External Access Token");
+            var accessToken = await _userManager.GetAuthenticationTokenAsync(user, applicationName, "External User Identity Token");
             var refreshToken = await _userManager.GetAuthenticationTokenAsync(user, applicationName, "External Refresh Token");
 
 
@@ -134,7 +134,7 @@ namespace DataRepository.Repositoryy
                 UserId = user.Id,
                 CompanyId = user.CompanyId,
                 TimeZone = (userRoles[0].ToUpper() == "SUPERADMIN") ? null : CompanyTimeZone.TimeZone,
-                AccessToken = accessToken,
+                UserIdentityToken = accessToken,
                 RefreshToken = refreshToken,
                 CompanyLogo = CompanyLogo.companyLogo == "" ? null : AttachmentHelper.GetAssetLink(_config["AssetLink"], "\\" + ImageFolderConstants.CompanyLogo + "\\", CompanyLogo.companyLogo),
                 Name = user.FirstName + " " + user.LastName,

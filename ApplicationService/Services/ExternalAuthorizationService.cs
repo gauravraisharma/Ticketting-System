@@ -69,7 +69,7 @@ namespace ApplicationService.Services
                     var loginResponse = await _externalAuthorizationRepository.AuthenticateExternalUser(userFound.Email, clientRequest.ApplicationName);
                     if (loginResponse.Status == "SUCCEED")
                     {
-                        var decryptToken = JWT.Decode(loginResponse.AccessToken, Convert.FromBase64String(response.ClientSecretKey));
+                        var decryptToken = JWT.Decode(loginResponse.UserIdentityToken, Convert.FromBase64String(response.ClientSecretKey));
                         CipherUserDataModel cipherUserDataModel = JsonConvert.DeserializeObject<CipherUserDataModel>(decryptToken);
                         var expUnix = long.Parse(cipherUserDataModel.Exp);
                         var expDateTime = DateTimeOffset.FromUnixTimeSeconds(expUnix).UtcDateTime;
@@ -184,12 +184,12 @@ namespace ApplicationService.Services
 
                         var decryptToken = JWT.Decode(userIdentityToken, Convert.FromBase64String(clientSecretKey));
                         CipherUserDataModel cipherUserDataModel = JsonConvert.DeserializeObject<CipherUserDataModel>(decryptToken);
-                        var tokenres = await _externalAuthorizationRepository.SaveExternalTokens(cipherUserDataModel.Email, applicationName, userIdentityToken, refreshToken);
 
                         var userFound = await _externalAuthorizationRepository.IsUserFound(cipherUserDataModel.Email);
                         if (userFound != null)
                         {
                             var loginResponse = await _externalAuthorizationRepository.AuthenticateExternalUser(userFound.Email, applicationName);
+                            var tokenres = await _externalAuthorizationRepository.SaveExternalTokens(cipherUserDataModel.Email, applicationName, userIdentityToken, refreshToken);
                             return loginResponse;
                         }
                         else
