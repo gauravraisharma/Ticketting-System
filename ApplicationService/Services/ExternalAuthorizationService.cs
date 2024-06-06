@@ -123,7 +123,7 @@ namespace ApplicationService.Services
             var parts = refreshToken.Split('.');
 
             // A valid JWT token has three parts separated by dots
-            if (parts.Length != 3)
+            if (parts.Length < 3)
             {
                 return false;
             }
