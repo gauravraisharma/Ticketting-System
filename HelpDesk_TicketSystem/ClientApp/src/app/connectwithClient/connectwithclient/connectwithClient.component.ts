@@ -49,6 +49,7 @@ export class ConnectWithClientComponent implements OnInit {
             }
             else {
               this.toastr.error(response.message);
+              console.error(response.message);
               this.isLoading = false;
 
             }
