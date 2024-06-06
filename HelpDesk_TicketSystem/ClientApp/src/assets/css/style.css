@@ -79,6 +79,17 @@ section {
 }
 
 /* ------------------------header css starts--------------------------- */
+.fixed-header {
+    position: fixed;
+    width: 100%;
+    background-color: #fff;
+    z-index: 9;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    top: 0;
+    padding-top: 16px;
+    padding-bottom: 16px;
+}
+
 .header.navbar {
     padding-top: 40px;
 }
@@ -161,6 +172,11 @@ section {
     position: absolute;
     bottom: -20px;
     right: 38%;
+}
+
+.first-fold .content.left-side {
+    max-width: 1150px;
+    margin: 0 auto;
 }
 
 /* ------------------------first-fold css ends--------------------------- */
@@ -302,7 +318,7 @@ section {
     border-radius: 100%;
     position: absolute;
     left: 0;
-    top: 96%;
+    top: 80%;
 }
 
 .custom-carousel .carousel-control-prev-icon {
@@ -316,7 +332,7 @@ section {
     border-radius: 100%;
     position: absolute;
     left: 70px;
-    top: 96%;
+    top: 80%;
 }
 
 .custom-carousel .carousel-control-next-icon {
@@ -594,7 +610,7 @@ section {
 
 /* ------------------------signup css ends--------------------------- */
 .signup .image.right-side {
-    padding: 300px 100px;
+    padding: 400px 100px;
 }
 
 /* ------------------------signup css ends--------------------------- */
@@ -1624,9 +1640,9 @@ section {
 
 /* ------------------------Responsive starts------------------------*/
 @media only screen and (max-width: 1700px) {
-    .logo img {
+    /* .logo img {
         width: 150px;
-    }
+    } */
 }
 
 @media only screen and (max-width: 1440.98px) {

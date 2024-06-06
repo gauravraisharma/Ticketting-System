@@ -6,14 +6,16 @@
       <div class="row align-items-center">
         <div class="col-md-6">
           <div class="content left-side">
-            <form  [formGroup]="loginForm" (ngSubmit)="onSubmit()" autocomplete="off">
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" autocomplete="off">
               <h1 class="heading">Login to <strong>Tech<span class="orange">Desk</span></strong></h1>
               <div class="fields">
                 <div class="form-group">
                   <label for="exampleInputEmail1">User name *</label>
 
-                  <input formControlName="username" type="text" placeholder="Enter Username" [ngClass]="(username?.invalid && (username?.dirty || username?.touched)) ? 'invalid form-control' : 'form-control'">
-                  <span *ngIf="username?.invalid && (username?.dirty || username?.touched)" class="invalid-message">User Name is required </span>
+                  <input formControlName="username" type="text" placeholder="Enter Username"
+                    [ngClass]="(username?.invalid && (username?.dirty || username?.touched)) ? 'invalid form-control' : 'form-control'">
+                  <span *ngIf="username?.invalid && (username?.dirty || username?.touched)" class="invalid-message">User
+                    Name is required </span>
 
 
                 </div>
@@ -21,16 +23,19 @@
                 <div class="form-group">
                   <label for="exampleInputPassword1">Password *</label>
                   <div class="input-group">
-                    <input formControlName="password"
-                           [type]="passwordHide ? 'password' : 'text'"
-                           aria-describedby="password-info" placeholder="Enter password" [ngClass]="(password?.invalid && (password?.dirty || password?.touched)) ? 'invalid form-control' : 'form-control'">
+                    <input formControlName="password" [type]="passwordHide ? 'password' : 'text'"
+                      aria-describedby="password-info" placeholder="Enter password"
+                      [ngClass]="(password?.invalid && (password?.dirty || password?.touched)) ? 'invalid form-control' : 'form-control'">
                     <div class="input-group-append">
                       <span class="input-group-text" id="password-info" (click)="passwordHide = !passwordHide">
-                        <mat-icon aria-hidden="false" aria-label="preview" [fontIcon]="(passwordHide)?'visibility_off':'visibility'" class="text-dark" style="cursor:pointer;"></mat-icon>
+                        <mat-icon aria-hidden="false" aria-label="preview"
+                          [fontIcon]="(passwordHide)?'visibility_off':'visibility'" class="text-dark"
+                          style="cursor:pointer;"></mat-icon>
                       </span>
                     </div>
                   </div>
-                  <span *ngIf="password?.invalid && (password?.dirty || password?.touched)" class="invalid-message">Password is required </span>
+                  <span *ngIf="password?.invalid && (password?.dirty || password?.touched)"
+                    class="invalid-message">Password is required </span>
 
                 </div>
 
@@ -39,8 +44,9 @@
                 <button class="btn btn-theme btn-long" type="submit">Login</button>
               </div>
               <div class="form-group form-check mb-40">
-                <input type="checkbox" class="form-check-input" id="exampleCheck1" formControlName="rememberMe">
-                <label class="form-check-label" for="exampleCheck1">Keep me signed in</label>
+                <input type="checkbox" class="form-check-input" id="exampleCheck1" formControlName="rememberMe"
+                  style="margin-top: 1px;">
+                <label class="form-check-label mb-0 ml-2" for="exampleCheck1">Keep me signed in</label>
               </div>
               <!--<div class="mb-20 d-none">
     <a class="btn btn-theme btn-white-long">
@@ -59,12 +65,12 @@
         <div class="col-md-6">
           <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-indicators">
-              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0"
-                      class="active" aria-current="true" aria-label="Slide 1"></button>
+              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
+                aria-current="true" aria-label="Slide 1"></button>
               <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
-                      aria-label="Slide 2"></button>
+                aria-label="Slide 2"></button>
               <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
-                      aria-label="Slide 3"></button>
+                aria-label="Slide 3"></button>
             </div>
             <div class="carousel-inner">
               <div class="carousel-item active">
@@ -139,5 +145,3 @@
 
 
 <loader *ngIf="isLoading"></loader>
-
-

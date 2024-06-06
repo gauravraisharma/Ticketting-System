@@ -17,40 +17,28 @@
 </div> -->
 
 
-<div class="row align-items-center mb-3">
-  <div class="col-sm-3">
-    <h5>Filter Tickets by :</h5>
-  </div>
-  <div class="col-sm-3">
-    <div class="form-group">
-      <!-- <label for="priority" class="label">Priority</label> -->
-      <nb-select class="formSelect" placeholder="Select Priority">
-        <nb-option *ngFor="let priority of priorityList" [value]="priority.id">{{ priority.label }}
-        </nb-option>
-      </nb-select>
-    </div>
-  </div>
-
-  <div class="col-sm-3">
-    <div class="form-group">
-      <!-- <label for="status" class="label">Status</label> -->
-      <nb-select class="formSelect" placeholder="Select Priority">
-        <nb-option *ngFor="let status of statusList" [value]="status.id">{{ status.label }}
-        </nb-option>
-      </nb-select>
-    </div>
-  </div>
-  <div class="col-sm-3">
-    <div class="form-group">
-      <!-- <label class="label">Ticket Number or Subject</label> -->
-      <input type="text" nbInput fullWidth id="filterTicket" placeholder="Ticket Number or Subject">
-    </div>
-  </div>
-</div>
 <nb-card>
-  <nb-card-header>
+  <nb-card-header class="pt-3 pb-3">
     <div class="d-flex justify-content-between align-items-center">
-      <h5><b>Ticket</b></h5>
+      <h6><b>Ticket</b></h6>
+      <div class="d-flex align-items-center tickets-filter">
+        <h5 class="title">Filter Tickets by :</h5>
+        <div class="form-group mb-0 mr-2">
+          <nb-select class="formSelect" placeholder="Select Priority">
+            <nb-option *ngFor="let priority of priorityList" [value]="priority.id">{{ priority.label }}
+            </nb-option>
+          </nb-select>
+        </div>
+        <div class="form-group mb-0 mr-2">
+          <nb-select class="formSelect" placeholder="Select Status">
+            <nb-option *ngFor="let status of statusList" [value]="status.id">{{ status.label }}
+            </nb-option>
+          </nb-select>
+        </div>
+        <div class="form-group mb-0 mr-2">
+          <input type="text" nbInput fullWidth id="filterTicket" placeholder="Ticket Number or Subject">
+        </div>
+      </div>
       <a nbButton status="primary" routerLink="/ticket/addTicket" *ngIf="userType=='NORMALUSER'">Add Ticket</a>
 
     </div>

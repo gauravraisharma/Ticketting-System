@@ -1,6 +1,12 @@
 nb-card {
-    flex-direction: row;
-    align-items: center;
-    height: 6rem;
-    cursor: pointer;
-  }
+  flex-direction: row;
+  align-items: center;
+  height: 6rem;
+  cursor: pointer;
+}
+
+.status-title {
+  font-weight: 400;
+  font-size: 18px;
+  color: #474747;
+}

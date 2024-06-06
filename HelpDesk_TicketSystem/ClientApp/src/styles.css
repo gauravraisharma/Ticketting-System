@@ -4,9 +4,10 @@
   @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
   @import "primeng/resources/themes/lara-light-blue/theme.css";
-@import "primeng/resources/primeng.css";
-@import "primeicons/primeicons.css";
-@import "~eva-icons/style/eva-icons.css";
+  @import "primeng/resources/primeng.css";
+  @import "primeicons/primeicons.css";
+  @import "~eva-icons/style/eva-icons.css";
+
   html, body {
     height: 100%;
   }
@@ -81,6 +82,8 @@
     /* --orange: #FD7238; */
     --light-orange: #FFE0D3;
     --theme: #03669a;
+    --primary: #6200ee;
+    --secondary: #f44336;
   }
 
   html {
@@ -703,10 +706,13 @@
   }
 
   .conversion-message {
-    background-color: #f6f6f6;
-    padding: 10px;
+    padding: 0 10px;
     margin: 10px;
     border-radius: 4px;
+  }
+
+  .conversion-message p {
+    line-height: 24px !important;
   }
 
   .conversion-message>p:last-child {
@@ -749,8 +755,8 @@
   }
 
   .chat-header {
-    border-bottom: 1px solid #e6e6e6;
-    padding: 10px 10px !important;
+    border-bottom: 1px solid #f0f0f0;
+    padding: 0 10px 10px !important;
   }
 
   mat-card-title .chat-detail {
@@ -884,16 +890,23 @@
   }
 
   .db-btn-theme {
-    background-color: #03669a !important;
+    background-color: var(--primary) !important;
     box-shadow: unset !important;
     padding: 20px 24px !important;
     font-family: var(--roboto);
     letter-spacing: normal;
     color: #fff !important;
+    border: 1px solid var(--primary) !important;
+  }
+
+  .db-btn-theme.border-btn {
+    background-color: transparent !important;
+    color: var(--primary) !important;
   }
 
   .db-btn-theme.cancel-btn {
     background-color: #c44e32 !important;
+    border: 1px solid #c44e32 !important;
   }
 
   .form-wrapper .mat-mdc-form-field-infix {
@@ -1160,51 +1173,56 @@
     }
   }
 
-  
-  
-
-.password-container {
-  position: relative;
-  display: flex;
-  align-items: center;
-}
-
-.password-container input {
-  padding-right: 30px; /* Adjust padding based on button size */
-}
-
-.password-container button {
-  position: absolute;
-  right: 10px; /* Adjust right positioning based on button size */
-  top: 50%;
-  transform: translateY(-50%);
-  background: transparent;
-  border: none;
-  cursor: pointer;
-}
-.text-red{
-  color : red;
-}
-.form-control{
-  padding: 20px;
-}
-
-nb-select.formSelect {
-  max-width: unset !important;
-  width: 100%;
-  border: 1px solid rgba(0, 0, 0, 0.42);
-  border-radius: 4px;
-  padding: 5px 0;
-
-}
-nb-select.formSelect button{
-  border-bottom: 0 !important
-}
 
 
-.eye-button{
+
+  .password-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  .password-container input {
+    padding-right: 30px;
+    /* Adjust padding based on button size */
+  }
+
+  .password-container button {
+    position: absolute;
+    right: 10px;
+    /* Adjust right positioning based on button size */
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+  }
+
+  .text-red {
+    color: red;
+  }
+
+  .form-control {
+    padding: 20px;
+  }
+
+  nb-select.formSelect {
+    max-width: unset !important;
+    width: 100%;
+    border: 1px solid rgba(0, 0, 0, 0.42);
+    border-radius: 4px;
+    padding: 5px 0;
+
+  }
+
+  nb-select.formSelect button {
+    border-bottom: 0 !important
+  }
+
+
+  .eye-button {
     background-color: white !important;
-}
+  }
 
 
   .icon-container {
@@ -1224,37 +1242,91 @@ nb-select.formSelect button{
     transform: translate3d(0, 0, 0);
     color: nb-theme(text-control-color);
   }
-  
-  .status-primary i {
-      color: #007bff; /* Primary color */
-    }
-    
-    .status-primary i:hover {
-      color: #0056b3; /* Darker shade for hover */
-    }
-    
-    .status-success i {
-      color: #28a745; /* Success color */
-    }
-    
-    .status-success i:hover {
-      color: #1e7e34; /* Darker shade for hover */
-    }
-    
-    .details .title {
-      text-align: center;
-    }
 
-    .tickets-listing .p-tag {
-      width: 100px;
-      padding: 8px;
-    }
-    
-    .tickets-listing .p-tag i {
-      margin-right: 6px;
-    }
-    
-    .status-badge {
-      padding: 8px !important;
-      width: 100px;
-    }
+  .status-primary i {
+    color: #007bff;
+    /* Primary color */
+  }
+
+  .status-primary i:hover {
+    color: #0056b3;
+    /* Darker shade for hover */
+  }
+
+  .status-success i {
+    color: #28a745;
+    /* Success color */
+  }
+
+  .status-success i:hover {
+    color: #1e7e34;
+    /* Darker shade for hover */
+  }
+
+  .details .title {
+    text-align: center;
+  }
+
+  .tickets-listing .p-tag {
+    width: 100px;
+    padding: 8px;
+  }
+
+  .tickets-listing .p-tag i {
+    margin-right: 6px;
+  }
+
+  .status-badge {
+    padding: 8px !important;
+    width: 100px;
+  }
+
+  .text-theme {
+    color: var(--primary);
+  }
+
+
+  .tickets-filter .title {
+    font-size: 16px;
+    margin-right: 16px;
+    margin-bottom: 0;
+  }
+
+  .nb-theme-material-light .tickets-filter nb-select {
+    min-width: 140px;
+  }
+
+  .nb-theme-material-light .tickets-filter nb-select.size-medium button {
+    padding: 0px 40px 0px 10px !important;
+  }
+
+  .nb-theme-material-light .tickets-filter [nbInput].size-medium {
+    padding: 5px 30px 5px 10px;
+  }
+
+  .db-cards nb-card {
+    padding: 10px;
+  }
+
+  .db-cards .icon {
+    background-color: #6200ee;
+    border-radius: .25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 5.75rem;
+    height: 100%;
+    margin-right: 16px;
+  }
+
+  .db-cards .icon i {
+    color: #fff;
+  }
+
+  .p-datatable-table th {
+    white-space: nowrap;
+  }
+
+  .p-datatable-table td {
+    white-space: nowrap;
+  }
