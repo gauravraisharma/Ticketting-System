@@ -8,7 +8,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class CompanyService {
-  private defaultLogo: string = '../../assets/images/Logo@1x.png';
+  private defaultLogo: string = '../../assets/images/Logo-White@1x.png';
   private logoUrl = new BehaviorSubject<string>(this.defaultLogo);
 
   constructor(private http: HttpClient) {
@@ -52,7 +52,11 @@ export class CompanyService {
     localStorage.setItem('companyLogo', newValue);
     this.logoUrl.next(newValue);
   }
- 
+  deleteApplication(id: number) {
+    let url = `${this.apiUrl}Company/DeleteApplication/${id}`;
+    return this.http.delete(url);
+  }
+
 }
 export class RegisterCompanyUser {
 

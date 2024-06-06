@@ -1,0 +1,9 @@
+.password-container button {
+    position: absolute;
+    right: 10px; /* Adjust right positioning based on button size */
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+  }

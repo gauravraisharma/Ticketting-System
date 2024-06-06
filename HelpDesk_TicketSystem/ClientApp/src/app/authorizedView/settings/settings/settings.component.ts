@@ -20,8 +20,8 @@ export class SettingsComponent implements OnInit {
   public allTimeZones: string[] = moment.tz.names();
   showScript: boolean = false;
 
-  displayedColumns: string[] = ['applicationName', 'applicationURL', 'clientSecretKey', 'createdOn', 'action'];
-  dataSource = new MatTableDataSource<registeredApplicationModel>([]);
+  displayedColumns: string[] = ['ApplicationName', 'ApplicationURL', 'ClientSecretKey', 'CreatedOn', 'Action'];
+  dataSource :any[]=[];
   public registeredApplications: registeredApplicationModel[] = [];
   @ViewChild(MatSort) sort: MatSort;
 
@@ -114,8 +114,8 @@ export class SettingsComponent implements OnInit {
         try {
           console.log(response)
           this.registeredApplications = response;
-          this.dataSource = new MatTableDataSource<registeredApplicationModel>(response);
-          this.dataSource.sort = this.sort;
+         this.dataSource = response;
+          // this.dataSource.sort = this.sort;
         }
         catch (error) {
           console.log(error, "Error processing response");
@@ -167,14 +167,12 @@ export class SettingsComponent implements OnInit {
   }
 
   uploadCompanyLogo(): void {
-    debugger
     if (this.selectedFile) {
       let companyId = localStorage.getItem('companyId')
       let companyLogoData = new FormData();
       companyLogoData.append('CompanyId', companyId);
       companyLogoData.append('CompanyLogo', this.selectedFile);
       this.companyService.uploadCompanyLogo(companyLogoData).subscribe((response: any) => {
-        debugger
         this.toastr.success(response.message);
 
         setTimeout(() => {
@@ -217,6 +215,19 @@ export class SettingsComponent implements OnInit {
       label.classList.add('hidden-label');
     }
   }
+  deleteApplication(applicationId: number) {
+    this.companyService.deleteApplication(applicationId).subscribe(
+      (response: any) => {
+        this.toastr.success(response.message);
+        this.getCompanyRegisteredApplication();
+      },
+      error => {
+        this.toastr.error(error.message); 
+      }
+    );
+  }
+
+  
 }
  
 

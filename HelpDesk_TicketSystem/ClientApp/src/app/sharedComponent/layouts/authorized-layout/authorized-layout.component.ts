@@ -10,6 +10,8 @@ export class AuthorizedLayoutComponent {
 
   isUserLoggedIn = false;
   SideMenuStatus = false;
+  companyName = localStorage.getItem('companyName')
+
   constructor(
     private router: Router,) {
     router.events.subscribe((val) => {
@@ -30,4 +32,17 @@ export class AuthorizedLayoutComponent {
   onSideMenuChange(event) {
     this.SideMenuStatus = event;
   }
+  menu = [
+    {
+      title: 'Home',
+      icon: 'home-outline',
+      link: '/home', // goes into angular `routerLink`
+    },
+    {
+      title: 'Profile',
+      icon: 'person-outline',
+      link: '/profile',
+    },
+    // Add more items here
+  ];
 }

@@ -29,6 +29,16 @@ import { PageNotAuthorizedComponent } from './page-not-authorized/page-not-autho
 import { HeaderComponent } from './sharedComponent/header/header.component';
 import { FooterComponent } from './sharedComponent/footer/footer.component';
 import { DevelopersGuideComponent } from './developers-guide/developers-guide.component';
+import { ThemeModule } from './@theme/theme.module';
+import { NbActionsModule, NbButtonModule, NbCardModule, NbChatModule, NbContextMenuModule, NbDialogModule, NbDialogService, NbIconModule, NbLayoutModule, NbMenuModule, NbMenuService, NbSearchModule, NbSelectModule, NbSidebarModule, NbSidebarService, NbThemeModule, NbToastrModule, NbUserModule } from '@nebular/theme';
+import { NbAccessChecker, NbAclService, NbRoleProvider, NbSecurityModule } from '@nebular/security';
+import { NbEvaIconsModule } from '@nebular/eva-icons';
+import { UserService } from './@core/mock/users.service';
+import { LayoutService } from './@core/utils';
+import { NbSimpleRoleProvider } from './@core/core.module';
+import { UserData } from './@core/data/users';
+
+
 
 
 @NgModule({
@@ -53,7 +63,26 @@ import { DevelopersGuideComponent } from './developers-guide/developers-guide.co
     SharedModule,
     CommonModule,
     ToastrModule.forRoot(),
-    MatTooltipModule
+    MatTooltipModule,
+    ThemeModule.forRoot(),
+    NbThemeModule.forRoot({ name: 'default' }),
+    NbLayoutModule,
+    NbMenuModule.forRoot(),
+    NbUserModule,
+    NbActionsModule,
+    NbSearchModule,
+    NbSidebarModule.forRoot(),
+    NbContextMenuModule,
+    NbSecurityModule,
+    NbButtonModule,
+    NbSelectModule,
+    NbIconModule,
+    NbEvaIconsModule,
+    NbCardModule,
+    NbToastrModule.forRoot(),
+    NbDialogModule.forRoot(),
+    NbChatModule.forRoot()
+    
   ],
   providers: [
     AccountService,
@@ -62,11 +91,25 @@ import { DevelopersGuideComponent } from './developers-guide/developers-guide.co
     CompanyService,
     DashboardService,
     ChatService,
-    {
+    NbSidebarService,
+    NbMenuService,
+    LayoutService,
+    NbAccessChecker,
+    NbAclService,
+    NbDialogService,
+   {
       provide: HTTP_INTERCEPTORS,
       useClass: APIInterceptor,
       multi: true
-    }],
+    },
+    {
+      provide: UserData,
+      useClass: UserService, 
+    },
+    {
+      provide: NbRoleProvider,
+      useClass: NbSimpleRoleProvider, 
+    },],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,4 +1,4 @@
-<div class="dashborad-card">
+<!-- <div class="dashborad-card">
 
   <h3>Tickets by Priority</h3>
   <ng-container *ngIf="Data==null  || Data==undefined || Data.length==0">
@@ -19,4 +19,29 @@
                           (deactivate)="onDeactivate($event)">
     </ngx-charts-pie-chart>
   </ng-container>
-  </div>
+  </div> -->
+
+<nb-card>
+    <nb-card-header>Tickets by Priority</nb-card-header>
+    <nb-card-body>
+    <ng-container *ngIf="Data==null  || Data==undefined || Data.length==0">
+      No Record found
+    </ng-container>
+    <ng-container *ngIf="Data!=null  && Data!=undefined && Data.length>0">
+      <ngx-charts-pie-chart [view]="view"
+                            [scheme]="colorScheme"
+                            [results]="Data"
+                            [gradient]="gradient"
+                            [legend]="showLegend"
+                            [legendPosition]="legendPosition"
+                            [labels]="showLabels"
+                            [doughnut]="isDoughnut"
+                            [arcWidth]="arcWidth"
+                            (select)="onSelect($event)"
+                            (activate)="onActivate($event)"
+                            (deactivate)="onDeactivate($event)">
+      </ngx-charts-pie-chart>
+    </ng-container>
+  </nb-card-body>
+  </nb-card>
+  

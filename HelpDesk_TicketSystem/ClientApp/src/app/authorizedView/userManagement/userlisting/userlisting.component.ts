@@ -4,10 +4,15 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { AccountService } from '../../../../services/accountServices/account-service.service';
+import { AccountService, UpdateApplicationUser } from '../../../../services/accountServices/account-service.service';
 import { ConfirmDialogComponent } from '../../../sharedComponent/confirm-dialog/confirm-dialog.component';
+import { userModel } from '../add-user/add-user.component';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { CommonService } from 'src/services/commonServcices/common-service.service';
+import { SelectItem } from 'primeng/api';
+import { NbDialogService } from '@nebular/theme';
 
 @Component({
   selector: 'app-userlisting',
@@ -15,20 +20,27 @@ import { ConfirmDialogComponent } from '../../../sharedComponent/confirm-dialog/
   styleUrls: ['./userlisting.component.css']
 })
 export class UserlistingComponent {
-  displayedColumns: string[] = ['name', 'userName', 'userType', 'email', 'department','action'];
-  dataSource = new MatTableDataSource<UserModel>([]);
-  isLoading = false
+  displayedColumns: string[] = ['name', 'userName', 'userType', 'email', 'department'];
+  dataSource: any[] = [];
+    isLoading = false
   data1 = [];
+  clonedUsers: { [s: string]: userModel } = {};
+
   userType = localStorage.getItem('userType');
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
+  DDUserTypeList: any = [];
+
   constructor(private accountService: AccountService,
      private toastr: ToastrService,
-    public dialog: MatDialog) { }
+    public dialog: MatDialog,
+    private dialogService: NbDialogService
+) { }
 
   ngOnInit() {
     this.getUserList();
+    
   }
   getUserList() {
     this.isLoading = true;
@@ -36,50 +48,59 @@ export class UserlistingComponent {
     this.accountService.getUserList(companyId).subscribe((response: any) => {
       console.log('userList', response)
       this.data1 = response;
-      this.dataSource = new MatTableDataSource<UserModel>(response);
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
+      this.dataSource = response;
+      // this.dataSource.paginator = this.paginator;
+      // this.dataSource.sort = this.sort;
       this.isLoading = false;
     }, error => {
       this.isLoading = false;
     })
   }
 
-  async deleteUser(user) {
-    const dialogRef = await this.dialog.open(ConfirmDialogComponent, {
-      data: {
-        message: 'Are you sure you want to delete user "' + user.firstName + ' ' + user.lastName+'"',
+async deleteUser(user): Promise<void> {
+    const dialogRef = this.dialogService.open(ConfirmDialogComponent, {
+      context: {
+        message: `Are you sure you want to delete user "${user.firstName} ${user.lastName}"`,
         title: 'Delete User'
       },
-      width: '450px',
-      enterAnimationDuration: '0',
-      exitAnimationDuration: '0',
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result == "ok") {
-        let status = 'CLOSED'
-        this.accountService.deleteUser(user.id).subscribe((response: any) => {
-          this.toastr.success(response.message);
-          this.getUserList();
-          this.isLoading = false;
-        }, (error: any) => {
-          this.toastr.error('Something went wrong');
-          this.isLoading = false;
-        });
-      }
-      else {
-
+      dialogClass: 'modal-danger',
+    }).onClose.subscribe(result => {
+      if (result === 'ok') {
+        this.accountService.deleteUser(user.id).subscribe(
+          (response: any) => {
+            this.toastr.success(response.message);
+            this.getUserList();
+            this.isLoading = false;
+          },
+          (error: any) => {
+            this.toastr.error('Something went wrong');
+            this.isLoading = false;
+          }
+        );
       }
     });
-  }
+}
+  onRowEditInit(user: userModel) {
+    
 }
 
-export interface UserModel {
-  name: string;
-  userName: number;
-  userType: string;
-  email: string;
-  department: string;
+
+
+onRowEditCancel(user: userModel, index: number) {
+    
 }
+onRowEditSave(user: userModel) {
+
+
+}
+
+}
+
+// export interface UserModel {
+//   name: string;
+//   userName: number;
+//   userType: string;
+//   email: string;
+//   department: string;
+// }
 

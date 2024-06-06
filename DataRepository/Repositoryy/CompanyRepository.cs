@@ -67,7 +67,7 @@ namespace DataRepository.Repositoryy
             try
             {
                 var company = await _context.CompanyRegisteredApplications
-                     .Where(application => application.CompanyId == companyId)
+                        .Where(application => application.CompanyId == companyId && !application.IsDeleted)
                         .Select(Application => new GetCompanyRegisteredApplicationResponse
                         {
                             Id = Application.Id,
@@ -337,6 +337,42 @@ namespace DataRepository.Repositoryy
                 };
             }
         }
+        public async Task<ResponseStatus> DeleteApplication(int id)
+        {
+            try
+            {
+                var application = await _context.CompanyRegisteredApplications.FindAsync(id);
+                if (application != null)
+                {
+                    application.IsDeleted = true;
+                    await _context.SaveChangesAsync();
+
+                    return new ResponseStatus()
+                    {
+                        Status = "SUCCEED",
+                        Message = "Application deleted successfully"
+                    };
+                }
+                else
+                {
+                    // APPLICATION not found
+                    return new ResponseStatus()
+                    {
+                        Status = "FAILED",
+                        Message = "Cannot find Application"
+                    };
+                }
+            }
+            catch (Exception ex)
+            {
+                return new ResponseStatus()
+                {
+                    Status = "FAILED",
+                    Message = ex.Message
+                };
+            }
+        }
+
 
     }
 

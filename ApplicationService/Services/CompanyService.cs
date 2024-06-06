@@ -100,5 +100,9 @@ namespace ApplicationService.Services
             };
 
         }
+        public async Task<ResponseStatus> DeleteApplication(int id)
+        {
+            return await _companyRepository.DeleteApplication(id);
+        }
     }
 }

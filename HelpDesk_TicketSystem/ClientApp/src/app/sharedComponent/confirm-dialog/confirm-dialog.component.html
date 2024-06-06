@@ -1,4 +1,4 @@
-<div class="confirm-dialog text-center">
+<!-- <div class="confirm-dialog text-center">
 
   <div mat-dialog-title>
     <img src="../../../assets/images/delete-icon.png" class="img-fluid mb-3">
@@ -12,4 +12,21 @@
     <button mat-button cdkFocusInitial mat-dialog-close="ok" class="db-btn-theme">Yes</button>
     <button mat-button mat-dialog-close="close" class="db-btn-theme cancel-btn">No</button>
   </div>
-</div>
+</div> -->
+
+
+<nb-card class="confirm-dialog text-center" >
+  <nb-card-header>{{title}}</nb-card-header>
+  <nb-card-body>
+    <div >
+      <img src="../../../assets/images/delete-icon.png" class="img-fluid mb-3">
+    </div>
+    <div >
+      {{message}}
+    </div>
+  </nb-card-body>
+  <nb-card-footer>
+    <button nbButton matRipple status="success" (click)="submit()"  style="margin-right: 10px;">Yes</button>
+    <button class="cancel" nbButton matRipple status="danger" (click)="cancel()">No</button>
+  </nb-card-footer>
+</nb-card>

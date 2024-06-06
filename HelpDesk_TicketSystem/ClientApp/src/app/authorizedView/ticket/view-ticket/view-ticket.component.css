@@ -1,6 +1,6 @@
 .pills-info {
-    background: rgba(0, 0, 0, .12);
-    color: #000;
+    background: rgb(98 0 238);
+    color: #fff;
     font-size: 12px;
     padding: 0px 15px;
     border-radius: 15px;
@@ -9,6 +9,9 @@
 
 .date-time-info {
     font-size: 14px;
+    color: #727272;
+    font-weight: 400;
+    line-height: normal;
 }
 
 .download-link-info {
@@ -24,11 +27,12 @@
 
 .chat-attachment-detail .download-link-info {
     max-width: 100%;
-    background: #0d6efd;
-    color: #fff;
+    background: #f1f1f1;
+    color: #464646;
     padding: 6px 10px;
     border-radius: 6px;
     width: fit-content;
+    text-decoration: unset;
 }
 
 .chat-attachment-detail .download-link-info span {
@@ -44,16 +48,20 @@
 
 .view-ticket .task-bg-main {
     background-color: #ffffff !important;
-    box-shadow: unset !important;
-    border: 1px solid #e6e6e6;
+    border: 1px solid #e2e2e2;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 
 .view-ticket .closed-ticket-msg {
     background: #d82424;
     text-align: center;
-    padding: 4px;
+    padding: 0;
     border-radius: 6px;
     color: #fff;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: normal;
+    padding: 8px;
 }
 
 .view-ticket .mat-toolbar {
@@ -63,11 +71,53 @@
 }
 
 .ticket-details .mat-mdc-card-header {
-    background-color: #ffe2e2 !important;
+    background-color: #f7f2fe !important;
     padding: 6px 16px;
     font-size: 16px;
 }
 
 .ticket-details .mat-mdc-card-title {
     font-size: 16px;
+}
+
+.avtar-profile {
+    background: #f1f1f1;
+    border-radius: 4px;
+    font-size: 20px;
+    width: 46px;
+    height: 46px;
+    line-height: 46px;
+    text-align: center;
+    margin-right: 10px;
+}
+
+.avtar-name {
+    text-transform: capitalize;
+    font-size: 16px;
+    margin-right: 30px;
+}
+
+.conversation-main-list mat-card {
+    margin: 0 0 30px;
+    padding: 10px;
+}
+
+.new-message-editor {
+    margin: 0 10px;
+}
+
+.message-wrap {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+}
+
+.message-wrap .mat-mdc-card {
+    border-top: 0 !important;
+    background: transparent;
+    border-left: 0 !important;
+    border-right: 0 !important;
+}
+
+.message-wrap .chat-header {
+    border-bottom: 0;
 }

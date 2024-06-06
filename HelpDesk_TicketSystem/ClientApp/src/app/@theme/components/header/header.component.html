@@ -1,0 +1,21 @@
+<div class="header-container">
+  <div class="logo-container">
+    <a class="sidebar-toggle" matRipple [matRippleUnbounded]="true" [matRippleCentered]="true" (click)="toggleSidebar()">
+      <nb-icon class="icon-xs" [icon]="(materialTheme$ | async) ? 'menu-outline' : 'menu-2-outline'"></nb-icon>
+    </a>
+    <img [src]="logoUrl" class="img-fluid" alt="Logo">
+  </div>
+  <!-- <nb-select class="theme-dropdown" status="primary" matRipple [selected]="currentTheme"  (selectedChange)="changeAppTheme($event)">
+    <nb-option *ngFor="let theme of themes" [value]="theme.value" matRipple>{{ theme.name }}</nb-option>
+  </nb-select> -->
+</div>
+
+<div class="header-container">
+  <nb-actions >
+    <nb-action class="user-action"  matRipple [matRippleUnbounded]="true" [matRippleCentered]="true">
+      <nb-user [nbContextMenu]="userMenu" [onlyPicture]="userPictureOnly" [name]="userName" [picture]="profilePicture" nbContextMenuTag="user-menu">
+      </nb-user>
+    </nb-action>
+  </nb-actions>
+</div>
+

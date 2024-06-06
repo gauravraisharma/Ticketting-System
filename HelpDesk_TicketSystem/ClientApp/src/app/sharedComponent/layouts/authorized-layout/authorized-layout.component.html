@@ -1,15 +1,36 @@
 
-<app-navbar class="display-None-Large-screen main-nav" (onSideMenuChange)="onSideMenuChange($event)"></app-navbar>
 
-<app-sidebar [SideMenuStatus]="SideMenuStatus"></app-sidebar>
+<!-- <nb-layout windowMode>
+  <nb-layout-header fixed>
+    <ngx-header></ngx-header>
+  </nb-layout-header>
 
-<!-- CONTENT -->
-<section id="content" [class]="(SideMenuStatus)?'w-100  start-0':''">
-  <!-- MAIN -->
-  <main>
+  <nb-sidebar class="menu-sidebar" tag="menu-sidebar" responsive>
+    <ng-content select="nb-menu"></ng-content>
+  </nb-sidebar>
+
+  <nb-layout-column>
+    <ng-content select="router-outlet"></ng-content>
+  </nb-layout-column>
+
+  <nb-layout-footer fixed>
+    <ngx-footer></ngx-footer>
+  </nb-layout-footer>
+</nb-layout> -->
+<nb-layout windowMode>
+ >
+
+  <nb-layout-header fixed>
+    <ngx-header class="display-None-Large-screen main-nav" (onSideMenuChange)="onSideMenuChange($event)"></ngx-header>
+  </nb-layout-header>
+
+  <nb-sidebar tag="menu-sidebar" class="menu-sidebar" responsive>
+    <app-sidebar [SideMenuStatus]="SideMenuStatus"></app-sidebar>
+  </nb-sidebar>
+  <nb-layout-column id="content" [class]="(SideMenuStatus) ? 'w-100 start-0' : ''">
     <router-outlet></router-outlet>
+  </nb-layout-column>
 
-  </main>
-  <!-- MAIN -->
-</section>
-<!-- CONTENT -->
+  <nb-layout-footer fixed>© 2023 {{companyName}}</nb-layout-footer>
+</nb-layout>
+

@@ -1,0 +1,117 @@
+@import 'bootstrap/scss/mixins/breakpoints';
+@import '@nebular/theme/styles/global/breakpoints';
+@import '../../styles/themes';
+
+@include nb-install-component() {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+
+  .logo-container {
+    display: flex;
+    align-items: center;
+    width: calc(#{nb-theme(sidebar-width)} - #{nb-theme(header-padding)});
+  }
+
+  nb-action {
+    height: auto;
+    display: flex;
+    align-content: center;
+  }
+
+  nb-user {
+    cursor: pointer;
+  }
+
+  ::ng-deep nb-search button {
+    padding: 0!important;
+  }
+
+  .header-container {
+    display: flex;
+    width: auto;
+    // margin-right: 270px;    
+
+    .sidebar-toggle {
+      @include nb-ltr(margin-right, 1.25rem);
+      @include nb-rtl(margin-left, 1.25rem);
+      text-decoration: none;
+      color: nb-theme(text-hint-color);
+      nb-icon {
+        font-size: 1.75rem;
+      }
+    }
+
+    .logo {
+      padding: 0 1.25rem;
+      font-size: 1.75rem;
+      @include nb-ltr(border-left, 1px solid nb-theme(divider-color));
+      @include nb-rtl(border-right, 1px solid nb-theme(divider-color));
+      white-space: nowrap;
+      text-decoration: none;
+    }
+  }
+
+  @include media-breakpoint-down(sm) {
+    .control-item {
+      display: none;
+    }
+    .user-action {
+      border: none;
+      padding: 0;
+    }
+  }
+
+  @include media-breakpoint-down(is) {
+    nb-select {
+      display: none;
+    }
+  }
+}
+.img-fluid {
+  max-width: 100%;
+  width: 260px; 
+  height: 50px !important; 
+  margin-right: 80px;
+}
+
+/* header.component.scss */
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+}
+
+.logo-container img {
+  max-height: 40px;
+  margin-left: 1rem;
+}
+.icon-xs{
+  font-size: 1.5rem;
+  width : 2rem;
+  height: 2rem;
+}
+.icon-small {
+  font-size: 1.5rem;
+  width :4rem;
+  height: 4rem;
+}
+
+.control-item nb-icon {
+  font-size: 1.5rem;
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.nb-actions.size-small nb-action {
+  display: flex;
+  align-items: center;
+}
+.theme-dropdown{
+  margin-left: 60px !important;
+}

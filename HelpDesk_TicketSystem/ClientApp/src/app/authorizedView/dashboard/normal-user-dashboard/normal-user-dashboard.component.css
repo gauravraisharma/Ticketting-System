@@ -1,0 +1,6 @@
+nb-card {
+    flex-direction: row;
+    align-items: center;
+    height: 6rem;
+    cursor: pointer;
+  }

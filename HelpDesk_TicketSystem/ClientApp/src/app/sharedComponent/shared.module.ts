@@ -21,10 +21,16 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { ChartjsModule } from '@coreui/angular-chartjs';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { TableModule } from 'primeng/table';
+import { ButtonModule } from 'primeng/button';
+import { PaginatorModule } from 'primeng/paginator';
+import { InputTextModule } from 'primeng/inputtext';
+import { NbActionsModule, NbButtonModule, NbCardModule, NbChatModule, NbDialogService, NbIconModule, NbInputModule, NbSelectModule, NbTooltipModule, NbUserModule } from '@nebular/theme';
+import { TagModule } from 'primeng/tag';
 
 
 @NgModule({
-  declarations: [LoaderComponent, TimeZonePipe],
+  declarations: [LoaderComponent, TimeZonePipe, ],
   imports: [MatCardModule,
     MatSortModule,
     MatInputModule,
@@ -42,8 +48,23 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatAutocompleteModule,
     CKEditorModule, MatSortModule, NgxChartsModule, ChartjsModule,
     MatDatepickerModule,
-  MatNativeDateModule],
-  exports: [MatCardModule,
+  MatNativeDateModule,
+  TableModule,
+  ButtonModule,
+  PaginatorModule,
+  InputTextModule,
+  NbCardModule,
+  NbInputModule,
+  NbActionsModule,
+  NbIconModule,
+  NbButtonModule,
+  NbUserModule,
+  NbSelectModule,
+  TagModule,
+  NbChatModule,
+  NbTooltipModule
+],  
+exports: [MatCardModule,
     MatInputModule,
     MatSortModule,
     MatButtonModule,
@@ -62,7 +83,22 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatSortModule,
     TimeZonePipe,
     MatAutocompleteModule, NgxChartsModule, ChartjsModule, MatDatepickerModule,
-  MatNativeDateModule],
+  MatNativeDateModule,
+  TableModule,
+  ButtonModule,
+  PaginatorModule,
+  InputTextModule,
+  NbActionsModule,
+  NbCardModule,
+  NbInputModule,
+  NbIconModule,
+  NbButtonModule,
+  NbUserModule,
+  NbSelectModule,
+  TagModule,
+  NbChatModule,
+  NbTooltipModule
+], 
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class SharedModule { }

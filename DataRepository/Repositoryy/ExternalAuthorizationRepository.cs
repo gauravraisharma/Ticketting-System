@@ -1,4 +1,5 @@
 ﻿using Azure.Core;
+using DataRepository.Constants;
 using DataRepository.EntityModels;
 using DataRepository.IRepository;
 using DataRepository.Repository;
@@ -96,7 +97,7 @@ namespace DataRepository.Repositoryy
                     Message = "User doesn't exist"
                 };
             }
-            var accessToken = await _userManager.GetAuthenticationTokenAsync(user, applicationName, "External Access Token");
+            var accessToken = await _userManager.GetAuthenticationTokenAsync(user, applicationName, "External User Identity Token");
             var refreshToken = await _userManager.GetAuthenticationTokenAsync(user, applicationName, "External Refresh Token");
 
 
@@ -110,6 +111,20 @@ namespace DataRepository.Repositoryy
                                        TimeZone = Company.TimeZone
                                    }
                                   ).FirstOrDefault();
+            var CompanyLogo = (from Company in _context.Companys
+                               where Company.Id == user.CompanyId
+                               select new
+                               {
+                                   companyLogo = Company.CompanyLogo
+                               }
+                                   ).FirstOrDefault();
+            var CompanyName = (from Company in _context.Companys
+                               where Company.Id == user.CompanyId
+                               select new
+                               {
+                                   companyName = Company.Name
+                               }
+                                  ).FirstOrDefault();
             return new ExternalLoginStatus
             {
                 Status = "SUCCEED",
@@ -119,14 +134,17 @@ namespace DataRepository.Repositoryy
                 UserId = user.Id,
                 CompanyId = user.CompanyId,
                 TimeZone = (userRoles[0].ToUpper() == "SUPERADMIN") ? null : CompanyTimeZone.TimeZone,
-                AccessToken = accessToken,
-                RefreshToken = refreshToken
+                UserIdentityToken = accessToken,
+                RefreshToken = refreshToken,
+                CompanyLogo = CompanyLogo.companyLogo == "" ? null : AttachmentHelper.GetAssetLink(_config["AssetLink"], "\\" + ImageFolderConstants.CompanyLogo + "\\", CompanyLogo.companyLogo),
+                Name = user.FirstName + " " + user.LastName,
+                CompanyName = CompanyName.companyName
 
             };
         }
 
 
-        public async Task<ExternalLoginStatus> RegisterExternalUser(CipherUserDataModel cipherUserDataModel, string accessToken, string refreshToken, string applicationName)
+        public async Task<ExternalLoginStatus> RegisterExternalUser(CipherUserDataModel cipherUserDataModel, string userIdentityToken, string refreshToken, string applicationName)
         {
             var userType = await GetRoleId(cipherUserDataModel.UserType.ToString());
             var companyId =  (from companyApplication in _context.CompanyRegisteredApplications  where companyApplication.ApplicationName == applicationName
@@ -149,7 +167,7 @@ namespace DataRepository.Repositoryy
             var userResponse = await _accountRepository.CreateApplicationUser(userModel);
             if (userResponse.Status == "SUCCEED")
             {
-                var tokenres = await SaveExternalTokens(userModel.Email, applicationName, accessToken, refreshToken);
+                var tokenres = await SaveExternalTokens(userModel.Email, applicationName, userIdentityToken, refreshToken);
 
                 var loginResponse = await AuthenticateExternalUser(userModel.Email, applicationName);
                 return loginResponse;
@@ -159,13 +177,13 @@ namespace DataRepository.Repositoryy
 
         }
 
-        public async Task<ResponseStatus> SaveExternalTokens(string email, string applicationName, string accessToken, string refreshToken)
+        public async Task<ResponseStatus> SaveExternalTokens(string email, string applicationName, string userIdentityToken, string refreshToken)
         {
             try
             {
                 var user = await _userManager.FindByEmailAsync(email);
 
-                await _userManager.SetAuthenticationTokenAsync(user, applicationName, "External Access Token", accessToken);
+                await _userManager.SetAuthenticationTokenAsync(user, applicationName, "External User Identity Token", userIdentityToken);
                 await _userManager.SetAuthenticationTokenAsync(user, applicationName, "External Refresh Token", refreshToken);
                 return new ResponseStatus()
                 {

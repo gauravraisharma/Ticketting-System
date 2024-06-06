@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, HostListener, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { AccountService } from '../services/accountServices/account-service.service';
+import { NbThemeService } from '@nebular/theme';
 
 @Component({
   selector: 'app-root',
@@ -17,7 +18,7 @@ export class AppComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private accountservices: AccountService,
-
+    private themeService: NbThemeService,
 
   ) {
     router.events.subscribe((val) => {
@@ -39,7 +40,8 @@ export class AppComponent implements OnInit {
    
   }
   ngOnInit() {
-   
+    this.themeService.changeTheme('material-light');
+
 
   }
 

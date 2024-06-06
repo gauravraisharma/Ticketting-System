@@ -1,4 +1,4 @@
-<Div class="dashborad-card">
+<!-- <Div class="dashborad-card">
   <h3>Ticket by Department</h3>
   <ng-container *ngIf="department==null  || department==undefined || department.length==0">
     No Record found
@@ -14,4 +14,24 @@
                                [showDataLabel]="showDataLabel">
     </ngx-charts-bar-horizontal>
     </ng-container>
-</Div>
+</Div> -->
+
+<nb-card>
+  <nb-card-header>Ticket by Department</nb-card-header>
+  <nb-card-body>
+  <ng-container *ngIf="department==null  || department==undefined || department.length==0">
+    No Record found
+  </ng-container>
+  <ng-container *ngIf="department!=null  && department!=undefined && department.length>0">
+
+    <ngx-charts-bar-horizontal [view]="view"
+                               [scheme]="colorScheme"
+                               [results]="department"
+                               [gradient]="gradient"
+                               [yAxis]="showYAxis"
+                               [showYAxisLabel]="showYAxisLabel"
+                               [showDataLabel]="showDataLabel">
+    </ngx-charts-bar-horizontal>
+    </ng-container>
+  </nb-card-body>
+  </nb-card>

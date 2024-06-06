@@ -1,4 +1,4 @@
-<div>
+<!-- <div>
 
   <div class="head-title">
     <div class="left">
@@ -85,4 +85,95 @@
     </mat-paginator>
   </div>
   <loader *ngIf="isLoading"></loader>
-</div>
+</div> -->
+
+
+<!-- 
+
+
+<nb-card>
+  <nb-card-header>
+    User Management
+  </nb-card-header>
+
+  <nb-card-body>
+    <div class="head-title">
+      <div class="left">
+        <h1>User Management</h1>
+        <ul class="breadcrumb">
+          <li>
+            <a routerLink="/dashboard">Home</a>
+          </li>
+          <li><i class='bx bx-chevron-right'></i></li>
+          <li>
+            <a class="active" href="javascript:;">User Management</a>
+          </li>
+        </ul>
+      </div>
+     
+    </div>
+
+  </nb-card-body>
+
+  <loader *ngIf="isLoading"></loader>
+</nb-card> -->
+
+
+<nb-card>
+  <nb-card-header>
+    <div class="d-flex justify-content-between align-items-center">
+      <h5><b>User Management</b></h5>
+      <!-- <ul class="breadcrumb">
+        <li>
+          <a routerLink="/dashboard">Home</a>
+        </li>
+        <li><i class='bx bx-chevron-right'></i></li>
+        <li>
+          <a class="active" href="javascript:;">User Management</a>
+        </li>
+      </ul> -->
+        <a nbButton status="primary" routerLink="/users/adduser">Add User</a>
+      </div>
+  </nb-card-header>
+
+  <nb-card-body>
+    
+    <p-table [value]="dataSource" [paginator]="true" [rows]="5"  [rowsPerPageOptions]="[5, 10, 20]" dataKey="id"  styleClass="p-datatable-striped"  [tableStyle]="{'min-width': '50rem'}">
+      <ng-template pTemplate="header">
+        <tr>
+          <th *ngFor="let col of displayedColumns" [pSortableColumn]="col">
+            {{ col | titlecase }}
+            <p-sortIcon [field]="col"></p-sortIcon>
+          </th>
+          <th>Actions</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-user >
+        <tr>
+          <td *ngIf="dataSource.length === 0" colspan="100%">No records found</td>
+
+          <td>{{user.firstName}} {{user.lastName}}</td>
+          <td >{{user.userName}}
+          </td>
+          <td>{{user.userType}}
+          </td>
+          <td>{{user.email}}</td>
+          <td>
+            {{ user.department ? user.department : 'NA' }}
+          </td>
+          <td>
+              <button class="btn btn-md" [routerLink]="['/users/edituser',user.id]" >
+                <i class="pi pi-user-edit" style="color: blue;" ></i> 
+              </button>
+              <button class="btn btn-md" (click)="deleteUser(user)">
+                <i class="pi pi-trash" style="color: red;"></i>
+              </button>
+              
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+    <!-- <p-paginator [rowsPerPageOptions]="[5, 10, 20]" [totalRecords]="dataSource?.length || 0"></p-paginator> -->
+</nb-card-body>
+</nb-card>
+ 

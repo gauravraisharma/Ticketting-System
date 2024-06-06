@@ -1,4 +1,4 @@
-<div class="head-title">
+<!-- <div class="head-title">
   <div class="left">
     <h1>My Profile</h1>
     <ul class="breadcrumb">
@@ -15,9 +15,99 @@
   <div>
 
   </div>
-</div>
+</div> -->
 
-<div class="mat-elevation-z8 bg-white rounded-3 form-wrapper card-warpper">
+<nb-card>
+  <nb-card-header><div class="d-flex justify-content-between align-items-center">
+    <h5><b>User Profile</b></h5>
+      <a nbButton status="primary" routerLink="/users">Back</a>
+    </div></nb-card-header>
+    
+  <nb-card-body>
+    <form [formGroup]="userForm" class="form-field-full">
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label for="username" class="label">User Name <span class="text-red">*</span></label>
+            <input type="text" nbInput fullWidth id="username" placeholder="User Name" formControlName="username" required>
+            <ng-container *ngIf="userForm.get('username')?.invalid && userForm.get('username')?.touched">
+              <p class="caption status-danger">
+                User Name is required!
+              </p>
+            </ng-container>
+        </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label for="firstName" class="label">First Name <span class="text-red">*</span></label>
+            <input type="text" nbInput fullWidth id="firstName" placeholder="First Name" formControlName="firstName" required >
+            <ng-container *ngIf="userForm.get('firstName')?.invalid && userForm.get('firstName')?.touched">
+              <p class="caption status-danger">
+                First Name is required!
+              </p>
+            </ng-container>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label for="lastName" class="label">Last Name</label>
+            <input type="text" nbInput fullWidth id="lastName" placeholder="Last Name" formControlName="lastName">
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label for="email" class="label">Email <span class="text-red">*</span></label>
+            <input type="email" nbInput fullWidth id="email" placeholder="Email" formControlName="email" required>
+            <ng-container *ngIf="userForm.get('email')?.invalid && userForm.get('email')?.touched">
+              <p class="caption status-danger">
+                Email is required!
+              </p>
+            </ng-container>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label for="phoneNumber" class="label">Phone Number</label>
+            <input nbInput fullWidth id="phoneNumber" placeholder="Phone Number" formControlName="phoneNumber" maxlength="10">
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label for="userType" class="label">User Type <span class="text-red">*</span></label>
+            <nb-select class="formSelect"   placeholder="Select User Type" formControlName="userType" required>
+              <nb-option *ngFor="let userType of DDUserTypeList" [value]="userType.id"
+               (click)="onUserTypeChange(userType.label)">{{ userType.label }}
+              </nb-option>
+            </nb-select>
+            <ng-container *ngIf="userForm.get('userType')?.invalid && userForm.get('userType')?.touched">
+              <p class="caption status-danger">
+                User Type is required!
+              </p>
+            </ng-container>
+          </div>
+        </div>
+        <div class="col-sm-4" *ngIf="isUserTypeAdmin">
+          <div class="form-group">
+            <label for="department" class="label">Department</label>
+            <nb-select class="formSelect"  placeholder="Select Department" formControlName="department">
+              <nb-option *ngFor="let department of DDDepartmentList" [value]="department.id">
+                {{ department.label }}
+              </nb-option>
+            </nb-select>
+            <ng-container *ngIf="userForm.get('department')?.invalid && userForm.get('department')?.touched">
+              <p class="caption status-danger">
+                Department is required!
+              </p>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+    </form>
+  </nb-card-body>
+  
+</nb-card>
+
+<!-- <div class="mat-elevation-z8 bg-white rounded-3 form-wrapper card-warpper">
   <div class="col-sm-12">
     <mat-card class="pt-3">
 
@@ -115,4 +205,4 @@
       </mat-card-content>
     </mat-card>
   </div>
-</div>
+</div> -->

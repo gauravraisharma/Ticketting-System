@@ -6,6 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { TicketService } from '../../../../services/ticketServices/ticketservcie.service';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { NbDialogService } from '@nebular/theme';
 
 @Component({
   selector: 'app-view-ticket',
@@ -25,6 +26,8 @@ export class ViewTicketComponent implements OnInit {
   userType = localStorage.getItem('userType')?.toUpperCase();
   fileCount = 0;
   @ViewChild('fileattachment') fileAttachments!: ElementRef;
+
+  
   public Editor = ClassicEditor;
   constructor(
     private fb: FormBuilder,
@@ -32,7 +35,7 @@ export class ViewTicketComponent implements OnInit {
     private router: Router,
     private ticketService: TicketService,
     private toastr: ToastrService,
-    public dialog: MatDialog) {
+    public dialog: NbDialogService) {
 
   }
 
@@ -81,17 +84,14 @@ export class ViewTicketComponent implements OnInit {
   }
   async closeTicket() {
     const dialogRef = await  this.dialog.open(ConfirmDialogComponent, {
-      data: {
+      context: {
         message: 'Are you sure you want to close the ticket',
         title:'Close ticket'
         },
-      width: '450px',
-      enterAnimationDuration: '0',
-      exitAnimationDuration: '0',
-    });
+        dialogClass: 'modal-danger',
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result == "ok") {
+    }).onClose.subscribe(result => {
+      if (result === 'ok') {
         let status = 'CLOSED'
         this.ticketService.CloseTicketStatusById(this.ticketId, localStorage.getItem('userId')!, status).subscribe((response: any) => {
           this.toastr.success(response.message);
@@ -111,17 +111,13 @@ export class ViewTicketComponent implements OnInit {
    if (this.messageForm.valid) {
      if (this.ticketDetail.status == 'CLOSED') {
        const dialogRef = await this.dialog.open(ConfirmDialogComponent, {
-         data: {
+         context: {
            message: 'Ticket is closed. If you send message in closed ticket, ticket will be considered as Re-Open. Are you sure you want to send message?',
            title: 'Re-open ticket'
          },
-         width: '450px',
-         enterAnimationDuration: '0',
-         exitAnimationDuration: '0',
-       });
-
-       dialogRef.afterClosed().subscribe(result => {
-         if (result == "ok") {
+         dialogClass: 'modal-danger',
+       }).onClose.subscribe(result => {
+        if (result === 'ok') {
            this.sendConversationMessage();
          }
        });
@@ -183,6 +179,15 @@ export class ViewTicketComponent implements OnInit {
     this.onFileChange();
   }
 get message() { return this.messageForm.get('message'); }
+parseDate(dateString: string): Date {
+  return new Date(dateString); 
+}
+
+prepareFiles(attachments: any[]): any[] {
+  return attachments.map(attachment => ({
+    url: attachment.downLoadLink
+  }));
+}
 }
 
 

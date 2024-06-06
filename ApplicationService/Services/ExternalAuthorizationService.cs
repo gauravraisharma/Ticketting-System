@@ -39,7 +39,7 @@ namespace ApplicationService.Services
             
                 var response = await _externalAuthorizationRepository.ConnectWithClient(clientModel);
 
-                var decryptedToken = JWT.Decode(clientRequest.CipherText, Convert.FromBase64String(response.ClientSecretKey));
+                var decryptedToken = JWT.Decode(clientRequest.AccessToken, Convert.FromBase64String(response.ClientSecretKey));
 
                 CipherDataModel cipherDataModel = JsonConvert.DeserializeObject<CipherDataModel>(decryptedToken);
 
@@ -56,33 +56,41 @@ namespace ApplicationService.Services
                 }
 
 
-                // Validate endpointUrl existence in the database
-                if (response.ApplicationURL != null && response.ApplicationURL != clientRequest.ClientHostURL)
-                {
-                    // host url does not exist in the database
-                    return new LoginStatus { Status = "FAILED", Message = "Endpoint URL not found in the database." };
+            // Validate endpointUrl existence in the database
+            if (response.ApplicationURL != null && response.ApplicationURL.IndexOf(clientRequest.ClientHostURL, StringComparison.OrdinalIgnoreCase) < 0)
+            {
+                // host url does not exist in the database
+                return new LoginStatus { Status = "FAILED", Message = "Endpoint URL not found in the database." };
                 }
 
                 var userFound = await _externalAuthorizationRepository.IsUserFound(email);
                 if (userFound != null)
                 {
-                    var loginResponse = await _externalAuthorizationRepository.AuthenticateExternalUser(userFound.Email, clientRequest.ApplicationName);
-                    if (loginResponse.Status == "SUCCEED")
+                var loginResponse = await _externalAuthorizationRepository.AuthenticateExternalUser(userFound.Email, clientRequest.ApplicationName);
+                if (loginResponse.Status == "SUCCEED")
                     {
-                        var decryptToken = JWT.Decode(loginResponse.AccessToken, Convert.FromBase64String(response.ClientSecretKey));
+                        var decryptToken = JWT.Decode(loginResponse.UserIdentityToken, Convert.FromBase64String(response.ClientSecretKey));
                         CipherUserDataModel cipherUserDataModel = JsonConvert.DeserializeObject<CipherUserDataModel>(decryptToken);
                         var expUnix = long.Parse(cipherUserDataModel.Exp);
                         var expDateTime = DateTimeOffset.FromUnixTimeSeconds(expUnix).UtcDateTime;
-                        if (expDateTime < DateTime.UtcNow)
+                        if (expDateTime >= DateTime.UtcNow)
                         {
-                            // Token Expired, refresh token
-                            var refreshTokenResponse =  await CallbackRequestToClient(response.APIEndpoint, loginResponse.RefreshToken, response.ClientSecretKey, clientRequest.ApplicationName, TokenConstants.RefreshToken);
-                            return refreshTokenResponse;
-                        }
-                        else
-                        {
+                            //token not expired return login response
                             return loginResponse;
                         }
+                    //Check if refresh token is valid and not expired
+                    if (IsRefreshTokenValid(loginResponse.RefreshToken, out var refreshTokenExp) && refreshTokenExp < DateTime.UtcNow)
+                    {
+                       var loginRes= await CallbackRequestToClient(response.APIEndpoint, clientRequest.AccessToken, response.ClientSecretKey, clientRequest.ApplicationName, TokenConstants.GenerateToken);
+                       return loginRes;
+                           
+                    }
+                    else
+                    {
+                        // Token Expired, refresh token
+                        var refreshTokenResponse = await CallbackRequestToClient(response.APIEndpoint, loginResponse.RefreshToken, response.ClientSecretKey, clientRequest.ApplicationName, TokenConstants.RefreshToken);
+                        return refreshTokenResponse;
+                    }
                     }
                     else
                     {
@@ -91,18 +99,64 @@ namespace ApplicationService.Services
                 }
                 else
                 {
-                    var loginResponse = await CallbackRequestToClient(response.APIEndpoint, clientRequest.CipherText, response.ClientSecretKey, clientRequest.ApplicationName, TokenConstants.GenerateToken);
+                    var loginResponse = await CallbackRequestToClient(response.APIEndpoint, clientRequest.AccessToken, response.ClientSecretKey, clientRequest.ApplicationName, TokenConstants.GenerateToken);
                     return loginResponse;
                 }
             }
-       
-            private async Task<ExternalLoginStatus> CallbackRequestToClient(string endpointUrl, string token, string clientSecretKey, string applicationName, string tokenType)
-            {
-                try
-                {
 
-                    using (var httpClient = new HttpClient())
-                    {
+        public bool IsRefreshTokenValid(string refreshToken, out DateTime expDateTime)
+        {
+
+            expDateTime = DateTime.MinValue;
+
+            try
+            {
+                if (string.IsNullOrEmpty(refreshToken))
+                {
+                    return false; // Empty string is not a JWT token
+                }
+
+                // Split the string into three parts based on '.' (dot) separator
+                var parts = refreshToken.Split('.');
+
+                // A valid JWT token has three parts separated by dots
+                if (parts.Length < 3)
+                {
+                    return false;
+                }
+                var jwtHandler = new JwtSecurityTokenHandler();
+
+                if (!jwtHandler.CanReadToken(refreshToken))
+                {
+                    return false; // Invalid JWT token structure
+                }
+
+                var token = jwtHandler.ReadJwtToken(refreshToken);
+                var expClaim = token.Claims.FirstOrDefault(claim => claim.Type == "exp");
+
+                if (expClaim == null)
+                {
+                    return false; // Expiration claim is missing
+                }
+
+                var expUnix = long.Parse(expClaim.Value);
+                expDateTime = DateTimeOffset.FromUnixTimeSeconds(expUnix).UtcDateTime;
+
+                return true;
+            }catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+
+        private async Task<ExternalLoginStatus> CallbackRequestToClient(string endpointUrl, string token, string clientSecretKey, string applicationName, string tokenType)
+        {
+            try
+            {
+
+                using (var httpClient = new HttpClient())
+                {
                     httpClient.BaseAddress = new Uri(endpointUrl);
                     httpClient.DefaultRequestHeaders.Clear();
 
@@ -116,32 +170,32 @@ namespace ApplicationService.Services
 
                     HttpResponseMessage httpResponse = await httpClient.PostAsync("",content);
 
-                        if (httpResponse.IsSuccessStatusCode)
+                    if (httpResponse.IsSuccessStatusCode)
                     {
                         var responseBody = await httpResponse.Content.ReadAsStringAsync();
                         CipherClientResponse cipherClientResponse = JsonConvert.DeserializeObject<CipherClientResponse>(responseBody);
                         string responseStatus = cipherClientResponse.Status;
-                        string accessToken = responseStatus == "SUCCEED" ? cipherClientResponse.AccessToken : "";
+                        string userIdentityToken = responseStatus == "SUCCEED" ? cipherClientResponse.UserIdentityToken : "";
                         string refreshToken = responseStatus == "SUCCEED" ? cipherClientResponse.RefreshToken : "";
 
-                        if (accessToken == null)
+                        if (userIdentityToken == null)
                         {
                             return new ExternalLoginStatus { Status = "FAILED", Message = "No data found" };
                         }
 
-                        var decryptToken = JWT.Decode(accessToken, Convert.FromBase64String(clientSecretKey));
+                        var decryptToken = JWT.Decode(userIdentityToken, Convert.FromBase64String(clientSecretKey));
                         CipherUserDataModel cipherUserDataModel = JsonConvert.DeserializeObject<CipherUserDataModel>(decryptToken);
-                        var tokenres = await _externalAuthorizationRepository.SaveExternalTokens(cipherUserDataModel.Email, applicationName, accessToken, refreshToken);
 
                         var userFound = await _externalAuthorizationRepository.IsUserFound(cipherUserDataModel.Email);
                         if (userFound != null)
                         {
                             var loginResponse = await _externalAuthorizationRepository.AuthenticateExternalUser(userFound.Email, applicationName);
+                            var tokenres = await _externalAuthorizationRepository.SaveExternalTokens(cipherUserDataModel.Email, applicationName, userIdentityToken, refreshToken);
                             return loginResponse;
                         }
                         else
                         {
-                            var loginResponse = await _externalAuthorizationRepository.RegisterExternalUser(cipherUserDataModel, cipherClientResponse.AccessToken, cipherClientResponse.RefreshToken, applicationName);
+                            var loginResponse = await _externalAuthorizationRepository.RegisterExternalUser(cipherUserDataModel, cipherClientResponse.UserIdentityToken, cipherClientResponse.RefreshToken, applicationName);
                             return loginResponse;
                         }
                     }
@@ -155,10 +209,34 @@ namespace ApplicationService.Services
             {
                 // Log the exception
                 Console.WriteLine($"Error in CallbackRequestToClient: {ex.Message}");
-                return new ExternalLoginStatus { Status = "FAILED", Message = "An error occurred" };
+                return new ExternalLoginStatus { Status = "FAILED", Message = ex.Message };
             }
+        }
+        public async Task<ResponseStatus> ValidateToken(ValidateTokenRequest validateTokenRequest)
+        {
+            var decryptedToken = JWT.Decode(validateTokenRequest.Token, Convert.FromBase64String(validateTokenRequest.SecretKey));
+            if(validateTokenRequest.Type == "AccessToken")
+            {
+                //valid payload will be email and session start time
+                return new ResponseStatus()
+                {
+                    Status = "SUCCEED",
+                    Message = "Token validated successfully"
+                };
             }
-       
+            else
+            {
+                //valid payload will be user id,first name,last name, email, username,  usertype, mobilephone
+                return new ResponseStatus()
+                {
+                    Status = "FAILED",
+                    Message = "Validation failed"
+                };
+            }
+
+        }
+
+
     }
 }
 
