@@ -66,7 +66,6 @@ async deleteUser(user): Promise<void> {
       dialogClass: 'modal-danger',
     }).onClose.subscribe(result => {
       if (result === 'ok') {
-        debugger
         this.accountService.deleteUser(user.id).subscribe(
           (response: any) => {
             this.toastr.success(response.message);
