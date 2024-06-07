@@ -33,10 +33,6 @@ import { ThemeModule } from './@theme/theme.module';
 import { NbActionsModule, NbButtonModule, NbCardModule, NbChatModule, NbContextMenuModule, NbDialogModule, NbDialogService, NbIconModule, NbLayoutModule, NbMenuModule, NbMenuService, NbSearchModule, NbSelectModule, NbSidebarModule, NbSidebarService, NbThemeModule, NbToastrModule, NbUserModule } from '@nebular/theme';
 import { NbAccessChecker, NbAclService, NbRoleProvider, NbSecurityModule } from '@nebular/security';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
-import { UserService } from './@core/mock/users.service';
-import { LayoutService } from './@core/utils';
-import { NbSimpleRoleProvider } from './@core/core.module';
-import { UserData } from './@core/data/users';
 
 
 
@@ -70,10 +66,8 @@ import { UserData } from './@core/data/users';
     NbMenuModule.forRoot(),
     NbUserModule,
     NbActionsModule,
-    NbSearchModule,
     NbSidebarModule.forRoot(),
     NbContextMenuModule,
-    NbSecurityModule,
     NbButtonModule,
     NbSelectModule,
     NbIconModule,
@@ -93,7 +87,6 @@ import { UserData } from './@core/data/users';
     ChatService,
     NbSidebarService,
     NbMenuService,
-    LayoutService,
     NbAccessChecker,
     NbAclService,
     NbDialogService,
@@ -102,14 +95,7 @@ import { UserData } from './@core/data/users';
       useClass: APIInterceptor,
       multi: true
     },
-    {
-      provide: UserData,
-      useClass: UserService, 
-    },
-    {
-      provide: NbRoleProvider,
-      useClass: NbSimpleRoleProvider, 
-    },],
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

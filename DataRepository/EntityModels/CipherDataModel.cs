@@ -10,5 +10,7 @@ namespace DataRepository.EntityModels
     {
         public string Email { get; set; }
         public string SessionStartTime { get; set; }
+        public string Exp { get; set; }
+
     }
 }

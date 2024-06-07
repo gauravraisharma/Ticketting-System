@@ -95,7 +95,7 @@ namespace DataRepository.Repository
                 //_context.Dispose();
             }
         }
-        public async Task<IEnumerable<TicketViewResponse>> GetTickets(string userId,int companyId)
+        public async Task<IEnumerable<TicketViewResponse>> GetTickets(string userId, int companyId, string? searchQuery, string? priority, string? status)
         {
             if (_context.Tickets == null)
             {
@@ -109,20 +109,24 @@ namespace DataRepository.Repository
 
                 IEnumerable<TicketViewResponse> result;
 
-                result=(from ticket in _context.Tickets
-                        join appuser in _context.Users on  ticket.CreatedBy equals appuser.Id
-                        where 
-                        ((userRoles.FirstOrDefault().ToUpper() == "ADMIN" || userRoles.FirstOrDefault().ToUpper() == "SUPERADMIN") ?true: ticket.CreatedBy == userId) 
-                        && appuser.CompanyId== companyId
-                        orderby ticket.CreatedOn descending
-                        select new TicketViewResponse {
-                            TicketNumber = ticket.TicketId,
-                            Subject = ticket.Subject,
-                            CreatedOn = ticket.CreatedOn,
-                            Priority = ticket.Priority,
-                            Status = ticket.status
-                        }
-                        ).ToList();
+                 result = (from ticket in _context.Tickets
+                              join appuser in _context.Users on ticket.CreatedBy equals appuser.Id
+                              where ((userRoles.FirstOrDefault().ToUpper() == "ADMIN" || userRoles.FirstOrDefault().ToUpper() == "SUPERADMIN") ? true : ticket.CreatedBy == userId)
+                                     && appuser.CompanyId == companyId
+                                     && (string.IsNullOrEmpty(searchQuery) || ticket.TicketId.ToString().Contains(searchQuery)
+                                                                                || ticket.Subject.Contains(searchQuery))
+                                     && (string.IsNullOrEmpty(priority) || ticket.Priority.Contains(priority))
+                                     && (string.IsNullOrEmpty(status) || ticket.status.Contains(status))
+                              orderby ticket.CreatedOn descending
+                              select new TicketViewResponse
+                              {
+                                  TicketNumber = ticket.TicketId,
+                                  Subject = ticket.Subject,
+                                  CreatedOn = ticket.CreatedOn,
+                                  Priority = ticket.Priority,
+                                  Status = ticket.status
+                              }).ToList();
+
 
 
                 //if (userRoles.FirstOrDefault().ToUpper() == "ADMIN")

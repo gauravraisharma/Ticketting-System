@@ -22,6 +22,10 @@ export class TicketListComponent implements AfterViewInit, OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
+  selectedPriority: string;
+  selectedStatus: string;
+  searchQuery: string;
+
   priorityList:any[] = [
     {id:1,label: "LOW"},
     {id:2,label: "MEDIUM"},
@@ -44,7 +48,7 @@ export class TicketListComponent implements AfterViewInit, OnInit {
   }
   getTickets() {
     this.isLoading = true;
-    this.ticketService.GetTicket(localStorage.getItem('userId')!, parseInt(localStorage.getItem('companyId'))).subscribe((response: any) => {
+    this.ticketService.GetTicket(localStorage.getItem('userId')!, parseInt(localStorage.getItem('companyId')), this.searchQuery || null, this.selectedPriority || null, this.selectedStatus|| null).subscribe((response: any) => {
       console.log('prio', response)
       this.data1 = response;
       this.dataSource = response;

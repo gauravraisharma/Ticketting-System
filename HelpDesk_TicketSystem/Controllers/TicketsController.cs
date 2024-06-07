@@ -31,9 +31,9 @@ namespace HelpDesk_TicketSystem.Controllers
         //Admin can see all the ticket 
         //Normal user can only see ticket created by him
         [HttpGet("GetTicket/{userId}/{companyId}")]
-        public async Task<ActionResult<IEnumerable<TicketViewResponse>>> GetTickets(string userId,int companyId)
+        public async Task<ActionResult<IEnumerable<TicketViewResponse>>> GetTickets(string userId,int companyId, string? searchQuery, string? priority, string? status)
         {
-          var resultlist= await _ticketService.GetTickets(userId,companyId);
+          var resultlist= await _ticketService.GetTickets(userId,companyId, searchQuery, priority, status);
             return Ok(resultlist);
         }
 

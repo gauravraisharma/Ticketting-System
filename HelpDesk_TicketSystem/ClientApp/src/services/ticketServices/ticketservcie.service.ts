@@ -19,11 +19,10 @@ export class TicketService {
     let url = `${this.apiUrl}Tickets/AddConversationMessage`;
     return this.http.post(url, conversationMessage);
   }
-  GetTicket(userId: string, companyId: number) {
-    let url = `${this.apiUrl}Tickets/GetTicket/${userId}/${companyId}`;
+  GetTicket(userId: string, companyId: number, searchQuery: string | "", priority: string | "", status: string | "") {
+    const url = `${this.apiUrl}Tickets/GetTicket/${userId}/${companyId}?searchQuery=${encodeURIComponent(searchQuery || '')}&priority=${encodeURIComponent(priority || '')}&status=${encodeURIComponent(status || '')}`;
     return this.http.get(url);
   }
-
   GetTicketDataById(ticketId: number) {
     let url = `${this.apiUrl}Tickets/GetTicketDataById/${ticketId}`;
     return this.http.get(url);

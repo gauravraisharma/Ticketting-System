@@ -215,29 +215,65 @@ namespace ApplicationService.Services
         }
         public async Task<ResponseStatus> ValidateToken(ValidateTokenRequest validateTokenRequest)
         {
-            var decryptedToken = JWT.Decode(validateTokenRequest.Token, Convert.FromBase64String(validateTokenRequest.SecretKey));
-            if(validateTokenRequest.Type == "AccessToken")
+            try
             {
-                //valid payload will be email and session start time
-                return new ResponseStatus()
+                var decryptedToken = JWT.Decode(validateTokenRequest.Token, Convert.FromBase64String(validateTokenRequest.SecretKey));
+                if (validateTokenRequest.Type == "AccessToken")
                 {
-                    Status = "SUCCEED",
-                    Message = "Token validated successfully"
-                };
-            }
-            else
+                    CipherDataModel cipherDataModel = JsonConvert.DeserializeObject<CipherDataModel>(decryptedToken);
+
+                    //valid payload will be email and session start time
+                    if (cipherDataModel.Email != null && cipherDataModel.SessionStartTime != null && long.Parse(cipherDataModel.Exp) > DateTimeOffset.UtcNow.ToUnixTimeSeconds())
+                    {
+                        return new ResponseStatus()
+                        {
+                            Status = "SUCCEED",
+                            Message = "Token validated successfully"
+                        };
+                    }
+                    else
+                    {
+                        return new ResponseStatus()
+                        {
+                            Status = "FAILED",
+                            Message = "Validation failed: missing required fields or token expired"
+                        };
+                    }
+
+                }
+                else
+                {
+                    CipherUserDataModel cipherUserDataModel = JsonConvert.DeserializeObject<CipherUserDataModel>(decryptedToken);
+
+                    //valid payload will be user id,first name,last name, email, username,  usertype, mobilephone
+                    //lastname and mobile phone can be null
+                    if (cipherUserDataModel.Email != null && cipherUserDataModel.UserId != null && cipherUserDataModel.FirstName != null &&
+                       cipherUserDataModel.UserName != null && cipherUserDataModel.UserType != null  && long.Parse(cipherUserDataModel.Exp) > DateTimeOffset.UtcNow.ToUnixTimeSeconds())
+                    {
+                        return new ResponseStatus()
+                        {
+                            Status = "SUCCEED",
+                            Message = "Token validated successfully"
+                        };
+                    }
+                    else
+                    {
+                        return new ResponseStatus()
+                        {
+                            Status = "FAILED",
+                            Message = "Validation failed: missing required fields or token expired"
+                        };
+                    }
+                }
+            }catch(Exception ex)
             {
-                //valid payload will be user id,first name,last name, email, username,  usertype, mobilephone
                 return new ResponseStatus()
                 {
                     Status = "FAILED",
-                    Message = "Validation failed"
+                    Message = $"Validation failed: {ex.Message}"
                 };
             }
-
         }
-
-
     }
 }
 

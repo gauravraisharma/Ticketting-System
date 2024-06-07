@@ -131,9 +131,9 @@ namespace ApplicationService.Services
             return _ticketRepository.GetTicketDataById(ticketId);
         }
 
-        public Task<IEnumerable<TicketViewResponse>> GetTickets(string userId, int companyId)
+        public Task<IEnumerable<TicketViewResponse>> GetTickets(string userId, int companyId, string? searchQuery, string? priority, string? status)
         {
-            return _ticketRepository.GetTickets(userId,companyId);
+            return _ticketRepository.GetTickets(userId,companyId, searchQuery, priority, status);
         }
 
      

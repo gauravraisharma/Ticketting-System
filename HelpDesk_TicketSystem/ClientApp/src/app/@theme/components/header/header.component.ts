@@ -1,11 +1,8 @@
 import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { NbDialogService, NbMediaBreakpointsService, NbMenuItem, NbMenuService, NbSidebarService, NbThemeService } from '@nebular/theme';
 
-import { UserData } from '../../../@core/data/users';
-import { LayoutService } from '../../../@core/utils';
 import { map, takeUntil } from 'rxjs/operators';
 import { Subject, Observable, Subscription } from 'rxjs';
-import { RippleService } from '../../../@core/utils/ripple.service';
 import { CompanyService } from 'src/services/companyService/company.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from 'src/app/sharedComponent/confirm-dialog/confirm-dialog.component';
@@ -39,10 +36,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private sidebarService: NbSidebarService,
     private menuService: NbMenuService,
     private themeService: NbThemeService,
-    private userService: UserData,
-    private layoutService: LayoutService,
     private breakpointService: NbMediaBreakpointsService,
-    private rippleService: RippleService,
     private companyLogoService: CompanyService,
     public dialog: NbDialogService,
     private accountService: AccountService,
@@ -144,7 +138,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   toggleSidebar(): boolean {
     this.sidebarService.toggle(true, 'menu-sidebar');
-    this.layoutService.changeLayoutSize();
 
     return false;
   }

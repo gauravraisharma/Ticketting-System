@@ -12,7 +12,7 @@ namespace ApplicationService.IServices
     public interface ITicketService
     {
         Task<CreateTicketResponse> CreateTicket(CreateTicketModel ticketModel);
-        Task<IEnumerable<TicketViewResponse>> GetTickets(string userId, int companyId);
+        Task<IEnumerable<TicketViewResponse>> GetTickets(string userId, int companyId, string? searchQuery, string? priority, string? status);
         Task<TicketDetailResponse> GetTicketDataById(int ticketId);
         Task<ConversationResponseStatus> AddConversationMessage(RequestConversationMessage conversationMessage);
         ResponseStatus AddAttachMents(int ticketId, IFormFileCollection files, string attachmentType);

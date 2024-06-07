@@ -10,7 +10,7 @@ namespace ApplicationService.IRepository
     public interface ITicketRepository
     {
         Task<CreateTicketDBResponse> CreateTicket(CreateTicketModel ticketModel);
-        Task<IEnumerable<TicketViewResponse>> GetTickets(string userId, int companyId);
+        Task<IEnumerable<TicketViewResponse>> GetTickets(string userId, int companyId, string? searchQuery, string? priority, string? status);
         Task<TicketDetailResponse> GetTicketDataById(int ticketId);
         Task<ConversationDBResponseStatus> AddConversationMessage(RequestConversationMessage conversationMessage);
         ResponseStatus AddAttachMents(int referanceId, List<FileUploadResponse> fileDetails, string attachmentType);
