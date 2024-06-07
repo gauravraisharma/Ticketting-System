@@ -26,32 +26,34 @@
           <button nbButton status="primary" type="submit" (submit)="saveTimeZone">
             Save
           </button>
-          <button nbButton status="danger" class=" mx-2" routerLink="/dashboard">
+          <button nbButton class="border-btn mx-2" routerLink="/dashboard">
             Cancel
           </button>
         </form>
       </div>
       <div class="col-md-6">
         <h6>Company Logo</h6>
-        <div *ngIf="selectedFile" class="mt-3 mb-4">
-          <img [src]="selectedFileSrc" alt="Company Logo" style="max-width: 100px; max-height: 100px;">
-        </div>
-        <form [formGroup]="companyLogoForm" class="form-field-full">
-          <div class="form-group">
-            <label for="companyLogo" class="label">Company Logo</label>
-            <input type="file" nbInput fullWidth id="companyLogo" placeholder="companyLogo"
-              formControlName="companyLogo" (change)="onFileSelected($event)" (focus)="showLabel()"
-              (blur)="hideLabel()">
-            <ng-container *ngIf="!selectedFile && companyLogoForm.get('companyLogo')?.touched">
-              <p class="caption status-danger">
-                Please upload logo image!
-              </p>
-            </ng-container>
+        <div class="d-flex align-items-center">
+          <form [formGroup]="companyLogoForm" class="form-field-full" style="flex: 1">
+            <div class="form-group">
+              <label for="companyLogo" class="label">Company Logo</label>
+              <input type="file" nbInput fullWidth id="companyLogo" placeholder="companyLogo"
+                formControlName="companyLogo" (change)="onFileSelected($event)" (focus)="showLabel()"
+                (blur)="hideLabel()" style="padding: 9px 16px;">
+              <ng-container *ngIf="!selectedFile && companyLogoForm.get('companyLogo')?.touched">
+                <p class="caption status-danger">
+                  Please upload logo image!
+                </p>
+              </ng-container>
+            </div>
+          </form>
+          <div *ngIf="selectedFile" class="ml-3">
+            <img [src]="selectedFileSrc" alt="Company Logo" style="max-width: 60px; max-height: 60px;">
           </div>
-        </form>
+        </div>
         <button nbButton status="primary" (click)="uploadCompanyLogo()">Upload Logo</button>
       </div>
-      <div class="col-sm-5 mt-5">
+      <div class="col-sm-12 mt-5">
         <h6>Embed Chatbot</h6>
         <div class="d-flex">
           <button nbButton status="primary" (click)="generateChatbotScript()">Generate Script</button>
@@ -71,7 +73,8 @@
     <div class="row mt-5">
       <div class="d-flex justify-content-between align-items-center w-100 mb-3 mx-3">
         <h6>Register Application</h6>
-        <button nbButton status="primary" routerLink="/settings/registerapplication">Register New Application</button>
+        <button nbButton status="basic" class="border-btn" routerLink="/settings/registerapplication">Register New
+          Application</button>
       </div>
       <div class="col-sm-12">
         <p-table [value]="dataSource" [paginator]="true" [rows]="5" [rowsPerPageOptions]="[5, 10, 20]" dataKey="id"

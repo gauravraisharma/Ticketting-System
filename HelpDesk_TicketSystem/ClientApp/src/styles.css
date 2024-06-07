@@ -1309,7 +1309,7 @@
   }
 
   .db-cards .icon {
-    background-color: #6200ee;
+    background-color: var(--primary);
     border-radius: .25rem;
     display: flex;
     align-items: center;
@@ -1329,4 +1329,16 @@
 
   .p-datatable-table td {
     white-space: nowrap;
+  }
+
+  .nb-theme-material-light [nbButton].appearance-filled.status-basic.border-btn {
+    color: var(--primary);
+    border: 1px solid var(--primary);
+    background: transparent;
+  }
+
+  .nb-theme-material-light [nbButton].appearance-filled.status-basic.border-btn:hover {
+    color: var(--primary);
+    border: 1px solid var(--primary);
+    background: transparent;
   }
