@@ -210,7 +210,7 @@ namespace ApplicationService.Services
             {
                 // Log the exception
                 Console.WriteLine($"Error in CallbackRequestToClient: {ex.Message}");
-                return new ExternalLoginStatus { Status = "FAILED", Message = "An error occurred" };
+                return new ExternalLoginStatus { Status = "FAILED", Message = ex.Message };
             }
         }
         public async Task<ResponseStatus> ValidateToken(ValidateTokenRequest validateTokenRequest)
