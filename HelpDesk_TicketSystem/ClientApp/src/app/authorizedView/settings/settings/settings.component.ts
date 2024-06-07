@@ -9,6 +9,8 @@ import { map, Observable, startWith } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { MatSort } from '@angular/material/sort';
 import { Clipboard } from '@angular/cdk/clipboard';
+import { NbDialogService } from '@nebular/theme';
+import { ConfirmDialogComponent } from '../../../sharedComponent/confirm-dialog/confirm-dialog.component';
 
 
 @Component({
@@ -45,6 +47,7 @@ export class SettingsComponent implements OnInit {
     private router: Router,
     private toastr: ToastrService,
     private clipboard: Clipboard,
+    private dialogService: NbDialogService
   ) {
 
   }
@@ -215,16 +218,27 @@ export class SettingsComponent implements OnInit {
       label.classList.add('hidden-label');
     }
   }
-  deleteApplication(applicationId: number) {
-    this.companyService.deleteApplication(applicationId).subscribe(
-      (response: any) => {
-        this.toastr.success(response.message);
-        this.getCompanyRegisteredApplication();
+
+  async deleteApplication(application): Promise<void> {
+    const dialogRef = this.dialogService.open(ConfirmDialogComponent, {
+      context: {
+        message: `Are you sure you want to delete Application "${application.applicationName}"`,
+        title: 'Delete Application'
       },
-      error => {
-        this.toastr.error(error.message); 
+      dialogClass: 'modal-danger',
+    }).onClose.subscribe(result => {
+      if (result === 'ok') {
+        this.companyService.deleteApplication(application.id).subscribe(
+          (response: any) => {
+            this.toastr.success(response.message);
+            this.getCompanyRegisteredApplication();
+          },
+          error => {
+            this.toastr.error(error.message);
+          }
+        );
       }
-    );
+    });
   }
 
   

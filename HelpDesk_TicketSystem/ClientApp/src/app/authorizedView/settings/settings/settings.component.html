@@ -116,7 +116,7 @@
                     </td>
                     <td>{{ application.createdOn | date }} </td>
                     <td>
-                    <button class="btn btn-md" nbTooltip="Delete Application" (click)="deleteApplication(application.id)">
+                    <button class="btn btn-md" nbTooltip="Delete Application" (click)="deleteApplication(application)">
                       <i class="pi pi-trash" style="color: red;"></i>
                     </button>
                   </td>
@@ -131,4 +131,3 @@
 <loader *ngIf="isLoading"></loader>
 
 
- 

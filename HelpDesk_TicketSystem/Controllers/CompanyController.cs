@@ -120,7 +120,7 @@ namespace HelpDesk_TicketSystem.Controllers
             }
 
         }
-        [HttpDelete("DeleteApplication/{id}")]
+        [HttpGet("DeleteApplication/{id}")]
         public async Task<IActionResult> DeleteApplication(int id)
         {
             return Ok(await _companyService.DeleteApplication(id));

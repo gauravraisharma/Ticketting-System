@@ -54,7 +54,7 @@ export class CompanyService {
   }
   deleteApplication(id: number) {
     let url = `${this.apiUrl}Company/DeleteApplication/${id}`;
-    return this.http.delete(url);
+    return this.http.get(url);
   }
 
 }
