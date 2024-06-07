@@ -67,7 +67,7 @@ namespace ApplicationService.Services
                 if (userFound != null)
                 {
                 var loginResponse = await _externalAuthorizationRepository.AuthenticateExternalUser(userFound.Email, clientRequest.ApplicationName);
-                if (loginResponse.Status == "SUCCEED")
+                if (loginResponse.Status == "SUCCEED" && !String.IsNullOrEmpty(loginResponse.UserIdentityToken))
                     {
                         var decryptToken = JWT.Decode(loginResponse.UserIdentityToken, Convert.FromBase64String(response.ClientSecretKey));
                         CipherUserDataModel cipherUserDataModel = JsonConvert.DeserializeObject<CipherUserDataModel>(decryptToken);
@@ -79,7 +79,7 @@ namespace ApplicationService.Services
                             return loginResponse;
                         }
                     //Check if refresh token is valid and not expired
-                    if (IsRefreshTokenValid(loginResponse.RefreshToken, out var refreshTokenExp) && refreshTokenExp < DateTime.UtcNow)
+                    if (IsRefreshTokenValid(loginResponse.RefreshToken, out var refreshTokenExp) && refreshTokenExp < DateTime.UtcNow && !String.IsNullOrEmpty(loginResponse.RefreshToken))
                     {
                        var loginRes= await CallbackRequestToClient(response.APIEndpoint, clientRequest.AccessToken, response.ClientSecretKey, clientRequest.ApplicationName, TokenConstants.GenerateToken);
                        return loginRes;
@@ -94,8 +94,9 @@ namespace ApplicationService.Services
                     }
                     else
                     {
-                        return new LoginStatus { Status = "FAILED", Message = "Authentication failed." };
-                    }
+                    var res = await CallbackRequestToClient(response.APIEndpoint, clientRequest.AccessToken, response.ClientSecretKey, clientRequest.ApplicationName, TokenConstants.GenerateToken);
+                    return res;
+                }
                 }
                 else
                 {

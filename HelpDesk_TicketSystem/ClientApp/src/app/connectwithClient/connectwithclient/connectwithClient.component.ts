@@ -13,6 +13,7 @@ import { Helper } from '../../../utils/Helper';
 })
 export class ConnectWithClientComponent implements OnInit {
   isLoading: boolean = false;
+  IsUserLoggedIn = false;
 
   constructor(
     private connectWithClientService: ConnectWithClientService,
@@ -23,6 +24,8 @@ export class ConnectWithClientComponent implements OnInit {
 
 
   ngOnInit() {
+    this.IsUserLoggedIn = (localStorage.getItem('token') != null && localStorage.getItem('token') != undefined) ? true : false;
+
     // Extract the host URL
     this.isLoading = true;
     const clientHostURL = this.extractHost();
@@ -83,7 +86,10 @@ export class ConnectWithClientComponent implements OnInit {
       }
     })
 }
-  
+  goToHome() {
+    this.router.navigate([(this.IsUserLoggedIn) ? 'dashboard' : '']);
+
+  }
   //Extract Host URL
   private extractHost(): string | null {
     try {
