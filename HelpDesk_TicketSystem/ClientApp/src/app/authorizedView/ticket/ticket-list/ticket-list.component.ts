@@ -14,7 +14,7 @@ import { TicketService } from '../../../../services/ticketServices/ticketservcie
 })
 export class TicketListComponent implements AfterViewInit, OnInit {
   currentTimeZone: string = localStorage.getItem('timeZone');
-  displayedColumns: string[] = ['ticketNumber', 'subject', 'createdOn', 'priority','status','action'];
+  displayedColumns: string[] = ['Ticket Number', 'Subject', 'Created On', 'Priority','Status','Action'];
   dataSource:any[]=[];
   isLoading = false
   data1 = [];

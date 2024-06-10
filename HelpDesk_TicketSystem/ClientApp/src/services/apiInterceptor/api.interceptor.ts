@@ -49,7 +49,7 @@ export class APIInterceptor implements HttpInterceptor {
         if (error.status === 401) {
           // Unauthorized - redirect to the login page
           localStorage.clear();
-          this.router.navigate(['user-authenticaton/login']);
+          this.router.navigate(['login']);
         }
         return throwError(error);
       })

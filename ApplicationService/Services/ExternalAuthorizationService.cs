@@ -202,7 +202,7 @@ namespace ApplicationService.Services
                     }
                     else
                     {
-                        return new ExternalLoginStatus { Status = "REDIRECT", Message = "page-not-authorized" };
+                        return new ExternalLoginStatus { Status = "REDIRECT", Message = "pageNotAuthorized" };
                     }
                 }
             }

@@ -29,11 +29,11 @@ export class HomepageComponent implements OnInit {
 
   
   gotoLoginPage() {
-    this.router.navigate(['user-authenticaton/login'])
+    this.router.navigate(['login'])
   }
 
   gotoSignUpPage() {
-    this.router.navigate(['user-authenticaton/signup'])
+    this.router.navigate(['signup'])
   }
 
 

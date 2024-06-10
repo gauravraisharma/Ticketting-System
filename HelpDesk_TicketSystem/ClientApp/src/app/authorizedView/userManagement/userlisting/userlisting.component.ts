@@ -20,7 +20,7 @@ import { NbDialogService } from '@nebular/theme';
   styleUrls: ['./userlisting.component.css']
 })
 export class UserlistingComponent {
-  displayedColumns: string[] = ['name', 'userName', 'userType', 'email', 'department'];
+  displayedColumns: string[] = ['Name', 'User Name', 'User Type', 'Email', 'Department'];
   dataSource: any[] = [];
     isLoading = false
   data1 = [];
@@ -31,6 +31,7 @@ export class UserlistingComponent {
   @ViewChild(MatSort) sort: MatSort;
 
   DDUserTypeList: any = [];
+  isExternalUser = localStorage.getItem('isExternalUser')
 
   constructor(private accountService: AccountService,
      private toastr: ToastrService,
@@ -40,7 +41,8 @@ export class UserlistingComponent {
 
   ngOnInit() {
     this.getUserList();
-    
+    console.log(this.isExternalUser)
+
   }
   getUserList() {
     this.isLoading = true;
@@ -80,20 +82,6 @@ async deleteUser(user): Promise<void> {
       }
     });
 }
-  onRowEditInit(user: userModel) {
-    
-}
-
-
-
-onRowEditCancel(user: userModel, index: number) {
-    
-}
-onRowEditSave(user: userModel) {
-
-
-}
-
 }
 
 // export interface UserModel {

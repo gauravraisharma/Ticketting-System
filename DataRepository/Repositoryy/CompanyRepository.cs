@@ -73,6 +73,7 @@ namespace DataRepository.Repositoryy
                             Id = Application.Id,
                             ApplicationName = Application.ApplicationName,
                             ApplicationURL = Application.ApplicationURL,
+                            APIEndpoint = Application.APIEndpoint,
                             ClientSecretKey = Application.ClientSecretKey,
                             CreatedOn = Application.CreatedOn,
                         })

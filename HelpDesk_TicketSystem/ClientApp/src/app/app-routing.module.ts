@@ -5,6 +5,7 @@ import { HomepageComponent } from './homepage/homepage.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { PageNotAuthorizedComponent } from './page-not-authorized/page-not-authorized.component';
 import { DevelopersGuideComponent } from './developers-guide/developers-guide.component';
+import { PageInternalErrorComponent } from './page-internal-error/page-internal-error.component';
 
 const appRoutes: Routes = [
   {
@@ -12,7 +13,7 @@ const appRoutes: Routes = [
     component: HomepageComponent,
   },
   {
-    path: 'user-authenticaton',
+    path: '',
     loadChildren: () => import('./user-authentication/user-authentication.module').then(m => m.UserAuthenticationModule)
   },
   {
@@ -47,8 +48,12 @@ const appRoutes: Routes = [
     loadChildren: () => import('./authorizedView/chat/chat.module').then(m => m.ChatModule)
   },
   {
-    path: 'page-not-authorized',
+    path: 'pageNotauthorized',
     component: PageNotAuthorizedComponent
+  },
+  {
+    path: 'internalError',
+    component: PageInternalErrorComponent
   },
   {
     path: 'developersGuide',

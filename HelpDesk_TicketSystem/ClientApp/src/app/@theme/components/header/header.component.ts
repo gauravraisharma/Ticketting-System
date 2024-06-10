@@ -170,7 +170,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       if (result === 'ok') {
         this.accountService.Logout();
         this.toastr.success('Successfully logout');
-        this.router.navigate(['/user-authenticaton/login']);
+        this.router.navigate(['/login']);
       }
     });
   }

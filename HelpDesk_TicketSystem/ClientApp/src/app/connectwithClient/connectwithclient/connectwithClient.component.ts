@@ -13,7 +13,6 @@ import { Helper } from '../../../utils/Helper';
 })
 export class ConnectWithClientComponent implements OnInit {
   isLoading: boolean = false;
-  IsUserLoggedIn = false;
 
   constructor(
     private connectWithClientService: ConnectWithClientService,
@@ -24,8 +23,7 @@ export class ConnectWithClientComponent implements OnInit {
 
 
   ngOnInit() {
-    this.IsUserLoggedIn = (localStorage.getItem('token') != null && localStorage.getItem('token') != undefined) ? true : false;
-
+    localStorage.clear();
     // Extract the host URL
     this.isLoading = true;
     const clientHostURL = this.extractHost();
@@ -42,7 +40,7 @@ export class ConnectWithClientComponent implements OnInit {
           try {
             if (response.status == "SUCCEED") {
               this.toastr.success('Welcome to Helpdesk');
-              this.helper.setDataInLocalStorage(response.token, response.userType, response.userId, response.companyId, response.timeZone, 'false', response.companyLogo, response.name, response.companyName);
+              this.helper.setDataInLocalStorage(response.token, response.userType, response.userId, response.companyId, response.timeZone, 'false', response.companyLogo, response.name, response.companyName, 'true');
               this.router.navigate(['dashboard'])
             }
             else if (response.status == "REDIRECT") {
@@ -64,6 +62,8 @@ export class ConnectWithClientComponent implements OnInit {
             } else if (error.status == 400) {
               this.toastr.error(error.error);
             } else {
+              this.isLoading = false
+              this.router.navigate(["/pageNotAuthorized"]);
               this.toastr.error("Something went wrong, Please try after sometime.");
             }
             this.isLoading = false;
@@ -71,24 +71,32 @@ export class ConnectWithClientComponent implements OnInit {
         }, error => {
           console.log(error)
           if (error.status == 404) {
-            this.router.navigate(["/page-not-authorized"]);
+            this.router.navigate(["/pageNotAuthorized"]);
             this.toastr.error("Unauthorize access");
           }
           else if (error.status == 400) {
+            this.router.navigate(["/pageNotAuthorized"]);
             this.toastr.error(error.error);
           }
           else {
-            this.router.navigate(["/page-not-authorized"]);
+            this.isLoading = false
+            this.router.navigate(["/internalError"]);
             this.toastr.error("Something went wrong, Please try after sometime.");
           }
           this.isLoading = false;
         });
 
       }
+     else {
+      // Redirect to "Page Not Authorized" if URL is not valid
+      this.router.navigate(["/pageNotAuthorized"]);
+      this.toastr.error("Invalid URL");
+      this.isLoading = false;
+    }
     })
 }
   goToHome() {
-    this.router.navigate([(this.IsUserLoggedIn) ? 'dashboard' : '']);
+    this.router.navigate(['']);
 
   }
   //Extract Host URL

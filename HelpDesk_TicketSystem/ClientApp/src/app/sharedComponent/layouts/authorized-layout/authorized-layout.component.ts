@@ -1,19 +1,20 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
+import { Helper } from 'src/utils/Helper';
 
 @Component({
   selector: 'app-authorized-layout',
   templateUrl: './authorized-layout.component.html',
   styleUrls: ['./authorized-layout.component.css']
 })
-export class AuthorizedLayoutComponent {
-
+export class AuthorizedLayoutComponent{
+  
   isUserLoggedIn = false;
   SideMenuStatus = false;
   companyName = localStorage.getItem('companyName')
 
   constructor(
-    private router: Router,) {
+    private router: Router, private helper:Helper) {
     router.events.subscribe((val) => {
       if (val instanceof NavigationEnd) {
         // check if user  is login or not
@@ -24,6 +25,7 @@ export class AuthorizedLayoutComponent {
         }
         else {
           this.isUserLoggedIn = false;
+          this.helper.loadChatbot();
         }
       }
     })

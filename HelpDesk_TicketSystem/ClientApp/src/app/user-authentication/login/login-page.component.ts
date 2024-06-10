@@ -38,8 +38,10 @@ export class LoginPageComponent implements OnInit {
       this.accountService.loginUser(this.loginForm.value).subscribe((response: any) => {
         if (response.status == "SUCCEED") {
           this.toastr.success('Logged in successfully');
-          this.helper.setDataInLocalStorage(response.token, response.userType, response.userId, response.companyId, response.timeZone, this.loginForm.get('rememberMe').value, response.companyLogo, response.name, response.companyName);
-          this.router.navigate(['dashboard'])
+          this.helper.setDataInLocalStorage(response.token, response.userType, response.userId, response.companyId, response.timeZone, this.loginForm.get('rememberMe').value, response.companyLogo, response.name, response.companyName, 'false');
+          this.router.navigate(['dashboard']).then(() => {
+            window.location.reload();
+          });
         } else {
         
           this.toastr.error(response.message);

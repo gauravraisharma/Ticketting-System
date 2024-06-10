@@ -3,6 +3,7 @@ import { Component, HostListener, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { AccountService } from '../services/accountServices/account-service.service';
 import { NbThemeService } from '@nebular/theme';
+import { Helper } from 'src/utils/Helper';
 
 @Component({
   selector: 'app-root',
@@ -19,21 +20,13 @@ export class AppComponent implements OnInit {
     private route: ActivatedRoute,
     private accountservices: AccountService,
     private themeService: NbThemeService,
+    private helper : Helper
 
   ) {
     router.events.subscribe((val) => {
       if (val instanceof NavigationEnd) {
         // check if user  is login or not
-      
-        var isTokenAvailable = (localStorage.getItem('token') != null && localStorage.getItem('token') != undefined) ? true : false;
-        var isUserIdAvailabel = (localStorage.getItem('userId') != null && localStorage.getItem('userId') != undefined) ? true : false;
-
-        if (isTokenAvailable && isUserIdAvailabel) {
-          this.isUserLoggedIn = true;
-        }
-        else {
-          this.isUserLoggedIn = false;
-        }
+        this.checkLoginStatus();
         this.currentRoute = val.url;
       }
     })
@@ -41,17 +34,30 @@ export class AppComponent implements OnInit {
   }
   ngOnInit() {
     this.themeService.changeTheme('material-light');
+    this.checkLoginStatus();
+  }
 
+  checkLoginStatus() {
+    var isTokenAvailable = (localStorage.getItem('token') != null && localStorage.getItem('token') != undefined);
+    var isUserIdAvailable = (localStorage.getItem('userId') != null && localStorage.getItem('userId') != undefined);
 
+    if (isTokenAvailable && isUserIdAvailable) {
+      this.isUserLoggedIn = true;
+    } else {
+      this.isUserLoggedIn = false;
+      this.helper.loadChatbot(); // Load chatbot if user is not logged in
+    }
   }
 
   @HostListener('window:beforeunload', ['$event'])
   beforeunload(event: any): void {
     // Add your condition here
     const isRememberMe = localStorage.getItem('isRememberMe');
+    var isTokenAvailable = (localStorage.getItem('token') != null && localStorage.getItem('token') != undefined);
+    var isUserIdAvailable = (localStorage.getItem('userId') != null && localStorage.getItem('userId') != undefined);
 
-    if (isRememberMe == "false") {
-      this.accountservices.Logout();
+    if (isRememberMe == "false" && !isTokenAvailable && !isUserIdAvailable) {
+       this.accountservices.Logout();
     }
   }
 

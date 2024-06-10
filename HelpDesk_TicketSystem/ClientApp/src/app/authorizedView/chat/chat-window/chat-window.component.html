@@ -1,4 +1,4 @@
-<div class="head-title">
+<!-- <div class="head-title">
   <div class="left">
     <h1>Chat Box</h1>
     <ul class="breadcrumb">
@@ -15,9 +15,91 @@
   <div>
 
   </div>
-</div>
+</div> -->
+<nb-card>
+  <nb-card-header>
+    <div class="d-flex justify-content-between align-items-center">
+      <h5><b>Chat Box</b></h5>
+      </div>
+  </nb-card-header>
 
-<div class="mat-elevation-z8 bg-white rounded-3 card-warpper">
+  <nb-card-body>
+    <div class="messaging">
+      <div class="inbox_msg">
+        <div class="inbox_people">
+          <div class="headind_srch">
+            <div class="recent_heading">
+              <h4>Recent</h4>
+            </div>
+
+          </div>
+          <div class="inbox_chat" #scrollContainerUsers>
+            <ng-container *ngFor="let user of userList">
+              <div [class]="{'chat_list':true,'active_chat':(user.chatRoomId===chatRoomId) }">
+                <div class="chat_people" (click)="chatUserSelected(user)">
+                  <div class="chat_ib">
+                    <h5>{{user.chatUserName}}</h5>
+                    <p>{{user.email}}</p>
+                    <span *ngIf="user.unReadMessageCount>0"
+                      class="chatUnreadCount">{{user.unReadMessageCount}}</span>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+            <ng-container *ngIf="userList==null || userList ==undefined || userList.length==0">
+              <h2 class="mt-2 text-center">No User Found</h2>
+            </ng-container>
+          </div>
+        </div>
+        <div class="mesgs">
+          <div class="msg_history" #scrollContainerMessage>
+            <div class="NoChatConent" *ngIf="chatRoomId== null || chatRoomId == undefined || chatRoomId ==''">
+              <div>
+                <h2> Please select a user</h2>
+                <p>Please select a user to start chat</p>
+              </div>
+            </div>
+            <ng-container *ngFor="let chatMessage of chatMessages">
+              <div class="incoming_msg" *ngIf="chatMessage.isIncoming">
+                <div class="received_msg">
+                  <div class="received_withd_msg">
+
+                    <p>
+                      {{chatMessage.message}}
+                    </p>
+                    <small class="text-start d-block ms-2 mt-1">{{chatMessage.createdOn | timeZone :currentTimeZone:
+                      'DD-MM-YYYY h:mm a'}}</small>
+                  </div>
+                </div>
+              </div>
+              <div class="outgoing_msg" *ngIf="!chatMessage.isIncoming">
+                <div class="sent_msg">
+                  <p>
+                    {{chatMessage.message}}
+                  </p>
+                  <small class="text-end d-block me-2 mt-1">{{chatMessage.createdOn | timeZone :currentTimeZone:
+                    'DD-MM-YYYY h:mm a'}}</small>
+
+                </div>
+              </div>
+            </ng-container>
+          </div>
+          <div class="type_msg" *ngIf="chatRoomId!='' && chatRoomId !=null && chatRoomId!=undefined">
+            <div class="input_msg_write">
+              <input type="text" class="write_msg" placeholder="Type a message" [(ngModel)]="messageToSend"
+                (keyup.enter)="SendMessageToUser()" />
+              <button class="msg_send_btn" type="button" (click)="SendMessageToUser()"><i class="bx bxs-send"
+                  aria-hidden="true"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+</nb-card-body>
+</nb-card>
+
+<!-- <div class="mat-elevation-z8 bg-white rounded-3 card-warpper">
   <div class="col-sm-12">
     <mat-card>
 
@@ -98,7 +180,7 @@
       </mat-card-content>
     </mat-card>
   </div>
-</div>
+</div> -->
 
 
 

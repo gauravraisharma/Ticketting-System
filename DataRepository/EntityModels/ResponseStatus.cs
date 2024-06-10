@@ -224,6 +224,7 @@ namespace DataRepository.EntityModels
         public int Id { get; set; }
         public string ApplicationName { get; set; }
         public string ApplicationURL { get; set; }
+        public string APIEndpoint {  get; set; }
         public string ClientSecretKey { get; set; }
         public DateTime CreatedOn { get; set; }
 

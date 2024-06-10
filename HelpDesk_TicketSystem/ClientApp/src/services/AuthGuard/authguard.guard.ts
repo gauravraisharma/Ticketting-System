@@ -20,6 +20,6 @@ export const authguardGuard: CanActivateFn = (route, state) => {
   }
 
   toaster.error("You are not authorize to access this module");
-  router.navigate(['user-authenticaton/login']);
+  router.navigate(['login']);
   return false;
 };

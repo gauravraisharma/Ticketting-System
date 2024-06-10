@@ -22,7 +22,7 @@ export class SettingsComponent implements OnInit {
   public allTimeZones: string[] = moment.tz.names();
   showScript: boolean = false;
 
-  displayedColumns: string[] = ['ApplicationName', 'ApplicationURL', 'ClientSecretKey', 'CreatedOn', 'Action'];
+  displayedColumns: string[] = ['Application Name', 'Application URL', 'API Endpoint','Client Secret Key', 'Created On', 'Action'];
   dataSource :any[]=[];
   public registeredApplications: registeredApplicationModel[] = [];
   @ViewChild(MatSort) sort: MatSort;

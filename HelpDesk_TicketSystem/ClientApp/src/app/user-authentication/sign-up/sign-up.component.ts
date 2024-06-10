@@ -73,7 +73,7 @@ export class SignUpComponent {
       this.companyService.registerCompany(companyRegister).subscribe((response: any) => {
         if (response.status == "SUCCEED") {
           this.toastr.success('User successfully register, please login now');
-          this.router.navigate(['/user-authenticaton/login'])
+          this.router.navigate(['/login'])
         } else {
 
           this.toastr.error(response.message);
