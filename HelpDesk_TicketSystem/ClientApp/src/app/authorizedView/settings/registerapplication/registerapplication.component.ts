@@ -6,6 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { CompanyService, RegisterCompanyApplication } from '../../../../services/companyService/company.service';
 import { MatDialog } from '@angular/material/dialog';
 import { SecretKeyDialogComponent } from '../../../sharedComponent/secret-key-dialog/secret-key-dialog.component';
+import { NbDialogService } from '@nebular/theme';
 
 
 @Component({
@@ -17,7 +18,7 @@ export class RegisterapplicationComponent {
   constructor(private fb: FormBuilder,
     private companyService: CompanyService,
     private toastr: ToastrService,
-    private router: Router, public dialog: MatDialog,) {
+    private router: Router, public dialog: NbDialogService,) {
 
   }
   applicationForm = this.fb.group({
@@ -75,18 +76,13 @@ export class RegisterapplicationComponent {
   openModal(clientKey: string) {     
    
     const dialogRef = this.dialog.open(SecretKeyDialogComponent, {
-      data: {
+      context: {
         message: 'Secret key for registered application',
         title: 'Application Secret Key',
         content: clientKey
-      },
-      width: '650px',
-      enterAnimationDuration: '0',
-      exitAnimationDuration: '0',
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result == "ok") {
+      },  
+    }).onClose.subscribe(result => {
+      if (result === 'ok') {
         this.router.navigate(['/settings']);
       } else {
 

@@ -1,5 +1,6 @@
 ﻿using DataRepository.Constants;
 using DataRepository.EntityModels;
+using DataRepository.Enums;
 using DataRepository.IRepository;
 using DataRepository.Utils;
 using Microsoft.AspNetCore.Identity;
@@ -205,7 +206,7 @@ namespace DataRepository.Repositoryy
             {
                 return new RegisterCompanyApplicationResponse
                 {
-                    Status = "FAILED",
+                    Status = ResponseCode.Conflict,
                     Message = "Application Name already exists, Please choose another name."
                 };
 
@@ -229,7 +230,7 @@ namespace DataRepository.Repositoryy
                 return new RegisterCompanyApplicationResponse
                 {
                     ClientSecretKey = registerCompanyAppModel.ClientSecretKey,
-                    Status = "SUCCEED",
+                    Status = ResponseCode.Success,
                     Message = "Application registered successfully"
                 };
             }
@@ -238,7 +239,7 @@ namespace DataRepository.Repositoryy
                 return new RegisterCompanyApplicationResponse
                 {
                     ClientSecretKey = null,
-                    Status = "FAILED",
+                    Status = ResponseCode.InternalServerError,
                     Message = "Something went wrong"
                 };
             }
@@ -289,7 +290,7 @@ namespace DataRepository.Repositoryy
             {
                 return new CompanyLogoResponseStatus
                 {
-                    Status = "FAILED",
+                    Status = ResponseCode.NotFound,
                     Message = "Database context is null"
                 };
             }
@@ -300,7 +301,7 @@ namespace DataRepository.Repositoryy
                 {
                     return new CompanyLogoResponseStatus
                     {
-                        Status = "FAILED",
+                        Status = ResponseCode.NotFound,
                         Message = "Company not found"
                     };
                 }
@@ -315,7 +316,7 @@ namespace DataRepository.Repositoryy
 
                     return new CompanyLogoResponseStatus
                     {
-                        Status = "SUCCEED",
+                        Status = ResponseCode.Success,
                         Message = "Logo saved successfully",
                         CompanyLogo =  AttachmentHelper.GetAssetLink(_config["AssetLink"], "\\" + ImageFolderConstants.CompanyLogo + "\\", company.CompanyLogo)
                     };
@@ -324,7 +325,7 @@ namespace DataRepository.Repositoryy
                 {
                     return new CompanyLogoResponseStatus
                     {
-                        Status = "FAILED",
+                        Status = ResponseCode.BadRequest,
                         Message = "No file provided"
                     };
                 }
@@ -333,7 +334,7 @@ namespace DataRepository.Repositoryy
             {
                 return new CompanyLogoResponseStatus
                 {
-                    Status = "FAILED",
+                    Status =    ResponseCode.InternalServerError,
                     Message = ex.Message
                 };
             }

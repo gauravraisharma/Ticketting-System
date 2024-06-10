@@ -14,7 +14,7 @@ export class AuthorizedLayoutComponent{
   companyName = localStorage.getItem('companyName')
 
   constructor(
-    private router: Router, private helper:Helper) {
+    private router: Router) {
     router.events.subscribe((val) => {
       if (val instanceof NavigationEnd) {
         // check if user  is login or not
@@ -25,7 +25,6 @@ export class AuthorizedLayoutComponent{
         }
         else {
           this.isUserLoggedIn = false;
-          this.helper.loadChatbot();
         }
       }
     })

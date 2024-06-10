@@ -1,6 +1,7 @@
 ﻿using Azure.Core;
 using DataRepository.Constants;
 using DataRepository.EntityModels;
+using DataRepository.Enums;
 using DataRepository.IRepository;
 using DataRepository.Repository;
 using DataRepository.Utils;
@@ -38,7 +39,7 @@ namespace DataRepository.Repositoryy
             {
                 return new ConnectWithClientResponse
                 {
-                    Status = "FAILED",
+                    Status = ResponseCode.NotFound,
                     Message = "Application not found"
                 };
             }
@@ -47,7 +48,7 @@ namespace DataRepository.Repositoryy
                 ClientSecretKey = applicationDetails.ClientSecretKey,
                 ApplicationURL = applicationDetails.ApplicationURL,
                 APIEndpoint = applicationDetails.APIEndpoint,
-                Status = "SUCCEED",
+                Status = ResponseCode.Success,
                 Message = "Fetched application details"
             };
         }
@@ -93,7 +94,7 @@ namespace DataRepository.Repositoryy
             {
                 return new ExternalLoginStatus
                 {
-                    Status = "FAILED",
+                    Status = ResponseCode.NotFound,
                     Message = "User doesn't exist"
                 };
             }
@@ -127,7 +128,7 @@ namespace DataRepository.Repositoryy
                                   ).FirstOrDefault();
             return new ExternalLoginStatus
             {
-                Status = "SUCCEED",
+                Status =ResponseCode.Success,
                 Message = "Login Successfully",
                 Token = token,
                 UserType = userRoles[0],
@@ -173,7 +174,7 @@ namespace DataRepository.Repositoryy
                 return loginResponse;
 
             }
-            return new ExternalLoginStatus { Status = "FAILED", Message = "Failed to register user." };
+            return new ExternalLoginStatus { Status = ResponseCode.BadRequest, Message = "Failed to register user." };
 
         }
 

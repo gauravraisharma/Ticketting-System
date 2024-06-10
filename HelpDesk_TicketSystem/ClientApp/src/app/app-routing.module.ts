@@ -48,7 +48,7 @@ const appRoutes: Routes = [
     loadChildren: () => import('./authorizedView/chat/chat.module').then(m => m.ChatModule)
   },
   {
-    path: 'pageNotauthorized',
+    path: 'pageNotAuthorized',
     component: PageNotAuthorizedComponent
   },
   {

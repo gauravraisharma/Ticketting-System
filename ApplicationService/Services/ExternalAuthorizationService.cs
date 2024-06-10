@@ -3,6 +3,7 @@ using ApplicationService.IServices;
 using Azure;
 using Azure.Core;
 using DataRepository.EntityModels;
+using DataRepository.Enums;
 using DataRepository.IRepository;
 using Jose;
 using Microsoft.AspNetCore.Mvc;
@@ -29,7 +30,7 @@ namespace ApplicationService.Services
         {
             _externalAuthorizationRepository = externalAuthorizationRepository;
         }
-        public async Task<LoginStatus> ConnectWithClient(ConnectWithClientRequest clientRequest)
+        public async Task<ExternalLoginStatus> ConnectWithClient(ConnectWithClientRequest clientRequest)
         {
 
             ConnectWithClientBLLModel clientModel = new ConnectWithClientBLLModel()
@@ -52,7 +53,7 @@ namespace ApplicationService.Services
                 if (DateTime.UtcNow - sessionStartTime > TimeSpan.FromMinutes(5))
                 {
                     // Session start time exceeded five minutes
-                    return new LoginStatus { Status = "FAILED", Message = "Time limit exceeded." };
+                    return new ExternalLoginStatus { Status = ResponseCode.RequestTimeout, Message = "Time limit exceeded." };
                 }
 
 
@@ -60,50 +61,51 @@ namespace ApplicationService.Services
             if (response.ApplicationURL != null && response.ApplicationURL.IndexOf(clientRequest.ClientHostURL, StringComparison.OrdinalIgnoreCase) < 0)
             {
                 // host url does not exist in the database
-                return new LoginStatus { Status = "FAILED", Message = "Endpoint URL not found in the database." };
+                return new ExternalLoginStatus { Status = ResponseCode.NotFound, Message = "Endpoint URL not found in the database." };
                 }
 
                 var userFound = await _externalAuthorizationRepository.IsUserFound(email);
-                if (userFound != null)
-                {
+            if (userFound != null)
+            {
                 var loginResponse = await _externalAuthorizationRepository.AuthenticateExternalUser(userFound.Email, clientRequest.ApplicationName);
-                if (loginResponse.Status == "SUCCEED" && !String.IsNullOrEmpty(loginResponse.UserIdentityToken))
-                    {
-                        var decryptToken = JWT.Decode(loginResponse.UserIdentityToken, Convert.FromBase64String(response.ClientSecretKey));
-                        CipherUserDataModel cipherUserDataModel = JsonConvert.DeserializeObject<CipherUserDataModel>(decryptToken);
-                        var expUnix = long.Parse(cipherUserDataModel.Exp);
-                        var expDateTime = DateTimeOffset.FromUnixTimeSeconds(expUnix).UtcDateTime;
-                        if (expDateTime >= DateTime.UtcNow)
-                        {
-                            //token not expired return login response
-                            return loginResponse;
-                        }
-                    //Check if refresh token is valid and not expired
-                    if (IsRefreshTokenValid(loginResponse.RefreshToken, out var refreshTokenExp) && refreshTokenExp < DateTime.UtcNow && !String.IsNullOrEmpty(loginResponse.RefreshToken))
-                    {
-                       var loginRes= await CallbackRequestToClient(response.APIEndpoint, clientRequest.AccessToken, response.ClientSecretKey, clientRequest.ApplicationName, TokenConstants.GenerateToken);
-                       return loginRes;
-                           
-                    }
-                    else
-                    {
-                        // Token Expired, refresh token
-                        var refreshTokenResponse = await CallbackRequestToClient(response.APIEndpoint, loginResponse.RefreshToken, response.ClientSecretKey, clientRequest.ApplicationName, TokenConstants.RefreshToken);
-                        return refreshTokenResponse;
-                    }
-                    }
-                    else
-                    {
-                    var res = await CallbackRequestToClient(response.APIEndpoint, clientRequest.AccessToken, response.ClientSecretKey, clientRequest.ApplicationName, TokenConstants.GenerateToken);
-                    return res;
-                }
-                }
-                else
+
+                if (loginResponse.Status == ResponseCode.Success && !String.IsNullOrEmpty(loginResponse.UserIdentityToken))
                 {
-                    var loginResponse = await CallbackRequestToClient(response.APIEndpoint, clientRequest.AccessToken, response.ClientSecretKey, clientRequest.ApplicationName, TokenConstants.GenerateToken);
-                    return loginResponse;
+                    var decryptToken = JWT.Decode(loginResponse.UserIdentityToken, Convert.FromBase64String(response.ClientSecretKey));
+                    CipherUserDataModel cipherUserDataModel = JsonConvert.DeserializeObject<CipherUserDataModel>(decryptToken);
+                    var expUnix = long.Parse(cipherUserDataModel.Exp);
+                    var expDateTime = DateTimeOffset.FromUnixTimeSeconds(expUnix).UtcDateTime;
+
+                    if (expDateTime >= DateTime.UtcNow)
+                    {
+                        // Token not expired, return login response
+                        return loginResponse;
+                    }
+
+                    // Check if refresh token is valid and not expired
+                    if (!String.IsNullOrEmpty(loginResponse.RefreshToken) && IsRefreshTokenValid(loginResponse.RefreshToken, out var refreshTokenExp))
+                    {
+                        if (refreshTokenExp >= DateTime.UtcNow)
+                        {
+                            // Token expired but refresh token is valid
+                            return await CallbackRequestToClient(response.APIEndpoint, clientRequest.AccessToken, response.ClientSecretKey, clientRequest.ApplicationName, TokenConstants.GenerateToken);
+                        }
+                        else
+                        {
+                            // Refresh token expired, generate new tokens
+                            return await CallbackRequestToClient(response.APIEndpoint, loginResponse.RefreshToken, response.ClientSecretKey, clientRequest.ApplicationName, TokenConstants.RefreshToken);
+                        }
+                    }
                 }
+
+                // Token expired or refresh token invalid
+                return await CallbackRequestToClient(response.APIEndpoint, clientRequest.AccessToken, response.ClientSecretKey, clientRequest.ApplicationName, TokenConstants.GenerateToken);
             }
+
+            // User not found, generate new tokens
+            return await CallbackRequestToClient(response.APIEndpoint, clientRequest.AccessToken, response.ClientSecretKey, clientRequest.ApplicationName, TokenConstants.GenerateToken);
+
+        }
 
         public bool IsRefreshTokenValid(string refreshToken, out DateTime expDateTime)
         {
@@ -175,13 +177,13 @@ namespace ApplicationService.Services
                     {
                         var responseBody = await httpResponse.Content.ReadAsStringAsync();
                         CipherClientResponse cipherClientResponse = JsonConvert.DeserializeObject<CipherClientResponse>(responseBody);
-                        string responseStatus = cipherClientResponse.Status;
-                        string userIdentityToken = responseStatus == "SUCCEED" ? cipherClientResponse.UserIdentityToken : "";
-                        string refreshToken = responseStatus == "SUCCEED" ? cipherClientResponse.RefreshToken : "";
+                        ResponseCode responseStatus = cipherClientResponse.Status;
+                        string userIdentityToken = responseStatus == ResponseCode.Success ? cipherClientResponse.UserIdentityToken : "";
+                        string refreshToken = responseStatus == ResponseCode.Success ? cipherClientResponse.RefreshToken : "";
 
                         if (userIdentityToken == null)
                         {
-                            return new ExternalLoginStatus { Status = "FAILED", Message = "No data found" };
+                            return new ExternalLoginStatus { Status = ResponseCode.NotFound, Message = "No data found" };
                         }
 
                         var decryptToken = JWT.Decode(userIdentityToken, Convert.FromBase64String(clientSecretKey));
@@ -202,7 +204,7 @@ namespace ApplicationService.Services
                     }
                     else
                     {
-                        return new ExternalLoginStatus { Status = "REDIRECT", Message = "pageNotAuthorized" };
+                        return new ExternalLoginStatus { Status = ResponseCode.Unauthorized, Message = "User not authorized, please check again!" };
                     }
                 }
             }
@@ -210,10 +212,10 @@ namespace ApplicationService.Services
             {
                 // Log the exception
                 Console.WriteLine($"Error in CallbackRequestToClient: {ex.Message}");
-                return new ExternalLoginStatus { Status = "FAILED", Message = ex.Message };
+                return new ExternalLoginStatus { Status = ResponseCode.InternalServerError, Message = ex.Message };
             }
         }
-        public async Task<ResponseStatus> ValidateToken(ValidateTokenRequest validateTokenRequest)
+        public async Task<ExternalResponseStatus> ValidateToken(ValidateTokenRequest validateTokenRequest)
         {
             try
             {
@@ -225,17 +227,17 @@ namespace ApplicationService.Services
                     //valid payload will be email and session start time
                     if (cipherDataModel.Email != null && cipherDataModel.SessionStartTime != null && long.Parse(cipherDataModel.Exp) > DateTimeOffset.UtcNow.ToUnixTimeSeconds())
                     {
-                        return new ResponseStatus()
+                        return new ExternalResponseStatus()
                         {
-                            Status = "SUCCEED",
+                            Status = ResponseCode.Success,
                             Message = "Token validated successfully"
                         };
                     }
                     else
                     {
-                        return new ResponseStatus()
+                        return new ExternalResponseStatus()
                         {
-                            Status = "FAILED",
+                            Status = ResponseCode.BadRequest,
                             Message = "Validation failed: missing required fields or token expired"
                         };
                     }
@@ -250,26 +252,26 @@ namespace ApplicationService.Services
                     if (cipherUserDataModel.Email != null && cipherUserDataModel.UserId != null && cipherUserDataModel.FirstName != null &&
                        cipherUserDataModel.UserName != null && cipherUserDataModel.UserType != null  && long.Parse(cipherUserDataModel.Exp) > DateTimeOffset.UtcNow.ToUnixTimeSeconds())
                     {
-                        return new ResponseStatus()
+                        return new ExternalResponseStatus()
                         {
-                            Status = "SUCCEED",
+                            Status = ResponseCode.Success,
                             Message = "Token validated successfully"
                         };
                     }
                     else
                     {
-                        return new ResponseStatus()
+                        return new ExternalResponseStatus()
                         {
-                            Status = "FAILED",
+                            Status =ResponseCode.BadRequest,
                             Message = "Validation failed: missing required fields or token expired"
                         };
                     }
                 }
             }catch(Exception ex)
             {
-                return new ResponseStatus()
+                return new ExternalResponseStatus()
                 {
-                    Status = "FAILED",
+                    Status = ResponseCode.InternalServerError,
                     Message = $"Validation failed: {ex.Message}"
                 };
             }

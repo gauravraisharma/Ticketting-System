@@ -62,17 +62,26 @@ export class SidebarComponent implements OnInit {
     });
     this.hubConnection = this.chatService.getConnection();
     this.hubConnection.on('NewMessageFromCLient', (chatRoomId: string, companyId) => {
-      //Check if current route is chat
-      debugger
-      //if current route is not chat than update chatCount
-      if (localStorage.getItem('companyId') == companyId) {
-        if (!this.currentRoute.includes('chat')) {
-          this.chatCount += 1
-        }
+    //   //Check if current route is chat
+    //   debugger
+    //   //if current route is not chat than update chatCount
+    //   if (localStorage.getItem('companyId') == companyId) {
+    //     if (!this.currentRoute.includes('chat')) {
+    //       this.chatCount += 1
+    //     }
+    //   }
+
+    // });
+    this.updateChatCount();
+  });
+
+  }
+  updateChatCount() {
+    if (localStorage.getItem('companyId') == this.companyId) {
+      if (!this.currentRoute.includes('chat')) {
+        this.chatCount += 1
       }
-
-    });
-
+    }
   }
 
 
@@ -108,7 +117,9 @@ export class SidebarComponent implements OnInit {
     if (action === 'switch') {
       this.SwitchBackToSuperadmin();
     } else if (event.item?.link) {
-      this.router.navigate([event.item?.link]);
+      this.router.navigate([event.item?.link]).then(() => {
+        this.updateChatCount();
+      });
     }
   }
 

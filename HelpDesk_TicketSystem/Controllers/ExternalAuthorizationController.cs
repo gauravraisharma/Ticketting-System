@@ -1,6 +1,7 @@
 ﻿using ApplicationService.Constants;
 using ApplicationService.IServices;
 using DataRepository.EntityModels;
+using DataRepository.Enums;
 using Jose;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -27,11 +28,17 @@ namespace HelpDesk_TicketSystem.Controllers
 
 
             var response = await _externalAuthorizationService.ConnectWithClient(clientRequest);
-            if (response.Status == "REDIRECT")
+            if (response.Status == ResponseCode.Unauthorized || response.Status == ResponseCode.RequestTimeout || response.Status == ResponseCode.Forbidden || response.Status == ResponseCode.NotFound || response.Status == ResponseCode.BadRequest)
             {
                 // Set up the response to redirect
                 Response.StatusCode = StatusCodes.Status302Found;
-                Response.Headers["Location"] = response.Message;
+                Response.Headers["Location"] = "pageNotAuthorized";
+                return new EmptyResult();
+            }
+            else if(response.Status == ResponseCode.InternalServerError)
+            {
+                Response.StatusCode = StatusCodes.Status302Found;
+                Response.Headers["Location"] = "internalError";
                 return new EmptyResult();
             }
             return Ok(response);

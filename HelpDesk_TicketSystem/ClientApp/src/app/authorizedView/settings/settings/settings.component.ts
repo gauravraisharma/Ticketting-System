@@ -115,7 +115,6 @@ export class SettingsComponent implements OnInit {
     this.companyService.getCompanyRegisteredApplication(parseInt(companyId, 10)).subscribe(
       (response: any) => {
         try {
-          console.log(response)
           this.registeredApplications = response;
          this.dataSource = response;
           // this.dataSource.sort = this.sort;

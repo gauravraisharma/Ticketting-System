@@ -1,6 +1,7 @@
 ﻿using ApplicationService.IServices;
 using ApplicationService.Services;
 using DataRepository.EntityModels;
+using DataRepository.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -89,7 +90,7 @@ namespace HelpDesk_TicketSystem.Controllers
 
             var responseStatus = await _companyService.RegisterCompanyApplication(registerCompanyAppModel);
 
-            if (responseStatus.Status == "SUCCEED")
+            if (responseStatus.Status == ResponseCode.Success)
             {
                 return Ok(responseStatus);
             }
@@ -110,7 +111,7 @@ namespace HelpDesk_TicketSystem.Controllers
 
             var responseStatus = await _companyService.UploadCompanyLogo(companyLogoModel);
 
-            if (responseStatus.Status == "SUCCEED")
+            if (responseStatus.Status == ResponseCode.Success)
             {
                 return Ok(responseStatus);
             }

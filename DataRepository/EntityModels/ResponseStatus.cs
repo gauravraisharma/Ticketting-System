@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DataRepository.Enums;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace DataRepository.EntityModels
@@ -229,22 +230,45 @@ namespace DataRepository.EntityModels
         public DateTime CreatedOn { get; set; }
 
     }
-    public class RegisterCompanyApplicationResponse : ResponseStatus
+    public class RegisterCompanyApplicationResponse : ExternalResponseStatus
     {
         public string ClientSecretKey { get; set; }
     }
-    public class ConnectWithClientResponse : ResponseStatus
+
+
+    public class ExternalLoginStatus
+    {
+        public ResponseCode Status { get; set; }
+        public string Message { get; set; }
+        public string? Token { get; set; }
+        public string? UserType { get; set; }
+        public string? UserId { get; set; }
+        public int? CompanyId { get; set; }
+        public string? TimeZone { get; set; }
+        public string CompanyLogo { get; set; }
+        public string CompanyName { get; set; }
+
+        public string Name { get; set; }
+        public string UserIdentityToken { get; set; }
+        public string RefreshToken { get; set; }
+    }
+    public class ExternalResponseStatus
+    {
+        public ResponseCode Status { get; set; }
+        public string Message { get; set; }
+    }
+    public class ConnectWithClientResponse : ExternalResponseStatus
     {
         public string ClientSecretKey { get; set; }
         public string ApplicationURL { get; set; }
         public string APIEndpoint { get; set; }
     }
-    public class ExternalLoginStatus : LoginStatus
-    {
-        public string UserIdentityToken { get; set; }
-        public string RefreshToken {  get; set; }
-    }
-    public class CompanyLogoResponseStatus : ResponseStatus
+    //public class ExternalLoginStatus : LoginStatus
+    //{
+    //    public string UserIdentityToken { get; set; }
+    //    public string RefreshToken {  get; set; }
+    //}
+    public class CompanyLogoResponseStatus : ExternalResponseStatus
     {
         public string CompanyLogo { get; set; }
     }

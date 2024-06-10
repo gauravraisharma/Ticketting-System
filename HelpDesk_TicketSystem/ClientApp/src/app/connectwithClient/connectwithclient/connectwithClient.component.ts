@@ -13,6 +13,7 @@ import { Helper } from '../../../utils/Helper';
 })
 export class ConnectWithClientComponent implements OnInit {
   isLoading: boolean = false;
+  IsUserLoggedIn = false;
 
   constructor(
     private connectWithClientService: ConnectWithClientService,
@@ -23,6 +24,7 @@ export class ConnectWithClientComponent implements OnInit {
 
 
   ngOnInit() {
+    this.IsUserLoggedIn = (localStorage.getItem('token') != null && localStorage.getItem('token') != undefined) ? true : false;
     localStorage.clear();
     // Extract the host URL
     this.isLoading = true;
@@ -35,16 +37,17 @@ export class ConnectWithClientComponent implements OnInit {
         clientRequest.accessToken = accessToken;
         clientRequest.applicationName = applicationName;
         clientRequest.clientHostURL = clientHostURL;
-        
+
         this.connectWithClientService.connectWithClient(clientRequest).subscribe((response: any) => {
           try {
-            if (response.status == "SUCCEED") {
+           debugger
+            if (response.status == 200) {
               this.toastr.success('Welcome to Helpdesk');
               this.helper.setDataInLocalStorage(response.token, response.userType, response.userId, response.companyId, response.timeZone, 'false', response.companyLogo, response.name, response.companyName, 'true');
               this.router.navigate(['dashboard'])
             }
-            else if (response.status == "REDIRECT") {
-              this.router.navigate([response.message]);
+            else if (response.status == 400 || response.status == 404 || response.status == 401 || response.status == 403 || response.status == 408) {
+              this.router.navigate(["/pageNotAuthorized"]);
               this.isLoading = false;
             }
             else {
@@ -56,11 +59,11 @@ export class ConnectWithClientComponent implements OnInit {
             this.isLoading = false;
           } catch (error) {
             console.log(error);
-            if (error.status == 404) {
-              this.router.navigate([response.message]);
-              this.toastr.error("Unauthorize access");
-            } else if (error.status == 400) {
-              this.toastr.error(error.error);
+            if (error.status == 400 || error.status == 404 || error.status == 401 || error.status == 403 || error.status == 408) {
+              this.router.navigate(["/pageNotAuthorized"]);
+              this.toastr.error(response.message);
+            } else if (error.status == 400 || error.status == 408) {
+              this.toastr.error(response.message);
             } else {
               this.isLoading = false
               this.router.navigate(["/pageNotAuthorized"]);
@@ -72,7 +75,7 @@ export class ConnectWithClientComponent implements OnInit {
           console.log(error)
           if (error.status == 404) {
             this.router.navigate(["/pageNotAuthorized"]);
-            this.toastr.error("Unauthorize access");
+            this.toastr.error("Unauthorized access or time limit exceeded");
           }
           else if (error.status == 400) {
             this.router.navigate(["/pageNotAuthorized"]);
@@ -80,7 +83,7 @@ export class ConnectWithClientComponent implements OnInit {
           }
           else {
             this.isLoading = false
-            this.router.navigate(["/internalError"]);
+            this.router.navigate(["/pageNotAuthorized"]);
             this.toastr.error("Something went wrong, Please try after sometime.");
           }
           this.isLoading = false;
@@ -94,11 +97,14 @@ export class ConnectWithClientComponent implements OnInit {
       this.isLoading = false;
     }
     })
-}
-  goToHome() {
-    this.router.navigate(['']);
-
   }
+
+  
+
+goToHome() {
+  this.router.navigate([(this.IsUserLoggedIn) ? 'dashboard' : '']);
+
+}
   //Extract Host URL
   private extractHost(): string | null {
     try {

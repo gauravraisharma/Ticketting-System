@@ -2,6 +2,7 @@
 using ApplicationService.Utilities;
 using DataRepository.Constants;
 using DataRepository.EntityModels;
+using DataRepository.Enums;
 using DataRepository.IRepository;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -95,7 +96,7 @@ namespace ApplicationService.Services
             }
             return new CompanyLogoResponseStatus
             {
-                Status = "FAILED",
+                Status = ResponseCode.BadRequest,
                 Message = "Something went wrong while uploading the attachment.",
             };
 

@@ -9,8 +9,8 @@ namespace ApplicationService.IServices
 {
     public interface IExternalAuthorizationService
     {
-        Task<LoginStatus> ConnectWithClient(ConnectWithClientRequest clientRequest);
-        Task<ResponseStatus> ValidateToken(ValidateTokenRequest validateTokenRequest);
+        Task<ExternalLoginStatus> ConnectWithClient(ConnectWithClientRequest clientRequest);
+        Task<ExternalResponseStatus> ValidateToken(ValidateTokenRequest validateTokenRequest);
 
     }
 }

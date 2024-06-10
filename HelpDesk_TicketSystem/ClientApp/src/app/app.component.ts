@@ -20,17 +20,25 @@ export class AppComponent implements OnInit {
     private route: ActivatedRoute,
     private accountservices: AccountService,
     private themeService: NbThemeService,
-    private helper : Helper
+    private helper: Helper
 
   ) {
     router.events.subscribe((val) => {
       if (val instanceof NavigationEnd) {
         // check if user  is login or not
-        this.checkLoginStatus();
+        var isTokenAvailable = (localStorage.getItem('token') != null && localStorage.getItem('token') != undefined);
+        var isUserIdAvailable = (localStorage.getItem('userId') != null && localStorage.getItem('userId') != undefined);
+
+        if (isTokenAvailable && isUserIdAvailable) {
+          this.isUserLoggedIn = true;
+        } else {
+          this.isUserLoggedIn = false;
+          this.helper.loadChatbot(); // Load chatbot if user is not logged in
+        }
         this.currentRoute = val.url;
       }
     })
-   
+
   }
   ngOnInit() {
     this.themeService.changeTheme('material-light');
@@ -57,7 +65,7 @@ export class AppComponent implements OnInit {
     var isUserIdAvailable = (localStorage.getItem('userId') != null && localStorage.getItem('userId') != undefined);
 
     if (isRememberMe == "false" && !isTokenAvailable && !isUserIdAvailable) {
-       this.accountservices.Logout();
+      this.accountservices.Logout();
     }
   }
 

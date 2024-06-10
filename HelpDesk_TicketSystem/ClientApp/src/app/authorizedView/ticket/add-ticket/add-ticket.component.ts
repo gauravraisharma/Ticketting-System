@@ -23,6 +23,11 @@ export class AddTicketComponent implements OnInit {
   isLoading: boolean = false;
   fileCount = 0;
   DDDepartmentList = [];
+  priorityList:any[] = [
+    {id:1,label: "LOW"},
+    {id:2,label: "MEDIUM"},
+    {id:3,label : "HIGH"}
+  ]
   public Editor = ClassicEditor;
   constructor(private fb: FormBuilder,
     private commonService: CommonService,
