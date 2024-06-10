@@ -71,6 +71,12 @@ export class TicketListComponent implements AfterViewInit, OnInit {
             return 'info'; 
     }
 }
+clearFilters(){
+  this.selectedPriority = null;
+  this.selectedStatus = null;
+  this.searchQuery = '';
+  this.getTickets();
+}
 
 
 }

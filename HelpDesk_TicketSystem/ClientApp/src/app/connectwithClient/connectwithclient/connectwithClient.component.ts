@@ -40,7 +40,7 @@ export class ConnectWithClientComponent implements OnInit {
 
         this.connectWithClientService.connectWithClient(clientRequest).subscribe((response: any) => {
           try {
-           debugger
+           
             if (response.status == 200) {
               this.toastr.success('Welcome to Helpdesk');
               this.helper.setDataInLocalStorage(response.token, response.userType, response.userId, response.companyId, response.timeZone, 'false', response.companyLogo, response.name, response.companyName, 'true');

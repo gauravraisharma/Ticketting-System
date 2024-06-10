@@ -62,32 +62,43 @@ export class SidebarComponent implements OnInit {
     });
     this.hubConnection = this.chatService.getConnection();
     this.hubConnection.on('NewMessageFromCLient', (chatRoomId: string, companyId) => {
-    //   //Check if current route is chat
-    //   debugger
-    //   //if current route is not chat than update chatCount
-    //   if (localStorage.getItem('companyId') == companyId) {
-    //     if (!this.currentRoute.includes('chat')) {
-    //       this.chatCount += 1
-    //     }
-    //   }
-
-    // });
-    this.updateChatCount();
-  });
-
+      if (localStorage.getItem('companyId') === companyId) {
+        if (!this.currentRoute.includes('chat')) {
+          this.chatCount = (this.chatCount || 0) + 1;
+          this.updateChatMenuBadge();
+        }
+      }
+    });
   }
+
   updateChatCount() {
-    if (localStorage.getItem('companyId') == this.companyId) {
+    if (localStorage.getItem('companyId') === this.companyId) {
       if (!this.currentRoute.includes('chat')) {
-        this.chatCount += 1
+        this.updateChatMenuBadge();
       }
     }
   }
-
+  updateChatMenuBadge() {
+    const chatMenuItem = this.menu.find(item => item.link === '/chat');
+    if (chatMenuItem) {
+      if (this.chatCount && this.chatCount > 0) {
+        debugger
+        chatMenuItem.badge = {
+          text: `${this.chatCount}`,
+          status: 'primary'
+        };
+      } else {
+        chatMenuItem.badge = null;
+      }
+    }
+  }
+  
 
   ngOnInit() {
     this.currentRoute = this.router.url;
     this.observeAdminChange();
+    this.updateChatCount();
+
   }
   observeAdminChange() {
     this.accountService.observeAdminChange().subscribe((value) => {

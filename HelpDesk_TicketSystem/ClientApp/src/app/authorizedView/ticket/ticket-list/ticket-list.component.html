@@ -22,6 +22,9 @@
           <input type="text" nbInput fullWidth id="filterTicket" placeholder="Ticket Number or Subject"
             [(ngModel)]="searchQuery" (keydown.enter)="getTickets()" (blur)="getTickets()">
         </div>
+        <button nbButton class="btn btn-sm mr-2" status="primary" nbTooltip="Clear filters" (click)="clearFilters()">
+          <i class="pi pi-filter-slash" style="color: #fff;;"></i>
+        </button>
         <a nbButton status="primary" routerLink="/ticket/addTicket" *ngIf="userType=='NORMALUSER'">Add Ticket</a>
       </div>
 
