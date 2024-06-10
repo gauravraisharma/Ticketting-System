@@ -6,21 +6,25 @@
         <h5 class="title">Filter Tickets by :</h5>
         <div class="form-group mb-0 mr-2">
           <nb-select class="formSelect" placeholder="Select Priority" [(ngModel)]="selectedPriority">
-            <nb-option *ngFor="let priority of priorityList" [value]="priority.label" (click)="getTickets()">{{ priority.label }}
+            <nb-option *ngFor="let priority of priorityList" [value]="priority.label" (click)="getTickets()">{{
+              priority.label }}
             </nb-option>
           </nb-select>
         </div>
         <div class="form-group mb-0 mr-2">
-          <nb-select class="formSelect" placeholder="Select Status"  [(ngModel)]="selectedStatus">
-            <nb-option *ngFor="let status of statusList" [value]="status.label" (click)="getTickets()">{{ status.label }}
+          <nb-select class="formSelect" placeholder="Select Status" [(ngModel)]="selectedStatus">
+            <nb-option *ngFor="let status of statusList" [value]="status.label" (click)="getTickets()">{{ status.label
+              }}
             </nb-option>
           </nb-select>
         </div>
         <div class="form-group mb-0 mr-2">
-          <input type="text" nbInput fullWidth id="filterTicket" placeholder="Ticket Number or Subject"  [(ngModel)]="searchQuery" (keydown.enter)="getTickets()" (blur)="getTickets()">
+          <input type="text" nbInput fullWidth id="filterTicket" placeholder="Ticket Number or Subject"
+            [(ngModel)]="searchQuery" (keydown.enter)="getTickets()" (blur)="getTickets()">
         </div>
+        <a nbButton status="primary" routerLink="/ticket/addTicket" *ngIf="userType=='NORMALUSER'">Add Ticket</a>
       </div>
-      <a nbButton status="primary" routerLink="/ticket/addTicket" *ngIf="userType=='NORMALUSER'">Add Ticket</a>
+
 
     </div>
   </nb-card-header>
@@ -28,7 +32,7 @@
     <p-table [value]="dataSource" [paginator]="true" [rows]="5" [rowsPerPageOptions]="[5, 10, 20]"
       styleClass="p-datatable-striped" dataKey="id" [tableStyle]="{'min-width': '50rem'}" class="tickets-listing">
       <ng-template pTemplate="header">
-        <tr >
+        <tr>
           <th *ngFor="let col of displayedColumns" [pSortableColumn]="col">
             {{ col | titlecase }}
             <p-sortIcon [field]="col"></p-sortIcon>

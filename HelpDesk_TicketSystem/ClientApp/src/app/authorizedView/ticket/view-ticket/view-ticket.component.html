@@ -136,11 +136,11 @@
 
 
 
-          <mat-card *ngIf="conversationDetailList.length==0 && userType!='ADMIN'">
-            <mat-card-content>
-              <h3 class="text-warning">Admin will soon respond to your ticket. Please wait some time!!!</h3>
-            </mat-card-content>
-          </mat-card>
+
+          <div *ngIf="conversationDetailList.length==0 && userType!='ADMIN'">
+            <h3 class="closed-ticket-msg text-alert">Admin will soon respond to your ticket. Please wait some time!!!
+            </h3>
+          </div>
 
           <mat-card class="conversion-chat-card conversion-chat-card-reply mt-0" *ngIf="(isSendMessageOpen ) ">
             <mat-card-header>
