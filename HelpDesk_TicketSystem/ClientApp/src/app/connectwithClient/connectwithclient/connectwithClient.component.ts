@@ -3,7 +3,9 @@ import { ConnectWithClientService, ClientRequest } from '../../../services/conne
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { Helper } from '../../../utils/Helper';
+import { ChatbotService } from 'src/services/chatbotService/chatbot.service';
+import { LocalStorageService } from 'src/services/localStorageService/local-storage.service';
+import { ThemeService } from 'src/services/themeService/theme.service';
 
 
 @Component({
@@ -20,7 +22,9 @@ export class ConnectWithClientComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private toastr: ToastrService,
-    private helper: Helper) { }
+    private localStorageService: LocalStorageService,
+  private chatbotService : ChatbotService,
+private themeService : ThemeService) { }
 
 
   ngOnInit() {
@@ -43,8 +47,11 @@ export class ConnectWithClientComponent implements OnInit {
            
             if (response.status == 200) {
               this.toastr.success('Welcome to Helpdesk');
-              this.helper.setDataInLocalStorage(response.token, response.userType, response.userId, response.companyId, response.timeZone, 'false', response.companyLogo, response.name, response.companyName, 'true',response.primaryColor, response.secondaryColor);
+              this.localStorageService.setDataInLocalStorage(response.token, response.userType, response.userId, response.companyId, response.timeZone, 'false', response.companyLogo, response.name, response.companyName, 'true',response.primaryColor, response.secondaryColor);
               this.router.navigate(['dashboard'])
+              this.chatbotService.setVisibility(false);
+              this.themeService.setThemeColors(response.primaryColor == undefined ? '#6200ee' : response.primaryColor , response.secondaryColor == undefined ? '#D3D3D3' : response.secondaryColor); 
+
             }
             else if (response.status == 400 || response.status == 404 || response.status == 401 || response.status == 403 || response.status == 408) {
               this.router.navigate(["/pageNotAuthorized"]);

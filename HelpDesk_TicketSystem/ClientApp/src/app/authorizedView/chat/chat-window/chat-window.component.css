@@ -37,13 +37,6 @@ img {
   width: 60%;
 }
 
-.headind_srch {
-  padding: 10px 15px;
-  overflow: hidden;
-  /* border-bottom: 1px solid #c4c4c4; */
-  background: #03669a;
-}
-
 .recent_heading h4 {
   color: #fff;
   font-size: 21px;
@@ -181,7 +174,7 @@ img {
 
 .mesgs {
   float: left;
-  padding: 30px 15px 0 25px;
+  /* padding: 30px 15px 0 25px; */
   width: 70%;
 }
 
@@ -224,19 +217,12 @@ img {
   position: relative;
 }
 
-.msg_send_btn {
-  background: #c44e32 none repeat scroll 0 0;
-  border: medium none;
-  border-radius: 50%;
-  color: #fff;
-  cursor: pointer;
-  font-size: 17px;
-  height: 34px;
-  line-height: 38px;
-  position: absolute;
-  right: 0;
-  top: 11px;
-  width: 34px;
+.input_msg_write {
+  border: 1px solid #444;
+  margin: 20px 34px;
+  position: relative;
+  padding-left: 20px;
+  border-radius: 4px;
 }
 
 .msg_history {

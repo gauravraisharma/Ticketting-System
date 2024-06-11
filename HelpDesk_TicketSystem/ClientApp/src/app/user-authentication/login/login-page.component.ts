@@ -3,7 +3,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AccountService } from '../../../services/accountServices/account-service.service';
-import { Helper } from '../../../utils/Helper';
+import { ChatbotService } from 'src/services/chatbotService/chatbot.service';
+import { LocalStorageService } from 'src/services/localStorageService/local-storage.service';
+import { ThemeService } from 'src/services/themeService/theme.service';
 
 @Component({
   selector: 'app-login-page',
@@ -19,7 +21,9 @@ export class LoginPageComponent implements OnInit {
     private accountService: AccountService,
     private router: Router,
     private toastr: ToastrService,
-    private helper: Helper
+    private localStorageService: LocalStorageService,
+    private chatbotService : ChatbotService,
+    private themeService : ThemeService
   ) {
   }
 
@@ -38,10 +42,11 @@ export class LoginPageComponent implements OnInit {
       this.accountService.loginUser(this.loginForm.value).subscribe((response: any) => {
         if (response.status == "SUCCEED") {
           this.toastr.success('Logged in successfully');
-          this.helper.setDataInLocalStorage(response.token, response.userType, response.userId, response.companyId, response.timeZone, this.loginForm.get('rememberMe').value, response.companyLogo, response.name, response.companyName, 'false', response.primaryColor, response.secondaryColor);
-          this.router.navigate(['dashboard']).then(() => {
-            window.location.reload();
-          });
+          this.localStorageService.setDataInLocalStorage(response.token, response.userType, response.userId, response.companyId, response.timeZone, this.loginForm.get('rememberMe').value, response.companyLogo, response.name, response.companyName, 'false', response.primaryColor, response.secondaryColor);
+          this.router.navigate(['dashboard'])
+          this.chatbotService.setVisibility(false);
+          this.themeService.setThemeColors(response.primaryColor == undefined ? '#6200ee' : response.primaryColor , response.secondaryColor == undefined ? '#D3D3D3' : response.secondaryColor); 
+
         } else {
         
           this.toastr.error(response.message);

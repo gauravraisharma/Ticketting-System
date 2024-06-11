@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import * as moment from 'moment-timezone';
 import { MatTableDataSource } from '@angular/material/table';
 import { FormBuilder, Validators } from '@angular/forms';
-import { CompanyService, UpdateThemeColors, UpdateTimeZone } from '../../../../services/companyService/company.service';
+import { CompanyService, UpdateThemeColor, UpdateTimeZone } from '../../../../services/companyService/company.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { map, Observable, startWith } from 'rxjs';
@@ -47,16 +47,14 @@ export class SettingsComponent implements OnInit {
 
   selectedFile: File | null = null;
   selectedFileSrc: string | ArrayBuffer | null = null;
-  colorPicker = '../../../assets/images/colorPicker.png'
 
   constructor(private fb: FormBuilder, private companyService: CompanyService,
     private router: Router,
     private toastr: ToastrService,
-    private clipboard: Clipboard,
     private dialogService: NbDialogService,
     private themeService: ThemeService
   ) {
-
+   
   }
   ngOnInit() {
     this.embeddedScriptForChatBot = `
@@ -74,8 +72,8 @@ export class SettingsComponent implements OnInit {
 
     const colors = this.themeService.getThemeColors();
     this.themeColorsForm.patchValue({
-      primaryColor: colors.primaryColor,
-      secondaryColor: colors.secondaryColor
+      primaryColor: colors.primaryColor == 'null' ? '#6200ee' : colors.primaryColor ,
+      secondaryColor: colors.secondaryColor == 'null' ? '#D3D3D3' : colors.secondaryColor
     });
 
     this.updateThemeColors();
@@ -259,8 +257,8 @@ export class SettingsComponent implements OnInit {
 
 updateThemeColors() {
   const colors = this.themeService.getThemeColors();
-  document.documentElement.style.setProperty('--primary', colors.primaryColor);
-  document.documentElement.style.setProperty('--secondary', colors.secondaryColor);
+  document.documentElement.style.setProperty('--primary', colors.primaryColor == 'null' ? '#6200ee' : colors.primaryColor);
+  document.documentElement.style.setProperty('--secondary', colors.secondaryColor == 'null' ? '#D3D3D3' :colors.secondaryColor);
 }
 
   saveThemeColors() {
@@ -271,7 +269,7 @@ updateThemeColors() {
     if (this.themeColorsForm.valid) {
       console.log(this.themeColorsForm);
   
-      const color = new UpdateThemeColors();
+      const color = new UpdateThemeColor();
       color.primaryColor = this.themeColorsForm.get('primaryColor')!.value;
       color.secondaryColor = this.themeColorsForm.get('secondaryColor')!.value;
       color.companyId = parseInt(companyId, 10);

@@ -1332,6 +1332,24 @@
     white-space: nowrap;
   }
 
+  .msg_send_btn {
+    background: var(--primary);
+    color: #fff;
+    cursor: pointer;
+    font-size: 24px;
+    height: 100%;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 44px;
+  }
+ 
+  .heading_srch {
+    padding: 10px 15px;
+    overflow: hidden;
+    background: var(--primary);
+  }
+
   .nb-theme-material-light [nbButton].appearance-filled.status-basic.border-btn {
     color: var(--primary);
     border: 1px solid var(--primary);
@@ -1366,6 +1384,9 @@
   .nb-theme-material-light nb-menu .menu-item a.active {
     color: var(--primary) !important;
   }
+  .nb-theme-material-light nb-chat-message.not-reply nb-chat-message-text .text {
+    background: var(--primary) !important;
+}
   .pills-info {
     background: var(--secondary);
     color: #fff;

@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { Helper } from 'src/utils/Helper';
 
 @Component({
   selector: 'app-authorized-layout',

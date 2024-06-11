@@ -56,7 +56,7 @@ export class CompanyService {
     let url = `${this.apiUrl}Company/DeleteApplication/${id}`;
     return this.http.get(url);
   }
-  saveThemeColors(color:UpdateThemeColors){
+  saveThemeColors(color:UpdateThemeColor){
     let url = `${this.apiUrl}Company/SaveThemeColors`;
     return this.http.post(url, color);
   }
@@ -83,7 +83,7 @@ export class RegisterCompanyApplication {
   apiEndpoint: string = '';
   companyId: number = null;
 }
-export class UpdateThemeColors{
+export class UpdateThemeColor{
   primaryColor :any;
   secondaryColor :any;
   companyId :number;

@@ -54,6 +54,18 @@
         <button nbButton status="primary" (click)="uploadCompanyLogo()">Upload Logo</button>
       </div>
       <div class="col-sm-6 mt-5">
+        <h6>Theme Colors</h6>
+        <form [formGroup]="themeColorsForm" class="form-field-full" (ngSubmit)="saveThemeColors()">
+        <label class="label mx-2" for="primaryColor">Primary Color</label>
+           <input type="color" id="primaryColor" formControlName="primaryColor" >
+
+      <label class="label mx-2" for="secondaryColor">Secondary Color</label>
+      <input type="color" id="secondaryColor" formControlName="secondaryColor" >
+      <button class="btn btn-md mx-3" type="submit" status="primary" nbButton  (click)="saveThemeColors">Save
+      </button>
+        </form>
+   </div>
+      <div class="col-sm-12 mt-5">
         <h6>Embed Chatbot</h6>
         <div class="d-flex">
           <button nbButton status="primary" (click)="generateChatbotScript()">Generate Script</button>
@@ -66,18 +78,7 @@
           <pre><code>{{embeddedScriptForChatBot}}</code></pre>
         </div>
       </div>
-      <div class="col-sm-6 mt-5">
-        <h6>Theme Colors</h6>
-        <form [formGroup]="themeColorsForm" class="form-field-full" (ngSubmit)="saveThemeColors()">
-        <label class="label mx-2" for="primaryColor">Primary Color</label>
-           <input type="color" id="primaryColor" formControlName="primaryColor" >
-
-      <label class="label mx-2" for="secondaryColor">Secondary Color</label>
-      <input type="color" id="secondaryColor" formControlName="secondaryColor" >
-      <button class="btn btn-md mx-3" type="submit" status="primary" nbButton  (click)="saveThemeColors">Save
-      </button>
-        </form>
-   </div>
+ 
 
     </div>
 
