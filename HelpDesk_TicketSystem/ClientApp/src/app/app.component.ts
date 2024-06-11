@@ -4,6 +4,7 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { AccountService } from '../services/accountServices/account-service.service';
 import { NbThemeService } from '@nebular/theme';
 import { Helper } from 'src/utils/Helper';
+import { ThemeService } from 'src/services/themeService/theme.service';
 
 @Component({
   selector: 'app-root',
@@ -20,7 +21,9 @@ export class AppComponent implements OnInit {
     private route: ActivatedRoute,
     private accountservices: AccountService,
     private themeService: NbThemeService,
-    private helper: Helper
+    private helper: Helper,
+    private customThemeService: ThemeService
+
 
   ) {
     router.events.subscribe((val) => {
@@ -43,7 +46,15 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.themeService.changeTheme('material-light');
     this.checkLoginStatus();
+    const colors = this.customThemeService.getThemeColors();
+    this.applyThemeColors(colors.primaryColor, colors.secondaryColor);
+
   }
+  applyThemeColors(primaryColor: string, secondaryColor: string): void {
+    document.documentElement.style.setProperty('--primary', primaryColor);
+    document.documentElement.style.setProperty('--secondary', secondaryColor);
+  }
+
 
   checkLoginStatus() {
     var isTokenAvailable = (localStorage.getItem('token') != null && localStorage.getItem('token') != undefined);

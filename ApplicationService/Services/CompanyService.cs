@@ -105,5 +105,10 @@ namespace ApplicationService.Services
         {
             return await _companyRepository.DeleteApplication(id);
         }
+
+        public Task<CompanyThemeColorResponseStatus> SaveThemeColors(ComapnyThemeColors comapnyThemeColor)
+        {
+            return _companyRepository.SaveThemeColors(comapnyThemeColor);
+        }
     }
 }

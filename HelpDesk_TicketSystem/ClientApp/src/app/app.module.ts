@@ -89,7 +89,7 @@ import { NbEvaIconsModule } from '@nebular/eva-icons';
     NbMenuService,
     NbAccessChecker,
     NbAclService,
-    NbDialogService,
+    NbDialogService,    
    {
       provide: HTTP_INTERCEPTORS,
       useClass: APIInterceptor,

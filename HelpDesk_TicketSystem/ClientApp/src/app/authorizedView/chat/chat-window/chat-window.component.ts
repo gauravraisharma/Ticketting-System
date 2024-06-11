@@ -22,6 +22,8 @@ export class ChatWindowComponent implements OnInit, OnDestroy {
   chatList = [];
   companyId = localStorage.getItem('companyId');
   isLoading = false;
+  selectedUser: ChatUser;
+  userName = localStorage.getItem('name')
   constructor(
     private chatService: ChatService,
     private toaster: ToastrService,
@@ -121,6 +123,10 @@ export class ChatWindowComponent implements OnInit, OnDestroy {
         .catch(err => console.error(err));
     }
   }
+  messages: any[];
+
+
+
   chatUserSelected(user: ChatUser) {
     this.isLoading = true;
     if (this.chatRoomId == user.chatRoomId) {
@@ -142,6 +148,8 @@ export class ChatWindowComponent implements OnInit, OnDestroy {
       this.chatRoomId = user.chatRoomId
       this.scrollToBottom();
       this.isLoading = false;
+      this.selectedUser = user; 
+
     }, (error) => {
       this.toaster.error("Something went wrong, Please try after sometime.")
       this.isLoading = false;
@@ -193,7 +201,11 @@ export class ChatWindowComponent implements OnInit, OnDestroy {
     }
     this.chatService.closeConnection('responseFormClient');
   }
+  parseDate(dateString: string): Date {
+    return new Date(dateString); 
+  }
 }
+
 
 // Easing function for smooth animation
 function easeInOutCubic(t: number): number {

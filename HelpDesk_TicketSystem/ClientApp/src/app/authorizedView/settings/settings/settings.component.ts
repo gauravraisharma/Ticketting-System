@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import * as moment from 'moment-timezone';
 import { MatTableDataSource } from '@angular/material/table';
 import { FormBuilder, Validators } from '@angular/forms';
-import { CompanyService, UpdateTimeZone } from '../../../../services/companyService/company.service';
+import { CompanyService, UpdateThemeColors, UpdateTimeZone } from '../../../../services/companyService/company.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { map, Observable, startWith } from 'rxjs';
@@ -11,6 +11,7 @@ import { MatSort } from '@angular/material/sort';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { NbDialogService } from '@nebular/theme';
 import { ConfirmDialogComponent } from '../../../sharedComponent/confirm-dialog/confirm-dialog.component';
+import { ThemeColor, ThemeService } from 'src/services/themeService/theme.service';
 
 
 @Component({
@@ -33,6 +34,10 @@ export class SettingsComponent implements OnInit {
   companyLogoForm = this.fb.nonNullable.group({
     companyLogo: [''],
   })
+  themeColorsForm = this.fb.nonNullable.group({
+    primaryColor: [''],
+    secondaryColor :['']
+  })
 
   isLoading: boolean = false;
   filteredOptions: Observable<string[]>;
@@ -42,12 +47,14 @@ export class SettingsComponent implements OnInit {
 
   selectedFile: File | null = null;
   selectedFileSrc: string | ArrayBuffer | null = null;
+  colorPicker = '../../../assets/images/colorPicker.png'
 
   constructor(private fb: FormBuilder, private companyService: CompanyService,
     private router: Router,
     private toastr: ToastrService,
     private clipboard: Clipboard,
-    private dialogService: NbDialogService
+    private dialogService: NbDialogService,
+    private themeService: ThemeService
   ) {
 
   }
@@ -64,6 +71,14 @@ export class SettingsComponent implements OnInit {
     console.log(this.allTimeZones);
     this.getCompanyRegisteredApplication();
 
+
+    const colors = this.themeService.getThemeColors();
+    this.themeColorsForm.patchValue({
+      primaryColor: colors.primaryColor,
+      secondaryColor: colors.secondaryColor
+    });
+
+    this.updateThemeColors();
   }
 
   private _filter(value: string): string[] {
@@ -240,8 +255,57 @@ export class SettingsComponent implements OnInit {
     });
   }
 
-  
+
+
+updateThemeColors() {
+  const colors = this.themeService.getThemeColors();
+  document.documentElement.style.setProperty('--primary', colors.primaryColor);
+  document.documentElement.style.setProperty('--secondary', colors.secondaryColor);
 }
+
+  saveThemeColors() {
+    this.isLoading = true;
+  
+    const companyId = localStorage.getItem('companyId');
+  
+    if (this.themeColorsForm.valid) {
+      console.log(this.themeColorsForm);
+  
+      const color = new UpdateThemeColors();
+      color.primaryColor = this.themeColorsForm.get('primaryColor')!.value;
+      color.secondaryColor = this.themeColorsForm.get('secondaryColor')!.value;
+      color.companyId = parseInt(companyId, 10);
+  
+      this.companyService.saveThemeColors(color).subscribe(
+        (response: any) => {
+          console.log(response)
+          this.toastr.success(response.message);
+          this.isLoading = false;
+          this.themeService.setThemeColors(color.primaryColor, color.secondaryColor);
+          this.updateThemeColors();
+        },
+        (error: any) => {
+          console.log(error);
+          if (error.status === 404) {
+            this.toastr.error("Unauthorized access");
+          } else if (error.status === 400) {
+            this.toastr.error(error.error);
+          } else {
+            this.toastr.error("Something went wrong");
+          }
+          this.isLoading = false;
+        }
+      );
+    } else {
+      this.toastr.error("Please enter valid data");
+      this.isLoading = false;
+    }
+  }
+  
+
+    
+  }
+
  
 
 export interface registeredApplicationModel {

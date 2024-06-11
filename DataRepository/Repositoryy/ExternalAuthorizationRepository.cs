@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace DataRepository.Repositoryy
 {
@@ -105,27 +106,18 @@ namespace DataRepository.Repositoryy
             var userRoles = await _userManager.GetRolesAsync(user);
             var token = Helper.GenerateToken(user, false, _config["Jwt:Key"], userRoles.FirstOrDefault().ToUpper());
 
-            var CompanyTimeZone = (from Company in _context.Companys
-                                   where Company.Id == user.CompanyId
-                                   select new
-                                   {
-                                       TimeZone = Company.TimeZone
-                                   }
-                                  ).FirstOrDefault();
-            var CompanyLogo = (from Company in _context.Companys
-                               where Company.Id == user.CompanyId
-                               select new
-                               {
-                                   companyLogo = Company.CompanyLogo
-                               }
-                                   ).FirstOrDefault();
-            var CompanyName = (from Company in _context.Companys
-                               where Company.Id == user.CompanyId
-                               select new
-                               {
-                                   companyName = Company.Name
-                               }
-                                  ).FirstOrDefault();
+            var company = (from Company in _context.Companys
+                           where Company.Id == user.CompanyId
+                           select new
+                           {
+                               timeZone = Company.TimeZone,
+                               companyName = Company.Name,
+                               companyLogo = Company.CompanyLogo,
+                               primaryColor = Company.PrimaryColor,
+                               secondaryColor = Company.SecondaryColor,
+                           }
+                          ).FirstOrDefault();
+            
             return new ExternalLoginStatus
             {
                 Status =ResponseCode.Success,
@@ -134,12 +126,14 @@ namespace DataRepository.Repositoryy
                 UserType = userRoles[0],
                 UserId = user.Id,
                 CompanyId = user.CompanyId,
-                TimeZone = (userRoles[0].ToUpper() == "SUPERADMIN") ? null : CompanyTimeZone.TimeZone,
+                TimeZone = (userRoles[0].ToUpper() == "SUPERADMIN") ? null : company.timeZone,
                 UserIdentityToken = accessToken,
                 RefreshToken = refreshToken,
-                CompanyLogo = CompanyLogo.companyLogo == "" ? null : AttachmentHelper.GetAssetLink(_config["AssetLink"], "\\" + ImageFolderConstants.CompanyLogo + "\\", CompanyLogo.companyLogo),
+                CompanyLogo = company.companyLogo == "" ? null : AttachmentHelper.GetAssetLink(_config["AssetLink"], "\\" + ImageFolderConstants.CompanyLogo + "\\", company.companyLogo),
                 Name = user.FirstName + " " + user.LastName,
-                CompanyName = CompanyName.companyName
+                CompanyName = company.companyName,
+                PrimaryColor = company.primaryColor,
+                SecondaryColor = company.secondaryColor,
 
             };
         }

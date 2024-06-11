@@ -375,7 +375,53 @@ namespace DataRepository.Repositoryy
             }
         }
 
-
+        public async Task<CompanyThemeColorResponseStatus> SaveThemeColors(ComapnyThemeColors comapnyThemeColor)
+        {
+            if (_context.Companys == null)
+            {
+                return new CompanyThemeColorResponseStatus
+                {
+                    Status = ResponseCode.NotFound,
+                    Message = "Database context is null"
+                };
+            }
+            try
+            {
+                var companyDetail = await _context.Companys.FirstOrDefaultAsync(company => company.Id == comapnyThemeColor.CompanyId);
+                if (companyDetail != null)
+                {
+                    companyDetail.PrimaryColor = comapnyThemeColor.PrimaryColor;
+                    companyDetail.SecondaryColor = comapnyThemeColor.SecondaryColor;
+                    _context.Companys.Update(companyDetail);
+                    await _context.SaveChangesAsync();
+                    return new CompanyThemeColorResponseStatus()
+                    {
+                        Status = ResponseCode.Success,
+                        Message = "Theme colors saved successfully",
+                        PrimaryColor = comapnyThemeColor.PrimaryColor,
+                        SecondaryColor = comapnyThemeColor.SecondaryColor
+                        
+                    };
+                }
+                else
+                {
+                    // APPLICATION not found
+                    return new CompanyThemeColorResponseStatus()
+                    {
+                        Status = ResponseCode.NotFound,
+                        Message = "Cannot find Company"
+                    };
+                }
+            }
+            catch (Exception ex)
+            {
+                return new CompanyThemeColorResponseStatus()
+                {
+                    Status = ResponseCode.InternalServerError,
+                    Message = ex.Message
+                };
+            }
+        }
     }
 
 }

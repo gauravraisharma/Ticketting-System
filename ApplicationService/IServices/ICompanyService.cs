@@ -16,6 +16,8 @@ namespace ApplicationService.IServices
         Task<List<GetCompanyRegisteredApplicationResponse>> GetCompanyRegisteredApplication(int companyId);
         Task<ResponseStatus> UpdateTimeZone(UpdateTimeZone updateTimeZoneModel);
         Task<CompanyLogoResponseStatus> UploadCompanyLogo(CompanyLogoModel companyLogoModel);
+        Task<CompanyThemeColorResponseStatus> SaveThemeColors(ComapnyThemeColors comapnyThemeColor);
+
         Task<ResponseStatus> DeleteApplication(int id);
 
     }

@@ -43,7 +43,7 @@ export class ConnectWithClientComponent implements OnInit {
            
             if (response.status == 200) {
               this.toastr.success('Welcome to Helpdesk');
-              this.helper.setDataInLocalStorage(response.token, response.userType, response.userId, response.companyId, response.timeZone, 'false', response.companyLogo, response.name, response.companyName, 'true');
+              this.helper.setDataInLocalStorage(response.token, response.userType, response.userId, response.companyId, response.timeZone, 'false', response.companyLogo, response.name, response.companyName, 'true',response.primaryColor, response.secondaryColor);
               this.router.navigate(['dashboard'])
             }
             else if (response.status == 400 || response.status == 404 || response.status == 401 || response.status == 403 || response.status == 408) {

@@ -1,11 +1,4 @@
-.pills-info {
-    background: rgb(98 0 238);
-    color: #fff;
-    font-size: 12px;
-    padding: 0px 15px;
-    border-radius: 15px;
-    text-transform: uppercase;
-}
+
 
 .date-time-info {
     font-size: 14px;
@@ -120,8 +113,4 @@
 
 .message-wrap .chat-header {
     border-bottom: 0;
-}
-.view-ticket .closed-ticket-msg.text-alert {
-    background: #ffc20a;
-    color: #000;
 }

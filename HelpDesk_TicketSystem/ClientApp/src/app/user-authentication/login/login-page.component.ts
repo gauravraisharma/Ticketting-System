@@ -38,7 +38,7 @@ export class LoginPageComponent implements OnInit {
       this.accountService.loginUser(this.loginForm.value).subscribe((response: any) => {
         if (response.status == "SUCCEED") {
           this.toastr.success('Logged in successfully');
-          this.helper.setDataInLocalStorage(response.token, response.userType, response.userId, response.companyId, response.timeZone, this.loginForm.get('rememberMe').value, response.companyLogo, response.name, response.companyName, 'false');
+          this.helper.setDataInLocalStorage(response.token, response.userType, response.userId, response.companyId, response.timeZone, this.loginForm.get('rememberMe').value, response.companyLogo, response.name, response.companyName, 'false', response.primaryColor, response.secondaryColor);
           this.router.navigate(['dashboard']).then(() => {
             window.location.reload();
           });

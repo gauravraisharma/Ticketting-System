@@ -18,6 +18,8 @@ namespace DataRepository.IRepository
         Task<ResponseStatus> UpdateTimeZone(UpdateTimeZone updateTimeZoneModel);
         Task<CompanyLogoResponseStatus> UploadCompanyLogo(CompanyLogoBLLModel companyLogoModel);
         Task<ResponseStatus> DeleteApplication(int id);
+        Task<CompanyThemeColorResponseStatus> SaveThemeColors(ComapnyThemeColors comapnyThemeColor);
+
 
     }
 }

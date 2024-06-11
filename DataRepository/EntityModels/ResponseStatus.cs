@@ -17,6 +17,8 @@ namespace DataRepository.EntityModels
         public string CompanyName { get; set; }
 
         public string Name { get; set; }
+        public string PrimaryColor {  get; set; }
+        public string SecondaryColor { get; set; }
     }
     public class ResponseStatus
     {
@@ -251,6 +253,8 @@ namespace DataRepository.EntityModels
         public string Name { get; set; }
         public string UserIdentityToken { get; set; }
         public string RefreshToken { get; set; }
+        public string PrimaryColor { get; set; }
+        public string SecondaryColor { get; set; }
     }
     public class ExternalResponseStatus
     {
@@ -271,5 +275,10 @@ namespace DataRepository.EntityModels
     public class CompanyLogoResponseStatus : ExternalResponseStatus
     {
         public string CompanyLogo { get; set; }
+    }
+    public class CompanyThemeColorResponseStatus : ExternalResponseStatus
+    {
+        public string PrimaryColor { get; set; }
+        public string SecondaryColor { get; set; }
     }
 }

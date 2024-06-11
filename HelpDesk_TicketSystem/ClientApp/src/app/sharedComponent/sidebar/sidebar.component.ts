@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { AccountService } from '../../../services/accountServices/account-service.service';
 import { ChatService } from '../../../services/ChatService/chat.service';
 import { NbDialogService, NbMenuItem } from '@nebular/theme';
+import { ChangeDetectorRef } from '@angular/core';
 
 const SuperAdminMenu: NbMenuItem[] = [
   { title: 'Dashboard', icon: 'grid-outline', link: '/dashboard' },
@@ -50,21 +51,23 @@ export class SidebarComponent implements OnInit {
     private toastr: ToastrService,
     public dialog: NbDialogService,
     public chatService: ChatService,
+    private cdRef: ChangeDetectorRef,
   ) {
-    router.events.subscribe((val) => {
-      if (val instanceof NavigationEnd) {
-        this.currentRoute = val.url;
-        if (this.currentRoute.includes('chat')) {
-          this.chatCount = 0;
-
-        }
-      }
-    });
+   
     this.hubConnection = this.chatService.getConnection();
     this.hubConnection.on('NewMessageFromCLient', (chatRoomId: string, companyId) => {
       if (localStorage.getItem('companyId') === companyId) {
         if (!this.currentRoute.includes('chat')) {
           this.chatCount = (this.chatCount || 0) + 1;
+          this.updateChatMenuBadge();
+        }
+      }
+    });
+    router.events.subscribe((val) => {
+      if (val instanceof NavigationEnd) {
+        this.currentRoute = val.url;
+        if (this.currentRoute.includes('chat')) {
+          this.chatCount = 0;
           this.updateChatMenuBadge();
         }
       }
@@ -82,7 +85,6 @@ export class SidebarComponent implements OnInit {
     const chatMenuItem = this.menu.find(item => item.link === '/chat');
     if (chatMenuItem) {
       if (this.chatCount && this.chatCount > 0) {
-        debugger
         chatMenuItem.badge = {
           text: `${this.chatCount}`,
           status: 'primary'
@@ -91,7 +93,9 @@ export class SidebarComponent implements OnInit {
         chatMenuItem.badge = null;
       }
     }
+    this.cdRef.detectChanges();
   }
+  
   
 
   ngOnInit() {
@@ -133,6 +137,7 @@ export class SidebarComponent implements OnInit {
       });
     }
   }
+  
 
   async SwitchBackToSuperadmin() {
     const dialogRef = await this.dialog.open(ConfirmDialogComponent, {

@@ -292,26 +292,16 @@ namespace DataRepository.Repository
                     };
                     var token =  Helper.GenerateToken(user, userModel.RememberMe, _config["Jwt:Key"], userRoles.FirstOrDefault().ToUpper());
 
-                    var CompanyTimeZone = (from Company in _context.Companys
+                    var company = (from Company in _context.Companys
                                     where Company.Id == user.CompanyId
                                     select new
                                     {
-                                        TimeZone = Company.TimeZone
+                                        timeZone = Company.TimeZone,
+                                        companyName  = Company.Name,
+                                        companyLogo = Company.CompanyLogo,
+                                        primaryColor = Company.PrimaryColor,
+                                        secondaryColor = Company.SecondaryColor,
                                     }
-                                   ).FirstOrDefault();
-                    var CompanyLogo = (from Company in _context.Companys
-                                           where Company.Id == user.CompanyId
-                                           select new
-                                           {
-                                               companyLogo = Company.CompanyLogo
-                                           }
-                                   ).FirstOrDefault();
-                    var CompanyName = (from Company in _context.Companys
-                                       where Company.Id == user.CompanyId
-                                       select new
-                                       {
-                                           companyName = Company.Name
-                                       }
                                    ).FirstOrDefault();
 
                     return new LoginStatus
@@ -322,12 +312,12 @@ namespace DataRepository.Repository
                         UserType = userRoles[0],
                         UserId = user.Id,
                         CompanyId = user.CompanyId,
-                        TimeZone = (userRoles[0].ToUpper() == "SUPERADMIN") ? null : CompanyTimeZone.TimeZone,
-                        CompanyLogo =CompanyLogo.companyLogo == "" ? null : AttachmentHelper.GetAssetLink(_config["AssetLink"], "\\" + ImageFolderConstants.CompanyLogo + "\\", CompanyLogo.companyLogo),
+                        TimeZone = (userRoles[0].ToUpper() == "SUPERADMIN") ? null : company.timeZone,
+                        CompanyLogo =company.companyLogo == "" ? null : AttachmentHelper.GetAssetLink(_config["AssetLink"], "\\" + ImageFolderConstants.CompanyLogo + "\\", company.companyLogo),
                         Name = user.FirstName + " " + user.LastName,
-                        CompanyName = CompanyName.companyName
-
-
+                        CompanyName = company.companyName,
+                        PrimaryColor = company.primaryColor,
+                        SecondaryColor = company.secondaryColor,
                     };
 
                 }

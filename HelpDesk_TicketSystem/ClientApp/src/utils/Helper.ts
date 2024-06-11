@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 })
 export class Helper {
 
-  setDataInLocalStorage(token: string, userType: string, userId: string, companyId: any, timeZone: string, rememberMe: string, companyLogo: string, name: string, compnanyName: string, isExternalUser : string) {
+  setDataInLocalStorage(token: string, userType: string, userId: string, companyId: any, timeZone: string, rememberMe: string, companyLogo: string, name: string, compnanyName: string, isExternalUser : string, primaryColor:string, secondaryColor:string) {
     localStorage.clear();
     localStorage.setItem('token', token);
     localStorage.setItem('loggedInTime', Date.now().toString());
@@ -21,6 +21,9 @@ export class Helper {
     localStorage.setItem('name', name)
     localStorage.setItem('companyName', compnanyName)
     localStorage.setItem('isExternalUser', isExternalUser)
+    localStorage.setItem('primaryColor', primaryColor);
+    localStorage.setItem('secondaryColor', secondaryColor);
+  
   }
 
   loadChatbot() {

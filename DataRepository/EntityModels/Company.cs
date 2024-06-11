@@ -27,6 +27,8 @@ namespace DataRepository.EntityModels
         public bool IsDeleted { get; set; }
         public string CompanyLogo {  get; set; }
         public long ByteSize { get; set; }
+        public string PrimaryColor { get; set; }
+        public string SecondaryColor { get; set;}
 
     }
 }

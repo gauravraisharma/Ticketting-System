@@ -126,6 +126,27 @@ namespace HelpDesk_TicketSystem.Controllers
         {
             return Ok(await _companyService.DeleteApplication(id));
         }
+        [HttpPost("SaveThemeColors")]
+        public async Task<IActionResult> SaveThemeColors(ComapnyThemeColors companythemeColor)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest("Please pass the valid Input.");
+            }
+
+
+            var responseStatus = await _companyService.SaveThemeColors(companythemeColor);
+
+            if (responseStatus.Status == ResponseCode.Success)
+            {
+                return Ok(responseStatus);
+            }
+            else
+            {
+                return BadRequest(responseStatus.Message);
+            }
+
+        }
     }
 }
 
