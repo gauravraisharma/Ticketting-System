@@ -170,7 +170,9 @@ namespace DataRepository.Repository
                                                  TicketId = ticket.TicketId,
                                                  Subject = ticket.Subject,
                                                  CreatedOn = ticket.CreatedOn,
-                                                 CreatedBy = users.UserName,
+                                                 //CreatedBy = users.UserName,
+                                                 CreatedBy = users.FirstName + " " + users.LastName,
+
                                                  Priority = ticket.Priority,
                                                  Status = ticket.status,
                                                  Description = ticket.Description,
@@ -204,7 +206,7 @@ namespace DataRepository.Repository
                                                                           select new AttachmentDetail
                                                                           {
                                                                               attachmentName = attachment.Name,
-                                                                              downLoadLink = string.Concat(_config["AssetLink"], "\\Attachments\\", attachment.Name)
+                                                                              downLoadLink = string.Concat(_config["AssetLink"], "\\" + ImageFolderConstants.Attachment + "\\", attachment.Name)
                                                                           }
                                                                 ).ToList()
                                                        }
@@ -248,7 +250,7 @@ namespace DataRepository.Repository
                                                                                              select new AttachmentDetail
                                                                                              {
                                                                                                  attachmentName = attachment.Name,
-                                                                                                 downLoadLink = string.Concat(_config["AssetLink"], "\\Attachments\\", attachment.Name)
+                                                                                                 downLoadLink = string.Concat(_config["AssetLink"], "\\" + ImageFolderConstants.Attachment + "\\", attachment.Name)
                                                                                              }
                                                                 ).ToList()
                                                                           }

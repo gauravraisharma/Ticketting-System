@@ -22,8 +22,8 @@
           <input type="text" nbInput fullWidth id="filterTicket" placeholder="Ticket Number or Subject"
             [(ngModel)]="searchQuery" (keydown.enter)="getTickets()" (blur)="getTickets()">
         </div>
-        <button nbButton class="btn btn-sm mr-2" status="primary" nbTooltip="Clear filters" (click)="clearFilters()">
-          <i class="pi pi-filter-slash" style="color: #fff;;"></i>
+        <button nbButton class="btn btn-sm mr-2 border-btn" nbTooltip="Clear filters" (click)="clearFilters()">
+          <i class="pi pi-filter-slash" style="color: var(--primary); font-weight: 500;"></i>
         </button>
         <a nbButton status="primary" routerLink="/ticket/addTicket" *ngIf="userType=='NORMALUSER'">Add Ticket</a>
       </div>
@@ -36,9 +36,8 @@
       styleClass="p-datatable-striped" dataKey="id" [tableStyle]="{'min-width': '50rem'}" class="tickets-listing">
       <ng-template pTemplate="header">
         <tr>
-          <th *ngFor="let col of displayedColumns" [pSortableColumn]="col">
+          <th *ngFor="let col of displayedColumns">
             {{ col | titlecase }}
-            <p-sortIcon [field]="col"></p-sortIcon>
           </th>
         </tr>
 
@@ -65,10 +64,10 @@
           </td>
           <td>
             <ng-container *ngIf="ticket.status=='OPEN'">
-              <button class="status-badge" nbButton matRipple outline status="success"> {{ticket.status}}</button>
+              <button class="status-badge" nbButton matRipple outline status="success"   [style.cursor]="'default'" [style.pointer-events]="'none'"> {{ticket.status}}</button>
             </ng-container>
             <ng-container *ngIf="ticket.status=='CLOSED'">
-              <button class="status-badge" nbButton matRipple outline status="danger"> {{ticket.status}}</button>
+              <button class="status-badge" nbButton matRipple outline status="danger"  [style.cursor]="'default'" [style.pointer-events]="'none'"> {{ticket.status}}</button>
             </ng-container>
           </td>
 

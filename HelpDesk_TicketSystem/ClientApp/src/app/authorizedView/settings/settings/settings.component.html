@@ -12,7 +12,7 @@
         <form [formGroup]="timeZoneForm" class="form-field-full" (ngSubmit)="saveTimeZone()">
           <div class="form-group">
             <label for="firstName" class="label">Time Zone <span class="text-red">*</span></label>
-            <nb-select class="formSelect" placeholder="Select User Type" formControlName="timeZone" required>
+            <nb-select class="formSelect" placeholder="Select Timezone" formControlName="timeZone" required>
               <nb-option *ngFor="let option of filteredOptions | async" [value]="option">
                 {{option}}
               </nb-option>
@@ -94,9 +94,8 @@
           styleClass="p-datatable-striped" [tableStyle]="{'min-width': '50rem'}">
           <ng-template pTemplate="header">
             <tr>
-              <th *ngFor="let col of displayedColumns" [pSortableColumn]="col">
+              <th *ngFor="let col of displayedColumns">
                 {{ col | titlecase }}
-                <p-sortIcon [field]="col"></p-sortIcon>
               </th>
             </tr>
 

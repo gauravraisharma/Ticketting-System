@@ -14,9 +14,8 @@
     <p-table [value]="dataSource" [paginator]="true" [rows]="5"  [rowsPerPageOptions]="[5, 10, 20]" dataKey="id"  styleClass="p-datatable-striped"  [tableStyle]="{'min-width': '50rem'}">
       <ng-template pTemplate="header">
         <tr>
-          <th *ngFor="let col of displayedColumns" [pSortableColumn]="col">
+          <th *ngFor="let col of displayedColumns" >
             {{ col | titlecase }}
-            <p-sortIcon [field]="col"></p-sortIcon>
           </th>
           <th>Actions</th>
         </tr>
@@ -49,3 +48,4 @@
 </nb-card-body>
 </nb-card>
  
+<loader *ngIf="isLoading"></loader>

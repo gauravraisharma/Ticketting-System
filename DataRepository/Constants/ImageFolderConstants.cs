@@ -8,7 +8,7 @@ namespace DataRepository.Constants
 {
     public static class ImageFolderConstants
     {
-        public static readonly string Attachment = "Attachment";
+        public static readonly string Attachment = "Attachments";
         public static readonly string CompanyLogo = "CompanyLogo";
     }
 }

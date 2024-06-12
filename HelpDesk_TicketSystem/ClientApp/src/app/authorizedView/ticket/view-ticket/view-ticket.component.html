@@ -136,10 +136,12 @@
 
 
 
-
-          <div *ngIf="conversationDetailList.length==0 && userType!='ADMIN'">
+          <div *ngIf="conversationDetailList.length==0 && userType!='ADMIN'" class="position-relative" >
             <h3 class="closed-ticket-msg text-alert">Admin will soon respond to your ticket. Please wait some time!!!
             </h3>
+            <button class="btn p-0 alert-refresh-btn" (click)="RefreashConversation()">
+              <mat-icon class="text-theme" aria-hidden="false" aria-label="replay" style="color: #000;" fontIcon="refresh"></mat-icon>
+            </button>
           </div>
 
           <mat-card class="conversion-chat-card conversion-chat-card-reply mt-0" *ngIf="(isSendMessageOpen ) ">
@@ -182,7 +184,7 @@
                   <div>
                     <button mat-raised-button class="db-btn-theme" type="submit" (submit)="sendMessage">Send</button>
                     <button mat-raised-button class="db-btn-theme border-btn ml-2" (click)="isSendMessageOpen=false"
-                      *ngIf="conversationDetailList.length>0">Cancel</button>
+                      >Cancel</button>
                   </div>
                 </div>
               </form>
@@ -200,7 +202,7 @@
                     <mat-card-title>
                       <div class="d-sm-flex d-inline-block align-items-center justify-content-between">
                         <div class="d-flex align-items-center">
-                          <span class="avtar-profile">TH</span>
+                          <span class="avtar-profile">{{getInitials(message['createdBy'])}}</span>
                           <!-- <mat-icon class="me-2" aria-hidden="false" aria-label="User" fontIcon="person_outline"
                           *ngIf="message['userType']=='ADMIN'"></mat-icon>
                         <mat-icon class="me-2" aria-hidden="false" aria-label="User" fontIcon="person"
@@ -243,7 +245,7 @@
                   <mat-card-title>
                     <div class="d-sm-flex d-inline-block align-items-center justify-content-between">
                       <div class="d-flex align-items-center">
-                        <span class="avtar-profile">TH</span>
+                        <span class="avtar-profile">{{getInitials(ticketDetail.createdBy)}}</span>
                         <!-- <mat-icon class="me-2" aria-hidden="false" aria-label="User" fontIcon="person_outline"></mat-icon> -->
                         <div>
                           <span class="avtar-name">{{ticketDetail.createdBy}}</span>

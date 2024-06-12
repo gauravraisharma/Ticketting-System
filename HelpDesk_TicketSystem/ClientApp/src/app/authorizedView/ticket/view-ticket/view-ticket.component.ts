@@ -188,6 +188,23 @@ prepareFiles(attachments: any[]): any[] {
     url: attachment.downLoadLink
   }));
 }
+
+getInitials(name: string): string {
+  if (!name) return '';
+
+  const nameParts = name.split(' ');
+
+  if (nameParts.length < 2) return '';
+
+  const firstName = nameParts[0];
+  const lastName = nameParts[nameParts.length - 1];
+
+  const firstInitial = firstName.charAt(0).toUpperCase();
+  const lastInitial = lastName.charAt(0).toUpperCase();
+
+  return firstInitial + lastInitial;
+}
+
 }
 
 

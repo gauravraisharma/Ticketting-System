@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 
 import { ToastrService } from 'ngx-toastr';
 import { CompanyService, RegisterCompanyApplication } from '../../../../services/companyService/company.service';
-import { MatDialog } from '@angular/material/dialog';
 import { SecretKeyDialogComponent } from '../../../sharedComponent/secret-key-dialog/secret-key-dialog.component';
 import { NbDialogService } from '@nebular/theme';
 
@@ -39,6 +38,7 @@ export class RegisterapplicationComponent {
 
 
   submitApplication() {
+    this.isLoading = true;
     if (this.applicationForm.valid) {
       console.log(this.applicationForm)
       const companyId = localStorage.getItem('companyId')
@@ -57,9 +57,12 @@ export class RegisterapplicationComponent {
       }, (error: any) => {
         console.log(error)
         if (error.status == 404) {
+          this.isLoading=false
           this.toastr.error("UnAuthorize access");
         }
         else if (error.status == 400) {
+          this.isLoading=false
+
           this.toastr.error(error.error);
         }
         else {
