@@ -1,25 +1,22 @@
-
- 
-
 <!-- <nb-layout windowMode>
 
  
    <nb-layout-header fixed> -->
-    <div class="developer-header">
-    <app-header></app-header>
-  </div>
+<div class="developer-header">
+  <app-header></app-header>
+</div>
 
-  <!-- </nb-layout-header>
+<!-- </nb-layout-header>
   -->
-   <!-- <nb-sidebar tag="menu-sidebar" class="menu-sidebar" responsive>
+<!-- <nb-sidebar tag="menu-sidebar" class="menu-sidebar" responsive>
   </nb-sidebar> -->
-  <nb-layout>
-    <nb-sidebar tag="menu-sidebar" class="menu-sidebar" responsive>
+<nb-layout>
+  <nb-sidebar tag="menu-sidebar" class="menu-sidebar" responsive>
     <nb-menu [items]="menu" (click)="onMenuItemClick($event)"></nb-menu>
-</nb-sidebar>
+  </nb-sidebar>
 
-<nb-layout-column class="content">
-    <div >
+  <nb-layout-column class="content">
+    <div class="developer-content">
       <div id="overview-data-section" aria-labelledby="overview-tab" data-parent="#v-pills-tab">
         <div class="item">
           <h4 id="overview" class="main-title">TechDesk Overview</h4>
@@ -35,7 +32,7 @@
             they start their trial.
           </p>
         </div>
-        <div  id="introduction"  class="item">
+        <div id="introduction" class="item">
           <h4 id="introduction" class="sub-title">Introduction</h4>
           <p>
             TechDesk is a powerful helpdesk solution designed to meet the demands of modern organizations.
@@ -50,33 +47,38 @@
           </p>
         </div>
 
-        <div  id="key-features" class="item">
+        <div id="key-features" class="item">
           <h4 id="key-features" class="sub-title">Key Features</h4>
           <ul>
             <li>
-              <strong>Ticket Management:</strong> Users can quickly submit tickets through a user-friendly
+              <span class="highlight-badge">Ticket Management:</span> Users can quickly submit tickets through a
+              user-friendly
               interface. Each ticket includes detailed information about the issue, allowing admins to understand
               and
               address the problem efficiently.
             </li>
             <li>
-              <strong>Real-Time Communication:</strong> TechDesk supports real-time messaging between users and
+              <span class="highlight-badge">Real-Time Communication:</span> TechDesk supports real-time messaging
+              between users and
               admins, facilitating quick discussions and resolutions. This feature helps in clarifying doubts and
               providing immediate feedback.
             </li>
             <li>
-              <strong>Admin Management:</strong> Admins can manage user accounts, assign roles, and set
+              <span class="highlight-badge">Admin Management:</span> Admins can manage user accounts, assign roles, and
+              set
               permissions.
               This ensures that only authorized personnel have access to specific features and information.
             </li>
             <li>
-              <strong>Chatbot Assistance:</strong> The TechDesk chatbot is available 24/7 to assist users with
+              <span class="highlight-badge">Chatbot Assistance:</span> The TechDesk chatbot is available 24/7 to assist
+              users with
               common queries and guide them through the process of submitting tickets. This feature helps in
               reducing
               the load on human agents and provides users with immediate answers.
             </li>
             <li>
-              <strong>Security and Compliance:</strong> TechDesk employs advanced security measures to protect
+              <span class="highlight-badge">Security and Compliance:</span> TechDesk employs advanced security measures
+              to protect
               user
               data. This includes encryption, secure authentication, and regular security audits.
             </li>
@@ -93,7 +95,7 @@
           </ul>
         </div>
 
-        <div  id="audience" class="item">
+        <div id="audience" class="item">
           <h4 id="audience" class="sub-title">Audience: </h4>
           <p>
             This guide is specified for developers to integrate their
@@ -103,8 +105,7 @@
         </div>
 
       </div>
-      <div id="prerequisites" class="item" data-parent="#v-pills-tab"
-        aria-labelledby="prerequisites-tab">
+      <div id="prerequisites" class="item" data-parent="#v-pills-tab" aria-labelledby="prerequisites-tab">
         <h4 class="main-title">Prerequisites for Using JWT/JWE with Helpdesk System</h4>
 
         <p>
@@ -114,17 +115,20 @@
 
         <ul>
           <li>
-            <strong>Registered Application</strong> : Your application needs to be registered with the Helpdesk system. This
+            <strong>Registered Application</strong> : Your application needs to be registered with the Helpdesk system.
+            This
             registration process might involve providing information about your application and its intended use.
             The Helpdesk system has provide specific instructions or an API for registration.
           </li>
           <li>
-          <strong>Secret Key</strong> : Upon registration, the Helpdesk system will likely provide you with a secret key. This
+            <strong>Secret Key</strong> : Upon registration, the Helpdesk system will likely provide you with a secret
+            key. This
             key is crucial for generating and validating JWT/JWE tokens. Treat this secret key with utmost
             confidentiality. Do not store it directly in your code or share it publicly.
           </li>
           <li>
-          <strong>JWT/JWE Familiarity</strong> : A basic understanding of JWT (JSON Web Token) and JWE (JSON Web Encryption)
+            <strong>JWT/JWE Familiarity</strong> : A basic understanding of JWT (JSON Web Token) and JWE (JSON Web
+            Encryption)
             standards is essential. JWTs represent claims about an entity (e.g., user) and can be used for
             authorization. JWE builds upon JWT by adding encryption to the payload, protecting sensitive information
             within the token. You can find resources online or in the Helpdesk system's documentation to learn more
@@ -151,42 +155,46 @@
           </li>
           <li>Login to your TechDesk account.</li>
           <li>Navigate to Settings and register a new application.</li>
-         <img src="../../assets/images/settings.png" height="250px" width="600px" />
+          <img src="../../assets/images/settings.png" height="250px" width="600px" />
 
           <li>Generate an Application Secret key for your application.</li>
-        <img src="../../assets/images/secret-key.png" height="250px" width="500px" />
+          <img src="../../assets/images/secret-key.png" height="250px" width="500px" />
           <li>Store your Secret key securely.</li>
         </ul>
 
       </div>
-      <div  id="secret-key" class="item">
+      <div id="secret-key" class="item">
         <h4 id="using-api-key" class="main-title">Using your Secret key</h4>
         <p>
           With your Secret key in hand, you can now start integrating HelpDesk’s functionalities into your
           application.
           Use the key to authenticate API requests, access user data, manage tickets, and more.
           The API key will be used to generate a JWT token, which includes essential claims such as the user's
-          email and the session start time. 
-          <b>This JWT token will be encrypted using JWE (JSON Web Encryption) to ensure the highest level of security.</b>
+          email and the session start time.
+          <b>This JWT token will be encrypted using JWE (JSON Web Encryption) to ensure the highest level of
+            security.</b>
         </p>
         <p>
-          With your Secret key, you can enable single sign on with Helpdesk and use its services such as ticket management.
+          With your Secret key, you can enable single sign on with Helpdesk and use its services such as ticket
+          management.
         </p>
         <p>
           Refer to our API documentation for detailed information on how to use your API key to interact with
           HelpDesk’s services.
         </p>
       </div>
-      <div  id="jwt" aria-labelledby="create-token-tab" data-parent="#v-pills-tab">
+      <div id="jwt" aria-labelledby="create-token-tab" data-parent="#v-pills-tab">
         <div class="item">
           <h4 class="main-title">JWT (JSON WEB TOKEN)</h4>
           <p>
             JWTs are commonly used for authentication in web applications. When a user logs in, the server generates
-            a JWT containing  information about the user (payload) and signs it. The client then receives this token and includes it
-            in subsequent requests to authenticate itself. JWTs can also be used for exchanging data securely between parties.
+            a JWT containing information about the user (payload) and signs it. The client then receives this token and
+            includes it
+            in subsequent requests to authenticate itself. JWTs can also be used for exchanging data securely between
+            parties.
           </p>
         </div>
-        <div  id="generate-access-token" class="item">
+        <div id="generate-access-token" class="item">
           <h4 id="access-token" class="main-title">Generate Access Token</h4>
           <ul>
             <li>
@@ -233,41 +241,49 @@ applicationName: The name of your application registered in Helpdesk.
             </li>
           </ul>
         </div>
-        <div id="jose">
+        <div id="jose" class="item">
           <h4 class="main-title">Jose Library for Encryption</h4>
-          <p>The <b>node-jose</b> library simplifies the implementation of JSON Web Encryption (JWE) in Node.js applications,
-             providing robust security mechanisms for protecting sensitive data in transit. 
-             It's widely used in applications that require secure communication and data exchange between parties. 
-             Adjust the key generation and encryption methods based on your specific security requirements and cryptographic best practices.</p>
-             <ul>
-              <li>
-                <strong>JSON Web Encryption (JWE):</strong> node-jose allows you to encrypt sensitive information in JSON format, ensuring confidentiality during transmission over potentially insecure networks.
-              </li>
-              <li>
-                <strong>Key Management:</strong> It provides methods (<code>createKeyStore</code>, <code>generate</code>) to generate cryptographic keys (in this example, RSA keys), which are essential for both encryption and decryption operations.
-              </li>
-              <li>
-                <strong>Encryption and Decryption:</strong> The library offers convenient APIs (<code>JWE.createEncrypt</code>, <code>JWE.createDecrypt</code>) to handle JWE operations. You can encrypt data with a public key and decrypt it with the corresponding private key securely.
-              </li>
-              <li>
-                <strong>Compatibility:</strong> node-jose supports various algorithms and formats specified by the JSON Web Algorithms (JWA) standard, ensuring interoperability with other compliant libraries and systems.
-              </li>
-            </ul>
-          </div>
+          <p>The <b>node-jose</b> library simplifies the implementation of JSON Web Encryption (JWE) in Node.js
+            applications,
+            providing robust security mechanisms for protecting sensitive data in transit.
+            It's widely used in applications that require secure communication and data exchange between parties.
+            Adjust the key generation and encryption methods based on your specific security requirements and
+            cryptographic best practices.</p>
+          <ul>
+            <li>
+              <strong>JSON Web Encryption (JWE):</strong> node-jose allows you to encrypt sensitive information in JSON
+              format, ensuring confidentiality during transmission over potentially insecure networks.
+            </li>
+            <li>
+              <strong>Key Management:</strong> It provides methods (<code>createKeyStore</code>, <code>generate</code>)
+              to generate cryptographic keys (in this example, RSA keys), which are essential for both encryption and
+              decryption operations.
+            </li>
+            <li>
+              <strong>Encryption and Decryption:</strong> The library offers convenient APIs
+              (<code>JWE.createEncrypt</code>, <code>JWE.createDecrypt</code>) to handle JWE operations. You can encrypt
+              data with a public key and decrypt it with the corresponding private key securely.
+            </li>
+            <li>
+              <strong>Compatibility:</strong> node-jose supports various algorithms and formats specified by the JSON
+              Web Algorithms (JWA) standard, ensuring interoperability with other compliant libraries and systems.
+            </li>
+          </ul>
+        </div>
         <div class="item">
           <h4 class="main-title">Generate and Encrypt Token</h4>
           <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
               <button [class]="(IsNodeTab)?'nav-link':'nav-link active'" id="home-tab" data-toggle="tab"
-                data-target="#cSharpGenerateToken" type="button" role="tab" aria-controls="home"
-                aria-selected="true" (click)="toggleCodeTab(false)">
+                data-target="#cSharpGenerateToken" type="button" role="tab" aria-controls="home" aria-selected="true"
+                (click)="toggleCodeTab(false)">
                 C#
               </button>
             </li>
             <li class="nav-item" role="presentation">
               <button [class]="(IsNodeTab)?'nav-link active':'nav-link'" id="profile-tab" data-toggle="tab"
-                data-target="#nodeGenerateToken" type="button" role="tab" aria-controls="profile"
-                aria-selected="false" (click)="toggleCodeTab(true)">
+                data-target="#nodeGenerateToken" type="button" role="tab" aria-controls="profile" aria-selected="false"
+                (click)="toggleCodeTab(true)">
                 Node
               </button>
             </li>
@@ -433,7 +449,7 @@ return encryptedToken;
             </div>
           </div>
         </div> -->
-        <div  id="why-jwe" class="item">
+        <div id="why-jwe" class="item">
           <h4 class="main-title" id="why-jwe">Why Use JWE (JSON Web Encryption)?</h4>
           <p>
             JWE is a security measure that enhances JWT (JSON Web Token) functionality. While JWTs are useful for
@@ -455,22 +471,22 @@ return encryptedToken;
               </thead>
               <tbody>
                 <tr>
-                  <td>Function</td>
+                  <td><span class="highlight-badge">Function</span></td>
                   <td>Claims representation</td>
                   <td>Claims representation with encrypted payload</td>
                 </tr>
                 <tr>
-                  <td>Structure</td>
+                  <td><span class="highlight-badge">Structure</span></td>
                   <td>Header, Payload, Signature</td>
                   <td>Header, Encrypted Payload, Signature</td>
                 </tr>
                 <tr>
-                  <td>Security</td>
+                  <td><span class="highlight-badge">Security</span></td>
                   <td>Payload not encrypted, signature for integrity/authenticity</td>
                   <td>Payload encrypted, signature for integrity/authenticity of entire token</td>
                 </tr>
                 <tr>
-                  <td>Use Cases</td>
+                  <td><span class="highlight-badge">Use Cases</span></td>
                   <td>Authorization, user information exchange</td>
                   <td>Secure transmission of sensitive data</td>
                 </tr>
@@ -499,7 +515,7 @@ return encryptedToken;
               user ID, role), JWT might be enough. These claims are typically not highly sensitive.
             </li>
             <li>
-            <b>Performance</b>: JWTs are smaller and faster to process compared to JWE tokens. This can be
+              <b>Performance</b>: JWTs are smaller and faster to process compared to JWE tokens. This can be
               beneficial
               in performance-critical scenarios.
             </li>
@@ -510,7 +526,8 @@ return encryptedToken;
         <div class="item">
           <h4 class="main-title" id="api-endpoint">API Endpoint to generate Token and refresh token</h4>
           <p>
-            Your application needs to expose an endpoint to handle a POST request which will provide user details to the Helpdesk system and verify
+            Your application needs to expose an endpoint to handle a POST request which will provide user details to the
+            Helpdesk system and verify
             the token.
           </p>
         </div>
@@ -533,14 +550,16 @@ POST https://yourapp.com/api/ConnectWithHelpdesk/GetUserDetails
 
           <ul>
             <li>
-              <strong>Token (JWT/JWE):</strong> This is the same token that was initially sent to the Helpdesk
+              <span class="highlight-badge">Token (JWT/JWE):</span> This is the same token that was initially sent to
+              the Helpdesk
               system during authentication. It contains information about the user or application making the
               request.
               The token format might be JWT (JSON Web Token) or JWE (JSON Web Encryption), depending on the Helpdesk
               system's security requirements.
             </li>
             <li>
-              <strong>Type: (String)</strong> This field specifies the type of operation you want to perform.
+              <span class="highlight-badge">Type: (String)</span> This field specifies the type of operation you want to
+              perform.
               Common
               options include:
             </li>
@@ -552,7 +571,7 @@ POST https://yourapp.com/api/ConnectWithHelpdesk/GetUserDetails
               </li>
               <li>
                 <strong>REFRESHTOKEN:</strong> This type indicates a request to refresh an existing access token.
-                 Helpdesk system has implemented refresh tokens for scenarios where access tokens have a
+                Helpdesk system has implemented refresh tokens for scenarios where access tokens have a
                 limited
                 lifespan.
                 By providing a valid refresh token, you can obtain a new access token without going through the full
@@ -651,7 +670,7 @@ type:”GENERATETOKEN”
         </div>
 
         <div>
-          <div  id="user-identity-token" class="item">
+          <div id="user-identity-token" class="item">
             <h4 class="main-title" id="user-identity-token">User Identity Token</h4>
             <p>
               When sending a `GENERATETOKEN` request payload to a Helpdesk system using JWT/JWE, the concept of
@@ -689,11 +708,17 @@ type:”GENERATETOKEN”
             <ul>
               <li>
                 <p>
-                  <strong>User Identity Token:</strong> A `userIdentityToken` is required in the `GENERATETOKEN` request. When it expires, the helpdesk system sends a request with the refresh token (only if the integrating application has provided a valid refresh token and it has not expired yet). If the refresh token has expired, the helpdesk system will send the user identity token to obtain a new user identity token and refresh token.
+                  <span class="highlight-badge">User Identity Token:</span> A `userIdentityToken` is required in the
+                  `GENERATETOKEN`
+                  request. When it expires, the helpdesk system sends a request with the refresh token (only if the
+                  integrating application has provided a valid refresh token and it has not expired yet). If the refresh
+                  token has expired, the helpdesk system will send the user identity token to obtain a new user identity
+                  token and refresh token.
                 </p>
               </li>
               <li>
-              <strong>Security</strong> : If your application uses an external authentication system, ensure the
+                <span class="highlight-badge">Security</span> : If your application uses an external authentication
+                system, ensure the
                 `userIdentityToken` is obtained securely and not exposed in transit or logs.
               </li>
             </ul>
@@ -717,7 +742,8 @@ type:”GENERATETOKEN”
             <h4 class="sub-title">JWT Payload for accessToken description: </h4>
             <ul>
               <li>
-                <strong>UserId (from Integrating application):</strong> This field can be used to identify the user within your
+                <strong>UserId (from Integrating application):</strong> This field can be used to identify the user
+                within your
                 your system. It's helpful for associating Helpdesk actions with specific users in your CRM.
               </li>
               <li>
@@ -729,11 +755,13 @@ type:”GENERATETOKEN”
                 unique in the Helpdesk system. Contact the Helpdesk admin if you have duplicate usernames.
               </li>
               <li>
-                <strong>First Name :</strong> The user's first name within your system. Similar to email, first names are
+                <strong>First Name :</strong> The user's first name within your system. Similar to email, first names
+                are
                 unique in the Helpdesk system.
               </li>
               <li>
-                <strong>Last Name - (optional) :</strong> The user's last name within your system. Similar to email, last names are
+                <strong>Last Name - (optional) :</strong> The user's last name within your system. Similar to email,
+                last names are
                 unique in the Helpdesk system.
               </li>
               <li>
@@ -749,10 +777,11 @@ type:”GENERATETOKEN”
                 level within the Helpdesk system.
               </li>
               <li>
-                <strong>Mobile Phone - (optional) :</strong> The user's phone number within your system. Similar to email, phone numbers are
+                <strong>Mobile Phone - (optional) :</strong> The user's phone number within your system. Similar to
+                email, phone numbers are
                 unique in the Helpdesk system.
               </li>
-             
+
             </ul>
           </div>
           <div class="item">
@@ -814,14 +843,16 @@ type:”GENERATETOKEN”
 
             <div class="item">
               <h4 class="sub-title">Requesting a New User Identity Token:</h4>
-              <p>The client sends the refresh token to the authentication server to request a new user identity token.</p>
+              <p>The client sends the refresh token to the authentication server to request a new user identity token.
+              </p>
               <p>This request typically includes the refresh token and possibly the user identity token.</p>
             </div>
 
             <div class="item">
               <h4 class="sub-title">Server Response:</h4>
               <p>The authentication server validates the refresh token.</p>
-              <p>If valid, the server issues a new user identity token (and possibly a new refresh token) in response.</p>
+              <p>If valid, the server issues a new user identity token (and possibly a new refresh token) in response.
+              </p>
             </div>
 
             <div class="item">
@@ -836,7 +867,7 @@ type:”GENERATETOKEN”
         </div>
       </div>
       <div id="error-handling-data-section">
-        <div id="invalid-token"  class="item">
+        <div id="invalid-token" class="item">
           <h4 class="main-title">Invalid Token</h4>
           <p>
             If the token provided is not valid, the server will respond with a status code of 400 and a message
@@ -883,16 +914,22 @@ type:”GENERATETOKEN”
           </div>
         </div>
       </div>
-      <hr/>
+      <hr />
 
     </div>
+    <footer>
+      <p class="mb-0"><strong>© 2023 HelpDesk</strong></p>
+    </footer>
   </nb-layout-column>
-  </nb-layout>
 
+</nb-layout>
 
-  <app-footer></app-footer>
+<div class="developer-footer">
+  <!-- <app-footer></app-footer> -->
 
-  <!-- <ngx-one-column-layout>
+</div>
+
+<!-- <ngx-one-column-layout>
     <nb-menu [items]="menu" class="mx-1" autoCollapse="true" class="menu-sidebar">
       <ng-template #menuItem let-item="item">
       <nb-menu-item *ngIf="item.data && item.data.elementId" [routerLink]="['/', item.data.elementId]" routerLinkActive="active">
@@ -903,17 +940,17 @@ type:”GENERATETOKEN”
  
 
   </ngx-one-column-layout> -->
-   <!-- <nb-layout-column  > -->
-   
- 
+<!-- <nb-layout-column  > -->
+
+
 <!-- <section class="docs-guide" id="pricing">
   <div class="container-fluid">
 
     <div class="cards-wrap">
       <div class="d-flex">
          -->
-     
-        <!-- <div class="sidebar">
+
+<!-- <div class="sidebar">
           <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
             <button class="nav-link collapsed" id="overview-tab" data-toggle="collapse" data-target="#overview-section"
               type="button" aria-controls="overview-section" aria-expanded="false"
@@ -1052,7 +1089,7 @@ type:”GENERATETOKEN”
           </div>
         </div> -->
 
-        <!-- <div class="content">
+<!-- <div class="content">
           <div id="overview-data-section" aria-labelledby="overview-tab" data-parent="#v-pills-tab">
             <div class="item">
               <h4 id="overview" class="main-title">TechDesk Overview</h4>
@@ -1860,4 +1897,3 @@ return encryptedToken;
     </div>
   </div>
 </section> -->
-

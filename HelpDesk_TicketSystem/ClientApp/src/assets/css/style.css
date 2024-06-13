@@ -1643,13 +1643,55 @@ section {
 /* ------------------------Profile ends--------------------------- */
 
 .developer-header .header.navbar {
-    padding-top: 20px;
-  position: fixed;
-  background: #fff;
-  z-index: 100;
-  width: 100%;
-  padding-bottom: 20px;
-  }
+    padding-top: 10px;
+    position: fixed;
+    background: #4a4a55;
+    z-index: 100;
+    width: 100%;
+    padding-bottom: 10px;
+}
+
+.developer-header .container {
+    margin: 0;
+    max-width: 100%;
+}
+
+.developer-header a {
+    text-decoration: unset !important;
+    color: #fff !important;
+}
+
+.developer-header .btn.btn-theme {
+    color: #000 !important;
+    background: #fff;
+}
+
+/* .developer-content {
+    margin-top: 72px;
+} */
+
+.developer-content img {
+    border-radius: 10px;
+    box-shadow: 4px 5px 14px #aca9a9;
+    margin-bottom: 60px;
+}
+
+.developer-content {
+    padding: 30px;
+}
+
+.developer-footer .btn.btn-theme {
+    color: #fff !important;
+    text-decoration: unset;
+}
+
+footer {
+    margin-top: 80px;
+    text-align: center;
+    background: #ebebeb;
+    padding: 14px;
+}
+
 
 /* ------------------------Responsive starts------------------------*/
 @media only screen and (max-width: 1700px) {
