@@ -90,67 +90,73 @@
           Application</button>
       </div>
       <div class="col-sm-12">
-        <p-table [value]="dataSource" [paginator]="true" [rows]="5" [rowsPerPageOptions]="[5, 10, 20]" dataKey="id"
-          styleClass="p-datatable-striped" [tableStyle]="{'min-width': '50rem'}">
-          <ng-template pTemplate="header">
-            <tr>
-              <th *ngFor="let col of displayedColumns">
-                {{ col | titlecase }}
-              </th>
-            </tr>
-
-          </ng-template>
-          <ng-template pTemplate="body" let-application>
-            <tr>
-              <td *ngIf="dataSource.length === 0" colspan="100%">No records found</td>
-              <td>{{ application.applicationName }}</td>
-              <td style="white-space: pre-wrap; word-break: break-all; max-width: 260px; ">
-                {{application.applicationURL}}
-              </td>
-              <td style="white-space: pre-wrap; word-break: break-all; max-width: 260px; ">
-                {{application.apiEndpoint}}
-              </td>
-              <td>
-                <ng-container *ngIf="secretKeyVisible[application.id]; else hiddenKey">
-                  <div class="d-flex">
-                  <span style="white-space: pre-wrap; word-break: break-all; max-width: 300px; display: inline-block; vertical-align: middle;">
-                    {{ application.clientSecretKey }}
-                  </span>
-                  <div>
-                  <button class="btn btn-md p-0 ml-2" nbTooltip="Copy Secret Key"
-                          (click)="copySecretKey(application.clientSecretKey)"
-                          style="display: inline-block; vertical-align: middle;">
-                    <i class="eva eva-copy" style="color:#6200ee; font-size: 20px;"></i>
-                  </button>
-                  <button class="btn btn-md p-0 ml-2" nbTooltip="HIde Secret Key"
-                          (click)="toggleSecretKeyVisibility(application.id)"
-                          style="display: inline-block; vertical-align: middle;">
-                    <i class="eva eva-eye-off-outline" style="color:#6200ee; font-size: 20px;"></i>
-                  </button>
+        <nb-card>
+          <nb-card-header>Applications</nb-card-header>
+          <nb-card-body>
+            <p-table [value]="dataSource" [paginator]="true" [rows]="5" [rowsPerPageOptions]="[5, 10, 20]" dataKey="id"
+            styleClass="p-datatable-striped" [tableStyle]="{'min-width': '50rem'}">
+            <ng-template pTemplate="header">
+              <tr>
+                <th *ngFor="let col of displayedColumns">
+                  {{ col | titlecase }}
+                </th>
+              </tr>
+  
+            </ng-template>
+            <ng-template pTemplate="body" let-application>
+              <tr>
+                <td *ngIf="dataSource.length === 0" colspan="100%">No records found</td>
+                <td>{{ application.applicationName }}</td>
+                <td >
+                  {{application.applicationURL}}
+                </td>
+                <td >
+                  {{application.apiEndpoint}}
+                </td>
+                <td>
+                  <ng-container *ngIf="secretKeyVisible[application.id]; else hiddenKey">
+                    <div class="d-flex">
+                    <span >
+                      {{ application.clientSecretKey }}
+                    </span>
+                    <div>
+                    <button class="btn btn-md p-0 ml-2" nbTooltip="Copy Secret Key"
+                            (click)="copySecretKey(application.clientSecretKey)"
+                            style="display: inline-block; vertical-align: middle;">
+                      <i class="eva eva-copy" style="color:#6200ee; font-size: 20px;"></i>
+                    </button>
+                    <button class="btn btn-md p-0 ml-2" nbTooltip="HIde Secret Key"
+                            (click)="toggleSecretKeyVisibility(application.id)"
+                            style="display: inline-block; vertical-align: middle;">
+                      <i class="eva eva-eye-off-outline" style="color:#6200ee; font-size: 20px;"></i>
+                    </button>
+                  </div>
                 </div>
-              </div>
-                </ng-container>
-                <ng-template #hiddenKey>
-                  <span style="white-space: pre-wrap; word-break: break-all; max-width: 380px; display: inline-block; vertical-align: middle;">
-                    ••••••••••
-                  </span>
-                  <button class="btn btn-md" nbTooltip="View Secret Key"
-                          (click)="toggleSecretKeyVisibility(application.id)"
-                          style="display: inline-block; vertical-align: middle;">
-                    <i class="eva eva-eye-outline" style="color:#6200ee; font-size: 20px;"></i>
+                  </ng-container>
+                  <ng-template #hiddenKey>
+                    <span >
+                      ••••••••••
+                    </span>
+                    <button class="btn btn-md" nbTooltip="View Secret Key"
+                            (click)="toggleSecretKeyVisibility(application.id)"
+                            style="display: inline-block; vertical-align: middle;">
+                      <i class="eva eva-eye-outline" style="color:#6200ee; font-size: 20px;"></i>
+                    </button>
+                    <!-- <button nbButton type="button" icon="eva eva-eye-outline" title="View Secret Key" (click)="toggleSecretKeyVisibility(application.id)" style="display: inline-block; vertical-align: middle;"></button> -->
+                  </ng-template>
+                </td>
+                <td>{{ application.createdOn | date }} </td>
+                <td>
+                  <button class="btn btn-md" nbTooltip="Delete Application" (click)="deleteApplication(application)">
+                    <i class="pi pi-trash" style="color: red;"></i>
                   </button>
-                  <!-- <button nbButton type="button" icon="eva eva-eye-outline" title="View Secret Key" (click)="toggleSecretKeyVisibility(application.id)" style="display: inline-block; vertical-align: middle;"></button> -->
-                </ng-template>
-              </td>
-              <td>{{ application.createdOn | date }} </td>
-              <td>
-                <button class="btn btn-md" nbTooltip="Delete Application" (click)="deleteApplication(application)">
-                  <i class="pi pi-trash" style="color: red;"></i>
-                </button>
-              </td>
-            </tr>
-          </ng-template>
-        </p-table>
+                </td>
+              </tr>
+            </ng-template>
+          </p-table>
+          </nb-card-body>
+        </nb-card>
+       
       </div>
     </div>
   </nb-card-body>

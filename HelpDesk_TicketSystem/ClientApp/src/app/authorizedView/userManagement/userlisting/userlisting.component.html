@@ -17,7 +17,7 @@
           <th *ngFor="let col of displayedColumns" >
             {{ col | titlecase }}
           </th>
-          <th>Actions</th>
+          <th *ngIf="isExternalUser == 'false'">Actions</th>
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-user >
@@ -33,7 +33,7 @@
           <td>
             {{ user.department ? user.department : 'NA' }}
           </td>
-          <td>
+          <td  *ngIf="isExternalUser == 'false'" >
               <button class="btn btn-md" [routerLink]="['/users/edituser',user.id]" >
                 <i class="pi pi-user-edit" style="color: blue;" ></i> 
               </button>

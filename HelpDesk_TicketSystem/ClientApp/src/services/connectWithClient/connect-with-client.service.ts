@@ -15,6 +15,7 @@ export class ConnectWithClientService {
   apiUrl = environment.apiBaseUrl;
 
   connectWithClient(clientRequest: ClientRequest): Observable<any> {
+    localStorage.clear();
     let url = `${this.apiUrl}ExternalAuthorization/ConnectWithClient`;
     return this.http.post(url, clientRequest);
   }

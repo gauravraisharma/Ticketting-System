@@ -57,7 +57,6 @@ const NB_MODULES = [
 const COMPONENTS = [
   HeaderComponent,
   FooterComponent,
-  OneColumnLayoutComponent,
   ThreeColumnsLayoutComponent,
   TwoColumnsLayoutComponent,
 ];

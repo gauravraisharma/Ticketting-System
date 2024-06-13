@@ -1,13 +1,31 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
+import { MENU_ITEMS } from './developer-guide-menu';
+import { NbMenuItem, NbMenuModule, NbMenuService } from '@nebular/theme';
+import { Router } from '@angular/router';
+import { filter, map } from 'rxjs';
 
 @Component({
   selector: 'app-developers-guide',
   templateUrl: './developers-guide.component.html',
-  styleUrls: ['./developers-guide.component.css']
+  styleUrls: ['./developers-guide.component.css'],
 })
 export class DevelopersGuideComponent {
-  @ViewChild('overviewDataSection') overviewDataSection: ElementRef;
-  @ViewChild('getStartedDataSection') getStartedDataSection: ElementRef;
+  menu = MENU_ITEMS;
+
+  constructor(private menuService: NbMenuService) {
+    this.setupMenuItemClick();
+  }
+   // Method to set up menu item click events
+   setupMenuItemClick() {
+    this.menuService.onItemClick()
+      .pipe(
+        filter(({ item }) => !!item.data && !!item.data.elementId),
+        map(({ item }) => item.data.elementId)
+      )
+      .subscribe((elementId: string) => {
+        this.scrollToSection(elementId);
+      });
+  }
 
   activeTab: string = 'overview';
   activeSection: string = '';
@@ -57,6 +75,13 @@ export class DevelopersGuideComponent {
 
     if (element) {
       element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
+
+  onMenuItemClick(event:any): void {
+    const elementId = event.item.data?.elementId;
+    if (elementId) {
+      this.scrollToElement(elementId);
     }
   }
   

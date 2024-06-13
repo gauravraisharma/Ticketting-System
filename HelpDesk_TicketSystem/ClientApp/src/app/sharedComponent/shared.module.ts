@@ -25,12 +25,16 @@ import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { PaginatorModule } from 'primeng/paginator';
 import { InputTextModule } from 'primeng/inputtext';
-import { NbActionsModule, NbButtonModule, NbCardModule, NbChatModule, NbDialogService, NbIconModule, NbInputModule, NbSelectModule, NbTooltipModule, NbUserModule } from '@nebular/theme';
+import { NbActionsModule, NbButtonModule, NbCardModule, NbChatModule, NbDialogService, NbIconModule, NbInputModule, NbLayoutModule, NbMenuModule, NbSelectModule, NbSidebarModule, NbTooltipModule, NbUserModule } from '@nebular/theme';
 import { TagModule } from 'primeng/tag';
+import { HeaderComponent } from './header/header.component';
+import { FooterComponent } from './footer/footer.component';
+import { OneColumnLayoutComponent } from '../@theme/layouts';
 
 
 @NgModule({
-  declarations: [LoaderComponent, TimeZonePipe, ],
+  declarations: [LoaderComponent, TimeZonePipe,     HeaderComponent,
+    FooterComponent,OneColumnLayoutComponent],
   imports: [MatCardModule,
     MatSortModule,
     MatInputModule,
@@ -62,7 +66,10 @@ import { TagModule } from 'primeng/tag';
   NbSelectModule,
   TagModule,
   NbChatModule,
-  NbTooltipModule
+  NbTooltipModule,
+  NbMenuModule,
+  NbLayoutModule,
+  NbSidebarModule
 ],  
 exports: [MatCardModule,
     MatInputModule,
@@ -97,7 +104,13 @@ exports: [MatCardModule,
   NbSelectModule,
   TagModule,
   NbChatModule,
-  NbTooltipModule
+  NbTooltipModule,
+  HeaderComponent,
+  FooterComponent,
+  NbMenuModule,
+NbLayoutModule,
+OneColumnLayoutComponent,
+NbSidebarModule
 ], 
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

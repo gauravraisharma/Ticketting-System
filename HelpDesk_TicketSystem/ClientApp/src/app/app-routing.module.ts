@@ -1,52 +1,58 @@
 
 import { NgModule } from '@angular/core';
 import {  RouterModule, Routes } from '@angular/router';
-import { HomepageComponent } from './homepage/homepage.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { PageNotAuthorizedComponent } from './page-not-authorized/page-not-authorized.component';
-import { DevelopersGuideComponent } from './developers-guide/developers-guide.component';
 import { PageInternalErrorComponent } from './page-internal-error/page-internal-error.component';
+import { authguardGuard } from 'src/services/AuthGuard/authguard.guard';
+import { roleGuard } from 'src/services/AuthGuard/role.guard';
 
 const appRoutes: Routes = [
   {
     path: '',
-    component: HomepageComponent,
+    loadChildren: () => import('./home/homepage.module').then(m => m.HomePageModule),
   },
   {
     path: '',
-    loadChildren: () => import('./user-authentication/user-authentication.module').then(m => m.UserAuthenticationModule)
+    loadChildren: () => import('./user-authentication/user-authentication.module').then(m => m.UserAuthenticationModule),
   },
   {
     path: 'dashboard',
-    loadChildren: () => import('./authorizedView/dashboard/dashboard.module').then(m => m.DashboardModule)
+    loadChildren: () => import('./authorizedView/dashboard/dashboard.module').then(m => m.DashboardModule),
   }, {
     path: 'ticket',
-    loadChildren: () => import('./authorizedView/ticket/ticket.module').then(m => m.TicketModule)
+    loadChildren: () => import('./authorizedView/ticket/ticket.module').then(m => m.TicketModule),
   },
   {
     path: 'users',
-    loadChildren: () => import('./authorizedView/userManagement/user.module').then(m => m.UserModule)
+    loadChildren: () => import('./authorizedView/userManagement/user.module').then(m => m.UserModule),
   },
   {
     path: 'userProfile',
-    loadChildren: () => import('./authorizedView/userProfile/userprofile.module').then(m => m.UserProfileModule)
+    loadChildren: () => import('./authorizedView/userProfile/userprofile.module').then(m => m.UserProfileModule),
   },
   {
     path: 'companys',
-    loadChildren: () => import('./authorizedView/companymanagement/companymanagement.module').then(m => m.CompanymanagementModule)
+    loadChildren: () => import('./authorizedView/companymanagement/companymanagement.module').then(m => m.CompanymanagementModule),
   },
   {
     path: 'settings',
-    loadChildren: () => import('./authorizedView/settings/settings.module').then(m => m.SettingsModule)
+    loadChildren: () => import('./authorizedView/settings/settings.module').then(m => m.SettingsModule),
   },
   {
     path: 'externalconnect',
-    loadChildren: () => import('./connectwithClient/connectwithClient.module').then(m => m.connectwithClientModule)
+    loadChildren: () => import('./connectwithClient/connectwithClient.module').then(m => m.connectwithClientModule),
+
   },
   {
     path: 'chat',
-    loadChildren: () => import('./authorizedView/chat/chat.module').then(m => m.ChatModule)
+    loadChildren: () => import('./authorizedView/chat/chat.module').then(m => m.ChatModule),
+
   },
+  {
+    path: 'developersGuide',
+    loadChildren: () => import('./developersGuide/developers-guide.module').then(m => m.DevelopersGuideModule),
+    },
   {
     path: 'pageNotAuthorized',
     component: PageNotAuthorizedComponent
@@ -55,10 +61,7 @@ const appRoutes: Routes = [
     path: 'internalError',
     component: PageInternalErrorComponent
   },
-  {
-    path: 'developersGuide',
-    component: DevelopersGuideComponent
-  },
+  
   {
     path: '**',
     pathMatch: 'full',

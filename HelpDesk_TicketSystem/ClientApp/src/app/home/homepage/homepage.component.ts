@@ -1,10 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Meta } from '@angular/platform-browser';  
-import { chatMessage, ChatService, ChatUserModel } from '../../services/ChatService/chat.service';
+import { chatMessage, ChatService, ChatUserModel } from '../../../services/ChatService/chat.service';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { CommonService } from '../../services/commonServcices/common-service.service';
+import { CommonService } from '../../../services/commonServcices/common-service.service';
 
 @Component({
   selector: 'app-homepage',

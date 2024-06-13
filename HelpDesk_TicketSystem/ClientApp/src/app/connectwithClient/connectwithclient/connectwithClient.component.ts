@@ -27,9 +27,11 @@ export class ConnectWithClientComponent implements OnInit {
 private themeService : ThemeService) { }
 
 
+
   ngOnInit() {
-    this.IsUserLoggedIn = (localStorage.getItem('token') != null && localStorage.getItem('token') != undefined) ? true : false;
     localStorage.clear();
+
+    this.IsUserLoggedIn = (localStorage.getItem('token') != null && localStorage.getItem('token') != undefined) ? true : false;
     // Extract the host URL
     this.isLoading = true;
     const clientHostURL = this.extractHost();

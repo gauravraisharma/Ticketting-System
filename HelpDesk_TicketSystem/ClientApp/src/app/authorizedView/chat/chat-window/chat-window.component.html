@@ -29,7 +29,7 @@
               </div>
             </ng-container>
             <ng-container *ngIf="userList==null || userList ==undefined || userList.length==0">
-              <h2 class="mt-2 text-center">No User Found</h2>
+              <h6 class="mt-3 text-center">No User Found</h6>
             </ng-container>
           </div>
         </div>
@@ -41,7 +41,8 @@
                 <p>Please select a user to start chat</p>
               </div>
             </div>
-            <nb-chat [title]="selectedUser ? selectedUser.chatUserName + ' - ' + selectedUser.email : 'Chat Title'">
+            <div class="chat-container">
+            <nb-chat  class="chat-title" *ngIf="chatMessages && chatMessages.length > 0" [title]="selectedUser ? selectedUser.chatUserName + ' - ' + selectedUser.email : 'Chat Title'">
               <nb-chat-message *ngFor="let chatMessage of chatMessages" 
                                [message]="chatMessage.message" [date]="parseDate(chatMessage.createdOn)"
                                [sender]="chatMessage.isIncoming ? selectedUser.chatUserName : userName"
@@ -50,30 +51,20 @@
               </nb-chat-message>
               
             </nb-chat>
-            <!-- <ng-container *ngFor="let chatMessage of chatMessages">
-              <div class="incoming_msg" *ngIf="chatMessage.isIncoming">
-                <div class="received_msg">
-                  <div class="received_withd_msg">
-
-                    <p>
-                      {{chatMessage.message}}
-                    </p>
-                    <small class="text-start d-block ms-2 mt-1">{{chatMessage.createdOn | timeZone :currentTimeZone:
-                      'DD-MM-YYYY h:mm a'}}</small>
-                  </div>
-                </div>
+            </div>
+            <!-- <div class="chat-container">
+              <div *ngIf="chatMessages && chatMessages.length > 0" class="chat-title">
+                {{ selectedUser ? selectedUser.chatUserName + ' - ' + selectedUser.email : 'Chat Title' }}
               </div>
-              <div class="outgoing_msg" *ngIf="!chatMessage.isIncoming">
-                <div class="sent_msg">
-                  <p>
-                    {{chatMessage.message}}
-                  </p>
-                  <small class="text-end d-block me-2 mt-1">{{chatMessage.createdOn | timeZone :currentTimeZone:
-                    'DD-MM-YYYY h:mm a'}}</small>
-
-                </div>
-              </div>
-            </ng-container> -->
+              <nb-chat *ngIf="chatMessages && chatMessages.length > 0">
+                <nb-chat-message *ngFor="let chatMessage of chatMessages" 
+                                 [message]="chatMessage.message" [date]="parseDate(chatMessage.createdOn)"
+                                 [sender]="chatMessage.isIncoming ? selectedUser.chatUserName : userName"
+                                 [reply]="!chatMessage.isIncoming">
+                </nb-chat-message>
+              </nb-chat>
+            </div> -->
+            
           </div>
           <div class="type_msg" *ngIf="chatRoomId!='' && chatRoomId !=null && chatRoomId!=undefined">
             <div class="input_msg_write">

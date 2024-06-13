@@ -1380,6 +1380,12 @@
   .nb-theme-material-light nb-sidebar.compacted nb-menu .menu-item a.active::before {
     background: var(--primary) !important;
   }
+/*  .nb-theme-material-light nb-sidebar{
+    background: var(--secondary) !important;
+  }
+.nb-theme-material-light nb-card-header {
+  background: var(--secondary) !important;
+}*/
 
   .nb-theme-material-light nb-menu .menu-item a.active {
     color: var(--primary) !important;

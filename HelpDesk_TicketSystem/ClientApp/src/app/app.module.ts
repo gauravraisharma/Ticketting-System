@@ -12,27 +12,21 @@ import { TicketService } from '../services/ticketServices/ticketservcie.service'
 import { AccountService } from '../services/accountServices/account-service.service';
 import { AnonymousLayoutComponent } from './sharedComponent/layouts/anonymous-layout/anonymous-layout.component';
 import { AuthorizedLayoutComponent } from './sharedComponent/layouts/authorized-layout/authorized-layout.component';
-import { RouterModule } from '@angular/router';
 import { CommonService } from '../services/commonServcices/common-service.service';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { APIInterceptor } from '../services/apiInterceptor/api.interceptor';
 import { SharedModule } from './sharedComponent/shared.module';
 import { CompanyService } from '../services/companyService/company.service';
 import { DashboardService } from '../services/dashboardService/dashboard.service';
-import { HomepageComponent } from './homepage/homepage.component';
 import { ChatService } from '../services/ChatService/chat.service';
-import { environment } from '../environments/environment';
 import { CommonModule } from '@angular/common';
-import { ChatBotComponent } from './sharedComponent/chat-bot/chat-bot.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { PageNotAuthorizedComponent } from './page-not-authorized/page-not-authorized.component';
-import { HeaderComponent } from './sharedComponent/header/header.component';
-import { FooterComponent } from './sharedComponent/footer/footer.component';
-import { DevelopersGuideComponent } from './developers-guide/developers-guide.component';
 import { ThemeModule } from './@theme/theme.module';
 import { NbActionsModule, NbButtonModule, NbCardModule, NbChatModule, NbContextMenuModule, NbDialogModule, NbDialogService, NbIconModule, NbLayoutModule, NbMenuModule, NbMenuService, NbSearchModule, NbSelectModule, NbSidebarModule, NbSidebarService, NbThemeModule, NbToastrModule, NbUserModule } from '@nebular/theme';
 import { NbAccessChecker, NbAclService, NbRoleProvider, NbSecurityModule } from '@nebular/security';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
+
 
 
 
@@ -46,10 +40,7 @@ import { NbEvaIconsModule } from '@nebular/eva-icons';
     AuthorizedLayoutComponent,
     PageNotFoundComponent,
     PageNotAuthorizedComponent,
-    HomepageComponent,
-    HeaderComponent,
-    FooterComponent,
-    DevelopersGuideComponent
+
   ],
   imports: [
     BrowserModule,

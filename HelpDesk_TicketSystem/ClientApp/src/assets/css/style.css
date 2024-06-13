@@ -435,7 +435,10 @@ section {
 
 /* ------------------------footer css ends--------------------------- */
 .footer-main {
-    padding: 40px 0;
+    padding: 40px 0 0;
+    z-index: 1;
+    background: white;
+    position: relative;
 }
 
 .footer-logo .logo {
@@ -490,8 +493,8 @@ section {
 
 .footer-bottom {
     border-top: 1px solid var(--border-color);
-    padding: 20px;
-    margin-top: 20px;
+    padding: 10px;
+    margin-top: 10px;
 }
 
 /* ------------------------footer css ends--------------------------- */
@@ -1636,7 +1639,17 @@ section {
     margin-bottom: 20px;
 }
 
+
 /* ------------------------Profile ends--------------------------- */
+
+.developer-header .header.navbar {
+    padding-top: 20px;
+  position: fixed;
+  background: #fff;
+  z-index: 100;
+  width: 100%;
+  padding-bottom: 20px;
+  }
 
 /* ------------------------Responsive starts------------------------*/
 @media only screen and (max-width: 1700px) {
