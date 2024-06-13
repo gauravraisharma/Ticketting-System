@@ -1684,6 +1684,22 @@ section {
     color: #fff !important;
     text-decoration: unset;
 }
+.developer-logo{
+    display: none;
+}
+.developer-header .logo{
+    display: none;
+}
+.developer-header .logo.developer-logo{
+    display: unset;
+}
+.developer-sidebar .menu-items{
+    padding-bottom: 100px;
+}
+.developer-sidebar .main-container{
+    height: calc(100vh - 4.75rem) !important;
+
+}
 
 footer {
     margin-top: 80px;

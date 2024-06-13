@@ -1,18 +1,10 @@
-<!-- <nb-layout windowMode>
-
- 
-   <nb-layout-header fixed> -->
 <div class="developer-header">
   <app-header></app-header>
 </div>
-
-<!-- </nb-layout-header>
-  -->
-<!-- <nb-sidebar tag="menu-sidebar" class="menu-sidebar" responsive>
-  </nb-sidebar> -->
 <nb-layout>
-  <nb-sidebar tag="menu-sidebar" class="menu-sidebar" responsive>
+  <nb-sidebar tag="menu-sidebar" class="menu-sidebar developer-sidebar" responsive>
     <nb-menu [items]="menu" (click)="onMenuItemClick($event)"></nb-menu>
+
   </nb-sidebar>
 
   <nb-layout-column class="content">
@@ -274,22 +266,22 @@ applicationName: The name of your application registered in Helpdesk.
           <h4 class="main-title">Generate and Encrypt Token</h4>
           <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
-              <button [class]="(IsNodeTab)?'nav-link':'nav-link active'" id="home-tab" data-toggle="tab"
+              <button id="home-tab" data-toggle="tab"
                 data-target="#cSharpGenerateToken" type="button" role="tab" aria-controls="home" aria-selected="true"
-                (click)="toggleCodeTab(false)">
+                >
                 C#
               </button>
             </li>
             <li class="nav-item" role="presentation">
-              <button [class]="(IsNodeTab)?'nav-link active':'nav-link'" id="profile-tab" data-toggle="tab"
+              <button id="profile-tab" data-toggle="tab"
                 data-target="#nodeGenerateToken" type="button" role="tab" aria-controls="profile" aria-selected="false"
-                (click)="toggleCodeTab(true)">
+               >
                 Node
               </button>
             </li>
           </ul>
           <div class="tab-content" id="myTabContent">
-            <div [class]="(IsNodeTab)?'tab-pane fade ':'tab-pane fade  show active'" id="cSharpGenerateToken"
+            <div id="cSharpGenerateToken"
               role="tabpanel" aria-labelledby="home-tab">
               <pre class="code-preview mt-0">
               <code>
@@ -331,7 +323,7 @@ private string EncryptToken(string token, string clientSecretKey)
                 </code>
                 </pre>
             </div>
-            <div [class]="(IsNodeTab)?'tab-pane fade show active':'tab-pane fade'" id="nodeGenerateToken"
+            <div id="nodeGenerateToken"
               role="tabpanel" aria-labelledby="profile-tab">
               <pre class="code-preview mt-0">
               <code>
@@ -536,6 +528,7 @@ return encryptedToken;
           <h4 class="sub-title">Endpoint Example:</h4>
           <pre class="code-preview"><code>
 POST https://yourapp.com/api/ConnectWithHelpdesk/GetUserDetails 
+
 </code></pre>
           <li>his token is required as input during the application registration process.</li>
         </div>
@@ -866,6 +859,68 @@ type:”GENERATETOKEN”
           </div>
         </div>
       </div>
+      <div id="token-validation"  class="item">
+        <h4 class="main-title">Token Verification</h4>
+        <p>
+          Token validation is a crucial process that ensures the authenticity and integrity of the payload data transmitted between systems. This involves verifying that the token has been properly signed by the issuing authority and that it has not been tampered with or expired.
+        </p>
+        <ul>
+          <li>
+            <strong>Signature Verification:</strong> The token's signature is checked against the public key or secret key used by the issuer. This ensures that the token was indeed issued by a trusted authority and has not been altered.
+          </li>
+          <li>
+            <strong>Expiration Check:</strong> Tokens typically include an expiration time. Validation involves checking the current time against this expiration time to ensure the token is still valid and has not expired.
+          </li>
+          <li>
+            <strong>Issuer and Audience Validation:</strong> The token should contain claims specifying the intended audience and the issuer. These claims are validated to ensure the token is being used by the correct recipient and was issued by the expected source.
+          </li>
+          <li>
+            <strong>Claims Integrity:</strong> The payload of the token, often containing user information and permissions, is checked to ensure it has not been modified. This maintains the integrity of the data being transmitted.
+          </li>
+        </ul>
+          By implementing robust token validation mechanisms, systems can ensure secure and reliable communication, protecting against unauthorized access and data breaches.
+        <div class="item">
+        <p><strong>Endpoint exposed by Helpdesk to validate the token</strong></p>
+        <pre class="code-preview"><code>
+POST https://helpdesk.techbitsolutions.com/api/ExternalAuthorization/ValidateToken
+
+</code></pre>
+<div id="validate-token-request">
+  <h4 class="main-title"><strong>Request for validating tokens</strong></h4>
+  <p>This endpoint requires three parameters:</p>
+  <ul>
+    <li><strong>Token:</strong> The access token that needs to be validated.</li>
+    <li><strong>SecretKey:</strong> The secret key used to validate the token's authenticity.</li>
+    <li><strong>Type:</strong> Specifies the type of token. In this case, it should be "accessToken".</li>
+  </ul>
+  <p><strong>To check the endpoint POSTMAN can be used</strong></p>
+</div>
+</div>
+        <div id="validate-access-token">
+          <h4 class="main-title">Access Validation</h4>
+
+          <p>For an access token, the important claims to verify are:</p>
+          <ul>
+            <li><strong>Session Start Time:</strong> The time when the session started, to ensure it is within the valid time frame.</li>
+            <li><strong>Email:</strong> The email address associated with the token, to confirm the identity of the user.</li>
+            <li><strong>Expiry:</strong> The expiration time of the token, to ensure it has not expired.</li>
+          </ul>
+          </div>
+          <div id="validate-user-identity-token">
+            <h4 class="main-title">User Identity Token Validation</h4>
+
+  <p>For a user identity token, the important claims to verify are:</p>
+  <ul>
+    <li><strong>Username:</strong> The username associated with the token, to confirm the user's identity.</li>
+    <li><strong>First Name:</strong> The first name of the user, to validate the user information.</li>
+    <li><strong>User Type:</strong> The type of user (e.g., admin or normal user), to check the user's role.</li>
+    <li><strong>UserId:</strong> The unique identifier of the user, to ensure the token corresponds to the correct user.</li>
+    <li><strong>Email:</strong> The email address associated with the token, to confirm the identity of the user.</li>
+    <li><strong>Expiry:</strong> The expiration time of the token, to ensure it has not expired.</li>
+  </ul>
+          </div>
+          </div>
+ 
       <div id="error-handling-data-section">
         <div id="invalid-token" class="item">
           <h4 class="main-title">Invalid Token</h4>
@@ -913,9 +968,8 @@ type:”GENERATETOKEN”
 </code></pre>
           </div>
         </div>
-      </div>
-      <hr />
-
+      <hr/>
+    </div>
     </div>
     <footer>
       <p class="mb-0"><strong>© 2023 HelpDesk</strong></p>
@@ -926,974 +980,4 @@ type:”GENERATETOKEN”
 
 <div class="developer-footer">
   <!-- <app-footer></app-footer> -->
-
 </div>
-
-<!-- <ngx-one-column-layout>
-    <nb-menu [items]="menu" class="mx-1" autoCollapse="true" class="menu-sidebar">
-      <ng-template #menuItem let-item="item">
-      <nb-menu-item *ngIf="item.data && item.data.elementId" [routerLink]="['/', item.data.elementId]" routerLinkActive="active">
-        {{ item.title }}
-      </nb-menu-item>
-    </ng-template>
-    </nb-menu>
- 
-
-  </ngx-one-column-layout> -->
-<!-- <nb-layout-column  > -->
-
-
-<!-- <section class="docs-guide" id="pricing">
-  <div class="container-fluid">
-
-    <div class="cards-wrap">
-      <div class="d-flex">
-         -->
-
-<!-- <div class="sidebar">
-          <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-            <button class="nav-link collapsed" id="overview-tab" data-toggle="collapse" data-target="#overview-section"
-              type="button" aria-controls="overview-section" aria-expanded="false"
-              (click)="setActiveTab('overview', 'overview-data-section')"
-              [ngClass]="{ active: activeTab === 'overview' }">
-              Overview
-            </button>
-            <div id="overview-section" [class]="(isOverViewSection)?'collapse show':'collapse'"
-              aria-labelledby="overview-tab" data-parent="#v-pills-tab">
-              <ul>
-                <li class="clickable-header" (click)="setActiveSection('introduction', 'introduction')"
-                  [ngClass]="{ active: activeSection === 'introduction' }">
-                  Introduction
-                </li>
-                <li class="clickable-header" (click)="setActiveSection('keyFeatures', 'key-features')"
-                  [ngClass]="{ active: activeSection === 'keyFeatures' }">
-                  Key Features
-                </li>
-                <li class="clickable-header" (click)="setActiveSection('benefits', 'benefits')"
-                  [ngClass]="{ active: activeSection === 'benefits' }">
-                  Benefits
-                </li>
-                <li class="clickable-header" (click)="setActiveSection('audience', 'audience')"
-                  [ngClass]="{ active: activeSection === 'audience' }">
-                  Audience
-                </li>
-              </ul>
-            </div>
-
-            <button class="nav-link collapsed" id="prerequisites-tab" data-target="#prerequisites-section"
-              data-toggle="collapse" type="button" aria-controls="prerequisites-section" aria-expanded="false"
-              (click)="setActiveTab('prerequisites', 'prerequisites-data-section')"
-              [ngClass]="{ active: activeTab === 'prerequisites' }">
-              Prerequisites
-            </button>
-            <button class="nav-link" id="get-started-tab" data-toggle="collapse" data-target="#get-started-section"
-              type="button" aria-expanded="false" aria-controls="get-started-section"
-              (click)="setActiveTab('getStarted', 'get-started-data-section')"
-              [ngClass]="{ active: activeTab === 'getStarted' }">
-              Get Started
-            </button>
-            <div id="get-started-section" [class]="(getStarted)?'collapse show':'collapse'"
-              aria-labelledby="get-started-tab" data-parent="#v-pills-tab">
-              <ul>
-                <li class="clickable-header" (click)="setActiveSection('registerApp', 'register-app')"
-                  [ngClass]="{ active: activeSection === 'registerApp' }">
-                  Register to Techdesk
-                </li>
-                <li class="clickable-header" (click)="setActiveSection('usingAPIKey', 'using-api-key')"
-                  [ngClass]="{ active: activeSection === 'usingAPIKey' }">
-                  Using Your API Key
-                </li>
-              </ul>
-            </div>
-
-            <button class="nav-link collapsed" id="create-token-tab" data-toggle="collapse"
-              data-target="#create-token-section" type="button" aria-expanded="false"
-              aria-controls="create-token-section" (click)="setActiveTab('createToken', 'create-token-data-section')"
-              [ngClass]="{ active: activeTab === 'createToken' }">
-              Creating a Token: Types and How to Generate a Secure Token
-            </button>
-            <div id="create-token-section" [class]="(createToken)?'collapse show':'collapse'"
-              aria-labelledby="create-token-tab" data-parent="#v-pills-tab">
-              <ul>
-                <li class="clickable-header" (click)="setActiveSection('JWT', 'jwt')"
-                  [ngClass]="{ active: activeSection === 'JWT' }">
-                  JWT (JSON Web Token)
-                </li>
-                <li class="clickable-header" (click)="setActiveSection('generateAccessToken', 'access-token')"
-                  [ngClass]="{ active: activeSection === 'generateAccessToken' }">
-                  Generate Access Token
-                </li>
-                <li class="clickable-header" (click)="setActiveSection('whyJWE', 'why-jwe')"
-                  [ngClass]="{ active: activeSection === 'whyJWE' }">
-                  Why JWE?
-                </li>
-              </ul>
-            </div>
-
-            <button class="nav-link collapsed" id="user-token-tab" data-toggle="collapse"
-              data-target="#user-token-section" type="button" aria-expanded="true" aria-controls="user-token-section"
-              (click)="setActiveTab('userToken', 'user-token-data-section')"
-              [ngClass]="{ active: activeTab === 'userToken' }">
-              User Verification
-            </button>
-            <div id="user-token-section" [class]="(userToken)?'collapse show':'collapse'"
-              aria-labelledby="user-token-tab" data-parent="#v-pills-tab">
-              <ul>
-                <li class="clickable-header" (click)="setActiveSection('apiEndpoint', 'api-endpoint')"
-                  [ngClass]="{ active: activeSection === 'apiEndpoint' }">
-                  API Endpoint
-                </li>
-                <li class="clickable-header" (click)="setActiveSection('requestPayload', 'request-payload')"
-                  [ngClass]="{ active: activeSection === 'requestPayload' }">
-                  Request Payload
-                </li>
-                <li class="clickable-header" (click)="setActiveSection('responsePayload', 'response-payload')"
-                  [ngClass]="{ active: activeSection === 'responsePayload' }">
-                  Response to Techdesk
-                </li>
-                <li class="clickable-header" (click)="setActiveSection('userIdentityToken', 'user-identity-token')"
-                  [ngClass]="{ active: activeSection === 'userIdentityToken' }">
-                  User Identity Token
-                </li>
-                <li class="clickable-header" (click)="setActiveSection('refreshToken', 'refresh-token')"
-                  [ngClass]="{ active: activeSection === 'refreshToken' }">
-                  Refresh Token
-                </li>
-              </ul>
-            </div>
-
-            <button class="nav-link  collapsed" id="error-handling-tab" data-toggle="collapse"
-              data-target="#error-handling-section" type="button" aria-expanded="true"
-              aria-controls="error-handling-section"
-              (click)="setActiveTab('errorHandling', 'error-handling-data-section')"
-              [ngClass]="{ active: activeTab === 'errorHandling' }">
-              Error-Handling
-            </button>
-            <div id="error-handling-section" [class]="(errorHandling)?'collapse show':'collapse'"
-              aria-labelledby="error-handling-tab" data-parent="#v-pills-tab">
-              <ul>
-                <li class="clickable-header" (click)="setActiveSection('invalidToken', 'invalid-token')"
-                  [ngClass]="{ active: activeSection === 'invalidToken' }">
-                  Invalid Token
-                </li>
-                <li class="clickable-header" (click)="setActiveSection('tokenExpired', 'token-expired')"
-                  [ngClass]="{ active: activeSection === 'tokenExpired' }">
-                  Token Expired
-                </li>
-                <li class="clickable-header" (click)="setActiveSection('serverError', 'server-error')"
-                  [ngClass]="{ active: activeSection === 'serverError' }">
-                  Server Errors
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div> -->
-
-<!-- <div class="content">
-          <div id="overview-data-section" aria-labelledby="overview-tab" data-parent="#v-pills-tab">
-            <div class="item">
-              <h4 id="overview" class="main-title">TechDesk Overview</h4>
-              <p>
-                TechDesk is built to facilitate seamless interaction between users and administrators within an
-                organization.
-                Users can submit tickets for any issues they encounter, which are then assigned to the relevant
-                department's admin for resolution.
-                The platform supports real-time communication, enabling users and admins to discuss and resolve issues
-                promptly.
-                Additionally, TechDesk includes a chatbot feature, providing immediate assistance and guiding users
-                through common queries even before
-                they start their trial.
-              </p>
-            </div>
-            <div class="item">
-              <h4 id="introduction" class="sub-title">Introduction</h4>
-              <p>
-                TechDesk is a powerful helpdesk solution designed to meet the demands of modern organizations.
-                Its comprehensive features, including efficient ticket management, real-time communication, robust admin
-                controls,
-                and AI-driven chatbot support, make it an indispensable tool for enhancing customer service and
-                operational efficiency.
-                By choosing TechDesk, you are investing in a platform that not only addresses your current needs but
-                also
-                evolves with your
-                organization, ensuring sustained excellence in support services.
-              </p>
-            </div>
-
-            <div class="item">
-              <h4 id="key-features" class="sub-title">Key Features</h4>
-              <ul>
-                <li>
-                  <strong>Ticket Management:</strong> Users can quickly submit tickets through a user-friendly
-                  interface. Each ticket includes detailed information about the issue, allowing admins to understand
-                  and
-                  address the problem efficiently.
-                </li>
-                <li>
-                  <strong>Real-Time Communication:</strong> TechDesk supports real-time messaging between users and
-                  admins, facilitating quick discussions and resolutions. This feature helps in clarifying doubts and
-                  providing immediate feedback.
-                </li>
-                <li>
-                  <strong>Admin Management:</strong> Admins can manage user accounts, assign roles, and set
-                  permissions.
-                  This ensures that only authorized personnel have access to specific features and information.
-                </li>
-                <li>
-                  <strong>Chatbot Assistance:</strong> The TechDesk chatbot is available 24/7 to assist users with
-                  common queries and guide them through the process of submitting tickets. This feature helps in
-                  reducing
-                  the load on human agents and provides users with immediate answers.
-                </li>
-                <li>
-                  <strong>Security and Compliance:</strong> TechDesk employs advanced security measures to protect
-                  user
-                  data. This includes encryption, secure authentication, and regular security audits.
-                </li>
-              </ul>
-            </div>
-
-            <div class="item">
-              <h4 id="benefits" class="sub-title">Benefits</h4>
-              <ul>
-                <li>Improved Efficiency</li>
-                <li>Enhanced User Experience</li>
-                <li>Scalability</li>
-                <li>Cost-Effectiveness</li>
-              </ul>
-            </div>
-
-            <div class="item">
-              <h4 id="audience" class="sub-title">Audience: </h4>
-              <p>
-                This guide is specified for developers to integrate their
-                application with
-                TechDesk
-              </p>
-            </div>
-
-          </div>
-          <div id="prerequisites-data-section" class="item" data-parent="#v-pills-tab"
-            aria-labelledby="prerequisites-tab">
-            <h4 class="main-title">Prerequisites for Using JWT/JWE with Helpdesk System</h4>
-
-            <p>
-              Before implementing JWT/JWE for secure communication with a Helpdesk system, ensure you have the
-              following in place:
-            </p>
-
-            <ul>
-              <li>
-                **Registered Application:** Your application needs to be registered with the Helpdesk system. This
-                registration process might involve providing information about your application and its intended use.
-                The Helpdesk system may provide specific instructions or an API for registration.
-              </li>
-              <li>
-                **Secret Key:** Upon registration, the Helpdesk system will likely provide you with a secret key. This
-                key is crucial for generating and validating JWT/JWE tokens. Treat this secret key with utmost
-                confidentiality. Do not store it directly in your code or share it publicly.
-              </li>
-              <li>
-                **JWT/JWE Familiarity:** A basic understanding of JWT (JSON Web Token) and JWE (JSON Web Encryption)
-                standards is essential. JWTs represent claims about an entity (e.g., user) and can be used for
-                authorization. JWE builds upon JWT by adding encryption to the payload, protecting sensitive information
-                within the token. You can find resources online or in the Helpdesk system's documentation to learn more
-                about these concepts.
-              </li>
-            </ul>
-
-            <p>
-              Once you have these prerequisites met, you can proceed with implementing JWT/JWE for secure communication
-              between your application and the Helpdesk system. Refer to the Helpdesk system's documentation for
-              specific instructions and API details.
-            </p>
-
-          </div>
-          <div class="item" id="get-started-data-section" aria-labelledby="get-started-tab" data-parent="#v-pills-tab">
-            <h4 id="register-app" class="main-title">Register to Techdesk</h4>
-            <p>
-              To integrate our helpdesk features into your applications, you'll need to obtain an API key. Follow these
-              steps to get your API key:
-            </p>
-            <ul>
-              <li>Sign up for a TechDesk account if you haven't already.</li>
-              <li>Login to your TechDesk account.</li>
-              <li>Navigate to Settings and register a new application.</li>
-              <li> <img src="../../assets/images/settings.png" height="200px" width="600px" /></li>
-
-              <li>Generate an API key for your application.</li>
-              <li> <img src="../../assets/images/secret-key.png" height="200px" width="500px" /></li>
-              <li>Store your API key securely.</li>
-            </ul>
-
-          </div>
-          <div class="item">
-            <h4 id="using-api-key" class="main-title">Using your API key</h4>
-            <p>
-              With your API key in hand, you can now start integrating TechDesk’s functionalities into your
-              application.
-              Use the key to authenticate API requests, access user data, manage tickets, and more.
-              The API key will be used to generate a JWT token, which includes essential claims such as the user's
-              email
-              and the session start time. This JWT token will be encrypted using JWE (JSON Web Encryption) to ensure
-              the
-              highest level of security.
-            </p>
-            <p>
-              With your API key, you can authenticate API requests, access user data, manage tickets, and more. The
-              API
-              key is used to generate a JWT token, ensuring security.
-            </p>
-            <p>
-              Refer to our API documentation for detailed information on how to use your API key to interact with
-              TechDesk’s services.
-            </p>
-          </div>
-          <div id="create-token-data-section" aria-labelledby="create-token-tab" data-parent="#v-pills-tab">
-            <div class="item">
-              <h4 id="jwt" class="main-title">JWT (JSON WEB TOKEN)</h4>
-              <p>
-                JWTs are commonly used for authentication in web applications. When a user logs in, the server generates
-                a
-                JWT containing
-                information about the user (payload) and signs it. The client then receives this token and includes it
-                in
-                subsequent requests
-                to authenticate itself. JWTs can also be used for exchanging data securely between parties.
-              </p>
-            </div>
-            <div class="item">
-              <h4 id="access-token" class="main-title">Generate Access Token</h4>
-              <ul>
-                <li>
-                  Collect User Information: Gather the necessary information to include in the JWT token, such as the
-                  user's email and session start time.
-                </li>
-
-                <li>
-                  Encode Payload: Create a JSON object containing the user information. For example:
-                  <pre class="code-preview"><code>{{'{'}}
-  "email": "user@example.com",
-  "sessionStartDate": "2024-05-20T15:20:30Z"
-{{'}'}}
-</code></pre>
-                </li>
-
-                <li>
-                  Encrypt Payload: Use JWE (JSON Web Encryption) to encrypt the payload. This ensures that the token
-                  remains secure during transmission.
-                </li>
-
-                <li>
-                  Include Token in Requests: Include the encrypted JWT token in the headers of your API requests to
-                  authenticate and interact with the service.
-                </li>
-
-                <li>
-                  Example Request:
-                  <pre class="code-preview"><code>GET https://helpdesk.techbitsolutions.com/externalconnect
-Authorization: <span class="bold-code">Bearer eyJhbGciOiJBMjU2R0NNS1ciLCJpdiI6Il8zbjdCSmpCTk0yM3hFNzIiLCJ0YWciOiI5c0kyM0hldmdVX3FZMGlWUnd2TFlnIiwiZW5jIjoiQTI1NkdDTSJ9.x4fQfv7JxIRg57-SaKj2pC5Nls9jwQb28vun31KV8JY.F-sSYCpA8T8h0kyD.iEeG-79BqhyIGHHbOOZWAZGKU91MpNafa5ufPdmZRpqZwymHs4xe1hR4F5_ipWU5fyMQogb-mRFwpe-4Of6-5UHsEMhMHnH3BFnm9chAiWt9z-DSJEkQ4XxaUUT-hQQ4SEbaXojvFhoXHJ0Y-Wku0w0MeJHOsZ62EL4aeCC8dWjv_kQOis5k1OM4wAaVatdSA0YijzRuA0ujmRkEu3s.K7wkA50YvMQK3q1Nv1XQUQ</span>
-</code></pre>
-                </li>
-                <li>
-                  Query Parameters:
-
-                  <pre class="code-preview"><code> cipherText: A JWT containing user email and session start date.
- applicationName: The name of your application registers in Helpdesk.
-</code></pre>
-                </li>
-              </ul>
-            </div>
-            <div class="item">
-              <h4 class="main-title">Generate Token</h4>
-              <ul class="nav nav-tabs" id="myTab" role="tablist">
-                <li class="nav-item" role="presentation">
-                  <button [class]="(IsNodeTab)?'nav-link':'nav-link active'" id="home-tab" data-toggle="tab"
-                    data-target="#cSharpGenerateToken" type="button" role="tab" aria-controls="home"
-                    aria-selected="true" (click)="toggleCodeTab(false)">
-                    C#
-                  </button>
-                </li>
-                <li class="nav-item" role="presentation">
-                  <button [class]="(IsNodeTab)?'nav-link active':'nav-link'" id="profile-tab" data-toggle="tab"
-                    data-target="#nodeGenerateToken" type="button" role="tab" aria-controls="profile"
-                    aria-selected="false" (click)="toggleCodeTab(true)">
-                    Node
-                  </button>
-                </li>
-              </ul>
-              <div class="tab-content" id="myTabContent">
-                <div [class]="(IsNodeTab)?'tab-pane fade ':'tab-pane fade  show active'" id="cSharpGenerateToken"
-                  role="tabpanel" aria-labelledby="home-tab">
-                  <pre class="code-preview mt-0">
-                  <code>
-public string GenerateToken(CipherDataModel dataModel)
-{{'{'}}
-    // Create claims for the JWT token
-    var claims = new[]
-    {{'{'}}
-        new Claim("email", dataModel.Email),
-        new Claim("sessionstarttime", dataModel.SessionStartTime),
-    {{'}'}};
-      
-    // Pass the secret key you've generated in helpdesk
-    var clientSecretKey = _config["ConnectWithHelpdesk:ClientSecretKey"];
-      
-    var identity = new ClaimsIdentity(claims);
-    var tokenHandler = new JwtSecurityTokenHandler();
-    var securityToken = tokenHandler.CreateToken(new SecurityTokenDescriptor
-    {{'{'}}
-        Subject = identity,
-        SigningCredentials = new SigningCredentials(
-            new SymmetricSecurityKey(Convert.FromBase64String(clientSecretKey)),
-            SecurityAlgorithms.HmacSha256Signature)
-    {{'}'}});
-      
-    var token = tokenHandler.WriteToken(securityToken);
-    var encryptedToken = EncryptToken(token, clientSecretKey);
-      
-    return encryptedToken;
-{{'}'}}
-                    </code>
-                    </pre>
-                </div>
-                <div [class]="(IsNodeTab)?'tab-pane fade show active':'tab-pane fade'" id="nodeGenerateToken"
-                  role="tabpanel" aria-labelledby="profile-tab">
-                  <pre class="code-preview mt-0">
-                  <code>
-const cors = require('cors');
-const jose = require('jose');
-const {{'{'}} JWK, JWE {{'}'}} = require('jose');
-
-const generateToken = async () =>
-{{'{'}}
-    // Create payload for the JWT token
-    const payload =
-        {{'{'}}
-           email: 'useremail@mail.com',
-           sessionstarttime: '2024-05-20T15:20:30Z',
-        {{'}'}};
-
-        // pass the secret key you have generated Helpdesk
-        const clientSecretKey = 'FSvs2uMqVjry7unyTbFkS02KtMByBm2PHVPcUaLUYms=';
-
-        const secretBuffer = Buffer.from(clientSecretKey, 'base64');
-        const encryptionKey =
-             {{'{'}}
-                 kty: 'oct',
-                 k: clientSecretKey,
-                 alg: 'A256GCMKW',
-                 use: 'enc',
-             {{'}'}};
-{{'}'}}
-                    </code>
-                    </pre>
-                </div>
-              </div>
-
-            </div>
-            <div class="item">
-              <h3 class="main-title">Encrypt Token</h3>
-              <ul class="nav nav-tabs" id="myTab" role="tablist">
-                <li class="nav-item" role="presentation">
-                  <button [class]="(IsNodeTab)?'nav-link ':'nav-link active'" id="home-tab" data-toggle="tab"
-                    data-target="#cSharpEncryptToken" type="button" role="tab" aria-controls="home" aria-selected="true"
-                    (click)="toggleCodeTab(false)">
-                    C#
-                  </button>
-                </li>
-                <li class="nav-item" role="presentation">
-                  <button [class]="(IsNodeTab)?'nav-link active':'nav-link '" id="profile-tab" data-toggle="tab"
-                    data-target="#nodeEncryptToken" type="button" role="tab" aria-controls="profile"
-                    aria-selected="false" (click)="toggleCodeTab(true)">
-                    Node
-                  </button>
-                </li>
-              </ul>
-              <div class="tab-content" id="myTabContent">
-                <div [class]="(IsNodeTab)?'tab-pane fade ':'tab-pane fade  show active'" id="cSharpEncryptToken"
-                  role="tabpanel" aria-labelledby="home-tab">
-                  <pre class="code-preview mt-0">
-                  <code>
-private string EncryptToken(string token, string clientSecretKey)
-{{'{'}}
-   var payload = JWT.Payload(token);
-   var encryptedToken = JWT.Encode(payload, Convert.FromBase64String(clientSecretKey), JweAlgorithm.A256GCMKW, JweEncryption.A256GCM);
-   return encryptedToken;
-{{'}'}}
-              </code>
-              </pre>
-                </div>
-                <div [class]="(IsNodeTab)?'tab-pane fade show active':'tab-pane fade '" id="nodeEncryptToken"
-                  role="tabpanel" aria-labelledby="profile-tab">
-                  <pre class="code-preview mt-0">
-                  <code>
-const encryptedToken = await new jose.EncryptJWT(payload)
-.setProtectedHeader({{'{'}} alg: 'A256GCMKW', enc: 'A256GCM' {{'}'}})
-.setIssuedAt()
-.setExpirationTime('2h')
-.encrypt(await jose.importJWK(encryptionKey, 'A256GCMKW'));
-return encryptedToken;
-                    </code>
-              </pre>
-                </div>
-              </div>
-            </div>
-            <div class="item">
-              <h4 class="main-title" id="why-jwe">Why Use JWE (JSON Web Encryption)?</h4>
-              <p>
-                JWE is a security measure that enhances JWT (JSON Web Token) functionality. While JWTs are useful for
-                authorization, JWE adds an extra layer of protection for sensitive information within the token.
-              </p>
-            </div>
-            <div class="item">
-
-              <h4 class="sub-title">JWT vs. JWE for Sensitive Data</h4>
-
-              <div class="comparison-table">
-                <table>
-                  <thead>
-                    <tr>
-                      <th>Feature</th>
-                      <th>JWT</th>
-                      <th>JWE</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>Function</td>
-                      <td>Claims representation</td>
-                      <td>Claims representation with encrypted payload</td>
-                    </tr>
-                    <tr>
-                      <td>Structure</td>
-                      <td>Header, Payload, Signature</td>
-                      <td>Header, Encrypted Payload, Signature</td>
-                    </tr>
-                    <tr>
-                      <td>Security</td>
-                      <td>Payload not encrypted, signature for integrity/authenticity</td>
-                      <td>Payload encrypted, signature for integrity/authenticity of entire token</td>
-                    </tr>
-                    <tr>
-                      <td>Use Cases</td>
-                      <td>Authorization, user information exchange</td>
-                      <td>Secure transmission of sensitive data</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-            <div class="item">
-              <h4 class="sub-title">**Why Choose JWE for Sensitive Data?**</h4>
-              <ul>
-                <li>
-                  **Enhanced Security:** JWE encrypts the payload, making it unreadable even if intercepted. Only the
-                  authorized recipient with the decryption key can access the information.
-                </li>
-                <li>
-                  **Data Protection:** Sensitive information like user credentials or financial data requires extra
-                  protection. JWE ensures this data remains confidential during transmission.
-                </li>
-              </ul>
-            </div>
-            <div class="item">
-              <h4 class="sub-title">**When Might JWT Be Sufficient?**</h4>
-              <ul>
-                <li>
-                  **Non-Sensitive Claims:** If your token primarily contains information used for authorization (e.g.,
-                  user ID, role), JWT might be enough. These claims are typically not highly sensitive.
-                </li>
-                <li>
-                  **Performance:** JWTs are smaller and faster to process compared to JWE tokens. This can be
-                  beneficial
-                  in performance-critical scenarios.
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div class="item" id="user-token-data-section" aria-labelledby="user-token-tab" data-parent="#v-pills-tab">
-            <div class="item">
-              <h4 class="main-title" id="api-endpoint">API Endpoint to generate Token and refresh token</h4>
-              <p>
-                Your application needs to expose an endpoint to handle a POST request from the Helpdesk system to verify
-                the token.
-              </p>
-            </div>
-
-            <div class="item">
-              <h4 class="sub-title">Endpoint Example:</h4>
-              <pre class="code-preview"><code>POST https://yourapp.com/api/verifyToken </code></pre>
-            </div>
-
-            <div class="item">
-              <h4 class="main-title" id="request-payload">Helpdesk Request Payload</h4>
-
-              <p>
-                When interacting with a Helpdesk system using JWT/JWE, the request payload typically includes two key
-                elements:
-              </p>
-
-              <ul>
-                <li>
-                  <strong>token (JWT/JWE):</strong> This is the same token that was initially sent to the Helpdesk
-                  system during authentication. It contains information about the user or application making the
-                  request.
-                  The token format might be JWT (JSON Web Token) or JWE (JSON Web Encryption), depending on the Helpdesk
-                  system's security requirements.
-                </li>
-                <li>
-                  <strong>type: (String)</strong> This field specifies the type of operation you want to perform.
-                  Common
-                  options include:
-                </li>
-                <ul>
-                  <li>
-                    <strong>GENERATETOKEN:</strong> This type indicates a request for a new access token.
-                    The Helpdesk system might use the information in the provided JWT/JWE token to verify the user or
-                    application and issue a fresh access token if valid.
-                  </li>
-                  <li>
-                    <strong>REFRESHTOKEN:</strong> This type indicates a request to refresh an existing access token.
-                    Some Helpdesk systems might implement refresh tokens for scenarios where access tokens have a
-                    limited
-                    lifespan.
-                    By providing a valid refresh token, you can obtain a new access token without going through the full
-                    authentication process again.
-                  </li>
-                </ul>
-              </ul>
-
-              <p>
-                The specific format and structure of the request payload might vary depending on the Helpdesk system's
-                API. Always refer to the official documentation for detailed information and examples.
-              </p>
-            </div>
-            <div class="item">
-              <h4 class="sub-title">
-                Payload example:
-              </h4>
-              <pre class="code-preview"><code>{{'{'}}
-   token: “eyJhbGciOiJBMjU2R0NNS1ciLCJpdiI6Il8zbjdCSmpCTk0yM3hFNzIiLCJ0YWciOiI5c0kyM0hldmdVX3FZMGlWUnd2TFlnIiwiZW5jIjoiQTI1NkdDTSJ9.x4fQfv7JxIRg57-SaKj2pC5Nls9jwQb28vun31KV8JY.F-sSYCpA8T8h0kyD.iEeG-79BqhyIGHHbOOZWAZGKU91MpNafa5ufPdmZRpqZwymHs4xe1hR4F5_ipWU5fyMQogb-mRFwpe-4Of6-5UHsEMhMHnH3BFnm9chAiWt9z-DSJEkQ4XxaUUT-hQQ4SEbaXojvFhoXHJ0Y-Wku0w0MeJHOsZ62EL4aeCC8dWjv_kQOis5k1OM4wAaVatdSA0YijzRuA0ujmRkEu3s.K7wkA50YvMQK3q1Nv1XQUQ”,
-   type:”GENERATETOKEN”
-{{'}'}}
-</code></pre>
-            </div>
-
-            <div>
-              <div class="item">
-                <h4 class="main-title" id="response-payload">
-                  Helpdesk Response Payload
-                </h4>
-
-                <p>
-                  When your application successfully handles a request from the Helpdesk system, it should respond with
-                  a
-                  specific JSON structure. This response payload provides information about the request's outcome.
-                </p>
-              </div>
-              <div class="item">
-                <h4 class="sub-title">Structure:</h4>
-
-                <pre class="code-preview"><code>
-  {{'{'}}
-    "status": "string",
-    "message": "string",
-    "accessToken": "string (optional)",
-    "refreshToken": "string (optional)"
-  {{'}'}}
-  </code></pre>
-              </div>
-              <div class="item">
-                <h4 class="sub-title">Elements:</h4>
-
-                <ul>
-                  <li>
-                    <strong>status (string):</strong> This field indicates the overall status of the request. Common
-                    values
-                    include:
-                    <ul>
-                      <li><strong>Success (200):</strong> The request was processed successfully.</li>
-                      <li><strong>Bad Request (400):</strong> The request contained invalid data or parameters.</li>
-                      <li>
-                        <strong>Internal Server Error (500):</strong> An unexpected error occurred on your
-                        application's
-                        side.
-                      </li>
-                      <li>
-                        <strong>Forbidden (403):</strong> The user email associated with the provided token doesn't
-                        belong
-                        to your application.
-                      </li>
-                    </ul>
-                  </li>
-                  <li>
-                    <strong>message (string):</strong> This field provides a descriptive message explaining the status
-                    code. It can help identify the cause of an error or provide more context for a successful response.
-                  </li>
-                  <li>
-                    <strong>accessToken (string - optional):</strong> If the request was successful (status:
-                    "Success"),
-                    this field might contain a newly generated JWT (JSON Web Token) as the access token. This token can
-                    be
-                    used by the Helpdesk system to authorize subsequent requests from your application.
-                  </li>
-                  <li>
-                    <strong>refreshToken (string - optional):</strong> Some Helpdesk systems might also include a
-                    refresh
-                    token in the response. This token can be used to obtain a new access token when the existing one
-                    expires.
-                  </li>
-                </ul>
-              </div>
-              <div class="item">
-                <h4 class="sub-title">Payload Example</h4>
-                <pre class="code-preview"><code>{{'{'}}
-    "status": 200,
-    "message": "Token verified successfully",
-    "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
-    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
-{{'}'}}
-</code></pre>
-              </div>
-            </div>
-
-            <div>
-              <div class="item">
-                <h4 class="main-title" id="user-identity-token">User Identity Token</h4>
-                <p>
-                  When sending a `GENERATETOKEN` request payload to a Helpdesk system using JWT/JWE, the concept of
-                  `useridentitytoken` might come into play. However, its usage depends on the specific implementation of
-                  the
-                  Helpdesk system's API.
-                </p>
-              </div>
-              <div class="item">
-                <h4 class="sub-title">Scenarios for UserIdentityToken:</h4>
-
-                <ul>
-                  <li>
-                    <strong>
-                      External Authentication:** If your application relies on an external authentication system
-                      (e.g., OAuth, OpenID Connect) to identify users, you might need to include a `useridentitytoken`
-                      in
-                      the request payload. This token would be obtained from the external system after successful user
-                      login
-                      and would contain information about the authenticated user.
-                    </strong>
-                  </li>
-                  <li>
-                    <strong>
-                      Internal Authentication:** In some cases, the Helpdesk system might support including user
-                      credentials (username/password) directly within the `useridentitytoken` for initial user
-                      authentication. However, this approach is generally less secure and may not be supported by all
-                      Helpdesk systems.
-                    </strong>
-                  </li>
-                </ul>
-              </div>
-              <div class="item">
-                <h4 class="sub-title">Important Considerations:</h4>
-
-                <ul>
-                  <li>
-                    **API Documentation:** Always refer to the Helpdesk system's official API documentation to
-                    determine
-                    whether a `useridentitytoken` is required in the `GENERATETOKEN` request and, if so, what format and
-                    content it expects.
-                  </li>
-                  <li>
-                    **Security:** If your application uses an external authentication system, ensure the
-                    `useridentitytoken` is obtained securely and not exposed in transit or logs.
-                  </li>
-                </ul>
-              </div>
-
-              <div class="item">
-                <h4 class="sub-title">JWT Payload for accessToken: </h4>
-                <pre class="code-preview"><code>{{'{'}}
-    "UserId": "12345",
-    "Email": "user@example.com",
-    "FirstName": "John",
-    "LastName": "Doe",
-    "Username": "johndoe",
-    "UserType": "NormalUser",
-    "MobileNumber": "123-456-7890"
-{{'}'}}
-</code></pre>
-              </div>
-
-              <div class="item">
-                <h4 class="sub-title">JWT Payload for accessToken description: </h4>
-                <ul>
-                  <li>
-                    <strong>UserId (from KotiCRM):</strong> This field can be used to identify the user within your
-                    KotiCRM system. It's helpful for associating Helpdesk actions with specific users in your CRM.
-                  </li>
-                  <li>
-                    <strong>Email:</strong> The user's email address. The Helpdesk system enforces email uniqueness,
-                    so
-                    if
-                    you encounter duplicate emails, contact the Helpdesk admin for guidance.
-                  </li>
-                  <li>
-                    <strong>Username:</strong> The user's username within your system. Similar to email, usernames are
-                    unique in the Helpdesk system. Contact the Helpdesk admin if you have duplicate usernames.
-                  </li>
-                  <li>
-                    <strong>UserType:</strong> This field specifies the user's role within the Helpdesk system.
-                    Currently,
-                    two user types are supported:
-                    <ul>
-                      <li><strong>admin:</strong> Grants administrator privileges within the Helpdesk system.</li>
-                      <li><strong>Normaluser:</strong> Grants standard user privileges within the Helpdesk system.</li>
-                    </ul>
-                    Choose the appropriate user type based on the user's role in your application and their intended
-                    access
-                    level within the Helpdesk system.
-                  </li>
-                </ul>
-              </div>
-              <div class="item">
-                <h4 class="sub-title">Important Considerations:</h4>
-
-                <ul>
-                  <li>
-                    **Security:** Ensure that the user information included in the JWT/JWE claims is protected.
-                    Consider
-                    using JWE (JSON Web Encryption) if sensitive user data like email needs extra protection during
-                    transmission.
-                  </li>
-                  <li>
-                    **API Documentation:** Refer to the Helpdesk system's API documentation for specific requirements
-                    regarding user information in JWT/JWE claims. It might specify mandatory fields or additional user
-                    attributes supported by the system.
-                  </li>
-                </ul>
-              </div>
-            </div>
-
-            <div>
-              <div class="item">
-                <h4 class="main-title" id="refresh-token">Refresh Tokens</h4>
-                <p>
-                  When a token is expired, techdesk will request for new access token by sending the user identity
-                  token
-                  as a request payload and in response get back a new access token and refresh token
-                </p>
-              </div>
-
-              <div class="item">
-                <h4 class="sub-title">Token Expiration:</h4>
-                <p>
-                  JWTs often include an expiration time (exp claim) to ensure they are only valid for a limited period.
-                  Once this period has passed, the token is considered expired, and the user must obtain a new one to
-                  continue accessing protected resources.
-                </p>
-              </div>
-
-              <div class="item">
-                <h4 class="sub-title">Refresh Tokens:</h4>
-                <p>
-                  To avoid forcing users to log in again every time their access token expires, a refresh token is
-                  used.
-                  A refresh token has a longer lifespan and can be used to request a new access token without requiring
-                  the
-                  user to re-authenticate.
-                </p>
-              </div>
-
-              <div class="token-info">
-                <div class="item">
-                  <h4 class="main-title">How it Works:</h4>
-
-                  <h4 class="sub-title">Initial Authentication:</h4>
-                  <p>The user logs in and receives an access token and a refresh token.</p>
-                  <p>The access token is used to authenticate requests to protected resources.</p>
-                </div>
-
-                <div class="item">
-                  <h4 class="sub-title">Token Expiration:</h4>
-                  <p>
-                    When the access token expires (determined by the <code>exp</code> claim), the client detects the
-                    expiration and initiates a token renewal process.
-                  </p>
-                </div>
-
-                <div class="item">
-                  <h4 class="sub-title">Requesting a New Token:</h4>
-                  <p>The client sends the refresh token to the authentication server to request a new access token.</p>
-                  <p>This request typically includes the refresh token and possibly the user identity token.</p>
-                </div>
-
-                <div class="item">
-                  <h4 class="sub-title">Server Response:</h4>
-                  <p>The authentication server validates the refresh token.</p>
-                  <p>If valid, the server issues a new access token (and possibly a new refresh token) in response.</p>
-                </div>
-
-                <div class="item">
-                  <h4 class="sub-title">Using the New Token:</h4>
-                  <p>
-                    The client receives the new access token and uses it for subsequent requests to protected
-                    resources.
-                  </p>
-                </div>
-
-              </div>
-            </div>
-          </div>
-          <div id="error-handling-data-section">
-            <h4 id="invalid-token"></h4>
-            <div class="item">
-              <h4 class="main-title">Invalid Token</h4>
-              <p>
-                If the token provided is not valid, the server will respond with a status code of 400 and a message
-                indicating that the token is invalid. This can occur if the token has been tampered with, is malformed,
-                or fails verification.
-              </p>
-              <div>
-                <pre class="code-preview"><code>{{'{'}}
-    "status": 400,
-    "message": "Invalid token"
-{{'}'}}</code></pre>
-              </div>
-            </div>
-            <h4 id="token-expired"></h4>
-            <div class="item">
-              <h4 class="main-title">Token Expired</h4>
-              <p>
-                When the token has passed its expiration time, the server will respond with a status code of 400 and a
-                message indicating that the token has expired. This indicates that the client needs to use the refresh
-                token to obtain a new access token.
-              </p>
-              <div>
-                <pre class="code-preview"><code>{{'{'}}
-  "status": 400,
-  "message": "Token expired"
-  {{'}'}}
-</code></pre>
-              </div>
-            </div>
-            <h4 id="server-error"></h4>
-            <div class="item">
-              <h4 class="main-title">Server Errors</h4>
-              <p>
-                If the Helpdesk system encounters an error while processing the token, it will respond with an
-                appropriate HTTP status code and a message describing the error. These errors could be due to
-                server-side issues, such as database connectivity problems or other internal errors.
-              </p>
-              <div>
-                <pre class="code-preview"><code>{{'{'}}
-  "status": 500,
-  "message": "Internal server error"
-  {{'}'}}
-</code></pre>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section> -->
