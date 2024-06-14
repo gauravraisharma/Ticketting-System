@@ -147,10 +147,10 @@
           </li>
           <li>Login to your TechDesk account.</li>
           <li>Navigate to Settings and register a new application.</li>
-          <img src="../../assets/images/settings.png" height="250px" width="600px" />
+          <img src="../../assets/images/settings.png" height="300px" width="650px" />
 
           <li>Generate an Application Secret key for your application.</li>
-          <img src="../../assets/images/secret-key.png" height="250px" width="500px" />
+          <img src="../../assets/images/secret-key.png" height="300px" width="650px" />
           <li>Store your Secret key securely.</li>
         </ul>
 
@@ -262,38 +262,52 @@ applicationName: The name of your application registered in Helpdesk.
             </li>
           </ul>
         </div>
-        <div class="item">
+        <div class="item" id="generate-token">
           <h4 class="main-title">Generate and Encrypt Token</h4>
           <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
-              <button id="home-tab" data-toggle="tab"
-                data-target="#cSharpGenerateToken" type="button" role="tab" aria-controls="home" aria-selected="true"
-                >
+              <button [class]="(IsNodeTab)?'nav-link':'nav-link active'" id="home-tab" data-toggle="tab"
+                data-target="#cSharpGenerateToken" type="button" role="tab" aria-controls="home"
+                aria-selected="true" (click)="toggleCodeTab(false)">
                 C#
               </button>
             </li>
             <li class="nav-item" role="presentation">
-              <button id="profile-tab" data-toggle="tab"
-                data-target="#nodeGenerateToken" type="button" role="tab" aria-controls="profile" aria-selected="false"
-               >
+              <button [class]="(IsNodeTab)?'nav-link active':'nav-link'" id="profile-tab" data-toggle="tab"
+                data-target="#nodeGenerateToken" type="button" role="tab" aria-controls="profile"
+                aria-selected="false" (click)="toggleCodeTab(true)">
                 Node
               </button>
             </li>
           </ul>
+                  
           <div class="tab-content" id="myTabContent">
-            <div id="cSharpGenerateToken"
+            <div [class]="(IsNodeTab)?'tab-pane fade ':'tab-pane fade  show active'" id="cSharpGenerateToken"
               role="tabpanel" aria-labelledby="home-tab">
               <pre class="code-preview mt-0">
               <code>
 public string GenerateToken(CipherDataModel dataModel)
 {{'{'}}
-// Create claims for the JWT token
+
+<span style="color:bisque">// Create claims for the JWT Access token</span>
   var claims = new[]
   {{'{'}}
     new Claim("email", dataModel.Email),
     new Claim("sessionstarttime", dataModel.SessionStartTime),
   {{'}'}};
   
+  <span style="color:bisque">//Create claims for JWT User Identity Token</span>
+  var claims = new[]
+  {{'{'}}
+    new Claim("email", userResponse.Email),
+    new Claim("firstName", userResponse.FirstName),
+    new Claim("lastName", userResponse.LastName),
+    new Claim("mobilePhone", userResponse.PhoneNumber),
+    new Claim("userId", userResponse.UserId),
+    new Claim("userName", userResponse.UserName),
+    new Claim("userType", userResponse.UserType === "Admin" ? "Admin" : "NormalUser")
+  {{'}'}};
+
   // Pass the secret key you've generated in helpdesk
   var clientSecretKey = _config["ConnectWithHelpdesk:ClientSecretKey"];
   
@@ -313,7 +327,7 @@ public string GenerateToken(CipherDataModel dataModel)
   return encryptedToken;
 {{'}'}}
 
-//Encrypt Token
+<span style="color:bisque">//Encrypt Token</span>
 private string EncryptToken(string token, string clientSecretKey)
 {{'{'}}
   var payload = JWT.Payload(token);
@@ -323,8 +337,8 @@ private string EncryptToken(string token, string clientSecretKey)
                 </code>
                 </pre>
             </div>
-            <div id="nodeGenerateToken"
-              role="tabpanel" aria-labelledby="profile-tab">
+            <div [class]="(IsNodeTab)?'tab-pane fade show active':'tab-pane fade'" id="nodeGenerateToken"
+            role="tabpanel" aria-labelledby="profile-tab">
               <pre class="code-preview mt-0">
               <code>
 const cors = require('cors');
@@ -334,18 +348,24 @@ const {{'{'}} JWK, JWE {{'}'}} = require('jose');
 const genereateHelpdeskToken = async ( {{'{'}} userId {{'}'}}) => {{'{'}}
     try {{'{'}}
         const user = await knex('users').where('id', userId).first();
-
-        const payload =
+        
+        <span style="color:bisque">//Payload for Access Token</span>
+        const payload = {{'{'}}
             "email": user.email,
             "sessionStartTime": new Date().toISOString().split('.')[0] + 'Z',
-            "UserId": userId,
-            "Email": user.email,
-            "FirstName": user.first_name,
-            "LastName": user.last_name,
-            "Username": user.email,
-            "UserType": user.role_id === ROLE.SUPER_ADMIN ? "admin" : 'NormalUser',
-            "MobileNumber": user.phone_number,
         {{'}'}};
+
+        <span style="color:bisque">//Payload for User Identity Token</span>
+        const payload = {{'{'}}
+          "UserId": userId,
+          "Email": user.email,
+          "FirstName": user.first_name,
+          "LastName": user.last_name,
+          "Username": user.email,
+          "UserType": user.role_id === ROLE.SUPER_ADMIN ? "admin" : 'NormalUser',
+          "MobileNumber": user.phone_number,
+        {{'}'}}
+
         const clientSecretKey = process.env.HELPDESK_SECRET;
         // const secretBuffer = Buffer.from(clientSecretKey, 'base64');
         const encryptionKey = {{'{'}}
@@ -368,7 +388,7 @@ const genereateHelpdeskToken = async ( {{'{'}} userId {{'}'}}) => {{'{'}}
     {{'}'}}
 {{'}'}}
 
-//Encrypt Token
+<span style="color:bisque">//Encrypt Token</span>
 
 const verifyHelpdeskToken = async (token) => {{'{'}}
   try {{'{'}}
@@ -603,8 +623,7 @@ type:”GENERATETOKEN”
           <div class="item">
             <h4 class="sub-title">Structure:</h4>
 
-            <pre class="code-preview"><code>
-{{'{'}}
+            <pre class="code-preview"><code>{{'{'}}
 "status": "int/number",
 "message": "string",
 "userIdentityToken": "string",
@@ -860,7 +879,7 @@ type:”GENERATETOKEN”
         </div>
       </div>
       <div id="token-validation"  class="item">
-        <h4 class="main-title">Token Verification</h4>
+        <h4 class="main-title">Token Validation</h4>
         <p>
           Token validation is a crucial process that ensures the authenticity and integrity of the payload data transmitted between systems. This involves verifying that the token has been properly signed by the issuing authority and that it has not been tampered with or expired.
         </p>
@@ -885,7 +904,7 @@ type:”GENERATETOKEN”
 POST https://helpdesk.techbitsolutions.com/api/ExternalAuthorization/ValidateToken
 
 </code></pre>
-<div id="validate-token-request">
+<div id="validate-token-request" class="item mt-2">
   <h4 class="main-title"><strong>Request for validating tokens</strong></h4>
   <p>This endpoint requires three parameters:</p>
   <ul>
@@ -896,8 +915,8 @@ POST https://helpdesk.techbitsolutions.com/api/ExternalAuthorization/ValidateTok
   <p><strong>To check the endpoint POSTMAN can be used</strong></p>
 </div>
 </div>
-        <div id="validate-access-token">
-          <h4 class="main-title">Access Validation</h4>
+        <div id="validate-access-token" class="item mt-2">
+          <h4 class="main-title">Access Token Validation</h4>
 
           <p>For an access token, the important claims to verify are:</p>
           <ul>
@@ -906,7 +925,7 @@ POST https://helpdesk.techbitsolutions.com/api/ExternalAuthorization/ValidateTok
             <li><strong>Expiry:</strong> The expiration time of the token, to ensure it has not expired.</li>
           </ul>
           </div>
-          <div id="validate-user-identity-token">
+          <div id="validate-user-identity-token" class="item mt-2">
             <h4 class="main-title">User Identity Token Validation</h4>
 
   <p>For a user identity token, the important claims to verify are:</p>

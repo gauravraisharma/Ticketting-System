@@ -4,7 +4,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
   {
     title: 'Overview',
     icon: 'file-text-outline',
-    selected: true,
+    selected: false,
     children: [
       {
         title: 'Introduction',
@@ -43,6 +43,11 @@ export const MENU_ITEMS: NbMenuItem[] = [
         title: 'Register to Techdesk',
         selected: false,
         data: { elementId: 'register' } 
+      },
+      {
+        title :'Generate Token',
+        selected  :false,
+        data : {elementId : 'generate-token'}
       },
       {
         title: 'Using your Secret Key',
@@ -114,8 +119,12 @@ export const MENU_ITEMS: NbMenuItem[] = [
     title: 'Token Validation',
     icon: 'shield-outline',
     selected: false,
-    data: { elementId: 'token-validation' },
     children: [
+      {
+        title : 'Basic Understanding',
+        selected: false,
+        data: { elementId: 'token-validation' },
+      },
       {
         title: 'Validate Token Request',
         selected: false,

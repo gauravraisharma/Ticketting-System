@@ -11,20 +11,12 @@ import { filter, map } from 'rxjs';
 export class DevelopersGuideComponent {
   menu :any[]= MENU_ITEMS;
   selectedItem: any = null;
+  IsNodeTab: boolean = false
+
 
   constructor(private menuService: NbMenuService) {
     this.setupMenuItemClick();
   }
-  //  // Method to set up menu item click events
-  //  setupMenuItemClick() {
-  //   this.menuService.onItemClick()
-  //     .subscribe(event => {
-  //       const item = event.item as NbMenuItem; // Cast event.item to NbMenuItem
-  //       if (item && item.data && item.data.elementId) {
-  //         this.scrollToElement(item.data.elementId);
-  //       }
-  //     });
-  // }
 
   scrollToSection(sectionId: string): void {
     const element = document.getElementById(sectionId);
@@ -105,5 +97,8 @@ export class DevelopersGuideComponent {
       }
     }
     return null;
+  }
+  toggleCodeTab(val: boolean) {
+    this.IsNodeTab = val
   }
 }
