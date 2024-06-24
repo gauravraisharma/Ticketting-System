@@ -59,6 +59,10 @@ namespace ApplicationService.Services
            await _chatRepository.IncreaseUnReadCount(chatRoomId);
             return;
         }
-        
+        public async Task<UnreadChatCountResponse> GetUnreadChatCount(string companyName, string email)
+        {
+            return await _chatRepository.GetUnreadChatCount(companyName, email);
+        }
+
     }
 }

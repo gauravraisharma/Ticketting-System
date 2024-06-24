@@ -50,6 +50,13 @@ namespace HelpDesk_TicketSystem.Controllers
             var chatUserDetails=await _chatService.GetChatUserDetails(ChatRoomId);
             return Ok(chatUserDetails);
         }
+        [HttpGet("GetUnreadChatCount/{companyName}/{email}")]
+        public async Task<IActionResult> GetUnreadChatCount(string companyName, string email)
+        {
+            var unreadChatCount = await _chatService.GetUnreadChatCount(companyName, email);
+            return Ok(unreadChatCount);
+
+        }
 
     }
 }

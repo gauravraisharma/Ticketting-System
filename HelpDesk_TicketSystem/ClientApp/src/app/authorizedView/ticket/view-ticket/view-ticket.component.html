@@ -4,7 +4,7 @@
     <button mat-button class="p-0 back-btn mb-1"><i class="material-icons">arrow_back_ios</i> Back</button>
 
     <h1>Ticket #{{ticketDetail.ticketId}} - {{ticketDetail.subject}}</h1>
-     <p class=" detail-heading mb-0">{{ticketDetail.description}}</p> 
+     <p class=" detail-heading mb-0">{{ticketDetail.description}}</p>
     <ul class="breadcrumb">
       <li>
         <a routerLink="/dashboard">Home</a>
@@ -41,7 +41,7 @@
                     <i class="eva eva-people"></i>
                   </div>
                   <div class="details">
-    
+
                     <div class="status-title">Total Users</div>
                   </div>
                 </nb-card>
@@ -60,25 +60,27 @@
                 </div>
 
                 <div class="detail-wrapper d-flex align-items-center">
-                  <p class=" detail-heading mb-0"> Creation Date:</p>{{ticketDetail.createdOn | timeZone
+                  <p class=" detail-heading mb-0"> Creation Date:</p>{{
+ticketDetail.createdOn | timeZone
                   :currentTimeZone:
-                  'DD-MM-YYYY'}}
+                  'DD-MM-YYYY'
+                  }}
                 </div>
                 <div class="detail-wrapper d-flex align-items-center">
                   <p class=" detail-heading  mb-0"> Priorty:</p>
                   <ng-container *ngIf="ticketDetail.priority=='HIGH'">
                     <mat-icon aria-hidden="false" aria-label="High_priority" fontIcon="crisis_alert"
-                      class="text-danger"></mat-icon>
+                              class="text-danger"></mat-icon>
                     <span class="text-danger"> {{ticketDetail.priority}}</span>
                   </ng-container>
                   <ng-container *ngIf="ticketDetail.priority=='MEDIUM'">
                     <mat-icon aria-hidden="false" aria-label="High_priority" fontIcon="warning_amber"
-                      class="text-warning"></mat-icon>
+                              class="text-warning"></mat-icon>
                     <span class="text-warning"> {{ticketDetail.priority}}</span>
                   </ng-container>
                   <ng-container *ngIf="ticketDetail.priority=='LOW'">
                     <mat-icon aria-hidden="false" aria-label="High_priority" fontIcon="priority_high"
-                      class="text-info"></mat-icon>
+                              class="text-info"></mat-icon>
                     <span class="text-info"> {{ticketDetail.priority}}</span>
                   </ng-container>
                 </div>
@@ -86,14 +88,14 @@
                   <p class=" detail-heading  mb-0"> Status:</p>
                   <ng-container *ngIf="ticketDetail.status=='OPEN'">
                     <mat-icon aria-hidden="false" aria-label="High_priority" fontIcon="library_add"
-                      class="text-success"></mat-icon>
+                              class="text-success"></mat-icon>
                     <span class="text-success">
                       {{ticketDetail.status}}
                     </span>
                   </ng-container>
                   <ng-container *ngIf="ticketDetail.status=='CLOSED'">
                     <mat-icon aria-hidden="false" aria-label="High_priority" fontIcon="remove_circle_outline"
-                      class="text-danger"></mat-icon>
+                              class="text-danger"></mat-icon>
                     <span class="text-danger">
 
                       {{ticketDetail.status}}
@@ -103,7 +105,7 @@
               </div>
 
               <button mat-raised-button extended color="warn" class="w-100 db-btn-theme cancel-btn "
-                (click)="closeTicket()" *ngIf="ticketDetail.status!='CLOSED' && userType=='ADMIN'">
+                      (click)="closeTicket()" *ngIf="ticketDetail.status!='CLOSED' && userType=='ADMIN'">
                 <mat-icon aria-hidden="false" aria-label="close" fontIcon="close"></mat-icon> Close Ticket
               </button>
 
@@ -116,7 +118,8 @@
         <div class="col-sm-12 col-md-12 col-lg-8 col-xl-9">
 
           <div *ngIf="ticketDetail.status=='CLOSED'">
-            <h3 class="closed-ticket-msg">Ticket is closed. If you send message in closed ticket, ticket will be
+            <h3 class="closed-ticket-msg">
+              Ticket is closed. If you send message in closed ticket, ticket will be
               considered
               as
               <strong>Re-Open</strong>.
@@ -136,8 +139,9 @@
 
 
 
-          <div *ngIf="conversationDetailList.length==0 && userType!='ADMIN'" class="position-relative" >
-            <h3 class="closed-ticket-msg text-alert">Admin will soon respond to your ticket. Please wait some time!!!
+          <div *ngIf="conversationDetailList.length==0 && userType!='ADMIN'" class="position-relative">
+            <h3 class="closed-ticket-msg text-alert">
+              Admin will soon respond to your ticket. Please wait some time!!!
             </h3>
             <button class="btn p-0 alert-refresh-btn" (click)="RefreashConversation()">
               <mat-icon class="text-theme" aria-hidden="false" aria-label="replay" style="color: #000;" fontIcon="refresh"></mat-icon>
@@ -155,10 +159,9 @@
             </mat-card-header>
             <mat-card-content class="new-message-editor">
               <form [formGroup]="messageForm" class="form-field-full" (ngSubmit)="sendMessage()">
-                <div
-                  [class]="(messageForm.get('message')?.invalid && messageForm.get('message')?.touched)?'ck-Editor-container-cust Invalid':'ck-Editor-container-cust'">
+                <div [class]="(messageForm.get('message')?.invalid && messageForm.get('message')?.touched)?'ck-Editor-container-cust Invalid':'ck-Editor-container-cust'">
                   <!--<input matInput placeholder="Enter message" formControlName="message"
-                required>-->
+                  required>-->
 
                   <ckeditor matInput [editor]="Editor" formControlName="message"></ckeditor>
 
@@ -171,10 +174,10 @@
                   <!--<h3 style="display:inline;" class="mx-3">Attachment</h3>-->
                   <div>
                     <input type="file" placeholder="Please select file" multiple #fileattachment
-                      (change)="onFileChange()" hidden />
+                           (change)="onFileChange()" hidden />
                     <button mat-raised-button class="db-btn-theme" type="button" (click)="fileattachment.click()">
                       <mat-icon aria-hidden="false" aria-label="preview" fontIcon="attach_file" class="text-light"
-                        style="cursor:pointer;"></mat-icon>
+                                style="cursor:pointer;"></mat-icon>
                       Add Attahments
                     </button>
                     <strong class="mx-3">
@@ -183,8 +186,9 @@
                   </div>
                   <div>
                     <button mat-raised-button class="db-btn-theme" type="submit" (submit)="sendMessage">Send</button>
-                    <button mat-raised-button class="db-btn-theme border-btn ml-2" (click)="isSendMessageOpen=false"
-                      >Cancel</button>
+                    <button mat-raised-button class="db-btn-theme border-btn ml-2" (click)="isSendMessageOpen=false">
+                      Cancel
+                    </button>
                   </div>
                 </div>
               </form>
@@ -195,28 +199,26 @@
           <div class="message-wrap">
             <div class="conversation-main-list">
               <ng-container *ngFor="let message of conversationDetailList">
-                <mat-card
-                  [class]="(message['userType']=='NORMALUSER')?'conversation-chat conversion-chat-card':'conversation-chat conversion-chat-card-admin'">
+                <mat-card [class]="(message['userType']=='NORMALUSER')?'conversation-chat conversion-chat-card':'conversation-chat conversion-chat-card-admin staff-message' ">
 
                   <mat-card-header class="chat-header">
                     <mat-card-title>
                       <div class="d-sm-flex d-inline-block align-items-center justify-content-between">
                         <div class="d-flex align-items-center">
-                          <span class="avtar-profile">{{getInitials(message['createdBy'])}}</span>
-                          <!-- <mat-icon class="me-2" aria-hidden="false" aria-label="User" fontIcon="person_outline"
-                          *ngIf="message['userType']=='ADMIN'"></mat-icon>
-                        <mat-icon class="me-2" aria-hidden="false" aria-label="User" fontIcon="person"
-                          *ngIf="message['userType']=='NORMALUSER'"></mat-icon> -->
+                          <span [class]="(message['userType']=='NORMALUSER')?'avtar-profile client' : 'avtar-profile staff'" style="font-size: 14px;">{{getInitials(message['createdBy'])}}</span>
                           <div>
                             <span class="avtar-name">{{message['createdBy']}}</span>
 
-                            <div class="date-time-info">{{message['createdOn'] | timeZone :currentTimeZone: 'DD-MM-YYYY
+                            <div class="date-time-info">
+                              {{
+message['createdOn'] | timeZone :currentTimeZone: 'DD-MM-YYYY
                               h:mm
-                              a'}}
+                              a'
+                              }}
                             </div>
                           </div>
                         </div>
-                        <span class="pills-info">{{(message['userType']=="NORMALUSER"?"Client":"Staff")}}</span>
+                        <span [class]="(message['userType']=='NORMALUSER')?'pills-info client' : 'pills-info staff'">{{(message['userType']=="NORMALUSER"?"Client":"Staff")}}</span>
                       </div>
 
                     </mat-card-title>
@@ -227,7 +229,7 @@
                       <p class=" attachment-detail-heading"> Attachments:</p>
                       <ng-container *ngFor="let attachment of message.attachments">
                         <a [href]="attachment.downLoadLink" class="d-flex download-link-info align-items-center mt-2"
-                          [download]="attachment.attachmentName" target="_blank">
+                           [download]="attachment.attachmentName" target="_blank">
                           <i class="material-icons me-2">download</i><span>{{attachment.attachmentName}}</span>
                         </a>
                       </ng-container>
@@ -239,23 +241,26 @@
             </div>
 
             <div class="conversation-main-list">
-              <mat-card class="conversation-chat conversion-chat-card">
+              <mat-card class="conversation-chat conversion-chat-card ">
 
                 <mat-card-header class="chat-header">
                   <mat-card-title>
                     <div class="d-sm-flex d-inline-block align-items-center justify-content-between">
                       <div class="d-flex align-items-center">
-                        <span class="avtar-profile">{{getInitials(ticketDetail.createdBy)}}</span>
+                        <span class="avtar-profile client" style="font-size: 14px;">{{getInitials(ticketDetail.createdBy)}}</span>
                         <!-- <mat-icon class="me-2" aria-hidden="false" aria-label="User" fontIcon="person_outline"></mat-icon> -->
                         <div>
                           <span class="avtar-name">{{ticketDetail.createdBy}}</span>
-                          <div class="date-time-info">{{ticketDetail.createdOn | timeZone :currentTimeZone: 'DD-MM-YYYY
+                          <div class="date-time-info">
+                            {{
+ticketDetail.createdOn | timeZone :currentTimeZone: 'DD-MM-YYYY
                             h:mm
-                            a'}}
+                            a'
+                            }}
                           </div>
                         </div>
                       </div>
-                      <span class="pills-info">Client</span>
+                      <span class="pills-info client">Client</span>
                     </div>
 
                   </mat-card-title>
@@ -263,12 +268,12 @@
                 <mat-card-content>
                   <div class="conversion-message mx-0" [innerHTML]="ticketDetail.description"></div>
                   <div class="chat-attachment-detail"
-                    *ngIf="ticketDetail.attachments!=null && ticketDetail.attachments!=undefined && ticketDetail.attachments.length>0">
+                       *ngIf="ticketDetail.attachments!=null && ticketDetail.attachments!=undefined && ticketDetail.attachments.length>0">
                     <p class=" attachment-detail-heading"> Attachments:</p>
 
                     <ng-container *ngFor="let attachment of ticketDetail.attachments">
                       <a [href]="attachment.downLoadLink" [download]="attachment.attachmentName" target="_blank"
-                        class="d-flex download-link-info align-items-center mt-2">
+                         class="d-flex download-link-info align-items-center mt-2">
                         <i class="material-icons">download</i><span>{{attachment.attachmentName}}</span>
                       </a>
                     </ng-container>
@@ -279,52 +284,7 @@
               </mat-card>
             </div>
           </div>
-          <!-- <nb-card>
-            <nb-card-header>
-           Conversation
-            </nb-card-header>
-            <nb-card-body> -->
-          <!-- <div class="row">
-            <div class="chat-container col-md-12 col-lg-12 col-xxxl-12">
-              <nb-chat title="Conversation" size="large" status="primary">
-                <nb-chat-message *ngFor="let message of conversationDetailList" [message]="message.message"
-                  [reply]="message.userType === 'ADMIN'" [sender]="message.createdBy"
-                  [date]="parseDate(message.createdOn)"
-                  [avatar]="message.userType === 'ADMIN' ? 'person_outline' : 'person'">
 
-                  <ng-container *ngIf="message.attachments && message.attachments.length > 0">
-                    <div class="attachment-detail-heading">Attachments:</div>
-                    <ng-container *ngFor="let attachment of message.attachments">
-                      <a [href]="attachment.downLoadLink" [download]="attachment.attachmentName" target="_blank"
-                        class="d-flex download-link-info align-items-center mt-2">
-                        <i class="material-icons me-2">download</i><span>{{ attachment.attachmentName }}</span>
-                      </a>
-                    </ng-container>
-                  </ng-container>
-                </nb-chat-message>
-
-                Display ticket details as a chat message
-                <nb-chat-message [message]="ticketDetail.description" [sender]="ticketDetail.createdBy"
-                  [date]="parseDate(ticketDetail.createdOn)" [files]="prepareFiles(ticketDetail.attachments)">
-
-                  >
-                  <ng-container *ngIf="ticketDetail.attachments && ticketDetail.attachments.length > 0">
-                                      <div class="attachment-detail-heading">Attachments:</div>
-                                      <ng-container *ngFor="let attachment of ticketDetail.attachments">
-                                        <a [href]="attachment.downLoadLink" [download]="attachment.attachmentName" target="_blank"
-                                           class="d-flex download-link-info align-items-center mt-2">
-                                          <i class="material-icons">download</i><span>{{ attachment.attachmentName }}</span>
-                                        </a>
-                                      </ng-container> 
-                                    </ng-container>
-                </nb-chat-message>
-              </nb-chat>
-
-            </div>
-          </div> -->
-          <!-- </nb-card-body>
-            
-          </nb-card> -->
 
         </div>
       </div>

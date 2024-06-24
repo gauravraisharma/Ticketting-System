@@ -1,127 +1,142 @@
 
 
 .date-time-info {
-    font-size: 14px;
-    color: #727272;
-    font-weight: 400;
-    line-height: normal;
+  font-size: 14px;
+  color: #727272;
+  font-weight: 400;
+  line-height: normal;
 }
 
 .download-link-info {
-    max-width: calc(100% - 100px);
+  max-width: calc(100% - 100px);
 }
 
-.download-link-info span.small-font {
+  .download-link-info span.small-font {
     font-size: 11px;
     width: 100%;
     overflow: hidden;
     text-overflow: ellipsis;
-}
+  }
 
 .chat-attachment-detail .download-link-info {
-    max-width: 100%;
-    background: #f1f1f1;
-    color: #464646;
-    padding: 6px 10px;
-    border-radius: 6px;
-    width: fit-content;
-    text-decoration: unset;
+  max-width: 100%;
+  background: #f1f1f1;
+  color: #464646;
+  padding: 6px 10px;
+  border-radius: 6px;
+  width: fit-content;
+  text-decoration: unset;
 }
 
-.chat-attachment-detail .download-link-info span {
+  .chat-attachment-detail .download-link-info span {
     width: 100%;
     overflow: hidden;
     word-wrap: break-word;
     /*text-overflow: ellipsis;*/
-}
+  }
 
 .refresh-btn {
-    max-height: 24px;
+  max-height: 24px;
 }
 
 .view-ticket .task-bg-main {
-    background-color: #ffffff !important;
-    border: 1px solid #e2e2e2;
-    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  background-color: #ffffff !important;
+  border: 1px solid #e2e2e2;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 
 .view-ticket .closed-ticket-msg {
-    background: #d82424;
-    text-align: center;
-    padding: 0;
-    border-radius: 6px;
-    color: #fff;
-    font-size: 14px;
-    font-weight: 400;
-    line-height: normal;
-    padding: 8px;
+  background: #d82424;
+  text-align: center;
+  padding: 0;
+  border-radius: 6px;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: normal;
+  padding: 8px;
 }
-.view-ticket .closed-ticket-msg.text-alert{
+
+  .view-ticket .closed-ticket-msg.text-alert {
     color: #000;
     background: #ffc30e;
-}
-.alert-refresh-btn{
-    position: absolute;
-    top: 3px;
-    right: 10px;
-    
+  }
+
+.alert-refresh-btn {
+  position: absolute;
+  top: 3px;
+  right: 10px;
 }
 
 .view-ticket .mat-toolbar {
-    background: #f6f6f6;
-    border-radius: 6px;
-    margin-bottom: 20px;
+  background: #f6f6f6;
+  border-radius: 6px;
+  margin-bottom: 20px;
 }
 
 .ticket-details .mat-mdc-card-header {
-    background-color: #f7f2fe !important;
-    padding: 6px 16px;
-    font-size: 16px;
+  background-color: #f7f2fe !important;
+  padding: 6px 16px;
+  font-size: 16px;
 }
 
 .ticket-details .mat-mdc-card-title {
-    font-size: 16px;
+  font-size: 16px;
 }
 
 .avtar-profile {
-    background: #f1f1f1;
-    border-radius: 4px;
-    font-size: 20px;
-    width: 46px;
-    height: 46px;
-    line-height: 46px;
-    text-align: center;
-    margin-right: 10px;
+  background: #f1f1f1;
+  border-radius: 4px;
+  font-size: 20px;
+  width: 46px;
+  height: 46px;
+  line-height: 46px;
+  text-align: center;
+  margin-right: 10px;
+}
+
+  .avtar-profile.staff {
+    /* background: #ffe4e1; */
+    background: #b298f9;
+    color: #fff;
+  }
+
+  .avtar-profile.client {
+    background: #e0f7f9;
+    color: #000;
+  }
+
+.staff-message {
+  background: #F9FAFB !important;
 }
 
 .avtar-name {
-    text-transform: capitalize;
-    font-size: 16px;
-    margin-right: 30px;
+  text-transform: capitalize;
+  font-size: 16px;
+  margin-right: 30px;
 }
 
 .conversation-main-list mat-card {
-    margin: 0 0 30px;
-    padding: 10px;
+  margin: 0 0 30px;
+  padding: 10px;
 }
 
 .new-message-editor {
-    margin: 0 10px;
+  margin: 0 10px;
 }
 
 .message-wrap {
-    border: 1px solid #ccc;
-    border-radius: 10px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
 }
 
-.message-wrap .mat-mdc-card {
+  .message-wrap .mat-mdc-card {
     border-top: 0 !important;
     background: transparent;
     border-left: 0 !important;
     border-right: 0 !important;
-}
+  }
 
-.message-wrap .chat-header {
+  .message-wrap .chat-header {
     border-bottom: 0;
-}
-
+  }

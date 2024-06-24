@@ -14,6 +14,7 @@ namespace ApplicationService.IServices
         Task<List<ChatResponse>> GetChatByRoomId(int ChatRoomId);
         Task<GetChatUsersResponse> GetChatUserDetails(int ChatRoomId);
         Task SaveChatMessage(string message, string chatRoomId, string userId, bool IsAdmin);
-       
+        Task<UnreadChatCountResponse> GetUnreadChatCount(string companyName, string email);
+
     }
 }

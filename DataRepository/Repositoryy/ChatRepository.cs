@@ -240,6 +240,48 @@ namespace DataRepository.Repositoryy
                  throw;
             }
         }
+
+        public async Task<UnreadChatCountResponse> GetUnreadChatCount(string companyName, string email)
+        {
+            //Fetch Company Id
+            int companyId = _context.Companys.Where(c => c.Name == companyName).FirstOrDefault()?.Id ?? 0;
+
+            // Fetch user type from ChatDatas based on email
+            var userType = (
+                from chatUser in _context.ChatUsers
+                join chatData in _context.ChatDatas on chatUser.Id.ToString() equals chatData.CreatedBy
+                where chatUser.email == email
+                select chatData.UserType
+            ).FirstOrDefault();
+
+            int unreadCount;
+            if (userType == "ADMIN")
+            {
+                unreadCount = (
+                   from chatUser in _context.ChatUsers
+                   join chatRoom in _context.ChatRooms on chatUser.Id equals chatRoom.ChatUserId
+                   where chatUser.companyId == companyId
+                   select chatRoom.UnReadMessageCount
+               ).Sum();
+            }
+            else
+            {
+
+                unreadCount = (
+                   from chatUser in _context.ChatUsers
+                   join chatRoom in _context.ChatRooms on chatUser.Id equals chatRoom.ChatUserId
+                   where chatUser.email == email && chatUser.companyId == companyId
+                   select chatRoom.UnReadMessageCount
+               ).FirstOrDefault();
+            }
+            return new UnreadChatCountResponse
+            {
+                UnReadMessageCount = unreadCount
+            };
+        }
+
+
+
     }
-    }
+}
 

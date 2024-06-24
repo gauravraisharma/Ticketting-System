@@ -1393,11 +1393,36 @@
   .nb-theme-material-light nb-chat-message.not-reply nb-chat-message-text .text {
     background: var(--primary) !important;
 }
-  .pills-info {
-    background: var(--secondary);
+.pills-info {
+  font-size: 12px;
+  padding: 0px 15px;
+  border-radius: 15px;
+  text-transform: uppercase;
+}
+
+  .pills-info.staff {
+    /* background: #ffe4e1; */
+    background: #b298f9;
     color: #fff;
     font-size: 12px;
     padding: 0px 15px;
     border-radius: 15px;
     text-transform: uppercase;
+  }
+
+  .pills-info.client {
+    background: #e0f7f9;
+    color: #000;
+    font-size: 12px;
+    padding: 0px 15px;
+    border-radius: 15px;
+    text-transform: uppercase;
+  }
+
+
+
+nb-chat .header {
+  position: sticky;
+  width: 100%;
+  top: 0;
 }

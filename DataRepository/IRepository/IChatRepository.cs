@@ -16,5 +16,7 @@ namespace DataRepository.IRepository
     
         Task SaveChatMessage(string message, string chatRoomId, string userId,bool IsAdmin);
         Task IncreaseUnReadCount(string chatRoomId);
+        Task<UnreadChatCountResponse> GetUnreadChatCount(string companyName, string email);
+
     }
 }

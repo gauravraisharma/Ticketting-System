@@ -281,4 +281,8 @@ namespace DataRepository.EntityModels
         public string PrimaryColor { get; set; }
         public string SecondaryColor { get; set; }
     }
+    public class UnreadChatCountResponse
+    {
+        public int UnReadMessageCount { get; set; }
+    }
 }
