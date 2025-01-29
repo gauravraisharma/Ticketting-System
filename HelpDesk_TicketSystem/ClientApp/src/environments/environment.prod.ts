@@ -1,7 +1,7 @@
 export const environment = {
   production: true,
-  apiBaseUrl: "https://helpdesk.techbitsolutions.com/api/",
-  socketUrl: "https://helpdesk.techbitsolutions.com/",
+  apiBaseUrl: "https://helpdesk.techbitsolution.com/api/",
+  socketUrl: "https://helpdesk.techbitsolution.com/",
   sockeytEndPointNotify: "chat/",
-  helpdeskChatbotScript: "https://helpdesk.techbitsolutions.com/helpdesk-chatbot_v1.js"
+  helpdeskChatbotScript: "https://helpdesk.techbitsolution.com/helpdesk-chatbot_v1.js"
 };

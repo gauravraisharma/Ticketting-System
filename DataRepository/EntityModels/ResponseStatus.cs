@@ -13,12 +13,12 @@ namespace DataRepository.EntityModels
         public string? UserId { get; set; }
         public int? CompanyId { get; set; }
         public string? TimeZone { get; set; }
-        public string CompanyLogo {  get; set; }
-        public string CompanyName { get; set; }
+        public string? CompanyLogo {  get; set; }
+        public string? CompanyName { get; set; }
 
         public string Name { get; set; }
-        public string PrimaryColor {  get; set; }
-        public string SecondaryColor { get; set; }
+        public string? PrimaryColor {  get; set; }
+        public string? SecondaryColor { get; set; }
     }
     public class ResponseStatus
     {

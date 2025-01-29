@@ -10,7 +10,7 @@ import { ChangeDetectorRef } from '@angular/core';
 
 const SuperAdminMenu: NbMenuItem[] = [
   { title: 'Dashboard', icon: 'grid-outline', link: '/dashboard' },
-  { title: 'Company Management', icon: 'house-outline', link: '/companys' },
+  { title: 'Company Management', icon: 'book-outline', link: '/companys' },
 ];
 
 const AdminMenu: NbMenuItem[] = [

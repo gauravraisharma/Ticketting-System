@@ -9,6 +9,7 @@ import { ToastrService } from 'ngx-toastr';
 import { AccountService } from '../../../../services/accountServices/account-service.service';
 import { CompanyService } from '../../../../services/companyService/company.service';
 import { ConfirmDialogComponent } from '../../../sharedComponent/confirm-dialog/confirm-dialog.component';
+import { NbDialogService } from '@nebular/theme';
 
 @Component({
   selector: 'app-compnay-management',
@@ -25,7 +26,7 @@ export class CompnayManagementComponent implements OnInit {
   constructor(
     private accountService: AccountService,
     private companyService: CompanyService,
-    public dialog: MatDialog,
+ private dialogService: NbDialogService,
     private toastr: ToastrService,
     private router: Router
    
@@ -37,18 +38,17 @@ export class CompnayManagementComponent implements OnInit {
     this.getCompany();
   }
   async switchToCompanyAdmin(company: companyModel) {
-    const dialogRef = await this.dialog.open(ConfirmDialogComponent, {
-      data: {
-        message: 'Are you sure you want to Login as company admin',
+    
+
+
+    const dialogRef = this.dialogService.open(ConfirmDialogComponent, {
+      context: {
+        message: `Are you sure you want to Login as company admin`,
         title: 'Login into company as Admin'
       },
-      width: '450px',
-      enterAnimationDuration: '0',
-      exitAnimationDuration: '0',
-    });
-
-   dialogRef.afterClosed().subscribe(result => {
-      if (result == "ok") {
+      dialogClass: 'modal-danger',
+    }).onClose.subscribe(result => {
+      if (result === 'ok') {
         this.isLoading = true;
         //Check if usertype is only superadmin
         if (localStorage.getItem('userType') === 'SUPERADMIN') {
@@ -72,10 +72,13 @@ export class CompnayManagementComponent implements OnInit {
         } else {
           this.toastr.error('You are not authorized for this functionality')
         }
-        
+
       }
     });
   }
+
+
+
   getCompany() {
     this.isLoading = true;
     this.companyService.getCompaany().subscribe((response: any) => {

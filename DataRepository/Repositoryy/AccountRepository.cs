@@ -2,6 +2,7 @@
 using DataRepository.Constants;
 using DataRepository.EntityModels;
 using DataRepository.IRepository;
+using DataRepository.Migrations;
 using DataRepository.Utils;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -303,8 +304,7 @@ namespace DataRepository.Repository
                                         secondaryColor = Company.SecondaryColor,
                                     }
                                    ).FirstOrDefault();
-
-                    return new LoginStatus
+                    LoginStatus loginStatus= new LoginStatus
                     {
                         Status = "SUCCEED",
                         Message = "Login Successfully",
@@ -313,12 +313,17 @@ namespace DataRepository.Repository
                         UserId = user.Id,
                         CompanyId = user.CompanyId,
                         TimeZone = (userRoles[0].ToUpper() == "SUPERADMIN") ? null : company.timeZone,
-                        CompanyLogo =company.companyLogo == "" ? null : AttachmentHelper.GetAssetLink(_config["AssetLink"], "\\" + ImageFolderConstants.CompanyLogo + "\\", company.companyLogo),
-                        Name = user.FirstName + " " + user.LastName,
-                        CompanyName = company.companyName,
-                        PrimaryColor = company.primaryColor,
-                        SecondaryColor = company.secondaryColor,
+                        Name = user.FirstName + " " + user.LastName
                     };
+                    if (company != null)
+                    {
+                        loginStatus.CompanyLogo = company.companyLogo == "" ? null : AttachmentHelper.GetAssetLink(_config["AssetLink"], "\\" + ImageFolderConstants.CompanyLogo + "\\", company.companyLogo);
+                        loginStatus.CompanyName = company.companyName;
+                        loginStatus.PrimaryColor = company.primaryColor;
+                        loginStatus.SecondaryColor = company.secondaryColor;
+                    }
+                   
+                    return loginStatus;
 
                 }
                 else if (signInResult.IsLockedOut)

@@ -145,7 +145,8 @@ export class LineDateChartComponent implements OnInit{
   }
 
   dateFormatString(stringDate: Date) {
-    return `${stringDate.getFullYear()}-${0}${stringDate.getMonth()}-${stringDate.getDate()}`;
+    let currentmonth =stringDate.getMonth()+1; 
+    return `${stringDate.getFullYear()}-${(currentmonth<10)?'0'+currentmonth:currentmonth}-${stringDate.getDate()}`;
   }
   showChartData(createdTicket: any, reOpenedTicket: any, closedTicket, overDueTicket:any, labels: any, createdTicketLabel: any, reOpenedTicketLabel: any, closedTicketLabel: any, overDueTickerLabel:any) {
     if (this.chartData) {
