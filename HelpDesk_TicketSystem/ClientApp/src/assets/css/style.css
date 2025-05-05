@@ -2586,6 +2586,7 @@ footer {
     .tab-content>.tab-pane {
         display: block;
         opacity: 1;
+        text-align: center;
     }
 
     .nav-pills .nav-link {
@@ -2875,12 +2876,12 @@ footer {
     }
 
     .pricing .cards-wrap {
-        padding: 0 70px;
+        padding: 0 20px;
     }
 
     .pricing-card {
         padding: 20px 20px;
-        margin-bottom: 20px;
+        margin-bottom: 20px !important;
     }
 
     .cta-content .title {

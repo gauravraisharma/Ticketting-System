@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
+  isNavShown=false;
   constructor(private router: Router) {
   }
 
@@ -16,5 +17,8 @@ export class HeaderComponent {
 
   gotoSignUpPage() {
     this.router.navigate(['signup'])
+  }
+  toggleNav(){
+    this.isNavShown=this.isNavShown?false:true;
   }
 }
