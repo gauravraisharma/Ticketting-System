@@ -1426,3 +1426,9 @@ nb-chat .header {
   width: 100%;
   top: 0;
 }
+
+@media screen and (max-width:1200px){
+  .float-custom{
+    float:right;
+  }
+}
