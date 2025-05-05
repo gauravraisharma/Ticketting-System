@@ -1,10 +1,12 @@
 <nav class="header navbar navbar-expand-lg navbar-light">
-  <div class="container">
+  <div class="container d-lg-flex d-block">
     <a class="navbar-brand logo" href="#"><img src="../../assets/images/Logo@2x.png" class="img-fluid" alt="Logo"></a>
     <a class="navbar-brand logo developer-logo" href="#"><img src="../../assets/images/Logo-White@1x.png" class="img-fluid" alt="Logo"></a>
 
-    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample"
-            aria-controls="offcanvasExample" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler float-custom" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample"
+            aria-controls="offcanvasExample" aria-expanded="false" aria-label="Toggle navigation"
+            (click)="toggleNav()"
+            >
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
@@ -38,13 +40,13 @@
       </ul>
     </div>
     <div class="offcanvas offcanvas-start mobile-nav" tabindex="-1" id="offcanvasExample"
-         aria-labelledby="offcanvasExampleLabel">
-      <div class="offcanvas-header pb-0">
+         aria-labelledby="offcanvasExampleLabel" *ngIf="isNavShown">
+      <!-- <div class="offcanvas-header pb-0">
         <a class="navbar-brand logo" href="#">
           <img src="../../assets/images/Logo@2x.png" class="img-fluid" alt="Logo">
         </a>
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-      </div>
+      </div> -->
       <div class="offcanvas-body">
         <ul class="navbar-nav ms-auto mb-3">
           <li class="nav-item">
