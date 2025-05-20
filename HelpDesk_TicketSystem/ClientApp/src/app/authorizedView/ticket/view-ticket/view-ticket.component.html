@@ -61,7 +61,7 @@
 
                 <div class="detail-wrapper d-flex align-items-center">
                   <p class=" detail-heading mb-0"> Creation Date:</p>{{
-ticketDetail.createdOn | timeZone
+                  ticketDetail.createdOn | timeZone
                   :currentTimeZone:
                   'DD-MM-YYYY'
                   }}
@@ -70,17 +70,17 @@ ticketDetail.createdOn | timeZone
                   <p class=" detail-heading  mb-0"> Priorty:</p>
                   <ng-container *ngIf="ticketDetail.priority=='HIGH'">
                     <mat-icon aria-hidden="false" aria-label="High_priority" fontIcon="crisis_alert"
-                              class="text-danger"></mat-icon>
+                      class="text-danger"></mat-icon>
                     <span class="text-danger"> {{ticketDetail.priority}}</span>
                   </ng-container>
                   <ng-container *ngIf="ticketDetail.priority=='MEDIUM'">
                     <mat-icon aria-hidden="false" aria-label="High_priority" fontIcon="warning_amber"
-                              class="text-warning"></mat-icon>
+                      class="text-warning"></mat-icon>
                     <span class="text-warning"> {{ticketDetail.priority}}</span>
                   </ng-container>
                   <ng-container *ngIf="ticketDetail.priority=='LOW'">
                     <mat-icon aria-hidden="false" aria-label="High_priority" fontIcon="priority_high"
-                              class="text-info"></mat-icon>
+                      class="text-info"></mat-icon>
                     <span class="text-info"> {{ticketDetail.priority}}</span>
                   </ng-container>
                 </div>
@@ -88,14 +88,14 @@ ticketDetail.createdOn | timeZone
                   <p class=" detail-heading  mb-0"> Status:</p>
                   <ng-container *ngIf="ticketDetail.status=='OPEN'">
                     <mat-icon aria-hidden="false" aria-label="High_priority" fontIcon="library_add"
-                              class="text-success"></mat-icon>
+                      class="text-success"></mat-icon>
                     <span class="text-success">
                       {{ticketDetail.status}}
                     </span>
                   </ng-container>
                   <ng-container *ngIf="ticketDetail.status=='CLOSED'">
                     <mat-icon aria-hidden="false" aria-label="High_priority" fontIcon="remove_circle_outline"
-                              class="text-danger"></mat-icon>
+                      class="text-danger"></mat-icon>
                     <span class="text-danger">
 
                       {{ticketDetail.status}}
@@ -105,7 +105,7 @@ ticketDetail.createdOn | timeZone
               </div>
 
               <button mat-raised-button extended color="warn" class="w-100 db-btn-theme cancel-btn "
-                      (click)="closeTicket()" *ngIf="ticketDetail.status!='CLOSED' && userType=='ADMIN'">
+                (click)="closeTicket()" *ngIf="ticketDetail.status!='CLOSED' && userType=='ADMIN'">
                 <mat-icon aria-hidden="false" aria-label="close" fontIcon="close"></mat-icon> Close Ticket
               </button>
 
@@ -126,9 +126,22 @@ ticketDetail.createdOn | timeZone
             </h3>
           </div>
           <mat-toolbar *ngIf="!isSendMessageOpen && (conversationDetailList.length>0 || userType=='ADMIN' )">
-            <button class="db-btn-theme border-btn" (click)="isSendMessageOpen=true" mat-stroked-button>
+            <!-- <button class="db-btn-theme border-btn" (click)="isSendMessageOpen=true" mat-stroked-button>
               <mat-icon aria-hidden="false" aria-label="replay" fontIcon="create"></mat-icon><span> Send Message</span>
-            </button>
+            </button> -->
+            <div class="d-flex gap-2">
+              <button class="db-btn-theme border-btn" (click)="isSendMessageOpen=true" mat-stroked-button>
+                <mat-icon fontIcon="create" aria-hidden="false" aria-label="replay"></mat-icon>
+                <span> Send Message</span>
+              </button>
+
+              <button class="db-btn-theme border-btn" (click)="generateSummary()" [disabled]="loadingSummary"
+                mat-stroked-button>
+                <mat-icon fontIcon="lightbulb"></mat-icon>
+                <span> Summary</span>
+              </button>
+            </div>
+
 
             <span class="custom-spacer"></span>
 
@@ -144,7 +157,8 @@ ticketDetail.createdOn | timeZone
               Admin will soon respond to your ticket. Please wait some time!!!
             </h3>
             <button class="btn p-0 alert-refresh-btn" (click)="RefreashConversation()">
-              <mat-icon class="text-theme" aria-hidden="false" aria-label="replay" style="color: #000;" fontIcon="refresh"></mat-icon>
+              <mat-icon class="text-theme" aria-hidden="false" aria-label="replay" style="color: #000;"
+                fontIcon="refresh"></mat-icon>
             </button>
           </div>
 
@@ -159,11 +173,48 @@ ticketDetail.createdOn | timeZone
             </mat-card-header>
             <mat-card-content class="new-message-editor">
               <form [formGroup]="messageForm" class="form-field-full" (ngSubmit)="sendMessage()">
-                <div [class]="(messageForm.get('message')?.invalid && messageForm.get('message')?.touched)?'ck-Editor-container-cust Invalid':'ck-Editor-container-cust'">
-                  <!--<input matInput placeholder="Enter message" formControlName="message"
-                  required>-->
+                <div
+                  [class]="(messageForm.get('message')?.invalid && messageForm.get('message')?.touched)?'ck-Editor-container-cust Invalid':'ck-Editor-container-cust'">
+                  <!-- added input field -->
+                  <div class="mt-3 d-flex align-items-center gap-2 flex-wrap">
 
+                    <!-- AI Reply Button (Visible only when editor is empty) -->
+                    <button *ngIf="isEditorEmpty" mat-stroked-button color="accent" class="input-group-size"
+                      (click)="getSuggestedReply()" [disabled]="isSuggestingReply"
+                      matTooltip="AI will automate your reply based on the last 5 messages in the conversation"
+                      matTooltipPosition="above">
+                      <mat-icon class="me-1">smart_toy</mat-icon>
+                      AI Reply
+                      <mat-spinner *ngIf="isSuggestingReply" diameter="20" strokeWidth="2"></mat-spinner>
+                    </button>
+
+                    <!-- Tone Dropdown (Visible only when editor is NOT empty) -->
+                    <mat-form-field *ngIf="!isEditorEmpty" appearance="outline" class="input-group-size">
+                      <mat-label>Select Tone</mat-label>
+                      <mat-select (selectionChange)="transformTone($event.value)" [value]="selectedTone">
+                        <mat-option *ngFor="let tone of toneOptions" [value]="tone">{{ tone }}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+
+                    <!-- Additional Instruction Input (Visible only when editor is NOT empty) -->
+                    <mat-form-field *ngIf="!isEditorEmpty" appearance="outline" class="input-group-size flex-grow-1">
+                      <mat-label>Enter additional instructions for AI</mat-label>
+                      <input matInput [formControl]="promptControl" (keydown.enter)="$event.preventDefault()"
+                        placeholder="e.g., Add regards, make it more professional">
+                      <button type="button" matSuffix mat-icon-button (click)="transformWithPrompt()"
+                        [disabled]="!promptControl.value">
+                        <mat-icon>send</mat-icon>
+                      </button>
+                    </mat-form-field>
+
+
+                  </div>
                   <ckeditor matInput [editor]="Editor" formControlName="message"></ckeditor>
+                  <!-- Accept/Reject Unified Action -->
+                  <div *ngIf="pendingActionType" class="d-flex justify-content-end gap-2 mt-2">
+                    <button mat-button color="warn" (click)="rejectPendingAction()"
+                      class="reject-button">Reject</button>
+                  </div>
 
 
                   <mat-error *ngIf="messageForm.get('message')?.invalid && messageForm.get('message')?.touched">
@@ -174,21 +225,26 @@ ticketDetail.createdOn | timeZone
                   <!--<h3 style="display:inline;" class="mx-3">Attachment</h3>-->
                   <div>
                     <input type="file" placeholder="Please select file" multiple #fileattachment
-                           (change)="onFileChange()" hidden />
+                      (change)="onFileChange()" hidden />
                     <button mat-raised-button class="db-btn-theme" type="button" (click)="fileattachment.click()">
                       <mat-icon aria-hidden="false" aria-label="preview" fontIcon="attach_file" class="text-light"
-                                style="cursor:pointer;"></mat-icon>
-                      Add Attahments
+                        style="cursor:pointer;"></mat-icon>
+                      Add Attachments
                     </button>
                     <strong class="mx-3">
                       {{fileCount}} attachments
                     </strong>
                   </div>
                   <div>
-                    <button mat-raised-button class="db-btn-theme" type="submit" (submit)="sendMessage">Send</button>
+                    <!-- <button mat-raised-button class="db-btn-theme" type="submit" (submit)="sendMessage">Send</button> -->
+                    <button mat-raised-button class="db-btn-theme" type="submit">Send</button>
+
                     <button mat-raised-button class="db-btn-theme border-btn ml-2" (click)="isSendMessageOpen=false">
                       Cancel
                     </button>
+                    <!-- ticket-detail.component.html -->
+
+
                   </div>
                 </div>
               </form>
@@ -196,29 +252,48 @@ ticketDetail.createdOn | timeZone
 
           </mat-card>
 
+          <mat-card *ngIf="showSummaryCard && summaryText" class="conversion-summary-card border-info">
+            <mat-card-header class="summary-header">
+              <mat-card-title class="summary-title">📝 Conversation Summary</mat-card-title>
+              <button mat-icon-button color="warn" (click)="closeSummary()" class="close-btn">
+                <mat-icon style="font-size: 18px;">close</mat-icon>
+              </button>
+            </mat-card-header>
+
+            <mat-card-content>
+              <div [innerHTML]="summaryText"></div>
+            </mat-card-content>
+          </mat-card>
+
+
+
           <div class="message-wrap">
             <div class="conversation-main-list">
               <ng-container *ngFor="let message of conversationDetailList">
-                <mat-card [class]="(message['userType']=='NORMALUSER')?'conversation-chat conversion-chat-card':'conversation-chat conversion-chat-card-admin staff-message' ">
+                <mat-card
+                  [class]="(message['userType']=='NORMALUSER')?'conversation-chat conversion-chat-card':'conversation-chat conversion-chat-card-admin staff-message' ">
 
                   <mat-card-header class="chat-header">
                     <mat-card-title>
                       <div class="d-sm-flex d-inline-block align-items-center justify-content-between">
                         <div class="d-flex align-items-center">
-                          <span [class]="(message['userType']=='NORMALUSER')?'avtar-profile client' : 'avtar-profile staff'" style="font-size: 14px;">{{getInitials(message['createdBy'])}}</span>
+                          <span
+                            [class]="(message['userType']=='NORMALUSER')?'avtar-profile client' : 'avtar-profile staff'"
+                            style="font-size: 14px;">{{getInitials(message['createdBy'])}}</span>
                           <div>
                             <span class="avtar-name">{{message['createdBy']}}</span>
 
                             <div class="date-time-info">
                               {{
-message['createdOn'] | timeZone :currentTimeZone: 'DD-MM-YYYY
+                              message['createdOn'] | timeZone :currentTimeZone: 'DD-MM-YYYY
                               h:mm
                               a'
                               }}
                             </div>
                           </div>
                         </div>
-                        <span [class]="(message['userType']=='NORMALUSER')?'pills-info client' : 'pills-info staff'">{{(message['userType']=="NORMALUSER"?"Client":"Staff")}}</span>
+                        <span
+                          [class]="(message['userType']=='NORMALUSER')?'pills-info client' : 'pills-info staff'">{{(message['userType']=="NORMALUSER"?"Client":"Staff")}}</span>
                       </div>
 
                     </mat-card-title>
@@ -229,7 +304,7 @@ message['createdOn'] | timeZone :currentTimeZone: 'DD-MM-YYYY
                       <p class=" attachment-detail-heading"> Attachments:</p>
                       <ng-container *ngFor="let attachment of message.attachments">
                         <a [href]="attachment.downLoadLink" class="d-flex download-link-info align-items-center mt-2"
-                           [download]="attachment.attachmentName" target="_blank">
+                          [download]="attachment.attachmentName" target="_blank">
                           <i class="material-icons me-2">download</i><span>{{attachment.attachmentName}}</span>
                         </a>
                       </ng-container>
@@ -247,13 +322,14 @@ message['createdOn'] | timeZone :currentTimeZone: 'DD-MM-YYYY
                   <mat-card-title>
                     <div class="d-sm-flex d-inline-block align-items-center justify-content-between">
                       <div class="d-flex align-items-center">
-                        <span class="avtar-profile client" style="font-size: 14px;">{{getInitials(ticketDetail.createdBy)}}</span>
+                        <span class="avtar-profile client"
+                          style="font-size: 14px;">{{getInitials(ticketDetail.createdBy)}}</span>
                         <!-- <mat-icon class="me-2" aria-hidden="false" aria-label="User" fontIcon="person_outline"></mat-icon> -->
                         <div>
                           <span class="avtar-name">{{ticketDetail.createdBy}}</span>
                           <div class="date-time-info">
                             {{
-ticketDetail.createdOn | timeZone :currentTimeZone: 'DD-MM-YYYY
+                            ticketDetail.createdOn | timeZone :currentTimeZone: 'DD-MM-YYYY
                             h:mm
                             a'
                             }}
@@ -268,12 +344,12 @@ ticketDetail.createdOn | timeZone :currentTimeZone: 'DD-MM-YYYY
                 <mat-card-content>
                   <div class="conversion-message mx-0" [innerHTML]="ticketDetail.description"></div>
                   <div class="chat-attachment-detail"
-                       *ngIf="ticketDetail.attachments!=null && ticketDetail.attachments!=undefined && ticketDetail.attachments.length>0">
+                    *ngIf="ticketDetail.attachments!=null && ticketDetail.attachments!=undefined && ticketDetail.attachments.length>0">
                     <p class=" attachment-detail-heading"> Attachments:</p>
 
                     <ng-container *ngFor="let attachment of ticketDetail.attachments">
                       <a [href]="attachment.downLoadLink" [download]="attachment.attachmentName" target="_blank"
-                         class="d-flex download-link-info align-items-center mt-2">
+                        class="d-flex download-link-info align-items-center mt-2">
                         <i class="material-icons">download</i><span>{{attachment.attachmentName}}</span>
                       </a>
                     </ng-container>
@@ -284,7 +360,6 @@ ticketDetail.createdOn | timeZone :currentTimeZone: 'DD-MM-YYYY
               </mat-card>
             </div>
           </div>
-
 
         </div>
       </div>

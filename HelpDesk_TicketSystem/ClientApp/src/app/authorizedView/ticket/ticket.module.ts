@@ -6,7 +6,8 @@ import { ViewTicketComponent } from './view-ticket/view-ticket.component';
 import { TicketRoutingModule } from './ticket-routing.module';
 import { SharedModule } from '../../sharedComponent/shared.module';
 import { TimeZonePipe } from '../../../pipe/time-zone.pipe';
-
+import { FormsModule } from '@angular/forms';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 
 
@@ -19,7 +20,9 @@ import { TimeZonePipe } from '../../../pipe/time-zone.pipe';
   imports: [
     CommonModule,
     TicketRoutingModule,
-    SharedModule
+    SharedModule,
+    FormsModule,
+    MatTooltipModule
   ]
 })
 export class TicketModule { }
