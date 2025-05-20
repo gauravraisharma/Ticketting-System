@@ -8,6 +8,7 @@ using System.Text.Json.Nodes;
 using System.Text.Json;
 using System.Threading.Tasks;
 using static DataRepository.EntityModels.GeminiRequestModel;
+using static DataRepository.EntityModels.GeminiCommonModel;
 using static DataRepository.EntityModels.GeminiResponseModel;
 using Newtonsoft.Json;
 using System.Net.Http;
@@ -23,11 +24,13 @@ namespace DataRepository.Repository
     {
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly IConfiguration _configuration;
+        private readonly IGeminiPromptBuilderRepository _promptBuilder;
 
-        public GeminiRepository(IHttpClientFactory httpClientFactory, IConfiguration configuration)
+        public GeminiRepository(IHttpClientFactory httpClientFactory, IConfiguration configuration, IGeminiPromptBuilderRepository promptBuilder)
         {
             _httpClientFactory = httpClientFactory;
             _configuration = configuration;
+            _promptBuilder = promptBuilder;
         }
         private string GetRequestUri()
         {
@@ -39,7 +42,7 @@ namespace DataRepository.Repository
             var apiKey = _configuration["GoogleApiKey"];
             var httpClient = _httpClientFactory.CreateClient();
 
-            var prompt = GeminiPromptBuilder.BuildTonePrompt(request.Tone, request.Message);
+            var prompt = _promptBuilder.BuildTonePrompt(request.Tone, request.Message);
 
             var geminiRequest = new
             {
@@ -82,7 +85,7 @@ namespace DataRepository.Repository
         {
             var apiKey = _configuration["GoogleApiKey"];
             var httpClient = _httpClientFactory.CreateClient();
-            var prompt = GeminiPromptBuilder.BuildSuggestedReplyPrompt(request.ConversationThread, request.InitiatorRole);
+            var prompt = _promptBuilder.BuildSuggestedReplyPrompt(request.ConversationThread, request.InitiatorRole);
 
             var geminiRequest = new GeminiRequest
             {
@@ -143,7 +146,7 @@ namespace DataRepository.Repository
             }
 
             var apiKey = _configuration["GoogleApiKey"];
-            var prompt = GeminiPromptBuilder.BuildPromptedMessageTransformPrompt(request.OriginalMessage, request.Prompt, request.Tone);
+            var prompt = _promptBuilder.BuildPromptedMessageTransformPrompt(request.OriginalMessage, request.Prompt, request.Tone);
 
             var geminiRequest = new GeminiRequest
             {
@@ -214,7 +217,7 @@ namespace DataRepository.Repository
 
         public async Task<string> GenerateConversationSummaryAsync(List<string> conversationLines)
         {
-            var prompt = GeminiPromptBuilder.BuildConversationSummaryPrompt(conversationLines);
+            var prompt = _promptBuilder.BuildConversationSummaryPrompt(conversationLines);
             var apiKey = _configuration["GoogleApiKey"];
             var httpClient = _httpClientFactory.CreateClient();
             var geminiRequest = new GeminiRequest

@@ -20,6 +20,7 @@ export class ViewTicketComponent implements OnInit {
   messageForm = this.fb.nonNullable.group({
     message: ['', [Validators.required]]
   });
+  promptControl = new FormControl('');
   isSendMessageOpen: boolean = false;
   ticketId: number = 0;
   isLoading = false;
@@ -27,6 +28,21 @@ export class ViewTicketComponent implements OnInit {
   conversationDetailList: any = [];
   userType = localStorage.getItem('userType')?.toUpperCase();
   fileCount = 0;
+  toneOptions = ['Formal', 'Casual', 'Funny', 'Direct'];
+  loading = false;
+  transformedText: string | null = null;
+  pendingActionType: 'suggest' | 'tone' |'prompt'| null = null;
+  originalMessageBeforeTransform: string = '';
+  suggestedReply: string | null = null;
+  isSuggestingReply: boolean = false;
+  lastAcceptedMessage: string = ''; 
+  lastSuggestedMessageBeforePrompt: string = ''; 
+  messageHistory: string[] = [];
+  selectedTone: string = 'Casual'; 
+  summaryText: string | null = null;
+  loadingSummary: boolean = false;
+  showSummaryCard: boolean = true;
+
   @ViewChild('fileattachment') fileAttachments!: ElementRef;
 
 
@@ -209,24 +225,7 @@ export class ViewTicketComponent implements OnInit {
 
     return firstInitial + lastInitial;
   }
-  toneOptions = ['Formal', 'Casual', 'Funny', 'Direct'];
-  loading = false;
-  //new 
-  transformedText: string | null = null;
-  pendingActionType: 'suggest' | 'tone' |'prompt'| null = null;
-  originalMessageBeforeTransform: string = '';
-  suggestedReply: string | null = null;
-  isSuggestingReply: boolean = false;
-  lastAcceptedMessage: string = ''; 
-  lastSuggestedMessageBeforePrompt: string = ''; 
-  messageHistory: string[] = [];
-  selectedTone: string = 'Casual'; 
-  summaryText: string | null = null;
-  loadingSummary: boolean = false;
-  showSummaryCard: boolean = true;
-//new code added input
- 
-promptControl = new FormControl('');
+
 
   transformTone(selectedTone: string) {
     const messageControl = this.messageForm.get('message');

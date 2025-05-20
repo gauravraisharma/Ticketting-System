@@ -71,7 +71,7 @@ builder.Services.AddScoped<IGeminiService, GeminiService>();
 builder.Services.AddScoped<IGeminiRepository, GeminiRepository>();
 builder.Services.AddScoped<IChatService, ChatService>();
 builder.Services.AddScoped<IChatRepository, ChatRepository>();
-
+builder.Services.AddScoped<IGeminiPromptBuilderRepository, GeminiPromptBuilderRepository>();
 builder.Services.AddSignalR();
 builder.Services.AddHttpClient();
 var app = builder.Build();

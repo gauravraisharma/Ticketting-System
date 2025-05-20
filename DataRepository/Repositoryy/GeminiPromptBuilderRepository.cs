@@ -1,14 +1,15 @@
-﻿using System;
+﻿using DataRepository.IRepository;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataRepository.Utils
+namespace DataRepository.Repositoryy
 {
-    public static class GeminiPromptBuilder
+    public class GeminiPromptBuilderRepository:IGeminiPromptBuilderRepository
     {
-        public static string BuildTonePrompt(string tone, string originalHtml)
+        public string BuildTonePrompt(string tone, string originalHtml)
         {
             var sb = new StringBuilder();
 
@@ -29,7 +30,7 @@ namespace DataRepository.Utils
 
             return sb.ToString();
         }
-        public static string BuildSuggestedReplyPrompt(List<string> thread, string initiatorRole)
+        public string BuildSuggestedReplyPrompt(List<string> thread, string initiatorRole)
         {
             var sb = new StringBuilder();
             sb.AppendLine("You are a helpful AI assistant in a support ticket system.");
@@ -56,7 +57,7 @@ namespace DataRepository.Utils
 
             return sb.ToString();
         }
-        public static string BuildPromptedMessageTransformPrompt(string originalMessage, string prompt, string tone)
+        public string BuildPromptedMessageTransformPrompt(string originalMessage, string prompt, string tone)
         {
             var sb = new StringBuilder();
             sb.AppendLine("You are a smart AI transformer.");
@@ -82,7 +83,7 @@ namespace DataRepository.Utils
 
             return sb.ToString();
         }
-        public static string BuildConversationSummaryPrompt(List<string> thread)
+        public string BuildConversationSummaryPrompt(List<string> thread)
         {
             var sb = new StringBuilder();
             //sb.AppendLine("You are a helpful AI assistant. Summarize the following conversation into a concise, professional, and informative support ticket summary.");
@@ -101,7 +102,5 @@ namespace DataRepository.Utils
 
             return sb.ToString();
         }
-
-       
     }
 }
