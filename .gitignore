@@ -88,11 +88,9 @@
 /DataRepository/obj
 /socket-io-chat
 /DataRepository/IRepository/Migrations
-/ChatBot/.vscode
 /ChatBot/.angular/cache/16.2.0
 /ChatBot/dist/chat-bot
 /ChatBot/node_modules
-/ChatBot/.vscode
 /ChatBot/obj/Debug
 /ChatBot/.editorconfig
 /ChatBot/ChatBot.esproj
@@ -108,3 +106,5 @@
 /HelpDesk_TicketSystem/.config
 /HelpDesk_TicketSystem/ClientApp/src/environments/environment.development.ts
 /HelpDesk_TicketSystem/ClientApp/node_modules.zip
+config.bat
+node_modules
