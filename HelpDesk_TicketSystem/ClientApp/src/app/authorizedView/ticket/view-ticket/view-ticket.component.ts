@@ -29,7 +29,6 @@ export class ViewTicketComponent implements OnInit {
   userType = localStorage.getItem('userType')?.toUpperCase();
   fileCount = 0;
   toneOptions = ['Formal', 'Casual', 'Funny', 'Direct'];
-  loading = false;
   transformedText: string | null = null;
   pendingActionType: 'suggest' | 'tone' |'prompt'| null = null;
   originalMessageBeforeTransform: string = '';
@@ -233,7 +232,7 @@ export class ViewTicketComponent implements OnInit {
 this.selectedTone = selectedTone;
     if (!originalMessage || originalMessage.trim() === '') return;
 
-    this.loading = true;
+    this.isLoading = true;
     this.originalMessageBeforeTransform = this.messageForm.get('message')?.value;
     this.geminiService.transformTone(originalMessage, selectedTone).subscribe({
       next: (response) => {
@@ -245,11 +244,11 @@ this.selectedTone = selectedTone;
           this.pendingActionType = 'tone';
 
         }
-        this.loading = false;
+        this.isLoading = false;
       },
       error: (err) => {
         console.error('Transformation error:', err);
-        this.loading = false;
+        this.isLoading = false;
       },
     });
   }
@@ -302,7 +301,7 @@ transformWithPrompt() {
 
   if (!originalMessage || !prompt) return;
 
-  this.loading = true;
+  this.isLoading = true;
   this.originalMessageBeforeTransform = originalMessage;
 
   // Save the last accepted message before prompt transformation
@@ -318,11 +317,11 @@ transformWithPrompt() {
         this.pendingActionType = 'prompt';
         this.promptControl.reset();
       }
-      this.loading = false;
+      this.isLoading = false;
     },
     error: (err) => {
       console.error('Prompt transformation error:', err);
-      this.loading = false;
+      this.isLoading = false;
     }
   });
 }
@@ -382,15 +381,18 @@ generateSummary(): void {
   }
 
   this.loadingSummary = true;
+    this.isLoading = true;
   this.geminiService.getConversationSummary(this.ticketId).subscribe({
     next: (res) => {
       this.summaryText = res?.summary || 'No summary available.';
       this.loadingSummary = false;
+      this.isLoading = false;
     },
     error: (err) => {
       console.error('Summary generation error', err);
       this.toastr.error('Failed to generate summary');
       this.loadingSummary = false;
+      this.isLoading = false;
     }
   });
 }
