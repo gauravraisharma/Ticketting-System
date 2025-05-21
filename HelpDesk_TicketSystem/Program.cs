@@ -67,12 +67,13 @@ builder.Services.AddScoped<IDashboardService, DashboardService>();
 builder.Services.AddScoped<IDashboardRepository, DashboardRepository>();
 builder.Services.AddScoped<IExternalAuthorizationRepository, ExternalAuthorizationRepository>();
 builder.Services.AddScoped<IExternalAuthorizationService, ExternalAuthorizationService>();
-
+builder.Services.AddScoped<IGeminiService, GeminiService>();
+builder.Services.AddScoped<IGeminiRepository, GeminiRepository>();
 builder.Services.AddScoped<IChatService, ChatService>();
 builder.Services.AddScoped<IChatRepository, ChatRepository>();
-
+builder.Services.AddScoped<IGeminiPromptBuilderRepository, GeminiPromptBuilderRepository>();
 builder.Services.AddSignalR();
-
+builder.Services.AddHttpClient();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

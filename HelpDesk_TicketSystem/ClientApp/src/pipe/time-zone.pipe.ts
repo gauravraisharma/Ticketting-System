@@ -15,7 +15,7 @@ export class TimeZonePipe implements PipeTransform {
 
     const formattedDate = convertedDate.format(format);
 
-    console.log(formattedDate);
+   
     return formattedDate;
   }
 
