@@ -91,6 +91,7 @@ namespace DataRepository.Repositoryy
             sb.AppendLine("Summarize the following support conversation into a clear, concise, and professional summary.");
             sb.AppendLine("Use valid HTML tags such as <p>, <strong>, <ul>, and <li> where appropriate to format the summary.");
             sb.AppendLine("Avoid using markdown symbols (e.g., **, _, #)");
+            sb.AppendLine("The summary should be approximately 100 words. Do not exceed 120 words.");
             sb.AppendLine();
             sb.AppendLine("Conversation:");
             foreach (var line in thread)
